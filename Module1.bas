@@ -631,7 +631,7 @@ Public Sub checkLicenceState()
     
     ' read the tool's own settings file
     If fFExists(PzGSettingsFile) Then ' does the tool's own settings.ini exist?
-        slicence = fGetINISetting("Software\PzStopwatch", "Licence", PzGSettingsFile)
+        slicence = fGetINISetting("Software\PzJustClock", "Licence", PzGSettingsFile)
         ' if the licence state is not already accepted then display the licence form
         If slicence = "0" Or slicence = "" Then
             Call LoadFileToTB(frmLicence.txtLicenceTextBox, App.Path & "\Resources\txt\licence.txt", False)
@@ -1599,8 +1599,8 @@ Public Sub makeVisibleFormElements()
 
     'NOTE that when you position a widget you are positioning the form it is drawn upon.
     
-'     PzGMaximiseFormX = fGetINISetting("Software\PzStopwatch", "maximiseFormX", PzGSettingsFile)
-'     PzGMaximiseFormY = fGetINISetting("Software\PzStopwatch", "maximiseFormY", PzGSettingsFile)
+'     PzGMaximiseFormX = fGetINISetting("Software\PzJustClock", "maximiseFormX", PzGSettingsFile)
+'     PzGMaximiseFormY = fGetINISetting("Software\PzJustClock", "maximiseFormY", PzGSettingsFile)
 
     fAlpha.gaugeForm.Left = Val(PzGMaximiseFormX)
     fAlpha.gaugeForm.Top = Val(PzGMaximiseFormY)
@@ -1981,9 +1981,9 @@ Public Sub savePosition()
     PzGMaximiseFormY = Str$(fAlpha.gaugeForm.Top)
     PzGGaugeSize = Str$(fAlpha.gaugeForm.WidgetRoot.Zoom * 100)
 
-    sPutINISetting "Software\PzStopwatch", "maximiseFormX", PzGMaximiseFormX, PzGSettingsFile
-    sPutINISetting "Software\PzStopwatch", "maximiseFormY", PzGMaximiseFormY, PzGSettingsFile
-    sPutINISetting "Software\PzStopwatch", "gaugeSize", PzGGaugeSize, PzGSettingsFile
+    sPutINISetting "Software\PzJustClock", "maximiseFormX", PzGMaximiseFormX, PzGSettingsFile
+    sPutINISetting "Software\PzJustClock", "maximiseFormY", PzGMaximiseFormY, PzGSettingsFile
+    sPutINISetting "Software\PzJustClock", "gaugeSize", PzGGaugeSize, PzGSettingsFile
 
    On Error GoTo 0
    Exit Sub
@@ -2052,8 +2052,8 @@ Public Sub readPrefsPosition()
             
    On Error GoTo readPrefsPosition_Error
 
-    PzGFormXPosTwips = fGetINISetting("Software\PzStopwatch", "formXPos", PzGSettingsFile)
-    PzGFormYPosTwips = fGetINISetting("Software\PzStopwatch", "formYPos", PzGSettingsFile)
+    PzGFormXPosTwips = fGetINISetting("Software\PzJustClock", "formXPos", PzGSettingsFile)
+    PzGFormYPosTwips = fGetINISetting("Software\PzJustClock", "formYPos", PzGSettingsFile)
 
     ' if a current location not stored then position to the middle of the screen
     If PzGFormXPosTwips <> "" Then
@@ -2091,8 +2091,8 @@ Public Sub writePrefsPosition()
         PzGFormYPosTwips = Str$(panzerPrefs.Top)
         
         ' now write those params to the toolSettings.ini
-        sPutINISetting "Software\PzStopwatch", "formXPos", PzGFormXPosTwips, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "formYPos", PzGFormYPosTwips, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "formXPos", PzGFormXPosTwips, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "formYPos", PzGFormYPosTwips, PzGSettingsFile
     End If
     
     On Error GoTo 0
@@ -2182,7 +2182,7 @@ Public Sub lockWidget()
         PzGPreventDragging = "1"
     End If
 
-    sPutINISetting "Software\PzStopwatch", "preventDragging", PzGPreventDragging, PzGSettingsFile
+    sPutINISetting "Software\PzJustClock", "preventDragging", PzGPreventDragging, PzGSettingsFile
 
    On Error GoTo 0
    Exit Sub
@@ -2253,7 +2253,7 @@ Public Sub SwitchOff()
     menuForm.mnuTurnFunctionsOn.Checked = False
     
     PzGGaugeFunctions = "0"
-    sPutINISetting "Software\PzStopwatch", "gaugeFunctions", PzGGaugeFunctions, PzGSettingsFile
+    sPutINISetting "Software\PzJustClock", "gaugeFunctions", PzGGaugeFunctions, PzGSettingsFile
 
    On Error GoTo 0
    Exit Sub
@@ -2288,7 +2288,7 @@ Public Sub TurnFunctionsOn()
     menuForm.mnuTurnFunctionsOn.Checked = True
     
     PzGGaugeFunctions = "1"
-    sPutINISetting "Software\PzStopwatch", "gaugeFunctions", PzGGaugeFunctions, PzGSettingsFile
+    sPutINISetting "Software\PzJustClock", "gaugeFunctions", PzGGaugeFunctions, PzGSettingsFile
 
    On Error GoTo 0
    Exit Sub

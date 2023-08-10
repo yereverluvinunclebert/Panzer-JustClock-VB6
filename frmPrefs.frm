@@ -2276,7 +2276,7 @@ Private Sub chkWidgetHidden_Click()
         PzGWidgetHidden = "1"
     End If
     
-    sPutINISetting "Software\PzStopwatch", "widgetHidden", PzGWidgetHidden, PzGSettingsFile
+    sPutINISetting "Software\PzJustClock", "widgetHidden", PzGWidgetHidden, PzGSettingsFile
     
     btnSave.Enabled = True ' enable the save button
 
@@ -2655,7 +2655,7 @@ Private Sub btnHelp_Click()
         If fFExists(App.Path & "\help\Help.chm") Then
             Call ShellExecute(Me.hwnd, "Open", App.Path & "\help\Help.chm", vbNullString, App.Path, 1)
         Else
-            MsgBox ("%Err-I-ErrorNumber 11 - The help file - PzStopwatch Help.html - is missing from the help folder.")
+            MsgBox ("%Err-I-ErrorNumber 11 - The help file - PzJustClock Help.html - is missing from the help folder.")
         End If
 
    On Error GoTo 0
@@ -2682,13 +2682,11 @@ Private Sub btnSave_Click()
     
     On Error GoTo btnSave_Click_Error
 
-    ' config
+    ' configuration
     PzGEnableTooltips = LTrim$(Str$(chkEnableTooltips.Value))
     PzGEnableBalloonTooltips = LTrim$(Str$(chkEnableBalloonTooltips.Value))
     PzGShowTaskbar = LTrim$(Str$(chkShowTaskbar.Value))
     PzGDpiAwareness = LTrim$(Str$(chkDpiAwareness.Value))
-    
-    
     PzGGaugeSize = LTrim$(Str$(sliGaugeSize.Value))
     PzGScrollWheelDirection = cmbScrollWheelDirection.List(cmbScrollWheelDirection.ListIndex)
     
@@ -2745,61 +2743,61 @@ Private Sub btnSave_Click()
     PzGDefaultEditor = txtDefaultEditor.Text
             
     If PzGStartup = "1" Then
-        Call savestring(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PzStopwatchWidget", """" & App.Path & "\" & "Panzer Earth Gauge.exe""")
+        Call savestring(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PzJustClockWidget", """" & App.Path & "\" & "Panzer Earth Gauge.exe""")
     Else
-        Call savestring(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PzStopwatchWidget", vbNullString)
+        Call savestring(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PzJustClockWidget", vbNullString)
     End If
 
     ' save the values from the general tab
     If fFExists(PzGSettingsFile) Then
-        sPutINISetting "Software\PzStopwatch", "enableTooltips", PzGEnableTooltips, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "enableBalloonTooltips", PzGEnableBalloonTooltips, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "showTaskbar", PzGShowTaskbar, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "dpiAwareness", PzGDpiAwareness, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "enableTooltips", PzGEnableTooltips, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "enableBalloonTooltips", PzGEnableBalloonTooltips, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "showTaskbar", PzGShowTaskbar, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "dpiAwareness", PzGDpiAwareness, PzGSettingsFile
         
         
-        sPutINISetting "Software\PzStopwatch", "gaugeSize", PzGGaugeSize, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "scrollWheelDirection", PzGScrollWheelDirection, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "gaugeSize", PzGGaugeSize, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "scrollWheelDirection", PzGScrollWheelDirection, PzGSettingsFile
                 
-        sPutINISetting "Software\PzStopwatch", "gaugeFunctions", PzGGaugeFunctions, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "gaugeFunctions", PzGGaugeFunctions, PzGSettingsFile
         
-        sPutINISetting "Software\PzStopwatch", "clockFaceSwitchPref", PzGClockFaceSwitchPref, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "mainGaugeTimeZone", PzGMainGaugeTimeZone, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "mainDaylightSaving", PzGMainDaylightSaving, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "secondaryGaugeTimeZone", PzGSecondaryGaugeTimeZone, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "secondaryDaylightSaving", PzGSecondaryDaylightSaving, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "clockFaceSwitchPref", PzGClockFaceSwitchPref, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "mainGaugeTimeZone", PzGMainGaugeTimeZone, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "mainDaylightSaving", PzGMainDaylightSaving, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "secondaryGaugeTimeZone", PzGSecondaryGaugeTimeZone, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "secondaryDaylightSaving", PzGSecondaryDaylightSaving, PzGSettingsFile
         
-        sPutINISetting "Software\PzStopwatch", "aspectHidden", PzGAspectHidden, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "widgetPosition", PzGWidgetPosition, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "widgetLandscape", PzGWidgetLandscape, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "widgetPortrait", PzGWidgetPortrait, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "aspectHidden", PzGAspectHidden, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "widgetPosition", PzGWidgetPosition, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "widgetLandscape", PzGWidgetLandscape, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "widgetPortrait", PzGWidgetPortrait, PzGSettingsFile
 
-        sPutINISetting "Software\PzStopwatch", "prefsFont", PzGPrefsFont, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "prefsFontSize", PzGPrefsFontSize, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "prefsFontItalics", PzGPrefsFontItalics, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "prefsFontColour", PzGPrefsFontColour, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "prefsFont", PzGPrefsFont, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "prefsFontSize", PzGPrefsFontSize, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "prefsFontItalics", PzGPrefsFontItalics, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "prefsFontColour", PzGPrefsFontColour, PzGSettingsFile
 
         'save the values from the Windows Config Items
-        sPutINISetting "Software\PzStopwatch", "windowLevel", PzGWindowLevel, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "preventDragging", PzGPreventDragging, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "windowLevel", PzGWindowLevel, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "preventDragging", PzGPreventDragging, PzGSettingsFile
         
-        sPutINISetting "Software\PzStopwatch", "opacity", PzGOpacity, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "widgetHidden", PzGWidgetHidden, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "hidingTime", PzGHidingTime, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "ignoreMouse", PzGIgnoreMouse, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "opacity", PzGOpacity, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "widgetHidden", PzGWidgetHidden, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "hidingTime", PzGHidingTime, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "ignoreMouse", PzGIgnoreMouse, PzGSettingsFile
         
-        sPutINISetting "Software\PzStopwatch", "startup", PzGStartup, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "startup", PzGStartup, PzGSettingsFile
 
-        sPutINISetting "Software\PzStopwatch", "enableSounds", PzGEnableSounds, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "lastSelectedTab", PzGLastSelectedTab, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "enableSounds", PzGEnableSounds, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "lastSelectedTab", PzGLastSelectedTab, PzGSettingsFile
         
-        sPutINISetting "Software\PzStopwatch", "debug", PzGDebug, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "dblClickCommand", PzGDblClickCommand, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "openFile", PzGOpenFile, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "defaultEditor", PzGDefaultEditor, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "debug", PzGDebug, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "dblClickCommand", PzGDblClickCommand, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "openFile", PzGOpenFile, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "defaultEditor", PzGDefaultEditor, PzGSettingsFile
         
-        sPutINISetting "Software\PzStopwatch", "maximiseFormX", PzGMaximiseFormX, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "maximiseFormY", PzGMaximiseFormY, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "maximiseFormX", PzGMaximiseFormX, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "maximiseFormY", PzGMaximiseFormY, PzGSettingsFile
 
         'save the values from the Text Items
 
@@ -2882,10 +2880,10 @@ Private Sub btnPrefsFont_Click()
     PzGPrefsFontColour = CStr(fntColour)
 
     If fFExists(PzGSettingsFile) Then ' does the tool's own settings.ini exist?
-        sPutINISetting "Software\PzStopwatch", "prefsFont", PzGPrefsFont, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "prefsFontSize", PzGPrefsFontSize, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "prefsFontItalics", PzGPrefsFontItalics, PzGSettingsFile
-        sPutINISetting "Software\PzStopwatch", "PrefsFontColour", PzGPrefsFontColour, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "prefsFont", PzGPrefsFont, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "prefsFontSize", PzGPrefsFontSize, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "prefsFontItalics", PzGPrefsFontItalics, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "PrefsFontColour", PzGPrefsFontColour, PzGSettingsFile
     End If
     
     If fntFont = vbNullString Then fntFont = "arial"
@@ -3850,7 +3848,7 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
     Call clearBorderStyle
 
     PzGLastSelectedTab = thisTabName
-    sPutINISetting "Software\PzStopwatch", "lastSelectedTab", PzGLastSelectedTab, PzGSettingsFile
+    sPutINISetting "Software\PzJustClock", "lastSelectedTab", PzGLastSelectedTab, PzGSettingsFile
 
     thisFraName.Visible = True
     thisFraButtonName.BorderStyle = 1
@@ -4214,7 +4212,7 @@ Private Sub setThemeShade(ByVal redC As Integer, ByVal greenC As Integer, ByVal 
     panzerPrefs.sliOpacity.BackColor = RGB(redC, greenC, blueC)
     panzerPrefs.txtAboutText.BackColor = RGB(redC, greenC, blueC)
     
-    sPutINISetting "Software\PzStopwatch", "skinTheme", PzGSkinTheme, PzGSettingsFile ' now saved to the toolsettingsfile
+    sPutINISetting "Software\PzJustClock", "skinTheme", PzGSkinTheme, PzGSettingsFile ' now saved to the toolsettingsfile
 
     On Error GoTo 0
     Exit Sub

@@ -98,7 +98,7 @@ Private Sub revealWidgetTimer_Timer()
         fAlpha.gaugeForm.Visible = True
         revealWidgetTimer.Enabled = False
         PzGWidgetHidden = "0"
-        sPutINISetting "Software\PzStopwatch", "widgetHidden", PzGWidgetHidden, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "widgetHidden", PzGWidgetHidden, PzGSettingsFile
     End If
 
     On Error GoTo 0
@@ -164,12 +164,12 @@ Private Sub settingsTimer_Timer()
     
     On Error GoTo settingsTimer_Timer_Error
 
-    PzGUnhide = fGetINISetting("Software\PzStopwatch", "unhide", PzGSettingsFile)
+    PzGUnhide = fGetINISetting("Software\PzJustClock", "unhide", PzGSettingsFile)
 
     If PzGUnhide = "true" Then
         'overlayWidget.Hidden = False
         fAlpha.gaugeForm.Visible = True
-        sPutINISetting "Software\PzStopwatch", "unhide", vbNullString, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "unhide", vbNullString, PzGSettingsFile
     End If
 
     On Error GoTo 0

@@ -309,7 +309,7 @@ Private Sub mnuHideWidget_Click()
     frmTimer.revealWidgetTimer.Enabled = True
     PzGWidgetHidden = "1"
     ' we have to save the value here
-    sPutINISetting "Software\PzStopwatch", "widgetHidden", PzGWidgetHidden, PzGSettingsFile
+    sPutINISetting "Software\PzJustClock", "widgetHidden", PzGWidgetHidden, PzGSettingsFile
 
    On Error GoTo 0
    Exit Sub

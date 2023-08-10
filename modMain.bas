@@ -78,7 +78,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     Call getToolSettingsFile
     
     ' read the dock settings from the new configuration file
-    Call readSettingsFile("Software\PzStopwatch", PzGSettingsFile)
+    Call readSettingsFile("Software\PzJustClock", PzGSettingsFile)
     
     ' validate the inputs of any data from the input settings file
     Call validateInputs
@@ -156,7 +156,7 @@ Private Sub checkFirstTime()
 
     If PzGFirstTimeRun = "true" Then
         PzGFirstTimeRun = "false"
-        sPutINISetting "Software\PzStopwatch", "firstTimeRun", PzGFirstTimeRun, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "firstTimeRun", PzGFirstTimeRun, PzGSettingsFile
     End If
 
    On Error GoTo 0
@@ -194,7 +194,7 @@ Private Sub initialiseGlobalVars()
     PzGEnableTooltips = vbNullString
     PzGEnableBalloonTooltips = vbNullString
     PzGShowTaskbar = vbNullString
-    PzGDpiAwareness = False
+    PzGDpiAwareness = vbNullString
     
     PzGGaugeSize = vbNullString
     PzGScrollWheelDirection = vbNullString
@@ -470,8 +470,8 @@ Public Sub readSettingsFile(ByVal location As String, ByVal PzGSettingsFile As S
         PzGDefaultEditor = fGetINISetting(location, "defaultEditor", PzGSettingsFile)
         
         ' other
-        PzGMaximiseFormX = fGetINISetting("Software\PzStopwatch", "maximiseFormX", PzGSettingsFile)
-        PzGMaximiseFormY = fGetINISetting("Software\PzStopwatch", "maximiseFormY", PzGSettingsFile)
+        PzGMaximiseFormX = fGetINISetting("Software\PzJustClock", "maximiseFormX", PzGSettingsFile)
+        PzGMaximiseFormY = fGetINISetting("Software\PzJustClock", "maximiseFormY", PzGSettingsFile)
         PzGLastSelectedTab = fGetINISetting(location, "lastSelectedTab", PzGSettingsFile)
         PzGSkinTheme = fGetINISetting(location, "skinTheme", PzGSettingsFile)
         
@@ -524,13 +524,11 @@ Public Sub validateInputs()
         If PzGSecondaryGaugeTimeZone = vbNullString Then PzGSecondaryGaugeTimeZone = "1"
         If PzGSecondaryDaylightSaving = vbNullString Then PzGSecondaryDaylightSaving = "1"
 
-        ' Config
+        ' Configuration
         If PzGEnableTooltips = vbNullString Then PzGEnableTooltips = "1"
         If PzGEnableBalloonTooltips = vbNullString Then PzGEnableBalloonTooltips = "1"
         If PzGShowTaskbar = vbNullString Then PzGShowTaskbar = "0"
-        If PzGDpiAwareness = vbNullString Then PzGDpiAwareness = "false"
-        
-        
+        If PzGDpiAwareness = vbNullString Then PzGDpiAwareness = "true"
         If PzGGaugeSize = vbNullString Then PzGGaugeSize = "25"
         If PzGScrollWheelDirection = vbNullString Then PzGScrollWheelDirection = "up"
                
@@ -595,7 +593,7 @@ Private Sub getToolSettingsFile()
     
     Dim iFileNo As Integer: iFileNo = 0
     
-    PzGSettingsDir = fSpecialFolder(feUserAppData) & "\PzStopwatch" ' just for this user alone
+    PzGSettingsDir = fSpecialFolder(feUserAppData) & "\PzJustClock" ' just for this user alone
     PzGSettingsFile = PzGSettingsDir & "\settings.ini"
         
     'if the folder does not exist then create the folder
@@ -729,7 +727,7 @@ Private Sub handleUnhideMode(ByVal thisUnhideMode As String)
 
     If thisUnhideMode = "unhide" Then     'parse the command line
         PzGUnhide = "true"
-        sPutINISetting "Software\PzStopwatch", "unhide", PzGUnhide, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "unhide", PzGUnhide, PzGSettingsFile
         Call thisForm_Unload
         End
     End If
