@@ -69,7 +69,7 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
     'pngFolder = App.Path & "\Resources\images\PngExport\"
     
     'create the Alpha-capable Top-Level-Form
-    Set gaugeForm = Cairo.WidgetForms.Create(IIf(App.LogMode, AlphaNoTaskbarEntry, AlphaWithTaskbarEntry), "Panzer Stopwatch Gauge", True, 1, 1)
+    Set gaugeForm = Cairo.WidgetForms.Create(IIf(App.LogMode, AlphaNoTaskbarEntry, AlphaWithTaskbarEntry), "Panzer JustClock Gauge", True, 1, 1)
         gaugeForm.WidgetRoot.BackColor = -1
  
     With New_c.SimplePSD(PSD_FileNameOrByteArray)  'create a new PSD-Parser.instance (and load the passed content)
@@ -169,14 +169,6 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
                     W.MousePointer = IDC_HAND
                     If PzGEnableTooltips = "1" Then
                         W.ToolTip = "Choose smooth movement or regular ticks"
-                    Else
-                        W.ToolTip = vbNullString
-                    End If
-                 Case "stopwatchface"
-                    W.HoverColor = -1 ' set the hover colour to grey - ' task: might change this later when new ver or RC6 arrives
-                    W.MousePointer = IDC_SIZEALL
-                    If PzGEnableTooltips = "1" Then
-                        W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
                     Else
                         W.ToolTip = vbNullString
                     End If

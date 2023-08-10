@@ -13,10 +13,10 @@ Begin VB.Form menuForm
    ScaleWidth      =   4290
    ShowInTaskbar   =   0   'False
    Visible         =   0   'False
-   Begin VB.Menu mnuMainMenu 
+   Begin VB.Menu mnuMainMenu
       Caption         =   "mainmenu"
       Begin VB.Menu mnuAbout 
-         Caption         =   "About Panzer StopWatch Cairo widget"
+         Caption         =   "About Panzer JustClock Cairo widget"
       End
       Begin VB.Menu mnuBlank5 
          Caption         =   "-"
@@ -35,7 +35,7 @@ Begin VB.Form menuForm
          Caption         =   ""
       End
       Begin VB.Menu mnuHelpSplash 
-         Caption         =   "Panzer StopWatch Gauge Help"
+         Caption         =   "Panzer JustClock Gauge Help"
       End
       Begin VB.Menu mnuOnline 
          Caption         =   "Online Help and other options"
@@ -459,7 +459,7 @@ Public Sub mnuLatest_Click()
     answer = MsgBox("Download latest version of the program from github - this button opens a browser window and connects to the widget download page where you can check and download the latest SETUP.EXE file). Proceed?", vbExclamation + vbYesNo)
 
     If answer = vbYes Then
-        Call ShellExecute(Me.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-StopWatch-Clock-VB6", vbNullString, App.Path, 1)
+        Call ShellExecute(Me.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6", vbNullString, App.Path, 1)
     End If
 
 

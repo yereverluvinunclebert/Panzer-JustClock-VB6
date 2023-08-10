@@ -696,7 +696,7 @@ Private Sub createStandardFormsOnCurrentDisplay()
     On Error GoTo createStandardFormsOnCurrentDisplay_Error
 
     With New_c.Displays(1) 'get the current Display
-      fMain.initAndShowStandardForms .WorkLeft, .WorkTop, 1000, 1000, "Panzer Stopwatch Gauge"
+      fMain.initAndShowStandardForms .WorkLeft, .WorkTop, 1000, 1000, "Panzer JustClock Gauge"
     End With
 
     On Error GoTo 0

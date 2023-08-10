@@ -2,7 +2,7 @@ VERSION 5.00
 Object = "{BCE37951-37DF-4D69-A8A3-2CFABEE7B3CC}#1.0#0"; "CCRSlider.ocx"
 Begin VB.Form panzerPrefs 
    AutoRedraw      =   -1  'True
-   Caption         =   "Panzer Stop Watch Preferences"
+   Caption         =   "Panzer JustClock Preferences"
    ClientHeight    =   10635
    ClientLeft      =   60
    ClientTop       =   345
@@ -433,7 +433,7 @@ Begin VB.Form panzerPrefs
             Width           =   3720
          End
          Begin VB.CheckBox chkGenStartup 
-            Caption         =   "Run the Stop Watch Widget at Windows Startup *"
+            Caption         =   "Run the JustClock Widget at Windows Startup *"
             Height          =   465
             Left            =   2010
             TabIndex        =   95
@@ -2655,7 +2655,7 @@ Private Sub btnHelp_Click()
         If fFExists(App.Path & "\help\Help.chm") Then
             Call ShellExecute(Me.hwnd, "Open", App.Path & "\help\Help.chm", vbNullString, App.Path, 1)
         Else
-            MsgBox ("%Err-I-ErrorNumber 11 - The help file - PzJustClock Help.html - is missing from the help folder.")
+            MsgBox ("%Err-I-ErrorNumber 11 - The help file - Help.chm - is missing from the help folder.")
         End If
 
    On Error GoTo 0
@@ -3420,7 +3420,7 @@ Private Sub lblGitHub_dblClick()
     
     answer = MsgBox("This option opens a browser window and take you straight to Github. Proceed?", vbExclamation + vbYesNo)
     If answer = vbYes Then
-       Call ShellExecute(Me.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-StopWatch-Clock-VB6", vbNullString, App.Path, 1)
+       Call ShellExecute(Me.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-Clock-VB6", vbNullString, App.Path, 1)
     End If
 End Sub
 
