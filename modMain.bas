@@ -530,7 +530,9 @@ Public Sub validateInputs()
         If PzGShowTaskbar = vbNullString Then PzGShowTaskbar = "0"
         If PzGDpiAwareness = vbNullString Then PzGDpiAwareness = "true"
         If PzGGaugeSize = vbNullString Then PzGGaugeSize = "25"
-        If PzGScrollWheelDirection = vbNullString Then PzGScrollWheelDirection = "up"
+        If PzGScrollWheelDirection = vbNullString Then PzGScrollWheelDirection = "1"
+        If PzGScrollWheelDirection = "down" Then PzGScrollWheelDirection = "1"
+        'PzGScrollWheelDirection = "1"
                
         ' fonts
         If PzGPrefsFont = vbNullString Then PzGPrefsFont = "times new roman" 'prefsFont", PzGSettingsFile)

@@ -2688,7 +2688,7 @@ Private Sub btnSave_Click()
     PzGShowTaskbar = LTrim$(Str$(chkShowTaskbar.Value))
     PzGDpiAwareness = LTrim$(Str$(chkDpiAwareness.Value))
     PzGGaugeSize = LTrim$(Str$(sliGaugeSize.Value))
-    PzGScrollWheelDirection = cmbScrollWheelDirection.List(cmbScrollWheelDirection.ListIndex)
+    PzGScrollWheelDirection = LTrim$(Str$(cmbScrollWheelDirection.ListIndex))
     
     ' general
     PzGGaugeFunctions = LTrim$(Str$(chkGaugeFunctions.Value))
