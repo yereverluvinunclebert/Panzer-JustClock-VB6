@@ -773,8 +773,8 @@ Private Sub loadExcludePathCollection()
         .Add Empty, "secondshadow" 'clock-hand-seconds-shadow
         .Add Empty, "secondhand"   'clock-hand-seconds
         
-        .Add Empty, "stopwatch/bigreflection"     'all reflections
-        .Add Empty, "stopwatch/windowreflection"
+        .Add Empty, "bigreflection"     'all reflections
+        .Add Empty, "windowreflection"
 
     End With
 

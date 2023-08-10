@@ -240,7 +240,7 @@ Private Sub gaugeForm_BubblingEvent(Sender As Object, EventName As String, P1 As
                 Call lockbutton_mouseDown(Sender)
             Case "housing/prefsbutton"
                 Call prefsbutton_mouseDown(Sender)
-            Case "stopwatch/face/housing/tickbutton"
+            Case "housing/tickbutton"
                 Call tickbutton_mouseDown(Sender)
             Case Else
                 Debug.Print Sender.Widget.Key
@@ -249,7 +249,7 @@ Private Sub gaugeForm_BubblingEvent(Sender As Object, EventName As String, P1 As
     
     If EventName = "W_MouseUp" Then
         Select Case LCase$(Sender.Widget.Key)
-            Case "stopwatch/face/housing/prefsbutton"
+            Case "housing/prefsbutton"
                 Sender.Widget.Alpha = 1
                 Sender.Widget.Refresh
             Case Else
@@ -259,13 +259,13 @@ Private Sub gaugeForm_BubblingEvent(Sender As Object, EventName As String, P1 As
     
     If EventName = "W_Click" Then
         Select Case LCase$(Sender.Widget.Key)
-            Case "stopwatch/face/housing/helpbutton"
+            Case "housing/helpbutton"
                  Call helpbutton_click
-            Case "stopwatch/face/housing/startbutton"
+            Case "housing/startbutton"
                  Call startbutton_click
-            Case "stopwatch/face/housing/stopbutton"
+            Case "housing/stopbutton"
                  Call stopbutton_click
-            Case "stopwatch/face/housing/switchfacesbutton"
+            Case "housing/switchfacesbutton"
                  Call switchfacesbutton_click(Sender)
             Case Else
                 Debug.Print Sender.Widget.Key

@@ -61,10 +61,8 @@ Public Sub initAndShowStandardForms(ByVal X As Long, ByVal Y As Long, Optional B
     
     ' create a new globe widget with a name and location, first step of that is to run Class_Initialize
     Set aboutWidget = aboutForm.Widgets.Add(New cwAbout, "about", aboutLeft, aboutTop, aboutWidgetWidth, aboutWidgetHeight)
-    
-    
+       
     ' -oOo-
-    
     
     ' create an invisible form using a Cairo Widget Form with the predefined caption and sizing
     Set helpForm = Cairo.WidgetForms.Create(WFFStyleTool, Caption, , 1400, 1200)
@@ -74,8 +72,6 @@ Public Sub initAndShowStandardForms(ByVal X As Long, ByVal Y As Long, Optional B
          
     ' create a new globe widget with a name and location, first step of that is to run Class_Initialize
     Set helpWidget = helpForm.Widgets.Add(New cwHelp, "help", 0, 0, 1400, 1150)
-
-
 
 
    On Error GoTo 0
