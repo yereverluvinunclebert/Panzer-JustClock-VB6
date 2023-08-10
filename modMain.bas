@@ -531,8 +531,7 @@ Public Sub validateInputs()
         If PzGDpiAwareness = vbNullString Then PzGDpiAwareness = "true"
         If PzGGaugeSize = vbNullString Then PzGGaugeSize = "25"
         If PzGScrollWheelDirection = vbNullString Then PzGScrollWheelDirection = "1"
-        If PzGScrollWheelDirection = "down" Then PzGScrollWheelDirection = "1"
-        'PzGScrollWheelDirection = "1"
+
                
         ' fonts
         If PzGPrefsFont = vbNullString Then PzGPrefsFont = "times new roman" 'prefsFont", PzGSettingsFile)

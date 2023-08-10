@@ -94,8 +94,6 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
                
                 Set W = gaugeForm.Widgets.Add(New_W("cwAlphaImg"), LCase$(.LayerPath(i)), .LayerX(i), .LayerY(i), .LayerWidth(i), .LayerHeight(i)).Widget
                    W.ImageKey = W.Key 'W.Key equals ImageList-Key, set above - and LayerPath(i) at this point ... set it also as the ImageKey of our new created Widget
-                   'W.Alpha = .LayerAlphaPercent(i) 'important (to transport the PSD-LayerAlpha to this Widget-instance as well)
-                   ' W.ToolTip = W.Key 'can be left out (or one can set it on specific Widgets, as shown in the Select Case below)
                    W.Alpha = Val(PzGOpacity) / 100
                    
                 ' Note: set the Hover colour close to the original layer to avoid too much intrusion, 0 being grey
@@ -106,7 +104,6 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
                 Case DragWidgetKey 'the "special DragWidgetKey" we've passed from the outside into this init-routine
                     W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
                     W.MousePointer = IDC_SIZEALL
-                    
                     W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
 
                 Case "housing/helpbutton" 'three Widget-Keys, picked for "special click-behaviour"
@@ -122,7 +119,7 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
                     W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
                     W.MousePointer = IDC_HAND
                     If PzGEnableTooltips = "1" Then
-                        W.ToolTip = "Press to zero."
+                        W.ToolTip = "Press to restart (when stopped)"
                     Else
                         W.ToolTip = vbNullString
                     End If
@@ -131,14 +128,14 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
                     W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
                     W.MousePointer = IDC_HAND
                    If PzGEnableTooltips = "1" Then
-                        W.ToolTip = "Press to continue the timing run. This button is active only when a timing run has been paused."
+                        W.ToolTip = "Press to stop clock operation."
                     Else
                         W.ToolTip = vbNullString
                     End If
 
                 Case "housing/switchfacesbutton"
                     If PzGEnableTooltips = "1" Then
-                        W.ToolTip = "Press to switch the dial faces."
+                        W.ToolTip = "Press to do nothing at all."
                     Else
                         W.ToolTip = vbNullString
                     End If
@@ -189,7 +186,7 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
                 
                End Select
                
-               ' other (unused) widgets created from the layers shown here for reference
+               ' other (unused) widgets created from the layers shown below for reference
                
 
 
@@ -234,6 +231,10 @@ Private Sub gaugeForm_BubblingEvent(Sender As Object, EventName As String, P1 As
                 Call prefsbutton_mouseDown(Sender)
             Case "housing/tickbutton"
                 Call tickbutton_mouseDown(Sender)
+            Case "housing/switchfacesbutton"
+                 Call switchfacesbutton_mouseDown(Sender)
+            Case "housing/stopbutton"
+                Call stopbutton_mouseDown(Sender)
             Case Else
                 Debug.Print Sender.Widget.Key
         End Select
@@ -244,9 +245,14 @@ Private Sub gaugeForm_BubblingEvent(Sender As Object, EventName As String, P1 As
             Case "housing/prefsbutton"
                 Sender.Widget.Alpha = 1
                 Sender.Widget.Refresh
+            Case "housing/switchfacesbutton"
+                Call switchfacesbutton_mouseUp(Sender)
+            Case "housing/stopbutton"
+                Call stopbutton_mouseUp(Sender)
             Case Else
                 Debug.Print Sender.Widget.Key
         End Select
+        
     End If
     
     If EventName = "W_Click" Then
@@ -255,10 +261,6 @@ Private Sub gaugeForm_BubblingEvent(Sender As Object, EventName As String, P1 As
                  Call helpbutton_click
             Case "housing/startbutton"
                  Call startbutton_click
-            Case "housing/stopbutton"
-                 Call stopbutton_click
-            Case "housing/switchfacesbutton"
-                 Call switchfacesbutton_click(Sender)
             Case Else
                 Debug.Print Sender.Widget.Key
         End Select
@@ -305,6 +307,8 @@ Private Sub startbutton_click()
    
     Dim fileToPlay As String: fileToPlay = vbNullString
 
+    Call TurnFunctionsOn
+
     fileToPlay = "ting.wav"
     If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
@@ -318,18 +322,24 @@ startbutton_click_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure startbutton_click of Class Module cfAlpha"
 
 End Sub
+
 '---------------------------------------------------------------------------------------
-' Procedure : stopbutton_click
+' Procedure : stopbutton_mouseUp
 ' Author    : beededea
 ' Date      : 03/08/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub stopbutton_click()
-   On Error GoTo stopbutton_click_Error
-
+Private Sub stopbutton_mouseUp(Sender As Object)
     Dim fileToPlay As String: fileToPlay = vbNullString
+   
+    On Error GoTo stopbutton_mouseUp_Error
 
+    Sender.Widget.Alpha = 1
+    Sender.Widget.Refresh
+           
+    Call SwitchOff
+    
     fileToPlay = "mistake.wav"
     If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
@@ -338,22 +348,68 @@ Private Sub stopbutton_click()
    On Error GoTo 0
    Exit Sub
 
-stopbutton_click_Error:
+stopbutton_mouseUp_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure stopbutton_click of Class Module cfAlpha"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure stopbutton_mouseUp of Class Module cfAlpha"
 
 End Sub
 '---------------------------------------------------------------------------------------
-' Procedure : switchfacesbutton_click
+' Procedure : stopbutton_mouseDown
 ' Author    : beededea
 ' Date      : 03/08/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub switchfacesbutton_click(Sender As Object)
-    Dim fileToPlay As String: fileToPlay = vbNullString
-    On Error GoTo switchfacesbutton_click_Error
+Private Sub stopbutton_mouseDown(Sender As Object)
+   
+    On Error GoTo stopbutton_mouseDown_Error
 
+    Sender.Widget.Alpha = 0
+    Sender.Widget.Refresh
+           
+   On Error GoTo 0
+   Exit Sub
+
+stopbutton_mouseDown_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure stopbutton_mouseDown of Class Module cfAlpha"
+
+End Sub
+'---------------------------------------------------------------------------------------
+' Procedure : switchfacesbutton_mouseDown
+' Author    : beededea
+' Date      : 03/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Sub switchfacesbutton_mouseDown(Sender As Object)
+    On Error GoTo switchfacesbutton_mouseDown_Error
+
+    Sender.Widget.Alpha = 0
+    Sender.Widget.Refresh
+    
+   On Error GoTo 0
+   Exit Sub
+
+switchfacesbutton_mouseDown_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure switchfacesbutton_mouseDown of Class Module cfAlpha"
+
+End Sub
+'---------------------------------------------------------------------------------------
+' Procedure : switchfacesbutton_mouseUp
+' Author    : beededea
+' Date      : 03/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Sub switchfacesbutton_mouseUp(Sender As Object)
+    Dim fileToPlay As String: fileToPlay = vbNullString
+    On Error GoTo switchfacesbutton_mouseUp_Error
+
+    Sender.Widget.Alpha = 1
+    Sender.Widget.Refresh
+        
     fileToPlay = "till.wav"
     If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
@@ -361,9 +417,9 @@ Private Sub switchfacesbutton_click(Sender As Object)
    On Error GoTo 0
    Exit Sub
 
-switchfacesbutton_click_Error:
+switchfacesbutton_mouseUp_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure switchfacesbutton_click of Class Module cfAlpha"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure switchfacesbutton_mouseUp of Class Module cfAlpha"
 
 End Sub
 '---------------------------------------------------------------------------------------
@@ -584,9 +640,9 @@ End Sub
 ' Procedure : gaugeForm_MouseWheel
 ' Author    : beededea
 ' Date      : 31/07/2023
-' Purpose   :
+' Purpose   : rotate forward positive = smaller
 '---------------------------------------------------------------------------------------
-' rotate forward positive = smaller
+'
 Private Sub gaugeForm_MouseWheel(ByVal MouseKeys As Long, ByVal Rotation As Long, ByVal Xpos As Single, ByVal Ypos As Single)
    Dim RotationDirection As Long: RotationDirection = 0
    
@@ -643,7 +699,7 @@ Public Sub AdjustZoom(ByVal NewZoom As Single)
    On Error GoTo AdjustZoom_Error
 
   FZ = NewZoom
-  If FZ < 0.25 Then FZ = 0.25 Else If FZ > 2 Then FZ = 2 'keep FZ within a sane ZoomInterval
+  If FZ < 0.25 Then FZ = 0.25 Else If FZ > 3 Then FZ = 3 'keep FZ within a sane ZoomInterval
   gaugeForm.WidgetRoot.Zoom = FZ '* gaugeForm.WidgetRoot.CurrentMonitor.Zoom '<-- if the multiplicator is activated, we'd have DPI-awareness on high-res monitors
   gaugeForm.Move gaugeForm.Left, gaugeForm.Top, PSDWidth * gaugeForm.WidgetRoot.Zoom, PSDHeight * gaugeForm.WidgetRoot.Zoom
 
