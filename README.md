@@ -13,7 +13,7 @@
  It will be a simple multi-timezone Simple Clock and clock. This Widget is a moveable widget that you can move anywhere 
  around the desktop as you require.
  
-![panzer-justclock-ywidget-di](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/8103a8b1-faf8-4fa6-b4ed-847f512462d8)
+![panzer-justclockVB6beltring](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/0fda4260-7828-4626-8121-51fb82a1474e)
 
  This widget can be increased in size, animation speed can be changed, 
  opacity/transparency may be set as to the users discretion. The widget can 
