@@ -3777,9 +3777,17 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
     thisFraName.Visible = True
     thisFraButtonName.BorderStyle = 1
     
-    btnSave.Top = thisFraName.Top + thisFraName.Height + 150
+    
+    Dim y_scale As Single: y_scale = 0
+    ' Get the form's current scale factors.
+    y_scale = ScaleHeight / m_FormHgt
+    
+    btnHelp.Top = fraGeneral.Top + fraGeneral.Height + (250 * y_scale)
+    
+    btnSave.Top = btnHelp.Top
+    'btnSave.Top = thisFraName.Top + thisFraName.Height + 150
     btnCancel.Top = btnSave.Top
-    btnHelp.Top = btnSave.Top
+    'btnHelp.Top = btnSave.Top
     
     btnSave.Visible = True
     btnCancel.Visible = True
@@ -4298,8 +4306,8 @@ Private Sub SaveSizes()
     Next ctrl
 
     ' Save the form's size.
-    m_FormWid = ScaleWidth
-    m_FormHgt = ScaleHeight
+    m_FormWid = Me.ScaleWidth
+    m_FormHgt = Me.ScaleHeight
 
    On Error GoTo 0
    Exit Sub
@@ -4387,12 +4395,12 @@ Private Sub resizeControls()
     
     ' final tweak the bottom button positions
     
-    btnHelp.Top = fraGeneral.Top + fraGeneral.Height + 400
+    btnHelp.Top = fraGeneral.Top + fraGeneral.Height + (250 * y_scale)
     btnSave.Top = btnHelp.Top
     btnCancel.Top = btnHelp.Top
     
     btnCancel.Left = fraWindow.Left + fraWindow.Width - btnCancel.Width
-    btnSave.Left = btnCancel.Left - btnSave.Width - 150
+    btnSave.Left = btnCancel.Left - btnSave.Width - (150 * x_scale)
     btnHelp.Left = fraGeneral.Left
   
    On Error GoTo 0

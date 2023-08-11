@@ -20,7 +20,9 @@
 ' remove the smaller face images and replace with two merged stopwatch/clock faces - done
 ' mousewheel resize up/down direction - done
 
-' top justification of help button - wip
+' -oOo-
+
+' top justification of help button - done
 
 ' switch tick functions off, make it stick after a reboot/reload
 
@@ -28,16 +30,30 @@
 ' hide normal font box, show only the resized font
 ' try the balloon tooltips on one control
 ' opacity change after save, does not stick
-'
 
+    CHM
+    fonts sized when small
+    %systemroot handled as per steamydock
+    hide normal font box, show only the resized font
+    time zone code
+    daylight saving time
+    system startup running
+    dblClick command
+    shift +dblclick
+    
+SomeParent.Widgets("TheWidgetKey").Widget.BackColor = vbBlue
+
+- or
+
+Dim W As cWidgetBase
+Set W = SomeParent.Widgets("TheWidgetKey").Widget
+W.Backcolor = vbBlue
 
 ' upgrade to RC6 new version from Olaf to obtain opacity control over the overlays currently limited to 25%
 ' monitorProperties, make it work
 
 ' RC BUGS
 ' =======
-
-' about widget image shadows not rendering correctly in the stopwatch, same code on RC5 widget works correctly
 
 ' aboutForm is not fading back-in but instantly hiding in DPI aware mode, opacity is acting strangely on second fade in
 

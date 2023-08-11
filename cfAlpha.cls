@@ -95,9 +95,9 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
                 Set W = gaugeForm.Widgets.Add(New_W("cwAlphaImg"), LCase$(.LayerPath(i)), .LayerX(i), .LayerY(i), .LayerWidth(i), .LayerHeight(i)).Widget
                    W.ImageKey = W.Key 'W.Key equals ImageList-Key, set above - and LayerPath(i) at this point ... set it also as the ImageKey of our new created Widget
                     If PzGOpacity < 1 Then
-                        W.Alpha = Val(PzGOpacity) / 200
+                        W.Alpha = Val(PzGOpacity) / 200 ' a bit of a bodge as the included/excluded layers do not 'seem' to handle alpha the same
                     Else
-                         W.Alpha = 1
+                        W.Alpha = 1
                     End If
                    
                 ' Note: set the Hover colour close to the original layer to avoid too much intrusion, 0 being grey
