@@ -59,29 +59,29 @@
  
  Links:
  
-   https://www.vbrichclient.com/#/en/About/
-   MZ-TOOLS https://www.mztools.com/  
-   CodeHelp http://www.planetsourcecode.com/vb/scripts/ShowCode.asp?txtCodeId=62468&lngWId=1  
-   Rubberduck http://rubberduckvba.com/  
-   Rocketdock https://punklabs.com/  
-   Registry code ALLAPI.COM  
-   La Volpe http://www.planet-source-code.com/vb/scripts/ShowCode.asp?txtCodeId=67466&lngWId=1  
-   PrivateExtractIcons code http://www.activevb.de/rubriken/  
-   Persistent debug code http://www.vbforums.com/member.php?234143-Elroy  
-   Open File common dialog code without dependent OCX - http://forums.codeguru.com/member.php?92278-rxbagain  
-   VBAdvance  
+	https://www.vbrichclient.com/#/en/About/
+	MZ-TOOLS https://www.mztools.com/  
+	CodeHelp http://www.planetsourcecode.com/vb/scripts/ShowCode.asp?txtCodeId=62468&lngWId=1  
+	Rubberduck http://rubberduckvba.com/  
+	Rocketdock https://punklabs.com/  
+	Registry code ALLAPI.COM  
+	La Volpe http://www.planet-source-code.com/vb/scripts/ShowCode.asp?txtCodeId=67466&lngWId=1  
+	PrivateExtractIcons code http://www.activevb.de/rubriken/  
+	Persistent debug code http://www.vbforums.com/member.php?234143-Elroy  
+	Open File common dialog code without dependent OCX - http://forums.codeguru.com/member.php?92278-rxbagain  
+	VBAdvance  
  
  
  Tested on :
  
-   ReactOS 0.4.14 32bit on virtualBox    
-   Windows 7 Professional 32bit on Intel    
-   Windows 7 Ultimate 64bit on Intel    
-   Windows 7 Professional 64bit on Intel    
-   Windows XP SP3 32bit on Intel    
-   Windows 10 Home 64bit on Intel    
-   Windows 10 Home 64bit on AMD    
-   Windows 11 64bit on Intel  
+	ReactOS 0.4.14 32bit on virtualBox    
+	Windows 7 Professional 32bit on Intel    
+	Windows 7 Ultimate 64bit on Intel    
+	Windows 7 Professional 64bit on Intel    
+	Windows XP SP3 32bit on Intel    
+	Windows 10 Home 64bit on Intel    
+	Windows 10 Home 64bit on AMD    
+	Windows 11 64bit on Intel  
    
  CREDITS:
  
@@ -126,8 +126,8 @@
  During development the RC6 components need to be registered. These scripts are 
  used to register. Run each by double-clicking on them.
  
-   RegisterRC6inPlace.vbs
-   RegisterRC6WidgetsInPlace.vbs
+	RegisterRC6inPlace.vbs
+	RegisterRC6WidgetsInPlace.vbs
  
  During runtime on the users system, the RC6 components are dynamically 
  referenced using modRC6regfree.bas which is compiled into the binary.	
@@ -180,12 +180,12 @@
  HELP folder.
  
   Project References:
- 
-   VisualBasic for Applications  
-   VisualBasic Runtime Objects and Procedures  
-   VisualBasic Objects and Procedures  
-   OLE Automation  
-   vbRichClient6  
+
+	VisualBasic for Applications  
+	VisualBasic Runtime Objects and Procedures  
+	VisualBasic Objects and Procedures  
+	OLE Automation  
+	vbRichClient6  
  
  
  LICENCE AGREEMENTS:
