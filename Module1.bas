@@ -288,11 +288,11 @@ Public PzGGaugeFunctions As String
 
 
 
-Public PzGClockFaceSwitchPref As String
+'Public PzGClockFaceSwitchPref As String
 Public PzGMainGaugeTimeZone As String
 Public PzGMainDaylightSaving As String
-Public PzGSecondaryGaugeTimeZone As String
-Public PzGSecondaryDaylightSaving As String
+'Public PzGSecondaryGaugeTimeZone As String
+'Public PzGSecondaryDaylightSaving As String
 
 ' config
 Public PzGEnableTooltips As String

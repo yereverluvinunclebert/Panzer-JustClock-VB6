@@ -184,11 +184,11 @@ Private Sub initialiseGlobalVars()
     PzGGaugeFunctions = vbNullString
 '    PzGAnimationInterval = vbNullString
 
-    PzGClockFaceSwitchPref = vbNullString
+'    PzGClockFaceSwitchPref = vbNullString
     PzGMainGaugeTimeZone = vbNullString
     PzGMainDaylightSaving = vbNullString
-    PzGSecondaryGaugeTimeZone = vbNullString
-    PzGSecondaryDaylightSaving = vbNullString
+    'PzGSecondaryGaugeTimeZone = vbNullString
+'    PzGSecondaryDaylightSaving = vbNullString
 
     ' config
     PzGEnableTooltips = vbNullString
@@ -426,11 +426,11 @@ Public Sub readSettingsFile(ByVal location As String, ByVal PzGSettingsFile As S
 '        PzGAnimationInterval = fGetINISetting(location, "animationInterval", PzGSettingsFile)
         
 
-        PzGClockFaceSwitchPref = fGetINISetting(location, "clockFaceSwitchPref", PzGSettingsFile)
+'        PzGClockFaceSwitchPref = fGetINISetting(location, "clockFaceSwitchPref", PzGSettingsFile)
         PzGMainGaugeTimeZone = fGetINISetting(location, "mainGaugeTimeZone", PzGSettingsFile)
         PzGMainDaylightSaving = fGetINISetting(location, "mainDaylightSaving", PzGSettingsFile)
-        PzGSecondaryGaugeTimeZone = fGetINISetting(location, "secondaryGaugeTimeZone", PzGSettingsFile)
-        PzGSecondaryDaylightSaving = fGetINISetting(location, "secondaryDaylightSaving", PzGSettingsFile)
+        'PzGSecondaryGaugeTimeZone = fGetINISetting(location, "secondaryGaugeTimeZone", PzGSettingsFile)
+        'PzGSecondaryDaylightSaving = fGetINISetting(location, "secondaryDaylightSaving", PzGSettingsFile)
 
         ' configuration
         PzGEnableTooltips = fGetINISetting(location, "enableTooltips", PzGSettingsFile)
@@ -518,11 +518,11 @@ Public Sub validateInputs()
 '        If PzGAnimationInterval = vbNullString Then PzGAnimationInterval = "130"
         If PzGStartup = vbNullString Then PzGStartup = "1"
         
-        If PzGClockFaceSwitchPref = vbNullString Then PzGClockFaceSwitchPref = "0"
+        'If PzGClockFaceSwitchPref = vbNullString Then PzGClockFaceSwitchPref = "0"
         If PzGMainGaugeTimeZone = vbNullString Then PzGMainGaugeTimeZone = "1"
         If PzGMainDaylightSaving = vbNullString Then PzGMainDaylightSaving = "1"
-        If PzGSecondaryGaugeTimeZone = vbNullString Then PzGSecondaryGaugeTimeZone = "1"
-        If PzGSecondaryDaylightSaving = vbNullString Then PzGSecondaryDaylightSaving = "1"
+        'If PzGSecondaryGaugeTimeZone = vbNullString Then PzGSecondaryGaugeTimeZone = "1"
+        'If PzGSecondaryDaylightSaving = vbNullString Then PzGSecondaryDaylightSaving = "1"
 
         ' Configuration
         If PzGEnableTooltips = vbNullString Then PzGEnableTooltips = "1"

@@ -14,6 +14,124 @@ Begin VB.Form panzerPrefs
    ScaleWidth      =   8955
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
+   Begin VB.Frame fraGeneral 
+      Caption         =   "General"
+      Height          =   4740
+      Left            =   75
+      TabIndex        =   52
+      Top             =   1200
+      Visible         =   0   'False
+      Width           =   7500
+      Begin VB.Frame fraGeneralInner 
+         BorderStyle     =   0  'None
+         Height          =   4110
+         Left            =   465
+         TabIndex        =   53
+         Top             =   300
+         Width           =   6600
+         Begin VB.ComboBox cmbMainDaylightSaving 
+            Height          =   315
+            Left            =   1995
+            Style           =   2  'Dropdown List
+            TabIndex        =   148
+            Top             =   2340
+            Width           =   3720
+         End
+         Begin VB.ComboBox cmbMainGaugeTimeZone 
+            Height          =   315
+            ItemData        =   "frmPrefs.frx":385D2
+            Left            =   2010
+            List            =   "frmPrefs.frx":385D4
+            Style           =   2  'Dropdown List
+            TabIndex        =   145
+            Top             =   1185
+            Width           =   3720
+         End
+         Begin VB.CheckBox chkGenStartup 
+            Caption         =   "Run the JustClock Widget at Windows Startup *"
+            Height          =   465
+            Left            =   2010
+            TabIndex        =   95
+            ToolTipText     =   "Check this box to enable the automatic start of the program when Windows is started."
+            Top             =   3405
+            Width           =   4020
+         End
+         Begin VB.CheckBox chkGaugeFunctions 
+            Caption         =   "Ticking toggle *"
+            Height          =   225
+            Left            =   1995
+            TabIndex        =   54
+            ToolTipText     =   "When checked this box enables the spinning earth functionality. That's it!"
+            Top             =   180
+            Width           =   3405
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Daylight Saving :"
+            Height          =   345
+            Index           =   8
+            Left            =   750
+            TabIndex        =   150
+            Top             =   2400
+            Width           =   1740
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "If Daylight Saving is used in your region, choose the appropriate region from the popup list."
+            Height          =   660
+            Index           =   7
+            Left            =   2010
+            TabIndex        =   149
+            Top             =   2850
+            Width           =   3810
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Main Gauge Time Zone :"
+            Height          =   480
+            Index           =   5
+            Left            =   135
+            TabIndex        =   147
+            Top             =   1245
+            Width           =   1845
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Choose the timezone for the main clock. Defaults to the system time."
+            Height          =   660
+            Index           =   4
+            Left            =   2025
+            TabIndex        =   146
+            Top             =   1695
+            Width           =   3810
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Gauge Functions :"
+            Height          =   315
+            Index           =   6
+            Left            =   510
+            TabIndex        =   97
+            Top             =   165
+            Width           =   1320
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Auto Start :"
+            Height          =   375
+            Index           =   11
+            Left            =   1140
+            TabIndex        =   96
+            Tag             =   "lblRefreshInterval"
+            Top             =   3525
+            Width           =   1740
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "When checked this box enables the clock hands - That's it! *"
+            Height          =   660
+            Index           =   2
+            Left            =   2025
+            TabIndex        =   55
+            Tag             =   "lblEnableSoundsDesc"
+            Top             =   540
+            Width           =   3615
+         End
+      End
+   End
    Begin VB.Frame fraSounds 
       Caption         =   "Sounds"
       Height          =   1965
@@ -101,7 +219,7 @@ Begin VB.Form panzerPrefs
                Width           =   3660
             End
             Begin VB.Label lblGitHub 
-               Caption         =   $"frmPrefs.frx":385D2
+               Caption         =   $"frmPrefs.frx":385D6
                ForeColor       =   &H8000000D&
                Height          =   675
                Left            =   1560
@@ -111,7 +229,7 @@ Begin VB.Form panzerPrefs
                Width           =   5430
             End
             Begin VB.Label lblDebug 
-               Caption         =   $"frmPrefs.frx":3866A
+               Caption         =   $"frmPrefs.frx":3866E
                Height          =   930
                Index           =   9
                Left            =   1545
@@ -226,204 +344,6 @@ Begin VB.Form panzerPrefs
          End
       End
    End
-   Begin VB.Frame fraGeneral 
-      Caption         =   "General"
-      Height          =   8085
-      Left            =   75
-      TabIndex        =   52
-      Top             =   1200
-      Visible         =   0   'False
-      Width           =   7500
-      Begin VB.Frame fraGeneralInner 
-         BorderStyle     =   0  'None
-         Height          =   7530
-         Left            =   465
-         TabIndex        =   53
-         Top             =   300
-         Width           =   6600
-         Begin VB.ComboBox cmbSecondaryDaylightSaving 
-            Height          =   315
-            Left            =   1995
-            Style           =   2  'Dropdown List
-            TabIndex        =   157
-            Top             =   5730
-            Width           =   3720
-         End
-         Begin VB.ComboBox cmbSecondaryGaugeTimeZone 
-            Height          =   315
-            Left            =   1995
-            Style           =   2  'Dropdown List
-            TabIndex        =   154
-            Top             =   4590
-            Width           =   3720
-         End
-         Begin VB.ComboBox cmbMainDaylightSaving 
-            Height          =   315
-            Left            =   1995
-            Style           =   2  'Dropdown List
-            TabIndex        =   151
-            Top             =   3480
-            Width           =   3720
-         End
-         Begin VB.ComboBox cmbMainGaugeTimeZone 
-            Height          =   315
-            ItemData        =   "frmPrefs.frx":3870E
-            Left            =   2010
-            List            =   "frmPrefs.frx":38710
-            Style           =   2  'Dropdown List
-            TabIndex        =   148
-            Top             =   2325
-            Width           =   3720
-         End
-         Begin VB.ComboBox cmbClockFaceSwitchPref 
-            Height          =   315
-            ItemData        =   "frmPrefs.frx":38712
-            Left            =   1995
-            List            =   "frmPrefs.frx":38714
-            Style           =   2  'Dropdown List
-            TabIndex        =   145
-            Top             =   1155
-            Width           =   3720
-         End
-         Begin VB.CheckBox chkGenStartup 
-            Caption         =   "Run the JustClock Widget at Windows Startup *"
-            Height          =   465
-            Left            =   2010
-            TabIndex        =   95
-            ToolTipText     =   "Check this box to enable the automatic start of the program when Windows is started."
-            Top             =   6900
-            Width           =   4020
-         End
-         Begin VB.CheckBox chkGaugeFunctions 
-            Caption         =   "Ticking toggle *"
-            Height          =   225
-            Left            =   1995
-            TabIndex        =   54
-            ToolTipText     =   "When checked this box enables the spinning earth functionality. That's it!"
-            Top             =   180
-            Width           =   3405
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Daylight Saving :"
-            Height          =   345
-            Index           =   13
-            Left            =   750
-            TabIndex        =   159
-            Top             =   5790
-            Width           =   1740
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "If Daylight Saving is used in your region, choose the appropriate region from the popup list."
-            Height          =   660
-            Index           =   12
-            Left            =   2010
-            TabIndex        =   158
-            Top             =   6240
-            Width           =   3810
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "SecondaryGauge Time Zone :"
-            Height          =   495
-            Index           =   10
-            Left            =   165
-            TabIndex        =   156
-            Top             =   4560
-            Width           =   1800
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Choose the timezone for the secondary clock. Defaults to the GMT."
-            Height          =   660
-            Index           =   9
-            Left            =   2010
-            TabIndex        =   155
-            Top             =   5100
-            Width           =   3810
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Daylight Saving :"
-            Height          =   345
-            Index           =   8
-            Left            =   750
-            TabIndex        =   153
-            Top             =   3540
-            Width           =   1740
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "If Daylight Saving is used in your region, choose the appropriate region from the popup list."
-            Height          =   660
-            Index           =   7
-            Left            =   2010
-            TabIndex        =   152
-            Top             =   3990
-            Width           =   3810
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Main Gauge Time Zone :"
-            Height          =   480
-            Index           =   5
-            Left            =   135
-            TabIndex        =   150
-            Top             =   2385
-            Width           =   1845
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Choose the timezone for the main clock. Defaults to the system time."
-            Height          =   660
-            Index           =   4
-            Left            =   2025
-            TabIndex        =   149
-            Top             =   2835
-            Width           =   3810
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Clock Face to Show :"
-            Height          =   345
-            Index           =   3
-            Left            =   375
-            TabIndex        =   147
-            Top             =   1215
-            Width           =   1740
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Choose the default clock face to show when the widget starts."
-            Height          =   660
-            Index           =   1
-            Left            =   2010
-            TabIndex        =   146
-            Top             =   1665
-            Width           =   3810
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Gauge Functions :"
-            Height          =   315
-            Index           =   6
-            Left            =   510
-            TabIndex        =   97
-            Top             =   165
-            Width           =   1320
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Auto Start :"
-            Height          =   375
-            Index           =   11
-            Left            =   1140
-            TabIndex        =   96
-            Tag             =   "lblRefreshInterval"
-            Top             =   7020
-            Width           =   1740
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "When checked this box enables the clock hands - That's it! *"
-            Height          =   660
-            Index           =   2
-            Left            =   2025
-            TabIndex        =   55
-            Tag             =   "lblEnableSoundsDesc"
-            Top             =   540
-            Width           =   3615
-         End
-      End
-   End
    Begin VB.Frame fraWindow 
       Caption         =   "Window"
       Height          =   6300
@@ -471,7 +391,7 @@ Begin VB.Form panzerPrefs
                Width           =   720
             End
             Begin VB.Label lblWindowLevel 
-               Caption         =   $"frmPrefs.frx":38716
+               Caption         =   $"frmPrefs.frx":38712
                Height          =   975
                Index           =   1
                Left            =   855
@@ -618,7 +538,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgAbout 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":387B9
+         Picture         =   "frmPrefs.frx":387B5
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -626,7 +546,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgAboutClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":38D41
+         Picture         =   "frmPrefs.frx":38D3D
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -651,7 +571,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgConfig 
          Height          =   600
          Left            =   165
-         Picture         =   "frmPrefs.frx":3922C
+         Picture         =   "frmPrefs.frx":39228
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -659,7 +579,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgConfigClicked 
          Height          =   600
          Left            =   165
-         Picture         =   "frmPrefs.frx":3980B
+         Picture         =   "frmPrefs.frx":39807
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -683,7 +603,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgDevelopment 
          Height          =   600
          Left            =   150
-         Picture         =   "frmPrefs.frx":39D10
+         Picture         =   "frmPrefs.frx":39D0C
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -691,7 +611,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgDevelopmentClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3A2C8
+         Picture         =   "frmPrefs.frx":3A2C4
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -716,7 +636,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgPosition 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3A64E
+         Picture         =   "frmPrefs.frx":3A64A
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -724,7 +644,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgPositionClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3AC1F
+         Picture         =   "frmPrefs.frx":3AC1B
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -769,7 +689,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgSounds 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3AFBD
+         Picture         =   "frmPrefs.frx":3AFB9
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -777,7 +697,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgSoundsClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3B57C
+         Picture         =   "frmPrefs.frx":3B578
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -817,7 +737,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgWindow 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3BA4C
+         Picture         =   "frmPrefs.frx":3BA48
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -825,7 +745,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgWindowClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3BF16
+         Picture         =   "frmPrefs.frx":3BF12
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -849,7 +769,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgFonts 
          Height          =   600
          Left            =   180
-         Picture         =   "frmPrefs.frx":3C2C2
+         Picture         =   "frmPrefs.frx":3C2BE
          Stretch         =   -1  'True
          Top             =   195
          Width           =   600
@@ -857,7 +777,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgFontsClicked 
          Height          =   600
          Left            =   180
-         Picture         =   "frmPrefs.frx":3C818
+         Picture         =   "frmPrefs.frx":3C814
          Stretch         =   -1  'True
          Top             =   195
          Width           =   600
@@ -872,7 +792,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgGeneral 
          Height          =   600
          Left            =   165
-         Picture         =   "frmPrefs.frx":3CCB1
+         Picture         =   "frmPrefs.frx":3CCAD
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -969,7 +889,7 @@ Begin VB.Form panzerPrefs
             Width           =   4035
          End
          Begin VB.Label lblFontsTab 
-            Caption         =   $"frmPrefs.frx":3D11B
+            Caption         =   $"frmPrefs.frx":3D117
             Height          =   900
             Index           =   0
             Left            =   1665
@@ -1046,7 +966,7 @@ Begin VB.Form panzerPrefs
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
          TabIndex        =   117
-         Text            =   "frmPrefs.frx":3D1D6
+         Text            =   "frmPrefs.frx":3D1D2
          Top             =   2205
          Width           =   8010
       End
@@ -1505,7 +1425,7 @@ Begin VB.Form panzerPrefs
             Width           =   2205
          End
          Begin VB.Label lblPosition 
-            Caption         =   $"frmPrefs.frx":3E18D
+            Caption         =   $"frmPrefs.frx":3E189
             Height          =   3120
             Index           =   12
             Left            =   5145
@@ -1525,7 +1445,7 @@ Begin VB.Form panzerPrefs
             Width           =   2040
          End
          Begin VB.Label lblPosition 
-            Caption         =   $"frmPrefs.frx":3E35F
+            Caption         =   $"frmPrefs.frx":3E35B
             Height          =   705
             Index           =   10
             Left            =   2250
@@ -1545,7 +1465,7 @@ Begin VB.Form panzerPrefs
             Width           =   2355
          End
          Begin VB.Label lblPosition 
-            Caption         =   $"frmPrefs.frx":3E3FE
+            Caption         =   $"frmPrefs.frx":3E3FA
             Height          =   3045
             Index           =   6
             Left            =   2265
@@ -1584,7 +1504,7 @@ Begin VB.Form panzerPrefs
             Caption         =   "DPI Awareness Enable"
             Height          =   225
             Left            =   2010
-            TabIndex        =   160
+            TabIndex        =   151
             ToolTipText     =   "Check the box to make the program DPI aware. RESTART required."
             Top             =   4125
             Width           =   3405
@@ -1657,11 +1577,11 @@ Begin VB.Form panzerPrefs
             SelStart        =   20
          End
          Begin VB.Label lblConfiguration 
-            Caption         =   $"frmPrefs.frx":3E5A3
+            Caption         =   $"frmPrefs.frx":3E59F
             Height          =   660
             Index           =   0
             Left            =   1980
-            TabIndex        =   161
+            TabIndex        =   152
             Top             =   4485
             Width           =   4305
          End
@@ -1880,6 +1800,8 @@ chkShowTaskbar_Click_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure chkShowTaskbar_Click of Form panzerPrefs"
 End Sub
+
+
 
 '---------------------------------------------------------------------------------------
 ' Procedure : Form_Load
@@ -2694,11 +2616,11 @@ Private Sub btnSave_Click()
     PzGGaugeFunctions = LTrim$(Str$(chkGaugeFunctions.Value))
     PzGStartup = LTrim$(Str$(chkGenStartup.Value))
     
-    PzGClockFaceSwitchPref = cmbClockFaceSwitchPref.List(cmbClockFaceSwitchPref.ListIndex)
+    'PzGClockFaceSwitchPref = cmbClockFaceSwitchPref.List(cmbClockFaceSwitchPref.ListIndex)
     PzGMainGaugeTimeZone = cmbMainGaugeTimeZone.List(cmbMainGaugeTimeZone.ListIndex)
     PzGMainDaylightSaving = cmbMainDaylightSaving.List(cmbMainDaylightSaving.ListIndex)
-    PzGSecondaryGaugeTimeZone = cmbSecondaryGaugeTimeZone.List(cmbSecondaryGaugeTimeZone.ListIndex)
-    PzGSecondaryDaylightSaving = cmbSecondaryDaylightSaving.List(cmbSecondaryDaylightSaving.ListIndex)
+    'PzGSecondaryGaugeTimeZone = cmbSecondaryGaugeTimeZone.List(cmbSecondaryGaugeTimeZone.ListIndex)
+    'PzGSecondaryDaylightSaving = cmbSecondaryDaylightSaving.List(cmbSecondaryDaylightSaving.ListIndex)
     
     ' sounds
     PzGEnableSounds = LTrim$(Str$(chkEnableSounds.Value))
@@ -2761,11 +2683,11 @@ Private Sub btnSave_Click()
                 
         sPutINISetting "Software\PzJustClock", "gaugeFunctions", PzGGaugeFunctions, PzGSettingsFile
         
-        sPutINISetting "Software\PzJustClock", "clockFaceSwitchPref", PzGClockFaceSwitchPref, PzGSettingsFile
+        'sPutINISetting "Software\PzJustClock", "clockFaceSwitchPref", PzGClockFaceSwitchPref, PzGSettingsFile
         sPutINISetting "Software\PzJustClock", "mainGaugeTimeZone", PzGMainGaugeTimeZone, PzGSettingsFile
         sPutINISetting "Software\PzJustClock", "mainDaylightSaving", PzGMainDaylightSaving, PzGSettingsFile
-        sPutINISetting "Software\PzJustClock", "secondaryGaugeTimeZone", PzGSecondaryGaugeTimeZone, PzGSettingsFile
-        sPutINISetting "Software\PzJustClock", "secondaryDaylightSaving", PzGSecondaryDaylightSaving, PzGSettingsFile
+        'sPutINISetting "Software\PzJustClock", "secondaryGaugeTimeZone", PzGSecondaryGaugeTimeZone, PzGSettingsFile
+        'sPutINISetting "Software\PzJustClock", "secondaryDaylightSaving", PzGSecondaryDaylightSaving, PzGSettingsFile
         
         sPutINISetting "Software\PzJustClock", "aspectHidden", PzGAspectHidden, PzGSettingsFile
         sPutINISetting "Software\PzJustClock", "widgetPosition", PzGWidgetPosition, PzGSettingsFile
@@ -2926,13 +2848,13 @@ Private Sub adjustPrefsControls()
     chkGaugeFunctions.Value = Val(PzGGaugeFunctions)
     chkGenStartup.Value = Val(PzGStartup)
 
-    cmbClockFaceSwitchPref.ListIndex = Val(PzGClockFaceSwitchPref)
+    'cmbClockFaceSwitchPref.ListIndex = Val(PzGClockFaceSwitchPref)
     
     'set the choice for four timezone comboboxes that were populated from file.
     cmbMainGaugeTimeZone.ListIndex = Val(PzGMainGaugeTimeZone)
     cmbMainDaylightSaving.ListIndex = Val(PzGMainDaylightSaving)
-    cmbSecondaryGaugeTimeZone.ListIndex = Val(PzGSecondaryGaugeTimeZone)
-    cmbSecondaryDaylightSaving.ListIndex = Val(PzGSecondaryDaylightSaving)
+    'cmbSecondaryGaugeTimeZone.ListIndex = Val(PzGSecondaryGaugeTimeZone)
+    'cmbSecondaryDaylightSaving.ListIndex = Val(PzGSecondaryDaylightSaving)
     
     ' configuration tab
    
@@ -3079,14 +3001,14 @@ Private Sub populatePrefsComboBoxes()
     cmbHidingTime.ItemData(5) = 60
     
     ' populate the clock face to show
-    cmbClockFaceSwitchPref.AddItem "standard", 0
-    cmbClockFaceSwitchPref.AddItem "stopwatch", 1
+'    cmbClockFaceSwitchPref.AddItem "standard", 0
+'    cmbClockFaceSwitchPref.AddItem "stopwatch", 1
  
     'populate the four timezone comboboxes from file.
     Call readFileWriteComboBox(cmbMainGaugeTimeZone, App.Path & "\Resources\txt\timezones.txt")
     Call readFileWriteComboBox(cmbMainDaylightSaving, App.Path & "\Resources\txt\DLScodesWin.txt")
-    Call readFileWriteComboBox(cmbSecondaryGaugeTimeZone, App.Path & "\Resources\txt\timezones.txt")
-    Call readFileWriteComboBox(cmbSecondaryDaylightSaving, App.Path & "\Resources\txt\DLScodesWin.txt")
+'    Call readFileWriteComboBox(cmbSecondaryGaugeTimeZone, App.Path & "\Resources\txt\timezones.txt")
+'    Call readFileWriteComboBox(cmbSecondaryDaylightSaving, App.Path & "\Resources\txt\DLScodesWin.txt")
 
     On Error GoTo 0
     Exit Sub
