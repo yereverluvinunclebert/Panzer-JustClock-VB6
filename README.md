@@ -49,7 +49,9 @@
  I do hope you enjoy using this utility and others. Your own software 
  enhancements and contributions will be gratefully received if you choose to 
  contribute.
- 
+
+ <img width="75" alt="security" src="https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/030384c0-f44d-4a74-9090-afe1248e5c70">
+
  BUILD: The program runs without any Microsoft plugins.
  
  Built using: VB6, MZ-TOOLS 3.0, VBAdvance, CodeHelp Core IDE Extender
@@ -197,5 +199,6 @@
  With regard to the commercial use of incorporated images, permission and a 
  licence would need to be obtained from the original owner and creator, ie. me.
  
- ![panzer-clock-ywidget-displa](https://github.com/yereverluvinunclebert/Panzer-StopWatch-Clock-VB6/assets/2788342/daf48cf7-d9fa-4026-84e7-aef518ab72bf)
+![about](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/ee6b1f77-5827-4441-aa7e-7871c7ea39e0)
+
  
