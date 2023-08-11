@@ -32,8 +32,6 @@
  The Panzer Just Clock VB6 gauge is Beta-grade software, under development, not yet 
  ready to use on a production system - use at your own risk.
 
- ![vb6-logo](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/861f1ce1-7058-4d09-af94-daab9206ca86)
-
  This version was developed on Windows 7 using 32 bit VisualBasic 6 as a FOSS 
  project creating a WoW64 widget for the desktop. 
  
@@ -121,7 +119,8 @@
  without any additional Microsoft OCX components, just the basic controls that 
  ship with VB6.  
  
-   
+ ![vb6-logo](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/861f1ce1-7058-4d09-af94-daab9206ca86)
+ 
  * Uses the latest version of the RC6 Cairo framework from Olaf Schmidt.
  
  During development the RC6 components need to be registered. These scripts are 
