@@ -760,7 +760,9 @@ Private Sub loadExcludePathCollection()
     On Error GoTo loadExcludePathCollection_Error
 
     With fAlpha.collPSDNonUIElements ' the exclude list
-       
+        .Add Empty, "clockface"
+        .Add Empty, "faceweathering"
+
         .Add Empty, "swsecondhand" 'arrow-hand-top
         .Add Empty, "swminutehand" 'arrow-hand-right
         .Add Empty, "swhourhand"   'arrow-hand-bottom
@@ -773,9 +775,11 @@ Private Sub loadExcludePathCollection()
         
         .Add Empty, "secondshadow" 'clock-hand-seconds-shadow
         .Add Empty, "secondhand"   'clock-hand-seconds
-        
+
+        .Add Empty, "bigreflection Copy"     'all reflections
         .Add Empty, "bigreflection"     'all reflections
         .Add Empty, "windowreflection"
+
 
     End With
 

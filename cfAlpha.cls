@@ -94,7 +94,11 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
                
                 Set W = gaugeForm.Widgets.Add(New_W("cwAlphaImg"), LCase$(.LayerPath(i)), .LayerX(i), .LayerY(i), .LayerWidth(i), .LayerHeight(i)).Widget
                    W.ImageKey = W.Key 'W.Key equals ImageList-Key, set above - and LayerPath(i) at this point ... set it also as the ImageKey of our new created Widget
-                   W.Alpha = Val(PzGOpacity) / 100
+                    If PzGOpacity < 1 Then
+                        W.Alpha = Val(PzGOpacity) / 200
+                    Else
+                         W.Alpha = 1
+                    End If
                    
                 ' Note: set the Hover colour close to the original layer to avoid too much intrusion, 0 being grey
                 
@@ -105,7 +109,7 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
                     W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
                     W.MousePointer = IDC_SIZEALL
                     W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
-
+                    
                 Case "housing/helpbutton" 'three Widget-Keys, picked for "special click-behaviour"
                     W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
                     W.MousePointer = IDC_HAND
@@ -143,6 +147,7 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
                     W.MousePointer = IDC_HAND
                     
                 Case "housing/lockbutton"
+
                     W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
                     W.MousePointer = IDC_HAND
                     If PzGEnableTooltips = "1" Then
@@ -169,15 +174,15 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
                     Else
                         W.ToolTip = vbNullString
                     End If
-                Case "clockface"
-                    W.Alpha = 1
-                    W.HoverColor = -1 ' set the hover colour to grey - ' task: might change this later when new ver or RC6 arrives
-                    W.MousePointer = IDC_SIZEALL
-                    If PzGEnableTooltips = "1" Then
-                        W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
-                    Else
-                        W.ToolTip = vbNullString
-                    End If
+'                Case "clockface"
+'                    'W.Alpha = 1
+'                    W.HoverColor = -1 ' set the hover colour to none - ' task: might change this later when new ver or RC6 arrives
+'                    W.MousePointer = IDC_SIZEALL
+'                    If PzGEnableTooltips = "1" Then
+'                        W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
+'                    Else
+'                        W.ToolTip = vbNullString
+'                    End If
                 
                 Case Else 'all other added Layer-Widgets will be -1 or "non-hoverable" and "fully click-through"
                     W.HoverColor = -1 ' task: might change this later when new ver or RC6 arrives
@@ -243,7 +248,7 @@ Private Sub gaugeForm_BubblingEvent(Sender As Object, EventName As String, P1 As
     If EventName = "W_MouseUp" Then
         Select Case LCase$(Sender.Widget.Key)
             Case "housing/prefsbutton"
-                Sender.Widget.Alpha = 1
+                Sender.Widget.Alpha = Val(PzGOpacity) / 100
                 Sender.Widget.Refresh
             Case "housing/switchfacesbutton"
                 Call switchfacesbutton_mouseUp(Sender)
@@ -335,7 +340,7 @@ Private Sub stopbutton_mouseUp(Sender As Object)
    
     On Error GoTo stopbutton_mouseUp_Error
 
-    Sender.Widget.Alpha = 1
+    Sender.Widget.Alpha = Val(PzGOpacity) / 100
     Sender.Widget.Refresh
            
     Call SwitchOff
@@ -407,7 +412,7 @@ Private Sub switchfacesbutton_mouseUp(Sender As Object)
     Dim fileToPlay As String: fileToPlay = vbNullString
     On Error GoTo switchfacesbutton_mouseUp_Error
 
-    Sender.Widget.Alpha = 1
+    Sender.Widget.Alpha = Val(PzGOpacity) / 100
     Sender.Widget.Refresh
         
     fileToPlay = "till.wav"
@@ -435,7 +440,7 @@ Private Sub lockbutton_mouseDown(Sender As Object)
     If overlayWidget.Locked = 0 Then
         Sender.Widget.Alpha = 0
     Else
-        Sender.Widget.Alpha = 1
+        Sender.Widget.Alpha = Val(PzGOpacity) / 100
     End If
     Sender.Widget.Refresh ' this removes the delay in the lockButton depressing
     Call lockWidget
@@ -493,7 +498,7 @@ Private Sub tickbutton_mouseDown(Sender As Object)
     If overlayWidget.Ticking = True Then
         Sender.Widget.Alpha = 0
     Else
-        Sender.Widget.Alpha = 1
+        Sender.Widget.Alpha = Val(PzGOpacity) / 100
     End If
     Sender.Widget.Refresh ' this removes the delay in the Button depressing
     
