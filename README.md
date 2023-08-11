@@ -13,14 +13,14 @@
  It will be a simple multi-timezone Simple Clock and clock. This Widget is a moveable widget that you can move anywhere 
  around the desktop as you require.
  
- ![panzer-photo-1440x900X](https://github.com/yereverluvinunclebert/Panzer-StopWatch-Clock-VB6/assets/2788342/c4b6515a-8425-4f0b-8393-d092306c7624)
- 
+![panzer-justclock-ywidget-di](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/8103a8b1-faf8-4fa6-b4ed-847f512462d8)
+
  This widget can be increased in size, animation speed can be changed, 
  opacity/transparency may be set as to the users discretion. The widget can 
  also be made to hide for a pre-determined period.
  
- ![tank-clock-mk1](https://github.com/yereverluvinunclebert/Panzer-StopWatch-Clock-VB6/assets/2788342/45805383-244f-4370-ba3e-3259b9fd3805)
- 
+![justClock-image](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/2f1080ed-8784-428f-8335-51e97a1a3bf5)
+
  Right clicking will bring up a menu of options. Double-clicking on the widget will cause a personalised Windows application to 
  fire up. The first time you run it there will be no assigned function and so it 
  will state as such and then pop up the preferences so that you can enter the 
@@ -28,7 +28,7 @@
  windows. Mouse hover over the widget and press CTRL+mousewheel up/down to resize. It works well on Windows XP 
  to Windows 11.
  
- ![panzer-clock-web-help](https://github.com/yereverluvinunclebert/Panzer-StopWatch-Clock-VB6/assets/2788342/62704796-76ee-4053-a163-c0767d2cd42b)
+![panzergauge-help](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/da7d68b6-31fd-4181-aad6-253999742658)
  
  The Panzer Just Clock VB6 gauge is Beta-grade software, under development, not yet 
  ready to use on a production system - use at your own risk.
@@ -188,7 +188,7 @@
  
  LICENCE AGREEMENTS:
  
- Copyright © 2023 Dean Beedell
+ Copyright Â© 2023 Dean Beedell
  
  In addition to the GNU General Public Licence please be aware that you may use 
  any of my own imagery in your own creations but commercially only with my 
