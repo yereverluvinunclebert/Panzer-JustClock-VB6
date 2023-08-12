@@ -24,8 +24,10 @@
 
 ' top justification of help button - done
 
-' switch tick functions off, make it stick after a reboot/reload
+' switch tick functions off, make it stick after a reboot/reload - done
 
+
+%systemroot%\system32ncpa.cpl
 ' %systemroot handled as per steamydock
 ' hide normal font box, show only the resized font
 ' try the balloon tooltips on one control
@@ -33,8 +35,6 @@
 
     CHM
     fonts sized when small
-    %systemroot handled as per steamydock
-    hide normal font box, show only the resized font
     time zone code
     daylight saving time
     system startup running

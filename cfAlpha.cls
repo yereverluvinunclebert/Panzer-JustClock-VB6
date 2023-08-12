@@ -257,7 +257,6 @@ Private Sub gaugeForm_BubblingEvent(Sender As Object, EventName As String, P1 As
             Case Else
                 Debug.Print Sender.Widget.Key
         End Select
-        
     End If
     
     If EventName = "W_Click" Then
@@ -531,17 +530,33 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Public Sub gaugeForm_DblClick()
-
+    Dim userprof As String: userprof = vbNullString
+    Dim thisCommand As String: thisCommand = vbNullString
+    
     On Error GoTo gaugeForm_DblClick_Error
 
     '    If PzGIgnoreMouse = "1" Then Exit Sub
 
     If LTrim$(PzGDblClickCommand) = vbNullString Then Exit Sub
+    
+    thisCommand = PzGDblClickCommand
+        
+    If InStr(thisCommand, "%userprofile%") Then
+        userprof = Environ$("USERPROFILE")
+        thisCommand = Replace(thisCommand, "%userprofile%", userprof)
+    End If
+    
+    ' .91 DAEB 08/12/2022 frmMain.frm SteamyDock responds to %systemroot% environment variables during runCommand
+    If InStr(thisCommand, "%systemroot%") Then
+        userprof = Environ$("SYSTEMROOT")
+        thisCommand = Replace(thisCommand, "%systemroot%", userprof)
+    End If
+    
     If SHIFT_1 = True Then
         SHIFT_1 = False
         Call ShellExecute(fAlpha.gaugeForm.hwnd, "Open", PzGOpenFile, vbNullString, App.Path, 1)
     Else
-        Call ShellExecute(fAlpha.gaugeForm.hwnd, "Open", PzGDblClickCommand, vbNullString, App.Path, 1)
+        Call ShellExecute(fAlpha.gaugeForm.hwnd, "runas", thisCommand, vbNullString, App.Path, 1)
     End If
 
     On Error GoTo 0
@@ -585,7 +600,7 @@ End Sub
 ' Purpose   : save the form x,y position when ever the globe/form is dragged
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_MouseUp(Button As Integer, shift As Integer, X As Single, Y As Single)
+Private Sub gaugeForm_MouseUp(Button As Integer, shift As Integer, x As Single, y As Single)
     On Error GoTo gaugeForm_MouseUp_Error
 
     'If overlayWidget.Locked = True Then Exit Sub
@@ -618,8 +633,8 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_MouseMove(Button As Integer, shift As Integer, X As Single, Y As Single)
-  Static x0 As Single, y0 As Single: If Button = 0 Then x0 = X: y0 = Y 'just store the offsets when no button is down
+Private Sub gaugeForm_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+  Static x0 As Single, y0 As Single: If Button = 0 Then x0 = x: y0 = y 'just store the offsets when no button is down
   
    On Error GoTo gaugeForm_MouseMove_Error
     
@@ -628,8 +643,8 @@ Private Sub gaugeForm_MouseMove(Button As Integer, shift As Integer, X As Single
 
     If Button = vbLeftButton And Not gaugeForm.ActiveWidget Is Nothing Then 'Form-Dragging (under certain conditions)
 
-      FX = (X - x0) * gaugeForm.WidgetRoot.Zoom + gaugeForm.Left
-      FY = (Y - y0) * gaugeForm.WidgetRoot.Zoom + gaugeForm.Top
+      FX = (x - x0) * gaugeForm.WidgetRoot.Zoom + gaugeForm.Left
+      FY = (y - y0) * gaugeForm.WidgetRoot.Zoom + gaugeForm.Top
       gaugeForm.Move FX, FY
     End If
 
@@ -722,7 +737,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_MouseDown(Button As Integer, shift As Integer, X As Single, Y As Single)
+Private Sub gaugeForm_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
    On Error GoTo W_MouseDown_Error
 
     If Button = vbRightButton Then
