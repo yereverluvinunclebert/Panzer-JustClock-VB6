@@ -6,6 +6,8 @@
  This based upon the Yahoo widget of the same design.
 
  Why VB6? Well, with a 64 bit, modern-language improvement upgrade on the way with 100% compatible TwinBasic coupled with support for transparent PNGs via RC/Cairo, VB6 code has an amazing future.
+
+ ![vb6-logo-200](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/7986e544-0b94-4a10-90bb-2d9fb60c294a)
  
  I created as a variation of the stopwatch clock I had previously created for the World of Tanks and War Thunder 
  communities. The Panzer Just Clock widget is an attractive dieselpunk VB6 widget for your desktop. 
