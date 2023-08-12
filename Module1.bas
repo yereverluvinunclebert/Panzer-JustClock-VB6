@@ -2019,8 +2019,10 @@ Public Sub makeProgramPreferencesAvailable()
         
             Call readPrefsPosition
             
-            If ((fAlpha.gaugeForm.Left + fAlpha.gaugeForm.Width) * screenTwipsPerPixelX) + 200 + panzerPrefs.Width > screenWidthTwips Then
-                panzerPrefs.Left = (fAlpha.gaugeForm.Left * screenTwipsPerPixelX) - (panzerPrefs.Width + 200)
+            If panzerEarthPrefs.Left = 0 Then
+                If ((fAlpha.gaugeForm.Left + fAlpha.gaugeForm.Width) * screenTwipsPerPixelX) + 200 + panzerPrefs.Width > screenWidthTwips Then
+                    panzerPrefs.Left = (fAlpha.gaugeForm.Left * screenTwipsPerPixelX) - (panzerPrefs.Width + 200)
+                End If
             End If
             
             If panzerPrefs.Left < 0 Then panzerPrefs.Left = 0
