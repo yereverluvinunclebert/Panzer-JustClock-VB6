@@ -4,6 +4,8 @@
  
  My current VB6/RC6 PSD program being worked upon now, in progress, you can download but it is only partially complete. I am working on integrating my own native VB6 forms and code with the the RC6 Cairo code.
  This based upon the Yahoo widget of the same design.
+
+ Why VB6? Well, with a 64 bit, modern-language improvement upgrade on the way with 100% compatible TwinBasic coupled with support for transparent PNGs via RC/Cairo, VB6 code has an amazing future.
  
  I created as a variation of the stopwatch clock I had previously created for the World of Tanks and War Thunder 
  communities. The Panzer Just Clock widget is an attractive dieselpunk VB6 widget for your desktop. 
