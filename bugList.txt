@@ -27,16 +27,21 @@
 ' %systemroot handled as per steamydock  - done
 ' dblClick command - tested
 ' shift +dblclick  - tested
+' new text base font and derived font - done
+
+' prefs position not saving/restoring
 
 ' hide normal font box, show only the resized font
 ' try the balloon tooltips on one control
 ' opacity change after save, does not stick
 
+
     CHM
-    fonts sized when small
+
     time zone code
     daylight saving time
     system startup running
+    tooltip font stable size
 
 SomeParent.Widgets("TheWidgetKey").Widget.BackColor = vbBlue
 
