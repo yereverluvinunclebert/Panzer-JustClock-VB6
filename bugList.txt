@@ -23,12 +23,11 @@
 ' -oOo-
 
 ' top justification of help button - done
-
 ' switch tick functions off, make it stick after a reboot/reload - done
+' %systemroot handled as per steamydock  - done
+' dblClick command - tested
+' shift +dblclick  - tested
 
-
-%systemroot%\system32ncpa.cpl
-' %systemroot handled as per steamydock
 ' hide normal font box, show only the resized font
 ' try the balloon tooltips on one control
 ' opacity change after save, does not stick
@@ -38,9 +37,7 @@
     time zone code
     daylight saving time
     system startup running
-    dblClick command
-    shift +dblclick
-    
+
 SomeParent.Widgets("TheWidgetKey").Widget.BackColor = vbBlue
 
 - or
