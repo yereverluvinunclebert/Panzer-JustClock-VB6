@@ -38,7 +38,11 @@
     CHM
 
     time zone code
-    daylight saving time
+    daylight saving time  wip
+    
+    credits http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
+    Randy Birch
+
     system startup running
     tooltip font stable size
 

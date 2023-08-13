@@ -1785,6 +1785,7 @@ Private Declare Function GetSysColor Lib "user32.dll" (ByVal nIndex As Long) As 
 Private Declare Function IsThemeActive Lib "uxtheme" () As Boolean
 '------------------------------------------------------ ENDS
 
+'------------------------------------------------------ STARTS
 
 Private BiasAdjust As Boolean
 
@@ -1930,6 +1931,9 @@ Private Declare Function RegCloseKey Lib "advapi32.dll" _
 
 Private Declare Function lstrlenW Lib "kernel32" _
   (ByVal lpString As Long) As Long
+  
+'------------------------------------------------------ ENDS
+
 
 Private PzGPrefsLoadedFlg As Boolean
 
@@ -4867,9 +4871,18 @@ End Sub
 
 
 
+'---------------------------------------------------------------------------------------
+' Procedure : cmbMainDaylightSaving_Click
+' Author    : beededea
+' Date      : 13/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Private Sub cmbMainDaylightSaving_Click()
 
    Dim pos As Long
+
+   On Error GoTo cmbMainDaylightSaving_Click_Error
 
    btnSave.Enabled = True ' enable the save button
    
@@ -4883,14 +4896,30 @@ Private Sub cmbMainDaylightSaving_Click()
         If cmbMainDaylightSaving.ListIndex > 1 Then Call populateTimeZoneRegions
    End If
 
+
+   On Error GoTo 0
+   Exit Sub
+
+cmbMainDaylightSaving_Click_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure cmbMainDaylightSaving_Click of Form panzerPrefs"
    
 End Sub
 
+'---------------------------------------------------------------------------------------
+' Procedure : populateTimeZoneRegions
+' Author    : beededea
+' Date      : 13/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Private Sub populateTimeZoneRegions()
 
    Dim cnt As Long
    
   'do a lookup for the Bias entered
+   On Error GoTo populateTimeZoneRegions_Error
+
    With lstTimezoneRegions
       .Clear
       
@@ -4905,10 +4934,25 @@ Private Sub populateTimeZoneRegions()
       Next
       
    End With
+
+   On Error GoTo 0
+   Exit Sub
+
+populateTimeZoneRegions_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure populateTimeZoneRegions of Form panzerPrefs"
    
 End Sub
 
+' Randy Birch for his timezone code - http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
 
+'---------------------------------------------------------------------------------------
+' Procedure : GetTimeZoneArray
+' Author    : Randy Birch for his timezone code - http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
+' Date      : 13/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Private Function GetTimeZoneArray() As Boolean
 
    Dim success As Long
@@ -4927,6 +4971,8 @@ Private Function GetTimeZoneArray() As Boolean
   'correct key.
   
   'assume OS is win9x
+   On Error GoTo GetTimeZoneArray_Error
+
    sTzKey = SKEY_9X
    
   'see if OS is NT, and if so,
@@ -5028,24 +5074,56 @@ Private Function GetTimeZoneArray() As Boolean
    
    End If  'If hKey
 
+   On Error GoTo 0
+   Exit Function
+
+GetTimeZoneArray_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure GetTimeZoneArray of Form panzerPrefs"
+
 End Function
 
 
+'---------------------------------------------------------------------------------------
+' Procedure : IsDaylightSavingTime
+' Author    : Randy Birch for his timezone code - http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
+' Date      : 13/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Private Function IsDaylightSavingTime() As Boolean
 
    Dim tzi As TIME_ZONE_INFORMATION
 
+   On Error GoTo IsDaylightSavingTime_Error
+
    IsDaylightSavingTime = GetTimeZoneInformation(tzi) = TIME_ZONE_ID_DAYLIGHT
+
+   On Error GoTo 0
+   Exit Function
+
+IsDaylightSavingTime_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure IsDaylightSavingTime of Form panzerPrefs"
 
 End Function
 
 
+'---------------------------------------------------------------------------------------
+' Procedure : GetTZBiasByName
+' Author    : Randy Birch for his timezone code - http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
+' Date      : 13/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Private Function GetTZBiasByName(sTimeZone As String) As Long
 
    Dim rtzi As REG_TIME_ZONE_INFORMATION
    Dim hKey As Long
 
   'open the passed time zone key
+   On Error GoTo GetTZBiasByName_Error
+
    hKey = OpenRegKey(HKEY_LOCAL_MACHINE, sTzKey & "\" & sTimeZone)
    
    If hKey <> 0 Then
@@ -5070,21 +5148,53 @@ Private Function GetTZBiasByName(sTimeZone As String) As Long
       RegCloseKey hKey
       
    End If
+
+   On Error GoTo 0
+   Exit Function
+
+GetTZBiasByName_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure GetTZBiasByName of Form panzerPrefs"
    
 End Function
 
 
+'---------------------------------------------------------------------------------------
+' Procedure : TrimNull
+' Author    : Randy Birch for his timezone code - http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
+' Date      : 13/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Private Function TrimNull(startstr As String) As String
 
+   On Error GoTo TrimNull_Error
+
    TrimNull = Left$(startstr, lstrlenW(StrPtr(startstr)))
+
+   On Error GoTo 0
+   Exit Function
+
+TrimNull_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure TrimNull of Form panzerPrefs"
    
 End Function
 
 
+'---------------------------------------------------------------------------------------
+' Procedure : OpenRegKey
+' Author    : Randy Birch for his timezone code - http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
+' Date      : 13/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Private Function OpenRegKey(ByVal hKey As Long, _
                             ByVal lpSubKey As String) As Long
 
   Dim hSubKey As Long
+
+   On Error GoTo OpenRegKey_Error
 
   If RegOpenKeyEx(hKey, _
                   lpSubKey, _
@@ -5096,12 +5206,28 @@ Private Function OpenRegKey(ByVal hKey As Long, _
 
   End If
 
+   On Error GoTo 0
+   Exit Function
+
+OpenRegKey_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure OpenRegKey of Form panzerPrefs"
+
 End Function
 
 
+'---------------------------------------------------------------------------------------
+' Procedure : IsWinNTPlus
+' Author    : Randy Birch for his timezone code - http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
+' Date      : 13/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Private Function IsWinNTPlus() As Boolean
 
    'returns True if running WinNT or better
+   On Error GoTo IsWinNTPlus_Error
+
    #If Win32 Then
   
       Dim OSV As OSVERSIONINFO
@@ -5115,6 +5241,13 @@ Private Function IsWinNTPlus() As Boolean
       End If
 
    #End If
+
+   On Error GoTo 0
+   Exit Function
+
+IsWinNTPlus_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure IsWinNTPlus of Form panzerPrefs"
 
 End Function
 

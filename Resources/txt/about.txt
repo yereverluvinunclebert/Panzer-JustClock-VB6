@@ -30,12 +30,15 @@ Shuja Ali @ codeguru for his settings.ini code.
 
 ALLAPI.COM        For the registry reading code.
 
-Rxbagain on codeguru for his Open File common dialog code without a dependent OCX
-http://forums.codeguru.com/member.php?92278-rxbagain
+Rxbagain on codeguru for his Open File common dialog code without a dependent OCX http://forums.codeguru.com/member.php?92278-rxbagain
 
 si_the_geek       for his special folder code
 
 Elroy on VB forums for the balloon tooltips
+
+Randy Birch for his timezone code - http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
+
+-oOo-
 
 Harry Whitfield for his quality testing, brain stimulation and being an unwitting source of inspiration.
 
