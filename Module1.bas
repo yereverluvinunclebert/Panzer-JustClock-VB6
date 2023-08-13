@@ -403,10 +403,24 @@ Private Declare Function PathFileExists Lib "shlwapi" Alias "PathFileExistsA" (B
 Private Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" (ByVal pszPath As String) As Long
 Public PzGWindowLevelWasChanged As Boolean
 Public startupFlg As Boolean
-
 '------------------------------------------------------ ENDS
                             
-     
+
+'------------------------------------------------------ STARTS
+Private Type TimeZoneInfo
+    Bias As Long
+    StandardName(63) As Byte
+    StandardDate(7) As Integer
+    StandardBias As Long
+    DaylightName(63) As Byte
+    DaylightDate(7) As Integer
+    DaylightBias As Long
+End Type
+ 
+Private Const TIME_ZONE_ID_DAYLIGHT = 2
+Private Declare Function GetTimeZoneInformation Lib "kernel32" (uTZ As TimeZoneInfo) As Long
+'------------------------------------------------------ ENDS
+
 '---------------------------------------------------------------------------------------
 ' Procedure : fFExists
 ' Author    : RobDog888 https://www.vbforums.com/member.php?17511-RobDog888
@@ -935,26 +949,26 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Public Function GetWindowsVersion() As String
-    Dim osv As OSVERSIONINFO
+    Dim OSV As OSVERSIONINFO
     
     On Error GoTo GetWindowsVersion_Error
 
-    osv.OSVSize = Len(osv)
+    OSV.OSVSize = Len(OSV)
 
-    If GetVersionEx(osv) = 1 Then
-        Select Case osv.PlatformID
+    If GetVersionEx(OSV) = 1 Then
+        Select Case OSV.PlatformID
             Case VER_PLATFORM_WIN32s
                 GetWindowsVersion = "Win32s on Windows 3.1"
             Case VER_PLATFORM_WIN32_NT
                 GetWindowsVersion = "Windows NT"
                 
-                Select Case osv.dwVerMajor
+                Select Case OSV.dwVerMajor
                     Case 3
                         GetWindowsVersion = "Windows NT 3.5"
                     Case 4
                         GetWindowsVersion = "Windows NT 4.0"
                     Case 5
-                        Select Case osv.dwVerMinor
+                        Select Case OSV.dwVerMinor
                             Case 0
                                 GetWindowsVersion = "Windows 2000"
                             Case 1
@@ -963,7 +977,7 @@ Public Function GetWindowsVersion() As String
                                 GetWindowsVersion = "Windows Server 2003"
                         End Select
                     Case 6
-                        Select Case osv.dwVerMinor
+                        Select Case OSV.dwVerMinor
                             Case 0
                                 GetWindowsVersion = "Windows Vista"
                             Case 1
@@ -978,7 +992,7 @@ Public Function GetWindowsVersion() As String
                 End Select
         
             Case VER_PLATFORM_WIN32_WINDOWS:
-                Select Case osv.dwVerMinor
+                Select Case OSV.dwVerMinor
                     Case 0
                         GetWindowsVersion = "Windows 95"
                     Case 90
@@ -2299,3 +2313,32 @@ TurnFunctionsOn_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure TurnFunctionsOn of Form menuForm"
 End Sub
+
+
+''---------------------------------------------------------------------------------------
+'' Procedure : IsDLSavings
+'' Author    : beededea
+'' Date      : 13/08/2023
+'' Purpose   :
+''---------------------------------------------------------------------------------------
+''
+'Public Function IsDLSavings() As Boolean
+'
+'    Dim uInfo As TimeZoneInfo, lReturn As Long
+'
+'    On Error GoTo IsDLSavings_Error
+'
+'    lReturn = GetTimeZoneInformation(uInfo)
+'
+'    If lReturn = TIME_ZONE_ID_DAYLIGHT Then
+'        IsDLSavings = True
+'    End If
+'
+'   On Error GoTo 0
+'   Exit Function
+'
+'IsDLSavings_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure IsDLSavings of Module Module1"
+'
+'End Function

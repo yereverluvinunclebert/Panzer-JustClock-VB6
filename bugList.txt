@@ -28,13 +28,12 @@
 ' dblClick command - tested
 ' shift +dblclick  - tested
 ' new text base font and derived font - done
+' prefs position not saving/restoring - done
+' all changes backproted to other VB6 widgets - done
+' hiding immediately from within the prefs - done
 
-' prefs position not saving/restoring
-
-' hide normal font box, show only the resized font
 ' try the balloon tooltips on one control
 ' opacity change after save, does not stick
-
 
     CHM
 
@@ -61,5 +60,3 @@ W.Backcolor = vbBlue
 
 ' tooltips also resize when the whole thing is resized, which is not necessarily a good idea for a UI.
 
-' how do I set the visibility of the W_ created widgets so I can temporarily
-' make one invisible, for example a locking pin to be made invisible on a mouseDown then re-appear on a mouseUP.

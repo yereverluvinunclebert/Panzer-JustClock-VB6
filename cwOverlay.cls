@@ -32,6 +32,8 @@ Private mTicking As Boolean
 Private mLocked As Boolean
 Private mHidden As Boolean
 
+
+
 ' property Locked
 ' property Hidden
 ' property Ticking

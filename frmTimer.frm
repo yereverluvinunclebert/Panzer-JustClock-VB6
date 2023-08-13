@@ -94,7 +94,7 @@ Private Sub revealWidgetTimer_Timer()
     revealWidgetTimerCount = revealWidgetTimerCount + 1
     If revealWidgetTimerCount >= (minutesToHide * 12) Then
         revealWidgetTimerCount = 0
-        'overlayWidget.Hidden = False
+
         fAlpha.gaugeForm.Visible = True
         revealWidgetTimer.Enabled = False
         PzGWidgetHidden = "0"
