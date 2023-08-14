@@ -2041,11 +2041,12 @@ End Sub
 '
 Private Sub Form_Load()
     Dim prefsFormHeight As Long: prefsFormHeight = 0
+    Dim ret As Boolean: ret = False
     
     On Error GoTo Form_Load_Error
     
     dynamicSizingFlg = False
-    startupFlg = True
+    startupFlg = True ' this is used to prevent some control initialisations from running code at startup
     lastFormHeight = 0
     topIconWidth = 600 '40 pixels
     PzGFormXPosTwips = ""
@@ -2061,6 +2062,7 @@ Private Sub Form_Load()
         chkEnableResizing.Value = 1
     End If
     
+    ' read the last saved position from the settings.ini
     Call readPrefsPosition
         
     ' determine the frame heights in dynamic sizing or normal mode
@@ -2084,18 +2086,21 @@ Private Sub Form_Load()
     ' make the last used tab appear on startup
     Call showLastTab
     
-    'load the about text
+    ' load the about text and load into prefs
     Call loadPrefsAboutText
     
-    Dim a As Boolean
-    a = GetTimeZoneArray
+    ' obtain the daylight savings time data from the system
+    ret = fGetTimeZoneArray
+    If ret = False Then MsgBox "Problem getting the Daylight Savings Time data from the system."
     
     If PzGDpiAwareness = "1" Then
         Me.Height = prefsFormHeight
     End If
     
+    ' start the timer that records the prefs position every 10 seconds
     positionTimer.Enabled = True
     
+    ' end the startup by un-setting the flag
     startupFlg = False
 
    On Error GoTo 0
@@ -5025,13 +5030,13 @@ End Sub
 ' Randy Birch for his timezone code - http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
 
 '---------------------------------------------------------------------------------------
-' Procedure : GetTimeZoneArray
+' Procedure : fGetTimeZoneArray
 ' Author    : Randy Birch for his timezone code - http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
 ' Date      : 13/08/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Function GetTimeZoneArray() As Boolean
+Private Function fGetTimeZoneArray() As Boolean
 
    Dim success As Long
    Dim dwIndex As Long
@@ -5049,7 +5054,7 @@ Private Function GetTimeZoneArray() As Boolean
   'correct key.
   
   'assume OS is win9x
-   On Error GoTo GetTimeZoneArray_Error
+   On Error GoTo fGetTimeZoneArray_Error
 
    sTzKey = SKEY_9X
    
@@ -5141,23 +5146,23 @@ Private Function GetTimeZoneArray() As Boolean
          RegCloseKey hKey
          
         'return success if, well, successful
-         GetTimeZoneArray = dwIndex > 0
+         fGetTimeZoneArray = dwIndex > 0
 
       End If  'If RegQueryInfoKey
    
    Else
       
      'could not open reg key
-      GetTimeZoneArray = False
+      fGetTimeZoneArray = False
    
    End If  'If hKey
 
    On Error GoTo 0
    Exit Function
 
-GetTimeZoneArray_Error:
+fGetTimeZoneArray_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure GetTimeZoneArray of Form panzerPrefs"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fGetTimeZoneArray of Form panzerPrefs"
 
 End Function
 
