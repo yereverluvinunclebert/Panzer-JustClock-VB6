@@ -86,8 +86,8 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
             Cairo.ImageList.AddSurface .LayerPath(i), .LayerSurface(i)
             
             If collPSDNonUIElements.Exists(.LayerPath(i)) Then ' we do not create Widgets for those in this exclude list.
+                
                 'we add layer info. (used in cwOverlay) to the "excluded paths" previously defined in Sub Main,
-                   
                 collPSDNonUIElements(.LayerPath(i)) = Array(.LayerX(i), .LayerY(i), Val(PzGOpacity) / 100)  'here we update the so far empty slots with the PSD-offsets
                 
             Else 'everything not in the exclude-list will get its own Widget-instance

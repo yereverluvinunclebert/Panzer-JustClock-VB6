@@ -1730,7 +1730,7 @@ End Sub
     'f5 18
 '---------------------------------------------------------------------------------------
 '
-Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal shift As Integer)
+Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal Shift As Integer)
 
     On Error GoTo getkeypress_Error
 
@@ -1739,7 +1739,7 @@ Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal shift As Integer)
             SHIFT_1 = False
     End If
     
-    If shift Then
+    If Shift Then
         SHIFT_1 = True
     End If
 
@@ -2342,3 +2342,40 @@ End Sub
 '    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure IsDLSavings of Module Module1"
 '
 'End Function
+
+
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : restart
+' Author    : beededea
+' Date      : 14/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Sub restart()
+    Dim answer As VbMsgBoxResult: answer = vbNo
+    Dim thisCommand As String: thisCommand = vbNullString
+    
+    On Error GoTo restart_Error
+
+    thisCommand = App.Path & "\restart.exe"
+    
+    If fFExists(thisCommand) Then
+        
+        ' run the selected program
+        Call ShellExecute(panzerPrefs.hwnd, "open", thisCommand, "PzJustClock.exe", "", 1)
+        
+    Else
+        answer = MsgBox(thisCommand & " is missing", vbOKOnly + vbExclamation)
+    End If
+
+   On Error GoTo 0
+   Exit Sub
+
+restart_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure restart of Module Module1"
+
+End Sub
+

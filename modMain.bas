@@ -65,6 +65,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     fAlpha.FY = 111
     fAlpha.FZ = 0.4
     
+    extractCommand = Command$ ' capture any parameter passed
+    
     ' initialise global vars
     Call initialiseGlobalVars
     
@@ -528,7 +530,7 @@ Public Sub validateInputs()
         If PzGEnableTooltips = vbNullString Then PzGEnableTooltips = "1"
         If PzGEnableBalloonTooltips = vbNullString Then PzGEnableBalloonTooltips = "1"
         If PzGShowTaskbar = vbNullString Then PzGShowTaskbar = "0"
-        If PzGDpiAwareness = vbNullString Then PzGDpiAwareness = "true"
+        If PzGDpiAwareness = vbNullString Then PzGDpiAwareness = "1"
         If PzGGaugeSize = vbNullString Then PzGGaugeSize = "25"
         If PzGScrollWheelDirection = vbNullString Then PzGScrollWheelDirection = "1"
 

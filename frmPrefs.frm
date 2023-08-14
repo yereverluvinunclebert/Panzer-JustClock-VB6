@@ -14,315 +14,6 @@ Begin VB.Form panzerPrefs
    ScaleWidth      =   8955
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
-   Begin VB.Timer positionTimer 
-      Enabled         =   0   'False
-      Interval        =   10000
-      Left            =   1155
-      Top             =   9705
-   End
-   Begin VB.CheckBox chkEnableResizing 
-      Caption         =   "Enable Corner Resize"
-      Height          =   210
-      Left            =   3240
-      TabIndex        =   135
-      Top             =   10125
-      Visible         =   0   'False
-      Width           =   2250
-   End
-   Begin VB.Frame fraAboutButton 
-      BorderStyle     =   0  'None
-      Height          =   1140
-      Left            =   7695
-      TabIndex        =   102
-      Top             =   0
-      Width           =   975
-      Begin VB.Label lblAbout 
-         Caption         =   "About"
-         Height          =   240
-         Left            =   255
-         TabIndex        =   103
-         Top             =   855
-         Width           =   615
-      End
-      Begin VB.Image imgAbout 
-         Height          =   600
-         Left            =   160
-         Picture         =   "frmPrefs.frx":385D2
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
-      Begin VB.Image imgAboutClicked 
-         Height          =   600
-         Left            =   160
-         Picture         =   "frmPrefs.frx":38B5A
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
-   End
-   Begin VB.Frame fraConfigButton 
-      BorderStyle     =   0  'None
-      Height          =   1140
-      Left            =   1215
-      TabIndex        =   46
-      Top             =   -15
-      Width           =   930
-      Begin VB.Label lblConfig 
-         Caption         =   "Config."
-         Height          =   240
-         Index           =   0
-         Left            =   270
-         TabIndex        =   47
-         Top             =   855
-         Width           =   510
-      End
-      Begin VB.Image imgConfig 
-         Height          =   600
-         Left            =   165
-         Picture         =   "frmPrefs.frx":39045
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
-      Begin VB.Image imgConfigClicked 
-         Height          =   600
-         Left            =   165
-         Picture         =   "frmPrefs.frx":39624
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
-   End
-   Begin VB.Frame fraDevelopmentButton 
-      BorderStyle     =   0  'None
-      Height          =   1140
-      Left            =   5490
-      TabIndex        =   44
-      Top             =   0
-      Width           =   1065
-      Begin VB.Label lblDevelopment 
-         Caption         =   "Development"
-         Height          =   240
-         Left            =   45
-         TabIndex        =   45
-         Top             =   855
-         Width           =   960
-      End
-      Begin VB.Image imgDevelopment 
-         Height          =   600
-         Left            =   150
-         Picture         =   "frmPrefs.frx":39B29
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
-      Begin VB.Image imgDevelopmentClicked 
-         Height          =   600
-         Left            =   160
-         Picture         =   "frmPrefs.frx":3A0E1
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
-   End
-   Begin VB.Frame fraPositionButton 
-      BorderStyle     =   0  'None
-      Height          =   1140
-      Left            =   4410
-      TabIndex        =   42
-      Top             =   0
-      Width           =   930
-      Begin VB.Label lblPosition 
-         Caption         =   "Position"
-         Height          =   240
-         Index           =   0
-         Left            =   180
-         TabIndex        =   43
-         Top             =   855
-         Width           =   615
-      End
-      Begin VB.Image imgPosition 
-         Height          =   600
-         Left            =   160
-         Picture         =   "frmPrefs.frx":3A467
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
-      Begin VB.Image imgPositionClicked 
-         Height          =   600
-         Left            =   160
-         Picture         =   "frmPrefs.frx":3AA38
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
-   End
-   Begin VB.CommandButton btnSave 
-      Caption         =   "&Save"
-      Enabled         =   0   'False
-      Height          =   360
-      Left            =   6060
-      Style           =   1  'Graphical
-      TabIndex        =   6
-      ToolTipText     =   "Save the changes you have made to the preferences"
-      Top             =   10020
-      Width           =   1320
-   End
-   Begin VB.CommandButton btnHelp 
-      Caption         =   "Help"
-      Height          =   360
-      Left            =   120
-      Style           =   1  'Graphical
-      TabIndex        =   38
-      ToolTipText     =   "Open the help utility"
-      Top             =   10035
-      Width           =   1320
-   End
-   Begin VB.Frame fraSoundsButton 
-      BorderStyle     =   0  'None
-      Height          =   1140
-      Left            =   3315
-      TabIndex        =   11
-      Top             =   -15
-      Width           =   930
-      Begin VB.Label lblSounds 
-         Caption         =   "Sounds"
-         Height          =   240
-         Left            =   210
-         TabIndex        =   12
-         Top             =   870
-         Width           =   615
-      End
-      Begin VB.Image imgSounds 
-         Height          =   600
-         Left            =   160
-         Picture         =   "frmPrefs.frx":3ADD6
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
-      Begin VB.Image imgSoundsClicked 
-         Height          =   600
-         Left            =   160
-         Picture         =   "frmPrefs.frx":3B395
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
-   End
-   Begin VB.Timer themeTimer 
-      Enabled         =   0   'False
-      Interval        =   10000
-      Left            =   660
-      Top             =   9705
-   End
-   Begin VB.CommandButton btnCancel 
-      Caption         =   "&Close"
-      Height          =   360
-      Left            =   7440
-      Style           =   1  'Graphical
-      TabIndex        =   7
-      ToolTipText     =   "Close the utility"
-      Top             =   10020
-      Width           =   1320
-   End
-   Begin VB.Frame fraWindowButton 
-      BorderStyle     =   0  'None
-      Height          =   1140
-      Left            =   6615
-      TabIndex        =   4
-      Top             =   0
-      Width           =   975
-      Begin VB.Label lblWindow 
-         Caption         =   "Window"
-         Height          =   240
-         Left            =   180
-         TabIndex        =   5
-         Top             =   855
-         Width           =   615
-      End
-      Begin VB.Image imgWindow 
-         Height          =   600
-         Left            =   160
-         Picture         =   "frmPrefs.frx":3B865
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
-      Begin VB.Image imgWindowClicked 
-         Height          =   600
-         Left            =   160
-         Picture         =   "frmPrefs.frx":3BD2F
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
-   End
-   Begin VB.Frame fraFontsButton 
-      BorderStyle     =   0  'None
-      Height          =   1140
-      Left            =   2280
-      TabIndex        =   2
-      Top             =   0
-      Width           =   930
-      Begin VB.Label lblFonts 
-         Caption         =   "Fonts"
-         Height          =   240
-         Left            =   270
-         TabIndex        =   3
-         Top             =   855
-         Width           =   510
-      End
-      Begin VB.Image imgFonts 
-         Height          =   600
-         Left            =   180
-         Picture         =   "frmPrefs.frx":3C0DB
-         Stretch         =   -1  'True
-         Top             =   195
-         Width           =   600
-      End
-      Begin VB.Image imgFontsClicked 
-         Height          =   600
-         Left            =   180
-         Picture         =   "frmPrefs.frx":3C631
-         Stretch         =   -1  'True
-         Top             =   195
-         Width           =   600
-      End
-   End
-   Begin VB.Frame fraGeneralButton 
-      Height          =   1140
-      Left            =   240
-      TabIndex        =   0
-      Top             =   -15
-      Width           =   930
-      Begin VB.Image imgGeneral 
-         Height          =   600
-         Left            =   165
-         Picture         =   "frmPrefs.frx":3CACA
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
-      Begin VB.Label lblGeneral 
-         Caption         =   "General"
-         Height          =   240
-         Index           =   0
-         Left            =   195
-         TabIndex        =   1
-         Top             =   855
-         Width           =   705
-      End
-      Begin VB.Image imgGeneralClicked 
-         Height          =   600
-         Left            =   165
-         Stretch         =   -1  'True
-         Top             =   240
-         Width           =   600
-      End
-   End
    Begin VB.Frame fraConfig 
       Caption         =   "Configuration"
       Height          =   5880
@@ -414,7 +105,7 @@ Begin VB.Form panzerPrefs
             SelStart        =   20
          End
          Begin VB.Label lblConfiguration 
-            Caption         =   $"frmPrefs.frx":3CF34
+            Caption         =   $"frmPrefs.frx":385D2
             Height          =   660
             Index           =   0
             Left            =   1980
@@ -516,149 +207,6 @@ Begin VB.Form panzerPrefs
          End
       End
    End
-   Begin VB.Frame fraGeneral 
-      Caption         =   "General"
-      Height          =   5700
-      Left            =   75
-      TabIndex        =   52
-      Top             =   1200
-      Visible         =   0   'False
-      Width           =   7500
-      Begin VB.Frame fraGeneralInner 
-         BorderStyle     =   0  'None
-         Height          =   5085
-         Left            =   465
-         TabIndex        =   53
-         Top             =   300
-         Width           =   6600
-         Begin VB.TextBox txtBias 
-            Height          =   315
-            Left            =   4875
-            Locked          =   -1  'True
-            TabIndex        =   155
-            Text            =   "0"
-            Top             =   3660
-            Width           =   720
-         End
-         Begin VB.ListBox lstTimezoneRegions 
-            Height          =   840
-            Left            =   2010
-            TabIndex        =   154
-            Top             =   3645
-            Width           =   2640
-         End
-         Begin VB.ComboBox cmbMainDaylightSaving 
-            Height          =   315
-            Left            =   2025
-            Style           =   2  'Dropdown List
-            TabIndex        =   148
-            Top             =   2325
-            Width           =   3720
-         End
-         Begin VB.ComboBox cmbMainGaugeTimeZone 
-            Height          =   315
-            ItemData        =   "frmPrefs.frx":3CFD9
-            Left            =   2010
-            List            =   "frmPrefs.frx":3CFDB
-            Style           =   2  'Dropdown List
-            TabIndex        =   145
-            Top             =   1185
-            Width           =   3720
-         End
-         Begin VB.CheckBox chkGenStartup 
-            Caption         =   "Run the JustClock Widget at Windows Startup *"
-            Height          =   465
-            Left            =   2010
-            TabIndex        =   95
-            ToolTipText     =   "Check this box to enable the automatic start of the program when Windows is started."
-            Top             =   4560
-            Width           =   4020
-         End
-         Begin VB.CheckBox chkGaugeFunctions 
-            Caption         =   "Ticking toggle *"
-            Height          =   225
-            Left            =   1995
-            TabIndex        =   54
-            ToolTipText     =   "When checked this box enables the spinning earth functionality. That's it!"
-            Top             =   180
-            Width           =   3405
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Bias (mins)"
-            Height          =   345
-            Index           =   1
-            Left            =   4875
-            TabIndex        =   156
-            Top             =   4035
-            Width           =   1740
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Daylight Saving :"
-            Height          =   345
-            Index           =   8
-            Left            =   750
-            TabIndex        =   150
-            Top             =   2400
-            Width           =   1740
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   $"frmPrefs.frx":3CFDD
-            Height          =   660
-            Index           =   7
-            Left            =   2010
-            TabIndex        =   149
-            Top             =   2850
-            Width           =   3810
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Main Gauge Time Zone :"
-            Height          =   480
-            Index           =   5
-            Left            =   105
-            TabIndex        =   147
-            Top             =   1245
-            Width           =   1890
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Choose the timezone for the main clock. Defaults to the system time."
-            Height          =   660
-            Index           =   4
-            Left            =   2025
-            TabIndex        =   146
-            Top             =   1695
-            Width           =   3810
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Gauge Functions :"
-            Height          =   315
-            Index           =   6
-            Left            =   510
-            TabIndex        =   97
-            Top             =   165
-            Width           =   1320
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Auto Start :"
-            Height          =   375
-            Index           =   11
-            Left            =   1140
-            TabIndex        =   96
-            Tag             =   "lblRefreshInterval"
-            Top             =   4680
-            Width           =   1740
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "When checked this box enables the clock hands - That's it! *"
-            Height          =   660
-            Index           =   2
-            Left            =   2025
-            TabIndex        =   55
-            Tag             =   "lblEnableSoundsDesc"
-            Top             =   540
-            Width           =   3615
-         End
-      End
-   End
    Begin VB.Frame fraWindow 
       Caption         =   "Window"
       Height          =   6300
@@ -706,7 +254,7 @@ Begin VB.Form panzerPrefs
                Width           =   720
             End
             Begin VB.Label lblWindowLevel 
-               Caption         =   $"frmPrefs.frx":3D074
+               Caption         =   $"frmPrefs.frx":38677
                Height          =   975
                Index           =   1
                Left            =   855
@@ -818,6 +366,458 @@ Begin VB.Form panzerPrefs
             TabIndex        =   18
             Top             =   1890
             Width           =   3810
+         End
+      End
+   End
+   Begin VB.Timer positionTimer 
+      Enabled         =   0   'False
+      Interval        =   10000
+      Left            =   1155
+      Top             =   9705
+   End
+   Begin VB.CheckBox chkEnableResizing 
+      Caption         =   "Enable Corner Resize"
+      Height          =   210
+      Left            =   3240
+      TabIndex        =   135
+      Top             =   10125
+      Visible         =   0   'False
+      Width           =   2250
+   End
+   Begin VB.Frame fraAboutButton 
+      BorderStyle     =   0  'None
+      Height          =   1140
+      Left            =   7695
+      TabIndex        =   102
+      Top             =   0
+      Width           =   975
+      Begin VB.Label lblAbout 
+         Caption         =   "About"
+         Height          =   240
+         Left            =   255
+         TabIndex        =   103
+         Top             =   855
+         Width           =   615
+      End
+      Begin VB.Image imgAbout 
+         Height          =   600
+         Left            =   160
+         Picture         =   "frmPrefs.frx":3871A
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+      Begin VB.Image imgAboutClicked 
+         Height          =   600
+         Left            =   160
+         Picture         =   "frmPrefs.frx":38CA2
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+   End
+   Begin VB.Frame fraConfigButton 
+      BorderStyle     =   0  'None
+      Height          =   1140
+      Left            =   1215
+      TabIndex        =   46
+      Top             =   -15
+      Width           =   930
+      Begin VB.Label lblConfig 
+         Caption         =   "Config."
+         Height          =   240
+         Index           =   0
+         Left            =   270
+         TabIndex        =   47
+         Top             =   855
+         Width           =   510
+      End
+      Begin VB.Image imgConfig 
+         Height          =   600
+         Left            =   165
+         Picture         =   "frmPrefs.frx":3918D
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+      Begin VB.Image imgConfigClicked 
+         Height          =   600
+         Left            =   165
+         Picture         =   "frmPrefs.frx":3976C
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+   End
+   Begin VB.Frame fraDevelopmentButton 
+      BorderStyle     =   0  'None
+      Height          =   1140
+      Left            =   5490
+      TabIndex        =   44
+      Top             =   0
+      Width           =   1065
+      Begin VB.Label lblDevelopment 
+         Caption         =   "Development"
+         Height          =   240
+         Left            =   45
+         TabIndex        =   45
+         Top             =   855
+         Width           =   960
+      End
+      Begin VB.Image imgDevelopment 
+         Height          =   600
+         Left            =   150
+         Picture         =   "frmPrefs.frx":39C71
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+      Begin VB.Image imgDevelopmentClicked 
+         Height          =   600
+         Left            =   160
+         Picture         =   "frmPrefs.frx":3A229
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+   End
+   Begin VB.Frame fraPositionButton 
+      BorderStyle     =   0  'None
+      Height          =   1140
+      Left            =   4410
+      TabIndex        =   42
+      Top             =   0
+      Width           =   930
+      Begin VB.Label lblPosition 
+         Caption         =   "Position"
+         Height          =   240
+         Index           =   0
+         Left            =   180
+         TabIndex        =   43
+         Top             =   855
+         Width           =   615
+      End
+      Begin VB.Image imgPosition 
+         Height          =   600
+         Left            =   160
+         Picture         =   "frmPrefs.frx":3A5AF
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+      Begin VB.Image imgPositionClicked 
+         Height          =   600
+         Left            =   160
+         Picture         =   "frmPrefs.frx":3AB80
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+   End
+   Begin VB.CommandButton btnSave 
+      Caption         =   "&Save"
+      Enabled         =   0   'False
+      Height          =   360
+      Left            =   6060
+      Style           =   1  'Graphical
+      TabIndex        =   6
+      ToolTipText     =   "Save the changes you have made to the preferences"
+      Top             =   10020
+      Width           =   1320
+   End
+   Begin VB.CommandButton btnHelp 
+      Caption         =   "Help"
+      Height          =   360
+      Left            =   120
+      Style           =   1  'Graphical
+      TabIndex        =   38
+      ToolTipText     =   "Open the help utility"
+      Top             =   10035
+      Width           =   1320
+   End
+   Begin VB.Frame fraSoundsButton 
+      BorderStyle     =   0  'None
+      Height          =   1140
+      Left            =   3315
+      TabIndex        =   11
+      Top             =   -15
+      Width           =   930
+      Begin VB.Label lblSounds 
+         Caption         =   "Sounds"
+         Height          =   240
+         Left            =   210
+         TabIndex        =   12
+         Top             =   870
+         Width           =   615
+      End
+      Begin VB.Image imgSounds 
+         Height          =   600
+         Left            =   160
+         Picture         =   "frmPrefs.frx":3AF1E
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+      Begin VB.Image imgSoundsClicked 
+         Height          =   600
+         Left            =   160
+         Picture         =   "frmPrefs.frx":3B4DD
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+   End
+   Begin VB.Timer themeTimer 
+      Enabled         =   0   'False
+      Interval        =   10000
+      Left            =   660
+      Top             =   9705
+   End
+   Begin VB.CommandButton btnCancel 
+      Caption         =   "&Close"
+      Height          =   360
+      Left            =   7440
+      Style           =   1  'Graphical
+      TabIndex        =   7
+      ToolTipText     =   "Close the utility"
+      Top             =   10020
+      Width           =   1320
+   End
+   Begin VB.Frame fraWindowButton 
+      BorderStyle     =   0  'None
+      Height          =   1140
+      Left            =   6615
+      TabIndex        =   4
+      Top             =   0
+      Width           =   975
+      Begin VB.Label lblWindow 
+         Caption         =   "Window"
+         Height          =   240
+         Left            =   180
+         TabIndex        =   5
+         Top             =   855
+         Width           =   615
+      End
+      Begin VB.Image imgWindow 
+         Height          =   600
+         Left            =   160
+         Picture         =   "frmPrefs.frx":3B9AD
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+      Begin VB.Image imgWindowClicked 
+         Height          =   600
+         Left            =   160
+         Picture         =   "frmPrefs.frx":3BE77
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+   End
+   Begin VB.Frame fraFontsButton 
+      BorderStyle     =   0  'None
+      Height          =   1140
+      Left            =   2280
+      TabIndex        =   2
+      Top             =   0
+      Width           =   930
+      Begin VB.Label lblFonts 
+         Caption         =   "Fonts"
+         Height          =   240
+         Left            =   270
+         TabIndex        =   3
+         Top             =   855
+         Width           =   510
+      End
+      Begin VB.Image imgFonts 
+         Height          =   600
+         Left            =   180
+         Picture         =   "frmPrefs.frx":3C223
+         Stretch         =   -1  'True
+         Top             =   195
+         Width           =   600
+      End
+      Begin VB.Image imgFontsClicked 
+         Height          =   600
+         Left            =   180
+         Picture         =   "frmPrefs.frx":3C779
+         Stretch         =   -1  'True
+         Top             =   195
+         Width           =   600
+      End
+   End
+   Begin VB.Frame fraGeneralButton 
+      Height          =   1140
+      Left            =   240
+      TabIndex        =   0
+      Top             =   -15
+      Width           =   930
+      Begin VB.Image imgGeneral 
+         Height          =   600
+         Left            =   165
+         Picture         =   "frmPrefs.frx":3CC12
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+      Begin VB.Label lblGeneral 
+         Caption         =   "General"
+         Height          =   240
+         Index           =   0
+         Left            =   195
+         TabIndex        =   1
+         Top             =   855
+         Width           =   705
+      End
+      Begin VB.Image imgGeneralClicked 
+         Height          =   600
+         Left            =   165
+         Stretch         =   -1  'True
+         Top             =   240
+         Width           =   600
+      End
+   End
+   Begin VB.Frame fraGeneral 
+      Caption         =   "General"
+      Height          =   5700
+      Left            =   75
+      TabIndex        =   52
+      Top             =   1200
+      Visible         =   0   'False
+      Width           =   7500
+      Begin VB.Frame fraGeneralInner 
+         BorderStyle     =   0  'None
+         Height          =   5085
+         Left            =   465
+         TabIndex        =   53
+         Top             =   300
+         Width           =   6600
+         Begin VB.TextBox txtBias 
+            Height          =   315
+            Left            =   4875
+            Locked          =   -1  'True
+            TabIndex        =   155
+            Text            =   "0"
+            Top             =   3660
+            Width           =   720
+         End
+         Begin VB.ListBox lstTimezoneRegions 
+            Height          =   840
+            Left            =   2010
+            TabIndex        =   154
+            Top             =   3645
+            Width           =   2640
+         End
+         Begin VB.ComboBox cmbMainDaylightSaving 
+            Height          =   315
+            Left            =   2025
+            Style           =   2  'Dropdown List
+            TabIndex        =   148
+            Top             =   2325
+            Width           =   3720
+         End
+         Begin VB.ComboBox cmbMainGaugeTimeZone 
+            Height          =   315
+            ItemData        =   "frmPrefs.frx":3D07C
+            Left            =   2010
+            List            =   "frmPrefs.frx":3D07E
+            Style           =   2  'Dropdown List
+            TabIndex        =   145
+            Top             =   1185
+            Width           =   3720
+         End
+         Begin VB.CheckBox chkGenStartup 
+            Caption         =   "Run the JustClock Widget at Windows Startup *"
+            Height          =   465
+            Left            =   2010
+            TabIndex        =   95
+            ToolTipText     =   "Check this box to enable the automatic start of the program when Windows is started."
+            Top             =   4560
+            Width           =   4020
+         End
+         Begin VB.CheckBox chkGaugeFunctions 
+            Caption         =   "Ticking toggle *"
+            Height          =   225
+            Left            =   1995
+            TabIndex        =   54
+            ToolTipText     =   "When checked this box enables the spinning earth functionality. That's it!"
+            Top             =   180
+            Width           =   3405
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Bias (mins)"
+            Height          =   345
+            Index           =   1
+            Left            =   4875
+            TabIndex        =   156
+            Top             =   4035
+            Width           =   1740
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Daylight Saving :"
+            Height          =   345
+            Index           =   8
+            Left            =   750
+            TabIndex        =   150
+            Top             =   2400
+            Width           =   1740
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   $"frmPrefs.frx":3D080
+            Height          =   660
+            Index           =   7
+            Left            =   2010
+            TabIndex        =   149
+            Top             =   2850
+            Width           =   3810
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Main Gauge Time Zone :"
+            Height          =   480
+            Index           =   5
+            Left            =   105
+            TabIndex        =   147
+            Top             =   1245
+            Width           =   1890
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Choose the timezone for the main clock. Defaults to the system time."
+            Height          =   660
+            Index           =   4
+            Left            =   2025
+            TabIndex        =   146
+            Top             =   1695
+            Width           =   3810
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Gauge Functions :"
+            Height          =   315
+            Index           =   6
+            Left            =   510
+            TabIndex        =   97
+            Top             =   165
+            Width           =   1320
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Auto Start :"
+            Height          =   375
+            Index           =   11
+            Left            =   1140
+            TabIndex        =   96
+            Tag             =   "lblRefreshInterval"
+            Top             =   4680
+            Width           =   1740
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "When checked this box enables the clock hands - That's it! *"
+            Height          =   660
+            Index           =   2
+            Left            =   2025
+            TabIndex        =   55
+            Tag             =   "lblEnableSoundsDesc"
+            Top             =   540
+            Width           =   3615
          End
       End
    End
@@ -1960,6 +1960,47 @@ Private topIconWidth As Long
 
 
 '---------------------------------------------------------------------------------------
+' Procedure : chkDpiAwareness_Click
+' Author    : beededea
+' Date      : 14/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Sub chkDpiAwareness_Click()
+    Dim answer As VbMsgBoxResult: answer = vbNo
+
+    On Error GoTo chkDpiAwareness_Click_Error
+
+    btnSave.Enabled = True ' enable the save button
+        
+    If chkDpiAwareness.Value = 1 Then
+        PzGDpiAwareness = "1"
+    Else
+        PzGDpiAwareness = "0"
+    End If
+    
+    sPutINISetting "Software\PzJustClock", "dpiAwareness", PzGDpiAwareness, PzGSettingsFile
+            
+    If startupFlg = False Then
+        answer = MsgBox("You must close this widget and restart it, in order to change the widget's DPI awareness (a simple reload just won't cut it), do you want me to close and restart this widget? I can do it now for you.", vbYesNo)
+        If answer = vbNo Then
+            Exit Sub
+        Else
+            Call restart
+        End If
+    End If
+
+   On Error GoTo 0
+   Exit Sub
+
+chkDpiAwareness_Click_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure chkDpiAwareness_Click of Form panzerPrefs"
+End Sub
+
+
+
+'---------------------------------------------------------------------------------------
 ' Procedure : chkShowTaskbar_Click
 ' Author    : beededea
 ' Date      : 19/07/2023
@@ -1976,8 +2017,6 @@ Private Sub chkShowTaskbar_Click()
     Else
         PzGShowTaskbar = "0"
     End If
-    
-    ' do you want to restart?
 
    On Error GoTo 0
    Exit Sub
@@ -3102,7 +3141,6 @@ Private Sub adjustPrefsControls()
         End If
     End If
     
-    
     'cmbWidgetLandscape
     cmbWidgetLandscape.ListIndex = Val(PzGWidgetLandscape)
     cmbWidgetPortrait.ListIndex = Val(PzGWidgetPortrait)
@@ -3137,7 +3175,6 @@ End Sub
 '---------------------------------------------------------------------------------------
 
 Private Sub populatePrefsComboBoxes()
-
 
     On Error GoTo populatePrefsComboBoxes_Error
 
@@ -3363,78 +3400,78 @@ Form_Unload_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Form_Unload of Form panzerPrefs"
 End Sub
-Private Sub Form_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     fraScrollbarCover.Visible = True
     
     'Call writePrefsPosition
 End Sub
-Private Sub fraAbout_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraAbout_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
 End Sub
-Private Sub fraAbout_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraAbout_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     fraScrollbarCover.Visible = True
     If PzGEnableTooltips = "1" Then CreateToolTip fraAbout.hwnd, "The About tab tells you all about this program and its creation using VB6.", _
                   TTIconInfo, "Help on the About Tab", , , , True
 End Sub
-Private Sub fraConfigInner_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraConfigInner_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
 End Sub
-Private Sub fraConfigInner_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraConfigInner_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     If PzGEnableTooltips = "1" Then CreateToolTip fraConfigInner.hwnd, "The configuration panel is the location for optional configuration items. These items change how Pz Earth operates, configure them to suit your needs and your mode of operation.", _
                   TTIconInfo, "Help on Configuration", , , , True
 
 End Sub
-Private Sub fraConfig_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraConfig_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
 End Sub
-Private Sub fraConfig_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraConfig_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     If PzGEnableTooltips = "1" Then CreateToolTip fraConfig.hwnd, "The configuration panel is the location for optional configuration items. These items change how Pz Earth operates, configure them to suit your needs and your mode of operation.", _
                   TTIconInfo, "Help on Configuration", , , , True
 
 End Sub
 
-Private Sub fraDefaultEditor_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraDefaultEditor_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     lblGitHub.ForeColor = &H80000012
 End Sub
 
-Private Sub fraDevelopment_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraDevelopment_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
 End Sub
-Private Sub fraDevelopment_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraDevelopment_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     If PzGEnableBalloonTooltips = "1" Then CreateToolTip fraDevelopment.hwnd, "This tab contains elements that will assist in debugging and developing this program further. ", _
                   TTIconInfo, "Help on the Development Tab", , , , True
 End Sub
 
 
-Private Sub fraDevelopmentInner_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraDevelopmentInner_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
 End Sub
-Private Sub fraDevelopmentInner_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraDevelopmentInner_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     If PzGEnableBalloonTooltips = "1" Then CreateToolTip fraDevelopmentInner.hwnd, "This tab contains elements that will assist in debugging and developing this program further. ", _
                   TTIconInfo, "Help on the Development Tab", , , , True
 
 End Sub
-Private Sub fraFonts_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraFonts_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     If PzGEnableBalloonTooltips = "1" Then CreateToolTip fraFonts.hwnd, "This tab allows you to set a specific font for the preferences only as there are no textual elements in the main program. We suggest Centurion Light SF at 8pt, which you will find bundled in the PzG program folder. Choose a small 8pt font for each.", _
                   TTIconInfo, "Help on Setting the Fonts", , , , True
 
 End Sub
-Private Sub fraFontsInner_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraFontsInner_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
 End Sub
-Private Sub fraFontsInner_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraFontsInner_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     If PzGEnableBalloonTooltips = "1" Then CreateToolTip fraFontsInner.hwnd, "This tab allows you to set a specific font for the preferences only as there are no textual elements in the main program. We suggest Centurion Light SF at 8pt, which you will find bundled in the PzG program folder. Choose a small 8pt font for each.", _
                   TTIconInfo, "Help on Setting the Fonts", , , , True
 End Sub
@@ -3443,78 +3480,78 @@ End Sub
 '        Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
 '    End If
 'End Sub
-Private Sub fraGeneral_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraGeneral_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
 End Sub
-Private Sub fraGeneral_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraGeneral_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     If PzGEnableBalloonTooltips = "1" Then CreateToolTip fraGeneral.hwnd, "The General Panel contains the most important user-configurable items required for the program to operate correctly.", _
                   TTIconInfo, "Help on Essential Configuration", , , , True
 End Sub
 
-Private Sub fraGeneralInner_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraGeneralInner_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
 End Sub
-Private Sub fraGeneralInner_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraGeneralInner_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     If PzGEnableBalloonTooltips = "1" Then CreateToolTip fraGeneralInner.hwnd, "The General Panel contains the most important user-configurable items required for the program to operate correctly.", _
                   TTIconInfo, "Help on Essential Configuration", , , , True
 End Sub
 
-Private Sub fraPosition_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraPosition_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
      If PzGEnableTooltips = "1" Then CreateToolTip fraPosition.hwnd, "This tab allows you to determine the X and Y positioning of your widget in landscape and portrait screen modes. Best left well alone unless you use Windows on a tablet.", _
                   TTIconInfo, "Help on Tablet Positioning", , , , True
 End Sub
-Private Sub fraPositionInner_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraPositionInner_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
 End Sub
-Private Sub fraPositionInner_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraPositionInner_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     If PzGEnableBalloonTooltips = "1" Then CreateToolTip fraPositionInner.hwnd, "This tab allows you to determine the X and Y positioning of your widget in landscape and portrait screen modes. Best left well alone unless you use Windows on a tablet.", _
                   TTIconInfo, "Help on Tablet Positioning", , , , True
 End Sub
 
-Private Sub fraScrollbarCover_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraScrollbarCover_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     fraScrollbarCover.Visible = False
 
 End Sub
-Private Sub fraSounds_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraSounds_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
 End Sub
-Private Sub fraSounds_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraSounds_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
  If PzGEnableTooltips = "1" Then CreateToolTip fraSounds.hwnd, "The sound panel allows you to configure the sounds that occur within PzG. Some of the animations have associated sounds, you can control these here..", _
                   TTIconInfo, "Help on Configuring Sounds", , , , True
 End Sub
-Private Sub fraSoundsInner_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraSoundsInner_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
 End Sub
-Private Sub fraSoundsInner_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraSoundsInner_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
      If PzGEnableTooltips = "1" Then CreateToolTip fraSoundsInner.hwnd, "The sound panel allows you to configure the sounds that occur within PzG. Some of the animations have associated sounds, you can control these here..", _
                   TTIconInfo, "Help on Configuring Sounds", , , , True
 End Sub
 
-Private Sub fraWindow_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraWindow_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
 End Sub
-Private Sub fraWindow_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraWindow_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
      If PzGEnableTooltips = "1" Then CreateToolTip fraWindow.hwnd, "The Opacity and Window Level of the program are rather strange characteristics to change in a Windows program, however this widget is a copy of a Yahoo Widget of the same name. All widgets have similar window tab options including the capability to change the opacity and window level. Whether these options are useful to you or anyone is a moot point but as this tool aims to replicate the YWE version functionality it has been reproduced here. It is here as more of an experiment as to how to implement a feature, one carried over from the Yahoo Widget (javascript) version of this program.", _
                   TTIconInfo, "Help on YWE Quirk Mode Options", , , , True
 End Sub
-Private Sub fraWindowInner_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraWindowInner_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
 End Sub
-Private Sub fraWindowInner_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub fraWindowInner_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
      If PzGEnableTooltips = "1" Then CreateToolTip fraWindowInner.hwnd, "The Opacity and Window Level of the program are rather strange characteristics to change in a Windows program, however this widget is a copy of a Yahoo Widget of the same name. All widgets have similar window tab options including the capability to change the opacity and window level. Whether these options are useful to you or anyone is a moot point but as this tool aims to replicate the YWE version functionality it has been reproduced here. It is here as more of an experiment as to how to implement a feature, one carried over from the Yahoo Widget (javascript) version of this program.", _
                   TTIconInfo, "Help on YWE Quirk Mode Options", , , , True
 End Sub
@@ -3528,26 +3565,42 @@ Private Sub imgGeneral_Click()
     imgGeneralClicked.Visible = True
 End Sub
 
-Private Sub imgGeneral_MouseUp(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgGeneral_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     Call picButtonMouseUpEvent("general", imgGeneral, imgGeneralClicked, fraGeneral, fraGeneralButton) ' was imgGeneralMouseUpEvent
 End Sub
 
 
 
+'---------------------------------------------------------------------------------------
+' Procedure : lblGitHub_dblClick
+' Author    : beededea
+' Date      : 14/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Private Sub lblGitHub_dblClick()
     Dim answer As VbMsgBoxResult: answer = vbNo
     
+   On Error GoTo lblGitHub_dblClick_Error
+
     answer = MsgBox("This option opens a browser window and take you straight to Github. Proceed?", vbExclamation + vbYesNo)
     If answer = vbYes Then
        Call ShellExecute(Me.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6", vbNullString, App.Path, 1)
     End If
+
+   On Error GoTo 0
+   Exit Sub
+
+lblGitHub_dblClick_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure lblGitHub_dblClick of Form panzerPrefs"
 End Sub
 
-Private Sub lblGitHub_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub lblGitHub_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     lblGitHub.ForeColor = &H8000000D
 End Sub
 
-Private Sub txtAboutText_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub txtAboutText_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = vbRightButton Then
         txtAboutText.Enabled = False
         txtAboutText.Enabled = True
@@ -3555,77 +3608,77 @@ Private Sub txtAboutText_MouseDown(Button As Integer, shift As Integer, x As Sin
     End If
 End Sub
 
-Private Sub txtAboutText_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub txtAboutText_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     fraScrollbarCover.Visible = False
 End Sub
 
-Private Sub imgAbout_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgAbout_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     imgAbout.Visible = False
     imgAboutClicked.Visible = True
 End Sub
-Private Sub imgAbout_MouseUp(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgAbout_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     Call picButtonMouseUpEvent("about", imgAbout, imgAboutClicked, fraAbout, fraAboutButton)
 End Sub
 
-Private Sub imgDevelopment_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgDevelopment_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     imgDevelopment.Visible = False
     imgDevelopmentClicked.Visible = True
 End Sub
 
-Private Sub imgDevelopment_MouseUp(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgDevelopment_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     Call picButtonMouseUpEvent("development", imgDevelopment, imgDevelopmentClicked, fraDevelopment, fraDevelopmentButton)
 End Sub
 
-Private Sub imgFonts_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgFonts_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     imgFonts.Visible = False
     imgFontsClicked.Visible = True
 End Sub
 
-Private Sub imgFonts_MouseUp(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgFonts_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     Call picButtonMouseUpEvent("fonts", imgFonts, imgFontsClicked, fraFonts, fraFontsButton)
 End Sub
 
-Private Sub imgConfig_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgConfig_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     imgConfig.Visible = False
     imgConfigClicked.Visible = True
 End Sub
 
-Private Sub imgConfig_MouseUp(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgConfig_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     Call picButtonMouseUpEvent("config", imgConfig, imgConfigClicked, fraConfig, fraConfigButton) ' was imgConfigMouseUpEvent
 End Sub
 
-Private Sub imgGeneral_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgGeneral_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     imgGeneral.Visible = False
     imgGeneralClicked.Visible = True
 End Sub
 
 
-Private Sub imgPosition_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgPosition_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     imgPosition.Visible = False
     imgPositionClicked.Visible = True
 End Sub
 
-Private Sub imgPosition_MouseUp(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgPosition_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     Call picButtonMouseUpEvent("position", imgPosition, imgPositionClicked, fraPosition, fraPositionButton)
 End Sub
 
-Private Sub imgSounds_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgSounds_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     '
     imgSounds.Visible = False
     imgSoundsClicked.Visible = True
 End Sub
 
-Private Sub imgSounds_MouseUp(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgSounds_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     'Call imgSoundsMouseUpEvent
     Call picButtonMouseUpEvent("sounds", imgSounds, imgSoundsClicked, fraSounds, fraSoundsButton)
 End Sub
 
-Private Sub imgWindow_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgWindow_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     imgWindow.Visible = False
     imgWindowClicked.Visible = True
 End Sub
 
-Private Sub imgWindow_MouseUp(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub imgWindow_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     Call picButtonMouseUpEvent("window", imgWindow, imgWindowClicked, fraWindow, fraWindowButton)
 End Sub
 
@@ -3649,8 +3702,10 @@ End Sub
 
 Private Sub sliOpacity_Change()
     btnSave.Enabled = True ' enable the save button
-    'overlayWidget.opacity = sliOpacity.Value / 100
+
     PzGOpacity = LTrim$(Str$(sliOpacity.Value))
+    
+    ' cannot apply the opacity
 End Sub
 
 Private Sub sliOpacity_Click()
@@ -3658,12 +3713,28 @@ Private Sub sliOpacity_Click()
 End Sub
 
 
-Private Sub Form_MouseDown(ByRef Button As Integer, ByRef shift As Integer, ByRef x As Single, ByRef y As Single)
+'---------------------------------------------------------------------------------------
+' Procedure : Form_MouseDown
+' Author    : beededea
+' Date      : 14/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Sub Form_MouseDown(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef y As Single)
+   On Error GoTo Form_MouseDown_Error
+
     If Button = 2 Then
 
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
         
     End If
+
+   On Error GoTo 0
+   Exit Sub
+
+Form_MouseDown_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Form_MouseDown of Form panzerPrefs"
 End Sub
 
 'Private Sub fraEmail_MouseDown(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef y As Single)
@@ -3678,7 +3749,7 @@ End Sub
 '    End If
 'End Sub
 
-Private Sub fraFonts_MouseDown(ByRef Button As Integer, ByRef shift As Integer, ByRef x As Single, ByRef y As Single)
+Private Sub fraFonts_MouseDown(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef y As Single)
     If Button = 2 Then
         Me.PopupMenu prefsMnuPopmenu, vbPopupMenuRightButton
     End If
@@ -4727,7 +4798,7 @@ chkEnableResizing_Click_Error:
 
 End Sub
 
-Private Sub chkEnableResizing_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub chkEnableResizing_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     If PzGEnableTooltips = "1" Then CreateToolTip chkEnableResizing.hwnd, "This allows you to resize the whole prefs window by dragging the bottom right corner of the window. It provides an alternative method of supporting high DPI screens.", _
                   TTIconInfo, "Help on Resizing", , , , True
 End Sub
@@ -4871,7 +4942,7 @@ setIconImagesLight_Error:
 
 End Sub
 
-Private Sub txtPrefsFontCurrentSize_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub txtPrefsFontCurrentSize_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     If PzGEnableBalloonTooltips = "1" Then CreateToolTip txtPrefsFontCurrentSize.hwnd, "This is a read-only text box. It displays the current font as set when dynamic form resizing is enabled. Drag the right hand corner of the window downward and the form will auto-resize. This text box will display the resized font currently in operation for informational purposes only.", _
                   TTIconInfo, "Help on Setting the Font size Dynamically", , , , True
 End Sub
