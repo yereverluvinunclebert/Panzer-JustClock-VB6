@@ -1619,7 +1619,7 @@ Public Sub makeVisibleFormElements()
     fAlpha.gaugeForm.Left = Val(PzGMaximiseFormX)
     fAlpha.gaugeForm.Top = Val(PzGMaximiseFormY)
     
-    ' The RC forms are measured in pixels, do remember that...
+    ' The RC forms are measured in pixels, whereas the native forms are in twips, do remember that...
 
     fAlpha.gaugeForm.show
 

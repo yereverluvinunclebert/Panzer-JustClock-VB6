@@ -31,20 +31,17 @@
 ' prefs position not saving/restoring - done
 ' all changes backproted to other VB6 widgets - done
 ' hiding immediately from within the prefs - done
+' tooltips for the timezones and DST - done
+' credits updated - done
 
 ' try the balloon tooltips on one control
 ' opacity change after save, does not stick
 
     CHM
-
-    time zone code
-    daylight saving time  wip
-    
-    credits http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
-    Randy Birch
-
+    time zone code - wip
+    daylight saving time - wip
     system startup running
-    tooltip font stable size
+
 
 SomeParent.Widgets("TheWidgetKey").Widget.BackColor = vbBlue
 
@@ -62,5 +59,5 @@ W.Backcolor = vbBlue
 
 ' aboutForm is not fading back-in but instantly hiding in DPI aware mode, opacity is acting strangely on second fade in
 
-' tooltips also resize when the whole thing is resized, which is not necessarily a good idea for a UI.
+' tooltips also resize when the whole thing is resized, which is not necessarily a good idea for a UI. Awaiting some code from Olaf.
 

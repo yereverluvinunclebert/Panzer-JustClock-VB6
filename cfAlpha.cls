@@ -723,6 +723,9 @@ Public Sub AdjustZoom(ByVal NewZoom As Single)
   gaugeForm.WidgetRoot.Zoom = FZ '* gaugeForm.WidgetRoot.CurrentMonitor.Zoom '<-- if the multiplicator is activated, we'd have DPI-awareness on high-res monitors
   gaugeForm.Move gaugeForm.Left, gaugeForm.Top, PSDWidth * gaugeForm.WidgetRoot.Zoom, PSDHeight * gaugeForm.WidgetRoot.Zoom
 
+  ' when resized from the gauge scroll up/down it needs to write it back so the size is correct when prefs opened.
+  PzGGaugeSize = LTrim$(Str$(NewZoom * 100))
+    
    On Error GoTo 0
    Exit Sub
 

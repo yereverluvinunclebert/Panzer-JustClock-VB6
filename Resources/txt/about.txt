@@ -4,7 +4,7 @@ The Panzer Just Clock Widget is a utility displaying a clock in a dieselpunk fas
 
 This VB6 version of the Just Clock widget replaces the Yahoo widget version that is now obsolete.
 
-This widgets UI functionality is complex as I am using my complex template for this widget and widgets yet to come, it allows the user to interact with the graphical elements of the widget. 
+This widgets UI functionality is 'complex' as I am using my complex template for this widget and widgets yet to come, it allows the user to interact with the graphical elements of the widget.
 
 You can change the timezones with the preferences. It can also be increased in size, opacity/transparency may be set as to the users discretion. The widget can also be made to hide for a pre-determined period.
 
