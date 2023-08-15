@@ -29,10 +29,17 @@
 ' shift +dblclick  - tested
 ' new text base font and derived font - done
 ' prefs position not saving/restoring - done
-' all changes backproted to other VB6 widgets - done
+' all changes backported to other VB6 widgets - done
 ' hiding immediately from within the prefs - done
 ' tooltips for the timezones and DST - done
 ' credits updated - done
+
+' add hard restart after DPI awareness change - done
+' gauge mousewheel resize store position - done
+' tidy prefs form_load - done
+
+' second digits
+' date digits
 
 ' try the balloon tooltips on one control
 ' opacity change after save, does not stick
@@ -41,6 +48,8 @@
     time zone code - wip
     daylight saving time - wip
     system startup running
+
+' byval/ byref on recent additions
 
 
 SomeParent.Widgets("TheWidgetKey").Widget.BackColor = vbBlue

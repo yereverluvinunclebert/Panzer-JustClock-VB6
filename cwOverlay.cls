@@ -229,48 +229,68 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As Single, ByVal dx_Aligned As Single, ByVal dy_Aligned As Single, UserObj As Object)
-   Dim i As Long: i = 0
-   Dim Arr As Variant
-   Dim Key As String: Key = vbNullString
-   Dim Pat As cCairoPattern
-   
-   On Error GoTo W_Paint_Error
+    Dim i As Long: i = 0
+    Dim Arr As Variant
+    Dim Key As String: Key = vbNullString
+    Dim Pat As cCairoPattern
+    Dim txtDayNumber As String: txtDayNumber = vbNullString
+    Dim txtMonthNumber As String: txtMonthNumber = vbNullString
 
-   For i = 0 To cCollOverlayImages.Count - 1 ' this is the ExcludedPaths collection populated in cfAlpha by duplicating collPSDNonUIElements.
-     Arr = cCollOverlayImages.ItemByIndex(i)
-     Key = cCollOverlayImages.KeyByIndex(i)
-     
-     If IsArray(Arr) Then
-            CC.Save
-            'derive a Pattern-Obj from each retrieved ImageList-Surface-reference
-            Set Pat = Cairo.ImageList(Key).CreateSurfacePattern
-            
-            ' for specific keys perform rotation actions, clock hands &c
-            Select Case Key
-                Case "hourshadow", "hourhand" 'hours-shadow- and hour-hand
-                   Set Pat.Matrix = Pat.Matrix.TranslateCoords(19, 160) 'shift to the "rotation-point" within the Pattern
-                   CC.TranslateDrawings W.Width * cxPerc, W.Height * cyPerc 'shift to the center-point of the Overlay-Widget-area
-                   CC.RotateDrawingsDeg -7 + HDeg 'now we can rotate (the leading negative degrees are the rotation-offsets for 12 o'clock)
-                   
-                Case "minuteshadow", "minutehand" 'minutes-shadow- and minutes-hand
-                   Set Pat.Matrix = Pat.Matrix.TranslateCoords(44, 105) 'shift to the "rotation-point" within the Pattern
-                   CC.TranslateDrawings W.Width * cxPerc, W.Height * cyPerc 'shift to the center-point of the Overlay-Widget-area
-                   CC.RotateDrawingsDeg -61 + MDeg
-                   
-                Case "secondshadow", "secondhand" 'seconds-shadow- and seconds-hand
-                    Set Pat.Matrix = Pat.Matrix.TranslateCoords(60, 160) 'shift to the "rotation-point" within the Pattern
-                    CC.TranslateDrawings W.Width * cxPerc, W.Height * cyPerc 'shift to the center-point of the Overlay-Widget-area
-                    CC.RotateDrawingsDeg -50 + SDeg
+    Const cream = &HFFF5F5F5
+   
+    On Error GoTo W_Paint_Error
     
-                Case Else 'plain output for everything else ... this includes the reflection-layers,
-                    'Task: add the little arrow-hands which are not dynamically handled currently
-                    Set Pat.Matrix = Pat.Matrix.TranslateCoords(-Arr(0), -Arr(1)) 'here we only shift the Pattern via the original PSD-Offsets (stored in Arr(0) and Arr(1))
-            End Select
-            CC.Paint Arr(2), Pat 'finally we render the Pattern with the current PSD-LayerAlpha, present in Arr(2)
-            
-            CC.Restore
-     End If
-   Next
+    For i = 0 To cCollOverlayImages.Count - 1 ' this is the ExcludedPaths collection populated in cfAlpha by duplicating collPSDNonUIElements.
+      Arr = cCollOverlayImages.ItemByIndex(i)
+      Key = cCollOverlayImages.KeyByIndex(i)
+      
+      If IsArray(Arr) Then
+             CC.Save
+             'derive a Pattern-Obj from each retrieved ImageList-Surface-reference
+             Set Pat = Cairo.ImageList(Key).CreateSurfacePattern
+             
+             ' for specific keys perform rotation actions, clock hands &c
+             Select Case Key
+                 Case "hourshadow", "hourhand" 'hours-shadow- and hour-hand
+                    Set Pat.Matrix = Pat.Matrix.TranslateCoords(19, 160) 'shift to the "rotation-point" within the Pattern
+                    CC.TranslateDrawings W.Width * cxPerc, W.Height * cyPerc 'shift to the center-point of the Overlay-Widget-area
+                    CC.RotateDrawingsDeg -7 + HDeg 'now we can rotate (the leading negative degrees are the rotation-offsets for 12 o'clock)
+                    
+                 Case "minuteshadow", "minutehand" 'minutes-shadow- and minutes-hand
+                    Set Pat.Matrix = Pat.Matrix.TranslateCoords(44, 105) 'shift to the "rotation-point" within the Pattern
+                    CC.TranslateDrawings W.Width * cxPerc, W.Height * cyPerc 'shift to the center-point of the Overlay-Widget-area
+                    CC.RotateDrawingsDeg -61 + MDeg
+                    
+                 Case "secondshadow", "secondhand" 'seconds-shadow- and seconds-hand
+                     Set Pat.Matrix = Pat.Matrix.TranslateCoords(60, 160) 'shift to the "rotation-point" within the Pattern
+                     CC.TranslateDrawings W.Width * cxPerc, W.Height * cyPerc 'shift to the center-point of the Overlay-Widget-area
+                     CC.RotateDrawingsDeg -50 + SDeg
+     
+                 Case Else 'plain output for everything else ... this includes the reflection-layers,
+                     'Task: add the little arrow-hands which are not dynamically handled currently
+                     Set Pat.Matrix = Pat.Matrix.TranslateCoords(-Arr(0), -Arr(1)) 'here we only shift the Pattern via the original PSD-Offsets (stored in Arr(0) and Arr(1))
+             End Select
+             CC.Paint Arr(2), Pat 'finally we render the Pattern with the current PSD-LayerAlpha, present in Arr(2)
+             
+             CC.Restore
+      End If
+     Next
+      
+    'set some Font- and ForeColor-Properties and draw some Text on the Widget
+    'W.FontItalic = True
+     W.FontName = "arial"
+     W.ForeColor = cream
+     W.FontSize = 18
+     W.FontBold = True
+     W.SelectFontSettingsInto CC
+     W.Refresh
+     
+     txtDayNumber = Day(Now)
+     txtMonthNumber = Month(Now)
+    
+     CC.DrawText 260, 105, 200, 200, txtDayNumber, , , 2, True, , 0.75
+    
+     CC.DrawText 461, 309, 200, 200, txtMonthNumber, , , 2, True, , 0.75
 
    On Error GoTo 0
    Exit Sub
