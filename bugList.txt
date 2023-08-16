@@ -38,19 +38,22 @@
 ' gauge mousewheel resize store position - done
 ' tidy prefs form_load - done
 
-' second digits
-' date digits
+' day digits added and date logic given - done
+' month digits added and date logic given - done
+' opacity change after save, does not stick - restart - done
 
+' read the DST and timezones into the text fields in the prefs
 ' try the balloon tooltips on one control
-' opacity change after save, does not stick
 
-    CHM
-    time zone code - wip
-    daylight saving time - wip
-    system startup running
+' licence form create as a RC form using Olaf's converter
 
-' byval/ byref on recent additions
+CHM
+time zone code - wip
+daylight saving time - wip
+system startup running - wip
 
+' byval/ byref on recent code additions
+' date/day fields altered by DST and timezone changes
 
 SomeParent.Widgets("TheWidgetKey").Widget.BackColor = vbBlue
 

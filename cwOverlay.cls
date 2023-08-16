@@ -235,11 +235,25 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
     Dim Pat As cCairoPattern
     Dim txtDayNumber As String: txtDayNumber = vbNullString
     Dim txtMonthNumber As String: txtMonthNumber = vbNullString
-
+    Dim textDrawn As Boolean:   textDrawn = False
+    Dim thisOpacity As Double: thisOpacity = 0
+    
     Const cream = &HFFF5F5F5
    
     On Error GoTo W_Paint_Error
     
+    'set some Font- and ForeColor-Properties and draw some Text on the Widget
+    W.FontName = "arial"
+    W.ForeColor = cream
+    W.FontSize = 18
+    W.FontBold = True
+    W.SelectFontSettingsInto CC
+    W.Refresh
+    thisOpacity = (Val(PzGOpacity) / 100) * 0.75
+    
+    txtDayNumber = Day(Now)
+    txtMonthNumber = Month(Now)
+
     For i = 0 To cCollOverlayImages.Count - 1 ' this is the ExcludedPaths collection populated in cfAlpha by duplicating collPSDNonUIElements.
       Arr = cCollOverlayImages.ItemByIndex(i)
       Key = cCollOverlayImages.KeyByIndex(i)
@@ -248,10 +262,18 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
              CC.Save
              'derive a Pattern-Obj from each retrieved ImageList-Surface-reference
              Set Pat = Cairo.ImageList(Key).CreateSurfacePattern
-             
-             ' for specific keys perform rotation actions, clock hands &c
+            
+            ' for specific keys perform rotation actions, clock hands &c
              Select Case Key
                  Case "hourshadow", "hourhand" 'hours-shadow- and hour-hand
+                    
+                    ' draw the date and day in the windows just once to retain opacity
+                    If textDrawn = False Then ' has to be here to be underneath  all the hands and only run once
+                        CC.DrawText 260, 105, 200, 200, txtDayNumber, , , 2, True, , thisOpacity
+                        CC.DrawText 461, 309, 200, 200, txtMonthNumber, , , 2, True, , thisOpacity
+                        textDrawn = True
+                    End If
+                    
                     Set Pat.Matrix = Pat.Matrix.TranslateCoords(19, 160) 'shift to the "rotation-point" within the Pattern
                     CC.TranslateDrawings W.Width * cxPerc, W.Height * cyPerc 'shift to the center-point of the Overlay-Widget-area
                     CC.RotateDrawingsDeg -7 + HDeg 'now we can rotate (the leading negative degrees are the rotation-offsets for 12 o'clock)
@@ -275,22 +297,6 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
              CC.Restore
       End If
      Next
-      
-    'set some Font- and ForeColor-Properties and draw some Text on the Widget
-    'W.FontItalic = True
-     W.FontName = "arial"
-     W.ForeColor = cream
-     W.FontSize = 18
-     W.FontBold = True
-     W.SelectFontSettingsInto CC
-     W.Refresh
-     
-     txtDayNumber = Day(Now)
-     txtMonthNumber = Month(Now)
-    
-     CC.DrawText 260, 105, 200, 200, txtDayNumber, , , 2, True, , 0.75
-    
-     CC.DrawText 461, 309, 200, 200, txtMonthNumber, , , 2, True, , 0.75
 
    On Error GoTo 0
    Exit Sub

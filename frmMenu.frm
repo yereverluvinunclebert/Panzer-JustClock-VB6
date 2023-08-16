@@ -13,7 +13,7 @@ Begin VB.Form menuForm
    ScaleWidth      =   4290
    ShowInTaskbar   =   0   'False
    Visible         =   0   'False
-   Begin VB.Menu mnuMainMenu
+   Begin VB.Menu mnuMainMenu 
       Caption         =   "mainmenu"
       Begin VB.Menu mnuAbout 
          Caption         =   "About Panzer JustClock Cairo widget"
