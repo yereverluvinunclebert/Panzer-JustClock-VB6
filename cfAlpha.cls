@@ -54,7 +54,7 @@ End Sub
 '                cwOverlay class puts it on the screen
 '---------------------------------------------------------------------------------------
 '
-Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As String, Optional WidgetKeyForClose As String)
+Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional ByVal WidgetKeyForDragging As String, Optional ByVal WidgetKeyForClose As String)
     
     Const AlphaWithTaskbarEntry = 6
     Const AlphaNoTaskbarEntry = 7
@@ -73,134 +73,128 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional WidgetKeyForDragging As
         gaugeForm.WidgetRoot.BackColor = -1
  
     With New_c.SimplePSD(PSD_FileNameOrByteArray)  'create a new PSD-Parser.instance (and load the passed content)
-      PSDWidth = .Width
-      PSDHeight = .Height       'store the original Psd-Pixel-Width/Height in Private vars (as the base from which we calculate the zoomed Form-Width/Height)
-      DragWidgetKey = LCase$(WidgetKeyForDragging) 'store the passed WidgetKey (for the Widget, which allows Form-Dragging on MouseDown)
+        PSDWidth = .Width
+        PSDHeight = .Height       'store the original Psd-Pixel-Width/Height in Private vars (as the base from which we calculate the zoomed Form-Width/Height)
+        DragWidgetKey = LCase$(WidgetKeyForDragging) 'store the passed WidgetKey (for the Widget, which allows Form-Dragging on MouseDown)
     
-    For i = 0 To .LayersCount - 1 ' loop through each of the Layers in the PSD
-      If .LayerByteSize(i) Then  ' this is a true Alpha-Surface-Layer and not just a PSD layer 'group'
-        '.LayerSurface(i).WriteContentToPngFile pngFolder & Replace(.LayerPath(i), "/", "_") & ".png"
-        If .LayerAlphaPercent(i) > 0 Then ' only handles layers that have an opacity greater than 0 - need to note this for the future, this will cause a problem!
+        For i = 0 To .LayersCount - 1 ' loop through each of the Layers in the PSD
+            If .LayerByteSize(i) Then  ' this is a true Alpha-Surface-Layer and not just a PSD layer 'group'
+                '.LayerSurface(i).WriteContentToPngFile pngFolder & Replace(.LayerPath(i), "/", "_") & ".png"
+                If .LayerAlphaPercent(i) > 0 Then ' only handles layers that have an opacity greater than 0 - need to note this for the future, this will cause a problem!
+                    'add each current Layer path and surface object into the global ImageList collection (using LayerPath as the ImageKey)
+                    Cairo.ImageList.AddSurface .LayerPath(i), .LayerSurface(i)
+                    
+                    If collPSDNonUIElements.Exists(.LayerPath(i)) Then ' we do not create Widgets for those in this exclude list.
+                        
+                        'we add layer info. (used in cwOverlay) to the "excluded paths" previously defined in Sub Main,
+                        collPSDNonUIElements(.LayerPath(i)) = Array(.LayerX(i), .LayerY(i), Val(PzGOpacity) / 100)  'here we update the so far empty slots with the PSD-offsets
+                
+                    Else 'everything not in the exclude-list will get its own Widget-instance
+                       
+                        Set W = gaugeForm.Widgets.Add(New_W("cwAlphaImg"), LCase$(.LayerPath(i)), .LayerX(i), .LayerY(i), .LayerWidth(i), .LayerHeight(i)).Widget
+                           W.ImageKey = W.Key 'W.Key equals ImageList-Key, set above - and LayerPath(i) at this point ... set it also as the ImageKey of our new created Widget
+                            If PzGOpacity < 1 Then
+                                W.Alpha = Val(PzGOpacity) / 200 ' a bit of a bodge as the included/excluded layers do not 'seem' to handle alpha the same
+                            Else
+                                W.Alpha = 1
+                            End If
+                           
+                        ' Note: set the Hover colour close to the original layer to avoid too much intrusion, 0 being grey
+                        
+                        ' set the characteristics of the interactive areas
+                        Select Case LCase$(W.Key) 'demonstrates, how to influence certain Widget-Props specifically (depending on the current LayerPath-Key)
+                        ' set the characteristics of the indentified drag area
+                        Case DragWidgetKey 'the "special DragWidgetKey" we've passed from the outside into this init-routine
+                            W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+                            W.MousePointer = IDC_SIZEALL
+                            W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
+                            
+                        Case "housing/helpbutton" 'three Widget-Keys, picked for "special click-behaviour"
+                            W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+                            W.MousePointer = IDC_HAND
+                            If PzGEnableTooltips = "1" Then
+                                W.ToolTip = "Press for a little help."
+                            Else
+                                W.ToolTip = vbNullString
+                            End If
+                            
+                        Case "housing/startbutton"
+                            W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+                            W.MousePointer = IDC_HAND
+                            If PzGEnableTooltips = "1" Then
+                                W.ToolTip = "Press to restart (when stopped)"
+                            Else
+                                W.ToolTip = vbNullString
+                            End If
+                            
+                        Case "housing/stopbutton"
+                            W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+                            W.MousePointer = IDC_HAND
+                           If PzGEnableTooltips = "1" Then
+                                W.ToolTip = "Press to stop clock operation."
+                            Else
+                                W.ToolTip = vbNullString
+                            End If
             
-            'add each current Layer path and surface object into the global ImageList collection (using LayerPath as the ImageKey)
-            Cairo.ImageList.AddSurface .LayerPath(i), .LayerSurface(i)
+                        Case "housing/switchfacesbutton"
+                            If PzGEnableTooltips = "1" Then
+                                W.ToolTip = "Press to do nothing at all."
+                            Else
+                                W.ToolTip = vbNullString
+                            End If
+                            W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+                            W.MousePointer = IDC_HAND
+                            
+                        Case "housing/lockbutton"
             
-            If collPSDNonUIElements.Exists(.LayerPath(i)) Then ' we do not create Widgets for those in this exclude list.
-                
-                'we add layer info. (used in cwOverlay) to the "excluded paths" previously defined in Sub Main,
-                collPSDNonUIElements(.LayerPath(i)) = Array(.LayerX(i), .LayerY(i), Val(PzGOpacity) / 100)  'here we update the so far empty slots with the PSD-offsets
-                
-            Else 'everything not in the exclude-list will get its own Widget-instance
-               
-                Set W = gaugeForm.Widgets.Add(New_W("cwAlphaImg"), LCase$(.LayerPath(i)), .LayerX(i), .LayerY(i), .LayerWidth(i), .LayerHeight(i)).Widget
-                   W.ImageKey = W.Key 'W.Key equals ImageList-Key, set above - and LayerPath(i) at this point ... set it also as the ImageKey of our new created Widget
-                    If PzGOpacity < 1 Then
-                        W.Alpha = Val(PzGOpacity) / 200 ' a bit of a bodge as the included/excluded layers do not 'seem' to handle alpha the same
-                    Else
-                        W.Alpha = 1
+                            W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+                            W.MousePointer = IDC_HAND
+                            If PzGEnableTooltips = "1" Then
+                                W.ToolTip = "Press to lock the widget in place"
+                            Else
+                                W.ToolTip = vbNullString
+                            End If
+                            
+                        Case "housing/prefsbutton"
+                            W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+            
+                            W.MousePointer = IDC_HAND
+                            If PzGEnableTooltips = "1" Then
+                                W.ToolTip = "Press to open the widget preferences"
+                            Else
+                                W.ToolTip = vbNullString
+                            End If
+                            
+                        Case "housing/tickbutton"
+                            W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+                            W.MousePointer = IDC_HAND
+                            If PzGEnableTooltips = "1" Then
+                                W.ToolTip = "Choose smooth movement or regular ticks"
+                            Else
+                                W.ToolTip = vbNullString
+                            End If
+            '                Case "clockface"
+            '                    'W.Alpha = 1
+            '                    W.HoverColor = -1 ' set the hover colour to none - ' task: might change this later when new ver or RC6 arrives
+            '                    W.MousePointer = IDC_SIZEALL
+            '                    If PzGEnableTooltips = "1" Then
+            '                        W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
+            '                    Else
+            '                        W.ToolTip = vbNullString
+            '                    End If
+                        
+                        Case Else 'all other added Layer-Widgets will be -1 or "non-hoverable" and "fully click-through"
+                            W.HoverColor = -1 ' task: might change this later when new ver or RC6 arrives
+                            W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
+                            W.MousePointer = IDC_SIZEALL
+                        
+                       End Select
+                       
+                       ' other (unused) widgets created from the layers shown below for reference
                     End If
-                   
-                ' Note: set the Hover colour close to the original layer to avoid too much intrusion, 0 being grey
-                
-                ' set the characteristics of the interactive areas
-                Select Case LCase$(W.Key) 'demonstrates, how to influence certain Widget-Props specifically (depending on the current LayerPath-Key)
-                ' set the characteristics of the indentified drag area
-                Case DragWidgetKey 'the "special DragWidgetKey" we've passed from the outside into this init-routine
-                    W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
-                    W.MousePointer = IDC_SIZEALL
-                    W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
-                    
-                Case "housing/helpbutton" 'three Widget-Keys, picked for "special click-behaviour"
-                    W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
-                    W.MousePointer = IDC_HAND
-                    If PzGEnableTooltips = "1" Then
-                        W.ToolTip = "Press for a little help."
-                    Else
-                        W.ToolTip = vbNullString
-                    End If
-                    
-                Case "housing/startbutton"
-                    W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
-                    W.MousePointer = IDC_HAND
-                    If PzGEnableTooltips = "1" Then
-                        W.ToolTip = "Press to restart (when stopped)"
-                    Else
-                        W.ToolTip = vbNullString
-                    End If
-                    
-                Case "housing/stopbutton"
-                    W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
-                    W.MousePointer = IDC_HAND
-                   If PzGEnableTooltips = "1" Then
-                        W.ToolTip = "Press to stop clock operation."
-                    Else
-                        W.ToolTip = vbNullString
-                    End If
-
-                Case "housing/switchfacesbutton"
-                    If PzGEnableTooltips = "1" Then
-                        W.ToolTip = "Press to do nothing at all."
-                    Else
-                        W.ToolTip = vbNullString
-                    End If
-                    W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
-                    W.MousePointer = IDC_HAND
-                    
-                Case "housing/lockbutton"
-
-                    W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
-                    W.MousePointer = IDC_HAND
-                    If PzGEnableTooltips = "1" Then
-                        W.ToolTip = "Press to lock the widget in place"
-                    Else
-                        W.ToolTip = vbNullString
-                    End If
-                    
-                Case "housing/prefsbutton"
-                    W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
-
-                    W.MousePointer = IDC_HAND
-                    If PzGEnableTooltips = "1" Then
-                        W.ToolTip = "Press to open the widget preferences"
-                    Else
-                        W.ToolTip = vbNullString
-                    End If
-                    
-                Case "housing/tickbutton"
-                    W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
-                    W.MousePointer = IDC_HAND
-                    If PzGEnableTooltips = "1" Then
-                        W.ToolTip = "Choose smooth movement or regular ticks"
-                    Else
-                        W.ToolTip = vbNullString
-                    End If
-'                Case "clockface"
-'                    'W.Alpha = 1
-'                    W.HoverColor = -1 ' set the hover colour to none - ' task: might change this later when new ver or RC6 arrives
-'                    W.MousePointer = IDC_SIZEALL
-'                    If PzGEnableTooltips = "1" Then
-'                        W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
-'                    Else
-'                        W.ToolTip = vbNullString
-'                    End If
-                
-                Case Else 'all other added Layer-Widgets will be -1 or "non-hoverable" and "fully click-through"
-                    W.HoverColor = -1 ' task: might change this later when new ver or RC6 arrives
-                    W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
-                    W.MousePointer = IDC_SIZEALL
-                
-               End Select
-               
-               ' other (unused) widgets created from the layers shown below for reference
-               
-
-
-               
+                End If
             End If
-         End If
-      End If
-      
-    Next
+        Next i
   End With '<-- the Parser-instance will be destroyed here (freeing the Memory, the internal PSD-Layers have occupied)
   
   Set overlayWidget = gaugeForm.Widgets.Add(New cwOverlay, "Overlay", 0, 0, PSDWidth, PSDHeight)
@@ -223,7 +217,7 @@ End Sub
 ' Purpose   : central handling of all Click-Events
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_BubblingEvent(Sender As Object, EventName As String, P1 As Variant, P2 As Variant, P3 As Variant, P4 As Variant, P5 As Variant, P6 As Variant, P7 As Variant)
+Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As String, ByRef P1 As Variant, ByRef P2 As Variant, ByRef P3 As Variant, ByRef P4 As Variant, ByRef P5 As Variant, ByRef P6 As Variant, ByRef P7 As Variant)
    On Error GoTo gaugeForm_BubblingEvent_Error
 
     If PzGIgnoreMouse = "1" Then Exit Sub
@@ -334,7 +328,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub stopbutton_mouseUp(Sender As Object)
+Private Sub stopbutton_mouseUp(ByRef Sender As Object)
     Dim fileToPlay As String: fileToPlay = vbNullString
    
     On Error GoTo stopbutton_mouseUp_Error
@@ -364,7 +358,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub stopbutton_mouseDown(Sender As Object)
+Private Sub stopbutton_mouseDown(ByRef Sender As Object)
    
     On Error GoTo stopbutton_mouseDown_Error
 
@@ -386,7 +380,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub switchfacesbutton_mouseDown(Sender As Object)
+Private Sub switchfacesbutton_mouseDown(ByRef Sender As Object)
     On Error GoTo switchfacesbutton_mouseDown_Error
 
     Sender.Widget.Alpha = 0
@@ -407,7 +401,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub switchfacesbutton_mouseUp(Sender As Object)
+Private Sub switchfacesbutton_mouseUp(ByRef Sender As Object)
     Dim fileToPlay As String: fileToPlay = vbNullString
     On Error GoTo switchfacesbutton_mouseUp_Error
 
@@ -433,7 +427,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub lockbutton_mouseDown(Sender As Object)
+Private Sub lockbutton_mouseDown(ByRef Sender As Object)
    On Error GoTo lockbutton_mouseDown_Error
     
     If overlayWidget.Locked = 0 Then
@@ -459,7 +453,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub prefsbutton_mouseDown(Sender As Object)
+Private Sub prefsbutton_mouseDown(ByRef Sender As Object)
     Dim fileToPlay As String: fileToPlay = vbNullString
    
     On Error GoTo prefsbutton_mouseDown_Error
@@ -489,7 +483,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub tickbutton_mouseDown(Sender As Object)
+Private Sub tickbutton_mouseDown(ByRef Sender As Object)
     Dim fileToPlay As String: fileToPlay = vbNullString
    
     On Error GoTo tickbutton_mouseDown_Error
@@ -580,10 +574,10 @@ End Sub
 ' Purpose   : get F5 and SHIFT keypresses
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_KeyDown(ByRef KeyCode As Integer, ByRef shift As Integer)
+Private Sub gaugeForm_KeyDown(ByRef KeyCode As Integer, ByRef Shift As Integer)
     On Error GoTo gaugeForm_KeyDown_Error
 
-    Call getKeyPress(KeyCode, shift)
+    Call getKeyPress(KeyCode, Shift)
 
     On Error GoTo 0
     Exit Sub
@@ -600,7 +594,7 @@ End Sub
 ' Purpose   : save the form x,y position when ever the globe/form is dragged
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_MouseUp(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub gaugeForm_MouseUp(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef y As Single)
     On Error GoTo gaugeForm_MouseUp_Error
 
     'If overlayWidget.Locked = True Then Exit Sub
@@ -633,7 +627,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_MouseMove(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub gaugeForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef y As Single)
   Static x0 As Single, y0 As Single: If Button = 0 Then x0 = x: y0 = y 'just store the offsets when no button is down
   
    On Error GoTo gaugeForm_MouseMove_Error
@@ -740,7 +734,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_MouseDown(Button As Integer, shift As Integer, x As Single, y As Single)
+Private Sub gaugeForm_MouseDown(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef y As Single)
    On Error GoTo W_MouseDown_Error
 
     If Button = vbRightButton Then
@@ -759,48 +753,48 @@ W_MouseDown_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_MouseDown of Class Module cwOverlay"
 End Sub
 
-
-'---------------------------------------------------------------------------------------
-' Procedure : Glowing
-' Author    : beededea
-' Date      : 17/05/2023
-' Purpose   :
-'---------------------------------------------------------------------------------------
 '
-Public Property Get Glowing() As Boolean
-   On Error GoTo GlowingGet_Error
-
-  Glowing = mGlowing
-
-   On Error GoTo 0
-   Exit Property
-
-GlowingGet_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Glowing of Class Module cwOverlay"
-End Property
-'---------------------------------------------------------------------------------------
-' Procedure : Glowing
-' Author    :
-' Date      : 09/05/2023
-' Purpose   :
-'---------------------------------------------------------------------------------------
+''---------------------------------------------------------------------------------------
+'' Procedure : Glowing
+'' Author    : beededea
+'' Date      : 17/05/2023
+'' Purpose   :
+''---------------------------------------------------------------------------------------
+''
+'Public Property Get Glowing() As Boolean
+'   On Error GoTo GlowingGet_Error
 '
-Public Property Let Glowing(ByVal newValue As Boolean)
-   On Error GoTo GlowingLet_Error
-
-  If mGlowing <> newValue Then mGlowing = newValue Else Exit Property
-    If mGlowing Then
-        'Set tmrClock = New_c.Timer(200, True)
-    Else
-        'Set tmrClock = Nothing
-    End If
-
-   On Error GoTo 0
-   Exit Property
-
-GlowingLet_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Glowing of Class Module cwOverlay"
-End Property ' the earth Glowing flag
+'  Glowing = mGlowing
+'
+'   On Error GoTo 0
+'   Exit Property
+'
+'GlowingGet_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Glowing of Class Module cwOverlay"
+'End Property
+''---------------------------------------------------------------------------------------
+'' Procedure : Glowing
+'' Author    :
+'' Date      : 09/05/2023
+'' Purpose   :
+''---------------------------------------------------------------------------------------
+''
+'Public Property Let Glowing(ByVal newValue As Boolean)
+'   On Error GoTo GlowingLet_Error
+'
+'  If mGlowing <> newValue Then mGlowing = newValue Else Exit Property
+'    If mGlowing Then
+'        'Set tmrClock = New_c.Timer(200, True)
+'    Else
+'        'Set tmrClock = Nothing
+'    End If
+'
+'   On Error GoTo 0
+'   Exit Property
+'
+'GlowingLet_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Glowing of Class Module cwOverlay"
+'End Property ' the earth Glowing flag
 

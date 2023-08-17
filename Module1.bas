@@ -1580,7 +1580,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Sub ChangeToolTipWidgetDefaultSettings(My_Widget As cWidgetBase)
+Public Sub ChangeToolTipWidgetDefaultSettings(ByRef My_Widget As cWidgetBase)
 
    On Error GoTo ChangeToolTipWidgetDefaultSettings_Error
 

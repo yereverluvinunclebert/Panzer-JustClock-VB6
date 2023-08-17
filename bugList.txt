@@ -42,17 +42,30 @@
 ' month digits added and date logic given - done
 ' opacity change after save, does not stick - restart - done
 
-' read the DST and timezones into the text fields in the prefs
-' try the balloon tooltips on one control
+' read the DST and timezones into the text fields in the prefs  - done
 
-' licence form create as a RC form using Olaf's converter
+' byval/ byref on recent code additions
+' try the balloon tooltips on one control onmouseOver
+
+' licence form using forms2Cairo  - wip
+'     create as an R.C. form using Olaf's converter find it
+'         create a native vb6 form
+'         include modParseFrm.bas
+'         include cfMain.cls
+'         include the dummy form
+'         import your form and rename the fMainDef.frm to the name of your form
+'         in cfMain .bas create a Form_BubblingEvent to catch events eg.    If EventName = "W_MouseDown" Then
+'            using the sender key - Select Case LCase$(Sender.Widget.Key)
+'         for each event on the native VB6 form controls, create a similarly named event in cfMain.cls
+'         for the background image, create a widget on the form that fills the form and give that an image
+'         or create a surface on the form and paint that.
+
 
 CHM
 time zone code - wip
 daylight saving time - wip
 system startup running - wip
 
-' byval/ byref on recent code additions
 ' date/day fields altered by DST and timezone changes
 
 SomeParent.Widgets("TheWidgetKey").Widget.BackColor = vbBlue
