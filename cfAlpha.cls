@@ -713,7 +713,7 @@ Public Sub AdjustZoom(ByVal NewZoom As Single)
    On Error GoTo AdjustZoom_Error
 
   FZ = NewZoom
-  If FZ < 0.25 Then FZ = 0.25 Else If FZ > 3 Then FZ = 3 'keep FZ within a sane ZoomInterval
+  If FZ < 0.05 Then FZ = 0.05 Else If FZ > 3 Then FZ = 3 'keep FZ within a sane ZoomInterval
   gaugeForm.WidgetRoot.Zoom = FZ '* gaugeForm.WidgetRoot.CurrentMonitor.Zoom '<-- if the multiplicator is activated, we'd have DPI-awareness on high-res monitors
   gaugeForm.Move gaugeForm.Left, gaugeForm.Top, PSDWidth * gaugeForm.WidgetRoot.Zoom, PSDHeight * gaugeForm.WidgetRoot.Zoom
 
