@@ -23,6 +23,7 @@ Private PSDHeight As Long
 Private DragWidgetKey As String
 
 Private mGlowing As Boolean
+Private thingie As String
 '---------------------------------------------------------------------------------------
 ' Procedure : Class_Initialize
 ' Author    : beededea
@@ -221,6 +222,11 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
    On Error GoTo gaugeForm_BubblingEvent_Error
 
     If PzGIgnoreMouse = "1" Then Exit Sub
+    
+    
+'    If EventName = "W_MouseMove" Then ' does not trap these events
+'    End If
+    
     
     If EventName = "W_MouseDown" Then
         Select Case LCase$(Sender.Widget.Key)
@@ -515,6 +521,8 @@ tickbutton_mouseDown_Error:
 End Sub
 
 
+    
+
 
 '---------------------------------------------------------------------------------------
 ' Procedure : gaugeForm_DblClick
@@ -642,6 +650,10 @@ Private Sub gaugeForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer,
       gaugeForm.Move FX, FY
     End If
 
+    If PzGEnableBalloonTooltips = "1" Then CreateToolTip gaugeForm.hwnd, thingie & "Right Click to open the menu and the preferences. CTRL+ Mouse scrollwheel UP/DOWN to resize. " _
+        & vbCrLf & "You can turn off the ballon tooltips in the preferences.", _
+        TTIconInfo, "Configuration Help", , , , True
+
    On Error GoTo 0
    Exit Sub
 
@@ -752,6 +764,7 @@ W_MouseDown_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_MouseDown of Class Module cwOverlay"
 End Sub
+
 
 '
 ''---------------------------------------------------------------------------------------

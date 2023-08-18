@@ -44,8 +44,15 @@
 
 ' read the DST and timezones into the text fields in the prefs  - done
 
-' byval/ byref on recent code additions
-' try the balloon tooltips on one control onmouseOver
+' byval/byref on recent code additions - done
+
+' try the balloon tooltips on one control onmouseOver - wip
+
+' when the standard tooltips are altered, a soft reload is required
+
+' HTML help screenshots of the prefs - done
+
+' CHM
 
 ' licence form using forms2Cairo  - wip
 '     create as an R.C. form using Olaf's converter find it
@@ -58,11 +65,10 @@
 '            using the sender key - Select Case LCase$(Sender.Widget.Key)
 '         for each event on the native VB6 form controls, create a similarly named event in cfMain.cls
 '         for the background image, create a widget on the form that fills the form and give that an image
-'         or create a surface on the form and paint that.
+'         set the form to be transparent
 
 
-CHM
-time zone code - wip
+time zone code - wip   look at YWE
 daylight saving time - wip
 system startup running - wip
 
@@ -78,6 +84,8 @@ W.Backcolor = vbBlue
 
 ' upgrade to RC6 new version from Olaf to obtain opacity control over the overlays currently limited to 25%
 ' monitorProperties, make it work
+
+' res file for Krool's slider
 
 ' RC BUGS
 ' =======
