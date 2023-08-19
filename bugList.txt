@@ -50,7 +50,8 @@
 
 ' when the standard tooltips are altered, a soft reload is required
 
-' HTML help screenshots of the prefs - done
+' HTML help screenshots of the prefs - done - need to bigger at 800px
+' res file for Krool's slider copied from PzEarth - done
 
 ' CHM
 
@@ -67,12 +68,13 @@
 '         for the background image, create a widget on the form that fills the form and give that an image
 '         set the form to be transparent
 
-
 time zone code - wip   look at YWE
 daylight saving time - wip
 system startup running - wip
 
 ' date/day fields altered by DST and timezone changes
+
+' tooltips also resize when the whole thing is resized, code received from Olaf and ColinE66 - testing required
 
 SomeParent.Widgets("TheWidgetKey").Widget.BackColor = vbBlue
 
@@ -85,12 +87,12 @@ W.Backcolor = vbBlue
 ' upgrade to RC6 new version from Olaf to obtain opacity control over the overlays currently limited to 25%
 ' monitorProperties, make it work
 
-' res file for Krool's slider
+
 
 ' RC BUGS
 ' =======
 
 ' aboutForm is not fading back-in but instantly hiding in DPI aware mode, opacity is acting strangely on second fade in
 
-' tooltips also resize when the whole thing is resized, which is not necessarily a good idea for a UI. Awaiting some code from Olaf.
+
 
