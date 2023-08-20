@@ -1766,7 +1766,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+'Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 
 '---------------------------------------------------------------------------------------
 ' Module    : panzerPrefs
@@ -1988,7 +1988,7 @@ Private Sub chkDpiAwareness_Click()
         If answer = vbNo Then
             Exit Sub
         Else
-            Sleep 500
+            'Sleep 500
             Call restart
         End If
     End If

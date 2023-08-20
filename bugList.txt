@@ -48,12 +48,12 @@
 
 ' try the balloon tooltips on one control onmouseOver - wip
 
-' when the standard tooltips are altered, a soft reload is required
+' when the standard tooltips are altered, a soft reload is required - done
 
-' HTML help screenshots of the prefs - done - need to bigger at 800px
+' HTML help screenshots of the prefs - done - need to be bigger at 800px - done
 ' res file for Krool's slider copied from PzEarth - done
 
-' CHM
+' CHM create - done
 
 ' licence form using forms2Cairo  - wip
 '     create as an R.C. form using Olaf's converter find it
@@ -86,7 +86,6 @@ W.Backcolor = vbBlue
 
 ' upgrade to RC6 new version from Olaf to obtain opacity control over the overlays currently limited to 25%
 ' monitorProperties, make it work
-
 
 
 ' RC BUGS
