@@ -296,7 +296,9 @@ Public PzGMainDaylightSaving As String
 
 ' config
 Public PzGEnableTooltips As String
+Public PzGEnablePrefsTooltips As String
 Public PzGEnableBalloonTooltips As String
+
 Public PzGShowTaskbar As String
 Public PzGDpiAwareness As String
 
