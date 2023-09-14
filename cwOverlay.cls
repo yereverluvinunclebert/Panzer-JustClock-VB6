@@ -25,12 +25,38 @@ Public cCollOverlayImages As cCollection, cxPerc As Single, cyPerc As Single 'th
 
 Private WithEvents W As cWidgetBase
 Attribute W.VB_VarHelpID = -1
-Private WithEvents tmrClock As cTimer, HDeg As Double, MDeg As Double, SDeg As Double
+Private WithEvents tmrClock As cTimer, HDeg As Double, MDeg As Double, SDeg As Double, MsDeg As Double
 Attribute tmrClock.VB_VarHelpID = -1
 
 Private mTicking As Boolean
 Private mLocked As Boolean
 Private mHidden As Boolean
+
+
+Private Type SYSTEMTIME
+   wYear As Integer
+   wMonth As Integer
+   wDayOfWeek As Integer
+   wDay As Integer
+   wHour As Integer
+   wMinute As Integer
+   wSecond As Integer
+   wMilliseconds As Integer
+End Type
+
+Private Type TIME_ZONE_INFORMATION
+    bias                    As Long
+    StandardName(0 To 63)   As Byte
+    StandardDate            As SYSTEMTIME
+    StandardBias            As Long
+    DaylightName(0 To 63)   As Byte
+    DaylightDate            As SYSTEMTIME
+    DaylightBias            As Long
+End Type
+
+
+Private Declare Sub GetSystemTime Lib "kernel32" (lpSystemTime As SYSTEMTIME)
+'------------------------------------------------------ ENDS
 
 
 
@@ -284,13 +310,13 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
                     CC.RotateDrawingsDeg -61 + MDeg
                     
                  Case "secondshadow", "secondhand" 'seconds-shadow- and seconds-hand
-                     Set Pat.Matrix = Pat.Matrix.TranslateCoords(60, 160) 'shift to the "rotation-point" within the Pattern
-                     CC.TranslateDrawings W.Width * cxPerc, W.Height * cyPerc 'shift to the center-point of the Overlay-Widget-area
-                     CC.RotateDrawingsDeg -50 + SDeg
-     
+                    Set Pat.Matrix = Pat.Matrix.TranslateCoords(60, 160) 'shift to the "rotation-point" within the Pattern
+                    CC.TranslateDrawings W.Width * cxPerc, W.Height * cyPerc 'shift to the center-point of the Overlay-Widget-area
+                    CC.RotateDrawingsDeg -50 + SDeg + MsDeg
+    
                  Case Else 'plain output for everything else ... this includes the reflection-layers,
-                     'Task: add the little arrow-hands which are not dynamically handled currently
-                     Set Pat.Matrix = Pat.Matrix.TranslateCoords(-Arr(0), -Arr(1)) 'here we only shift the Pattern via the original PSD-Offsets (stored in Arr(0) and Arr(1))
+                     
+                    Set Pat.Matrix = Pat.Matrix.TranslateCoords(-Arr(0), -Arr(1)) 'here we only shift the Pattern via the original PSD-Offsets (stored in Arr(0) and Arr(1))
              End Select
              CC.Paint Arr(2), Pat 'finally we render the Pattern with the current PSD-LayerAlpha, present in Arr(2)
              
@@ -314,13 +340,24 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub tmrClock_Timer() 'update the private "Degree-Variables" for Hour-, Minute- and Second-Hands + Refresh
-  Static T As Date: T = Time
-   On Error GoTo tmrClock_Timer_Error
+    Dim TimeZoneInfo As TIME_ZONE_INFORMATION
+    Dim currentLocaltime As SYSTEMTIME
+    Static T As Date: T = Time
+    
+    On Error GoTo tmrClock_Timer_Error
+    
+    GetSystemTime currentLocaltime
 
-  HDeg = 30 * (Hour(T) Mod 12 + Minute(T) / 60)
-  MDeg = 6 * (Minute(T) + Second(T) / 60)
-  If SDeg <> 6 * Second(T) Then SDeg = 6 * Second(T) Else Exit Sub 'only refresh, when SDeg was changed to a new value
-  W.Parent.Refresh
+    HDeg = 30 * (Hour(T) Mod 12 + Minute(T) / 60)
+    MDeg = 6 * (Minute(T) + Second(T) / 60)
+    With currentLocaltime
+        MsDeg = 6 * (.wMilliseconds / 1000)
+        'MsDeg = 0
+    End With
+    
+    If SDeg <> 6 * Second(T) Then SDeg = 6 * Second(T) 'Else: Exit Sub 'only refresh, when SDeg was changed to a new value
+        
+    W.Parent.Refresh
 
    On Error GoTo 0
    Exit Sub

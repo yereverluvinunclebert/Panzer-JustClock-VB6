@@ -61,7 +61,6 @@
 ' fixed createTooltip using incorrect config var - done
 ' added balloon tooltips for each main program control - done
 
-
 ' licence form using forms2Cairo  - wip
 '     create as an R.C. form using Olaf's converter find it
 '         create a native vb6 form
@@ -94,21 +93,18 @@ Set W = SomeParent.Widgets("TheWidgetKey").Widget
 W.Backcolor = vbBlue
 
 ' upgrade to RC6 new version from Olaf to obtain opacity control over the overlays currently limited to 25%
+
 ' monitorProperties, make it work
 
 ' msgboxA - replace the standard message boxes with my own.
 
 ' tick or smooth scroll for second hand
-
-' separate tooltip code
+' need to extract milliseconds
 
 ' RC BUGS & LIMITATIONS
 ' =====================
 
 ' aboutForm is not fading back-in but instantly hiding in DPI aware mode, opacity is acting strangely on second fade in
 
-' Limitation? cannot assign a balloon tooltip (Elroy's) to an object unless it has 
-' a .hwnd and a mouseOver event associated with it. I could try to test for a 
-' mouseover... and then display the tooltip.
 
 

@@ -179,6 +179,9 @@ Private Declare Function RegSetValueEx Lib "advapi32.dll" Alias "RegSetValueExA"
 '------------------------------------------------------ ENDS
 
 
+
+
+
 '------------------------------------------------------ STARTS
 ' Enums defined for opening a common dialog box to select files without OCX dependencies
 Private Enum FileOpenConstants
@@ -410,7 +413,7 @@ Public startupFlg As Boolean
 
 '------------------------------------------------------ STARTS
 Private Type TimeZoneInfo
-    Bias As Long
+    bias As Long
     StandardName(63) As Byte
     StandardDate(7) As Integer
     StandardBias As Long
@@ -422,6 +425,10 @@ End Type
 Private Const TIME_ZONE_ID_DAYLIGHT = 2
 Private Declare Function GetTimeZoneInformation Lib "kernel32" (uTZ As TimeZoneInfo) As Long
 '------------------------------------------------------ ENDS
+
+' Flag for debug mode '.06 DAEB 19/04/2021 common.bas moved to the common area so that it can be used by each of the utilities
+Private mbDebugMode As Boolean ' .30 DAEB 03/03/2021 frmMain.frm replaced the inIDE function that used a variant to one without
+
 
 '---------------------------------------------------------------------------------------
 ' Procedure : fFExists
@@ -1796,7 +1803,7 @@ Public Sub determineScreenDimensions()
 
 determineScreenDimensions_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & " in procedure determineScreenDimensions of Form dock"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & " in procedure determineScreenDimensions of Module Module1"
 End Sub
 
 
@@ -2381,3 +2388,51 @@ restart_Error:
 
 End Sub
 
+
+'---------------------------------------------------------------------------------------
+' Procedure : InIDE
+' Author    :
+' Date      : 09/02/2021
+' Purpose   : checks whether the code is running in the VB6 IDE or not
+'---------------------------------------------------------------------------------------
+'
+Public Function InIDE() As Boolean
+
+   On Error GoTo InIDE_Error
+
+    ' .30 DAEB 03/03/2021 frmMain.frm replaced the inIDE function that used a variant to one without
+    ' This will only be done if in the IDE
+    Debug.Assert InDebugMode
+    If mbDebugMode Then
+        InIDE = True
+    End If
+
+   On Error GoTo 0
+   Exit Function
+
+InIDE_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure InIDE of Module Module1"
+End Function
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : InDebugMode
+' Author    : beededea
+' Date      : 02/03/2021
+' Purpose   : ' .30 DAEB 03/03/2021 frmMain.frm replaced the inIDE function that used a variant to one without
+'---------------------------------------------------------------------------------------
+'
+Private Function InDebugMode() As Boolean
+   On Error GoTo InDebugMode_Error
+
+    mbDebugMode = True
+    InDebugMode = True
+
+   On Error GoTo 0
+   Exit Function
+
+InDebugMode_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure InDebugMode of Module Module1"
+End Function
