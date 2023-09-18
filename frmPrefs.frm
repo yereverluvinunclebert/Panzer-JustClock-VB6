@@ -1777,7 +1777,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+' gaugeForm_BubblingEvent ' leaving that here so I can copy/paste to find it
 
 '---------------------------------------------------------------------------------------
 ' Module    : panzerPrefs

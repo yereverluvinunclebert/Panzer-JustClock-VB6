@@ -359,6 +359,7 @@ Public Sub adjustMainControls()
     Else
         menuForm.mnuLockWidget.Checked = True
         overlayWidget.Locked = True ' this is just here for continuity's sake, it is also set at the time the control is selected
+        ' the button depression is achieved in cfAlpha when creating each Widget-instance and setting widget characteristics at creation time
     End If
     
     If PzGShowTaskbar = "0" Then

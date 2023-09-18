@@ -1,4 +1,6 @@
 Attribute VB_Name = "Module1"
+' gaugeForm_BubblingEvent ' leaving that here so I can copy/paste to find it
+
 '---------------------------------------------------------------------------------------
 ' Module    : Module1
 ' Author    : beededea

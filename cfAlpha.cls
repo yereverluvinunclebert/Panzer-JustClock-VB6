@@ -155,7 +155,11 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional ByVal WidgetKeyForDragg
                             Else
                                 W.ToolTip = vbNullString
                             End If
-                            
+                                            
+                            If PzGPreventDragging = "1" Then
+                                W.Alpha = 0
+                            End If
+                
                         Case "housing/prefsbutton"
                             W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
             
@@ -196,12 +200,12 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional ByVal WidgetKeyForDragg
                 End If
             End If
         Next i
-  End With '<-- the Parser-instance will be destroyed here (freeing the Memory, the internal PSD-Layers have occupied)
-  
-  Set overlayWidget = gaugeForm.Widgets.Add(New cwOverlay, "Overlay", 0, 0, PSDWidth, PSDHeight)
-  Set overlayWidget.cCollOverlayImages = collPSDNonUIElements 'make the excluded PSD-Surface-Paths known to the Overlay-Widget
-      overlayWidget.cxPerc = 0.4940476 'define the relative center (within cwOverlay, which has the same size as the Form and the PSD...) this is used for clock-hand-positioning
-      overlayWidget.cyPerc = 0.4727272
+    End With '<-- the Parser-instance will be destroyed here (freeing the Memory, the internal PSD-Layers have occupied)
+    
+    Set overlayWidget = gaugeForm.Widgets.Add(New cwOverlay, "Overlay", 0, 0, PSDWidth, PSDHeight)
+    Set overlayWidget.cCollOverlayImages = collPSDNonUIElements 'make the excluded PSD-Surface-Paths known to the Overlay-Widget
+        overlayWidget.cxPerc = 0.4940476 'define the relative center (within cwOverlay, which has the same size as the Form and the PSD...) this is used for clock-hand-positioning
+        overlayWidget.cyPerc = 0.4727272
 
    On Error GoTo 0
    Exit Sub
@@ -255,7 +259,6 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
                     TTIconInfo, widgetName & " Configuration Help", , , , True
         End Select
     End If
-    
     
     If EventName = "W_MouseDown" Then
         Select Case LCase$(Sender.Widget.Key)
@@ -522,22 +525,19 @@ Private Sub tickbutton_mouseDown(ByRef Sender As Object)
     Dim fileToPlay As String: fileToPlay = vbNullString
    
     On Error GoTo tickbutton_mouseDown_Error
-    
-    If overlayWidget.Ticking = True Then
-        Sender.Widget.Alpha = 0
-    Else
+        
+    If overlayWidget.SmoothSecondHand = True Then
+        overlayWidget.SmoothSecondHand = False
         Sender.Widget.Alpha = Val(PzGOpacity) / 100
+    Else
+        overlayWidget.SmoothSecondHand = True
+        Sender.Widget.Alpha = 0 ' sender is the referring control
     End If
     Sender.Widget.Refresh ' this removes the delay in the Button depressing
     
-    If overlayWidget.Ticking = True Then
-        fileToPlay = "lock.wav"
-        If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-            PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
-        End If
-        Call SwitchOff
-    Else
-        Call TurnFunctionsOn
+    fileToPlay = "lock.wav"
+    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
    On Error GoTo 0

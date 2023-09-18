@@ -21,18 +21,17 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Public cCollOverlayImages As cCollection, cxPerc As Single, cyPerc As Single 'these Public Props are set in the Parent (here, cfAlpha)
+'these Public Props are set in the Parent (here, cfAlpha)
+Public cCollOverlayImages As cCollection
+Public cxPerc As Single
+Public cyPerc As Single
 
 Private WithEvents W As cWidgetBase
 Attribute W.VB_VarHelpID = -1
 Private WithEvents tmrClock As cTimer, HDeg As Double, MDeg As Double, SDeg As Double, MsDeg As Double
 Attribute tmrClock.VB_VarHelpID = -1
 
-Private mTicking As Boolean
-Private mLocked As Boolean
-Private mHidden As Boolean
-
-
+'------------------------------------------------------ STARTS
 Private Type SYSTEMTIME
    wYear As Integer
    wMonth As Integer
@@ -54,17 +53,14 @@ Private Type TIME_ZONE_INFORMATION
     DaylightBias            As Long
 End Type
 
-
 Private Declare Sub GetSystemTime Lib "kernel32" (lpSystemTime As SYSTEMTIME)
 '------------------------------------------------------ ENDS
 
+Private mTicking As Boolean ' property Ticking
+Private mSmoothSecondHand As Boolean ' property SmoothSecondHand
+Private mLocked As Boolean ' property Locked
+Private mHidden As Boolean ' property Hidden
 
-
-' property Locked
-' property Hidden
-' property Ticking
-
- 
 '---------------------------------------------------------------------------------------
 ' Procedure : Class_Initialize
 ' Author    : beededea
@@ -73,13 +69,17 @@ Private Declare Sub GetSystemTime Lib "kernel32" (lpSystemTime As SYSTEMTIME)
 '---------------------------------------------------------------------------------------
 '
 Private Sub Class_Initialize()
-   On Error GoTo Class_Initialize_Error
+    Dim intervalValue As Integer: intervalValue = 0
+    On Error GoTo Class_Initialize_Error
 
-  Set W = Cairo.WidgetBase
-      W.BackColor = -1  'we don't use any BackColor here, transparent
-      W.ImplementsHitTest = True 'when at False, no HitTest-Event would be triggered
-      
-  Set tmrClock = New_c.Timer(200, False)
+    Set W = Cairo.WidgetBase
+        W.BackColor = -1  'we don't use any BackColor here, transparent
+        W.ImplementsHitTest = True 'when at False, no HitTest-Event would be triggered
+                    
+    intervalValue = 500
+
+    Set tmrClock = Nothing
+    Set tmrClock = New_c.Timer(intervalValue, mTicking)
 
    On Error GoTo 0
    Exit Sub
@@ -120,11 +120,18 @@ End Property
 '---------------------------------------------------------------------------------------
 '
 Public Property Let Ticking(ByVal newValue As Boolean)
-   On Error GoTo TickingLet_Error
+    Dim intervalValue As Integer: intervalValue = 0
+    On Error GoTo TickingLet_Error
 
-  If mTicking <> newValue Then mTicking = newValue Else Exit Property
+    If mTicking <> newValue Then mTicking = newValue Else Exit Property
+    
     If mTicking Then
-        Set tmrClock = New_c.Timer(200, True)
+        If mSmoothSecondHand Then
+            intervalValue = 100
+        Else
+            intervalValue = 500
+        End If
+        Set tmrClock = New_c.Timer(intervalValue, mTicking)
     Else
         Set tmrClock = Nothing
     End If
@@ -137,6 +144,53 @@ TickingLet_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Ticking of Class Module cwOverlay"
 End Property ' the earth Ticking flag
 
+'---------------------------------------------------------------------------------------
+' Property : SmoothSecondHand
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get SmoothSecondHand() As Boolean
+   On Error GoTo SmoothSecondHandGet_Error
+
+    SmoothSecondHand = mSmoothSecondHand
+
+   On Error GoTo 0
+   Exit Property
+
+SmoothSecondHandGet_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property SmoothSecondHand of Class Module cwOverlay"
+End Property
+'---------------------------------------------------------------------------------------
+' Property  : SmoothSecondHand
+' Author    :
+' Date      : 09/05/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Let SmoothSecondHand(ByVal newValue As Boolean)
+    Dim intervalValue As Integer: intervalValue = 0
+    On Error GoTo SmoothSecondHandLet_Error
+
+    If mSmoothSecondHand <> newValue Then mSmoothSecondHand = newValue Else Exit Property
+    
+    If mSmoothSecondHand Then
+        intervalValue = 100
+    Else
+        intervalValue = 500
+    End If
+            
+    tmrClock.Interval = intervalValue
+    
+   On Error GoTo 0
+   Exit Property
+
+SmoothSecondHandLet_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property SmoothSecondHand of Class Module cwOverlay"
+End Property ' the earth SmoothSecondHand flag
 
 '---------------------------------------------------------------------------------------
 ' Property : Locked
@@ -312,6 +366,7 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
                  Case "secondshadow", "secondhand" 'seconds-shadow- and seconds-hand
                     Set Pat.Matrix = Pat.Matrix.TranslateCoords(60, 160) 'shift to the "rotation-point" within the Pattern
                     CC.TranslateDrawings W.Width * cxPerc, W.Height * cyPerc 'shift to the center-point of the Overlay-Widget-area
+                    
                     CC.RotateDrawingsDeg -50 + SDeg + MsDeg
     
                  Case Else 'plain output for everything else ... this includes the reflection-layers,
@@ -350,13 +405,23 @@ Private Sub tmrClock_Timer() 'update the private "Degree-Variables" for Hour-, M
 
     HDeg = 30 * (Hour(T) Mod 12 + Minute(T) / 60)
     MDeg = 6 * (Minute(T) + Second(T) / 60)
-    With currentLocaltime
-        MsDeg = 6 * (.wMilliseconds / 1000)
-        'MsDeg = 0
-    End With
+
+    If mSmoothSecondHand = True Then
+        SDeg = 6 * Second(T)
+
+        With currentLocaltime
+            MsDeg = 6 * (.wMilliseconds / 1000)
+        End With
+    Else
+        If SDeg <> 6 * Second(T) Then
+            SDeg = 6 * Second(T)
+            
+            MsDeg = 0
+        Else
+            Exit Sub  'only refresh when SDeg has changed to a new value
+        End If
+    End If
     
-    If SDeg <> 6 * Second(T) Then SDeg = 6 * Second(T) 'Else: Exit Sub 'only refresh, when SDeg was changed to a new value
-        
     W.Parent.Refresh
 
    On Error GoTo 0
