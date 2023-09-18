@@ -2973,6 +2973,7 @@ Private Sub btnSave_Click()
         sPutINISetting "Software\PzJustClock", "scrollWheelDirection", PzGScrollWheelDirection, PzGSettingsFile
                 
         sPutINISetting "Software\PzJustClock", "gaugeFunctions", PzGGaugeFunctions, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "smoothSecondHand", PzGSmoothSecondHand, PzGSettingsFile
         
         'sPutINISetting "Software\PzJustClock", "clockFaceSwitchPref", PzGClockFaceSwitchPref, PzGSettingsFile
         sPutINISetting "Software\PzJustClock", "mainGaugeTimeZone", PzGMainGaugeTimeZone, PzGSettingsFile

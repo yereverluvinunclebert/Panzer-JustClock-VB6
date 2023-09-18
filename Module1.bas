@@ -289,7 +289,8 @@ Private Const VER_PLATFORM_WIN32_NT = 2
 Public PzGStartup As String
 Public PzGGaugeFunctions As String
 'Public PzGAnimationInterval As String
-'Public 'PzGWidgetSkew As String
+Public PzGSmoothSecondHand As String
+
 
 
 

@@ -178,16 +178,11 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional ByVal WidgetKeyForDragg
                             Else
                                 W.ToolTip = vbNullString
                             End If
-            '                Case "clockface"
-            '                    'W.Alpha = 1
-            '                    W.HoverColor = -1 ' set the hover colour to none - ' task: might change this later when new ver or RC6 arrives
-            '                    W.MousePointer = IDC_SIZEALL
-            '                    If PzGEnableTooltips = "1" Then
-            '                        W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
-            '                    Else
-            '                        W.ToolTip = vbNullString
-            '                    End If
-                        
+                            
+                            If PzGSmoothSecondHand = "1" Then
+                                W.Alpha = 0
+                            End If
+
                         Case Else 'all other added Layer-Widgets will be -1 or "non-hoverable" and "fully click-through"
                             W.HoverColor = -1 ' task: might change this later when new ver or RC6 arrives
                             If PzGEnableTooltips = "1" Then W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
@@ -529,9 +524,12 @@ Private Sub tickbutton_mouseDown(ByRef Sender As Object)
     If overlayWidget.SmoothSecondHand = True Then
         overlayWidget.SmoothSecondHand = False
         Sender.Widget.Alpha = Val(PzGOpacity) / 100
+        PzGSmoothSecondHand = "0"
     Else
         overlayWidget.SmoothSecondHand = True
         Sender.Widget.Alpha = 0 ' sender is the referring control
+        PzGSmoothSecondHand = "1"
+        
     End If
     Sender.Widget.Refresh ' this removes the delay in the Button depressing
     
@@ -539,7 +537,9 @@ Private Sub tickbutton_mouseDown(ByRef Sender As Object)
     If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
-
+    
+    sPutINISetting "Software\PzJustClock", "smoothSecondHand", PzGSmoothSecondHand, PzGSettingsFile
+    
    On Error GoTo 0
    Exit Sub
 

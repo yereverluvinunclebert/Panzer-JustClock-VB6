@@ -412,6 +412,8 @@ Private Sub tmrClock_Timer() 'update the private "Degree-Variables" for Hour-, M
         With currentLocaltime
             MsDeg = 6 * (.wMilliseconds / 1000)
         End With
+        
+        ' always refresh
     Else
         If SDeg <> 6 * Second(T) Then
             SDeg = 6 * Second(T)

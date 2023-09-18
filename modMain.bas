@@ -187,7 +187,7 @@ Private Sub initialiseGlobalVars()
     ' general
     PzGStartup = vbNullString
     PzGGaugeFunctions = vbNullString
-'    PzGAnimationInterval = vbNullString
+    PzGSmoothSecondHand = vbNullString
 
 '    PzGClockFaceSwitchPref = vbNullString
     PzGMainGaugeTimeZone = vbNullString
@@ -352,6 +352,20 @@ Public Sub adjustMainControls()
     Else
         menuForm.mnuEditWidget.Visible = False
     End If
+    
+    If PzGSmoothSecondHand = "1" Then
+        overlayWidget.SmoothSecondHand = True
+    End If
+
+    
+    If PzGPreventDragging = "0" Then
+        menuForm.mnuLockWidget.Checked = False
+        overlayWidget.Locked = False
+    Else
+        menuForm.mnuLockWidget.Checked = True
+        overlayWidget.Locked = True ' this is just here for continuity's sake, it is also set at the time the control is selected
+        ' the button depression is achieved in cfAlpha when creating each Widget-instance and setting widget characteristics at creation time
+    End If
         
     If PzGPreventDragging = "0" Then
         menuForm.mnuLockWidget.Checked = False
@@ -430,7 +444,7 @@ Public Sub readSettingsFile(ByVal location As String, ByVal PzGSettingsFile As S
         ' general
         PzGStartup = fGetINISetting(location, "startup", PzGSettingsFile)
         PzGGaugeFunctions = fGetINISetting(location, "gaugeFunctions", PzGSettingsFile)
-'        PzGAnimationInterval = fGetINISetting(location, "animationInterval", PzGSettingsFile)
+        PzGSmoothSecondHand = fGetINISetting(location, "smoothSecondHand", PzGSettingsFile)
         
 
 '        PzGClockFaceSwitchPref = fGetINISetting(location, "clockFaceSwitchPref", PzGSettingsFile)
@@ -525,6 +539,7 @@ Public Sub validateInputs()
         If PzGGaugeFunctions = vbNullString Then PzGGaugeFunctions = "1" ' always turn
 '        If PzGAnimationInterval = vbNullString Then PzGAnimationInterval = "130"
         If PzGStartup = vbNullString Then PzGStartup = "1"
+        If PzGSmoothSecondHand = vbNullString Then PzGSmoothSecondHand = "0"
         
         'If PzGClockFaceSwitchPref = vbNullString Then PzGClockFaceSwitchPref = "0"
         If PzGMainGaugeTimeZone = vbNullString Then PzGMainGaugeTimeZone = "1"
