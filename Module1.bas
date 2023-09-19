@@ -292,8 +292,6 @@ Public PzGGaugeFunctions As String
 Public PzGSmoothSecondHand As String
 
 
-
-
 'Public PzGClockFaceSwitchPref As String
 Public PzGMainGaugeTimeZone As String
 Public PzGMainDaylightSaving As String
@@ -1570,10 +1568,28 @@ Public Sub setMainTooltips()
         overlayWidget.Widget.ToolTip = "Use CTRL+mouse scrollwheel up/down to resize."
         helpWidget.Widget.ToolTip = "Click on me to make me go away."
         aboutWidget.Widget.ToolTip = "Click on me to make me go away."
+        
+        fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.ToolTip = "Choose smooth movement or regular ticks"
+        fAlpha.gaugeForm.Widgets("housing/helpbutton").Widget.ToolTip = "Press for a little help"
+        fAlpha.gaugeForm.Widgets("housing/startbutton").Widget.ToolTip = "Press to restart (when stopped)"
+        fAlpha.gaugeForm.Widgets("housing/stopbutton").Widget.ToolTip = "Press to stop clock operation."
+        fAlpha.gaugeForm.Widgets("housing/switchfacesbutton").Widget.ToolTip = "Press to do nothing at all."
+        fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.ToolTip = "Press to lock the widget in place"
+        fAlpha.gaugeForm.Widgets("housing/prefsbutton").Widget.ToolTip = "Press to open the widget preferences"
+
     Else
         overlayWidget.Widget.ToolTip = vbNullString
         helpWidget.Widget.ToolTip = vbNullString
         aboutWidget.Widget.ToolTip = vbNullString
+        
+        fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.ToolTip = vbNullString
+        fAlpha.gaugeForm.Widgets("housing/helpbutton").Widget.ToolTip = vbNullString
+        fAlpha.gaugeForm.Widgets("housing/startbutton").Widget.ToolTip = vbNullString
+        fAlpha.gaugeForm.Widgets("housing/stopbutton").Widget.ToolTip = vbNullString
+        fAlpha.gaugeForm.Widgets("housing/switchfacesbutton").Widget.ToolTip = vbNullString
+        fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.ToolTip = vbNullString
+        fAlpha.gaugeForm.Widgets("housing/prefsbutton").Widget.ToolTip = vbNullString
+
     End If
     
     Call ChangeToolTipWidgetDefaultSettings(Cairo.ToolTipWidget.Widget)

@@ -316,7 +316,7 @@ End Sub
 ' Procedure : adjustMainControls
 ' Author    : beededea
 ' Date      : 27/04/2023
-' Purpose   : called at runtime and on restart, sets the characteristics of the globe and menus
+' Purpose   : called at runtime and on restart, sets the characteristics of the individual controls and menus
 '---------------------------------------------------------------------------------------
 '
 Public Sub adjustMainControls()
@@ -355,6 +355,10 @@ Public Sub adjustMainControls()
     
     If PzGSmoothSecondHand = "1" Then
         overlayWidget.SmoothSecondHand = True
+        fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = 0
+    Else
+        overlayWidget.SmoothSecondHand = False
+        fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = Val(PzGOpacity) / 100
     End If
 
     

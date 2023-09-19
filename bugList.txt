@@ -61,6 +61,13 @@
 ' fixed createTooltip using incorrect config var - done
 ' added balloon tooltips for each main program control - done
 
+' tick or smooth scroll for second hand - need to extract milliseconds  - done
+' save the state of the tick/smooth for reloading on startup - done
+' ensure the tickPin control is depressed when the smooth tick is loaded - done
+' move the tooltips from cfAlpha during setup to setMainTooltips using the form: fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.ToolTip = "" - done
+' add smooth movement comboBox to the general tab on the prefs - done
+' add code to load the smooth movement comboBox in the prefs - done
+
 ' licence form using forms2Cairo  - wip
 '     create as an R.C. form using Olaf's converter find it
 '         create a native vb6 form
@@ -98,8 +105,6 @@ W.Backcolor = vbBlue
 
 ' msgboxA - replace the standard message boxes with my own.
 
-' tick or smooth scroll for second hand
-' need to extract milliseconds
 
 ' RC BUGS & LIMITATIONS
 ' =====================

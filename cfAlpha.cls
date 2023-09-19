@@ -113,36 +113,36 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional ByVal WidgetKeyForDragg
                         Case "housing/helpbutton" 'three Widget-Keys, picked for "special click-behaviour"
                             W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
                             W.MousePointer = IDC_HAND
-                            If PzGEnableTooltips = "1" Then
-                                W.ToolTip = "Press for a little help."
-                            Else
-                                W.ToolTip = vbNullString
-                            End If
+'                            If PzGEnableTooltips = "1" Then
+'                                W.ToolTip = "Press for a little help."
+'                            Else
+'                                W.ToolTip = vbNullString
+'                            End If
                             
                         Case "housing/startbutton"
                             W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
                             W.MousePointer = IDC_HAND
-                            If PzGEnableTooltips = "1" Then
-                                W.ToolTip = "Press to restart (when stopped)"
-                            Else
-                                W.ToolTip = vbNullString
-                            End If
-                            
+'                            If PzGEnableTooltips = "1" Then
+'                                W.ToolTip = "Press to restart (when stopped)"
+'                            Else
+'                                W.ToolTip = vbNullString
+'                            End If
+'
                         Case "housing/stopbutton"
                             W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
                             W.MousePointer = IDC_HAND
-                            If PzGEnableTooltips = "1" Then
-                                W.ToolTip = "Press to stop clock operation."
-                            Else
-                                W.ToolTip = vbNullString
-                            End If
+'                            If PzGEnableTooltips = "1" Then
+'                                W.ToolTip = "Press to stop clock operation."
+'                            Else
+'                                W.ToolTip = vbNullString
+'                            End If
             
                         Case "housing/switchfacesbutton"
-                            If PzGEnableTooltips = "1" Then
-                                W.ToolTip = "Press to do nothing at all."
-                            Else
-                                W.ToolTip = vbNullString
-                            End If
+'                            If PzGEnableTooltips = "1" Then
+'                                W.ToolTip = "Press to do nothing at all."
+'                            Else
+'                                W.ToolTip = vbNullString
+'                            End If
                             W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
                             W.MousePointer = IDC_HAND
                             
@@ -150,11 +150,11 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional ByVal WidgetKeyForDragg
             
                             W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
                             W.MousePointer = IDC_HAND
-                            If PzGEnableTooltips = "1" Then
-                                W.ToolTip = "Press to lock the widget in place"
-                            Else
-                                W.ToolTip = vbNullString
-                            End If
+'                            If PzGEnableTooltips = "1" Then
+'                                W.ToolTip = "Press to lock the widget in place"
+'                            Else
+'                                W.ToolTip = vbNullString
+'                            End If
                                             
                             If PzGPreventDragging = "1" Then
                                 W.Alpha = 0
@@ -164,24 +164,24 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional ByVal WidgetKeyForDragg
                             W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
             
                             W.MousePointer = IDC_HAND
-                            If PzGEnableTooltips = "1" Then
-                                W.ToolTip = "Press to open the widget preferences"
-                            Else
-                                W.ToolTip = vbNullString
-                            End If
+'                            If PzGEnableTooltips = "1" Then
+'                                W.ToolTip = "Press to open the widget preferences"
+'                            Else
+'                                W.ToolTip = vbNullString
+'                            End If
                             
                         Case "housing/tickbutton"
                             W.HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
                             W.MousePointer = IDC_HAND
-                            If PzGEnableTooltips = "1" Then
-                                W.ToolTip = "Choose smooth movement or regular ticks"
-                            Else
-                                W.ToolTip = vbNullString
-                            End If
+'                            If PzGEnableTooltips = "1" Then
+'                                W.ToolTip = "Choose smooth movement or regular ticks"
+'                            Else
+'                                W.ToolTip = vbNullString
+'                            End If
                             
-                            If PzGSmoothSecondHand = "1" Then
-                                W.Alpha = 0
-                            End If
+'                            If PzGSmoothSecondHand = "1" Then
+'                                W.Alpha = 0
+'                            End If
 
                         Case Else 'all other added Layer-Widgets will be -1 or "non-hoverable" and "fully click-through"
                             W.HoverColor = -1 ' task: might change this later when new ver or RC6 arrives
