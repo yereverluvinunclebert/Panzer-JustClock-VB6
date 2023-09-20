@@ -11,7 +11,7 @@
  
  I created as a variation of the stopwatch clock I had previously created for the World of Tanks and War Thunder 
  communities. The Panzer Just Clock widget is an attractive dieselpunk VB6 widget for your desktop. 
- Functional and gorgeous at the same time. The graphics are my own, I took original inspiration from a clock face by Italo Fortana. It is all my code. 
+ Functional and gorgeous at the same time. The graphics are my own, I took original inspiration from a clock face by Italo Fortana. It is all my code with some help from the chaps at VBForums (credits given). 
   
  It will be a simple multi-timezone Simple Clock and clock. This Widget is a moveable widget that you can move anywhere 
  around the desktop as you require.
