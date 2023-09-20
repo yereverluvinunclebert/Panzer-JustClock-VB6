@@ -1543,7 +1543,9 @@ Public Sub mnuLicence_ClickEvent()
    On Error GoTo mnuLicence_ClickEvent_Error
 
     Call LoadFileToTB(frmLicence.txtLicenceTextBox, App.Path & "\Resources\txt\licence.txt", False)
-    frmLicence.show
+    'frmLicence.show
+    
+    Call licenceSplash
 
    On Error GoTo 0
    Exit Sub
@@ -1576,7 +1578,8 @@ Public Sub setMainTooltips()
         fAlpha.gaugeForm.Widgets("housing/switchfacesbutton").Widget.ToolTip = "Press to do nothing at all."
         fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.ToolTip = "Press to lock the widget in place"
         fAlpha.gaugeForm.Widgets("housing/prefsbutton").Widget.ToolTip = "Press to open the widget preferences"
-
+        fAlpha.gaugeForm.Widgets("housing/surround").Widget.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
+        
     Else
         overlayWidget.Widget.ToolTip = vbNullString
         helpWidget.Widget.ToolTip = vbNullString
@@ -1589,7 +1592,8 @@ Public Sub setMainTooltips()
         fAlpha.gaugeForm.Widgets("housing/switchfacesbutton").Widget.ToolTip = vbNullString
         fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.ToolTip = vbNullString
         fAlpha.gaugeForm.Widgets("housing/prefsbutton").Widget.ToolTip = vbNullString
-
+        fAlpha.gaugeForm.Widgets("housing/surround").Widget.ToolTip = vbNullString
+        
     End If
     
     Call ChangeToolTipWidgetDefaultSettings(Cairo.ToolTipWidget.Widget)
@@ -1758,7 +1762,7 @@ End Sub
     'f5 18
 '---------------------------------------------------------------------------------------
 '
-Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal Shift As Integer)
+Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal shift As Integer)
 
     On Error GoTo getkeypress_Error
 
@@ -1767,7 +1771,7 @@ Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal Shift As Integer)
             SHIFT_1 = False
     End If
     
-    If Shift Then
+    If shift Then
         SHIFT_1 = True
     End If
 
@@ -1954,6 +1958,7 @@ Public Sub unloadAllForms(ByVal endItAll As Boolean)
     fMain.aboutForm.Unload  ' RC6's own method for killing forms
     fMain.helpForm.Unload
     fAlpha.gaugeForm.Unload
+    fMain.licenceForm.Unload
     
     ' remove all variable references to each form in turn
     
@@ -1961,6 +1966,8 @@ Public Sub unloadAllForms(ByVal endItAll As Boolean)
     Set fMain.aboutForm = Nothing
     Set fMain.helpForm = Nothing
     Set fAlpha.gaugeForm = Nothing
+    Set fMain.licenceForm = Nothing
+    
     Set frmLicence = Nothing
     Set frmTimer = Nothing
     Set menuForm = Nothing
@@ -2279,7 +2286,47 @@ helpSplash_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure helpSplash of Form menuForm"
      
 End Sub
+'---------------------------------------------------------------------------------------
+' Procedure : licenceSplash
+' Author    : beededea
+' Date      : 03/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Sub licenceSplash()
 
+    Dim fileToPlay As String: fileToPlay = vbNullString
+
+    On Error GoTo licenceSplash_Error
+
+    fileToPlay = "till.wav"
+    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    End If
+
+
+    fMain.licenceForm.Top = (screenHeightPixels / 2) - (fMain.licenceForm.Height / 2)
+    fMain.licenceForm.Left = (screenWidthPixels / 2) - (fMain.licenceForm.Width / 2)
+     
+    fMain.licenceForm.Load
+    fMain.licenceForm.show
+    
+    licenceWidget.opacity = 0
+    licenceWidget.show = True
+    licenceWidget.Widget.Refresh
+    
+     If (fMain.licenceForm.WindowState = 1) Then
+         fMain.licenceForm.WindowState = 0
+     End If
+
+   On Error GoTo 0
+   Exit Sub
+
+licenceSplash_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure licenceSplash of Form menuForm"
+     
+End Sub
 
 '---------------------------------------------------------------------------------------
 ' Procedure : SwitchOff

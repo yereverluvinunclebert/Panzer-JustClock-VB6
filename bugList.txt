@@ -67,37 +67,45 @@
 ' move the tooltips from cfAlpha during setup to setMainTooltips using the form: fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.ToolTip = "" - done
 ' add smooth movement comboBox to the general tab on the prefs - done
 ' add code to load the smooth movement comboBox in the prefs - done
+' create a licence class - done
 
-' licence form using forms2Cairo  - wip
-'     create as an R.C. form using Olaf's converter find it
+' licence form three methods
+' 1. VB6 form, square VB type form, have multiple background images or resize an image for the background, we aren't going to do this.
+'    negs. too small for high DPI screens
+'    pos.  can be built using VB6 IDE
+' 2. VB6 form resized as per prefs, using a common resizing routine, square VB type form, have multiple background images or resize an image for the background, 
+'    the end result is just a square and unimaginative form.
+'    negs. non-standard method, requires some rejigging code, boring
+'    pos.  can be built using VB6 IDE, good for high DPI screens
+' 3. a simple RC6 image form just as the aboutForm containing a widget each for accept and decline button - we might do this to start
+'    negs. non-standard for VB6, requires some new code and learning
+'    pos.  can be built from existing RC code examples, can use a transparent image as the background
+' 4. create as an R.C. form using Olaf's converter, forms2Cairo  - * form already created with controls *
+'    negs. non-standard for VB6, requires new code and learning, creates a basic form, possibly transparent?  - we might continue this
+'    pos.  can be built from existing VB6 form and RC code examples
+'
 '         create a native vb6 form
 '         include modParseFrm.bas
 '         include cfMain.cls
 '         include the dummy form
 '         import your form and rename the fMainDef.frm to the name of your form
-'         in cfMain .bas create a Form_BubblingEvent to catch events eg.    If EventName = "W_MouseDown" Then
+'         in cfMain.bas create a Form_BubblingEvent to catch events eg.    If EventName = "W_MouseDown" Then
 '            using the sender key - Select Case LCase$(Sender.Widget.Key)
 '         for each event on the native VB6 form controls, create a similarly named event in cfMain.cls
 '         for the background image, create a widget on the form that fills the form and give that an image
 '         set the form to be transparent
-
-' time zone code - wip  look at YWE and replicate
+'
+' time zone code - wip - look at YWE and replicate
 ' daylight saving time - wip
 ' system startup running - wip
 
 ' date/day fields altered by DST and timezone changes
 
 ' tooltips also resize when the whole thing is resized, code received from Olaf and ColinE66 - testing required
-' the following shows methods for changing the properties of specific components (widgets) within the program,
-' should be applicable to tooltips for specific widgets?
-
-SomeParent.Widgets("TheWidgetKey").Widget.BackColor = vbBlue
 
 - or
 
-Dim W As cWidgetBase
-Set W = SomeParent.Widgets("TheWidgetKey").Widget
-W.Backcolor = vbBlue
+
 
 ' upgrade to RC6 new version from Olaf to obtain opacity control over the overlays currently limited to 25%
 
@@ -112,4 +120,7 @@ W.Backcolor = vbBlue
 ' aboutForm is not fading back-in but instantly hiding in DPI aware mode, opacity is acting strangely on second fade in
 
 
+
+tickButton.opacity = 0;
+fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = 0 
 

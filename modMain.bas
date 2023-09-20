@@ -5,7 +5,7 @@ Option Explicit
 
 '------------------------------------------------------ STARTS
 ' for SetWindowPos z-ordering
-Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
+Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 
 Private Const HWND_TOP As Long = 0 ' for SetWindowPos z-ordering
 Private Const HWND_TOPMOST As Long = -1
@@ -18,6 +18,7 @@ Private Const OnTopFlags  As Long = SWP_NOMOVE Or SWP_NOSIZE
 Public fMain As New cfMain
 Public aboutWidget As cwAbout
 Public helpWidget As cwHelp
+Public licenceWidget As cwLicence
 
 Public revealWidgetTimerCount As Integer
  
@@ -61,7 +62,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
 
     On Error GoTo main_routine_Error
     
-    widgetName = "Pz JustClock"
+    widgetName = "Panzer Just Clock Gauge"
     chosenDragLayer = "housing/surround"
     thisPSDFullPath = App.Path & "\Res\justClockVB6.psd"
     fAlpha.FX = 222 'init position- and zoom-values (directly set on Public-Props of the Form-hosting Class)
@@ -302,6 +303,7 @@ Private Sub addImagesToImageList()
     
     Cairo.ImageList.AddImage "about", App.Path & "\Resources\images\about.png"
     Cairo.ImageList.AddImage "help", App.Path & "\Resources\images\panzergauge-help.png"
+    Cairo.ImageList.AddImage "licence", App.Path & "\Resources\images\frame.png"
     Cairo.ImageList.AddImage "frmIcon", App.Path & "\Resources\images\Icon.png"
 
    On Error GoTo 0
@@ -316,7 +318,7 @@ End Sub
 ' Procedure : adjustMainControls
 ' Author    : beededea
 ' Date      : 27/04/2023
-' Purpose   : called at runtime and on restart, sets the characteristics of the individual controls and menus
+' Purpose   : called at runtime and on restart, sets the characteristics of the gauge, individual controls and menus
 '---------------------------------------------------------------------------------------
 '
 Public Sub adjustMainControls()
@@ -328,7 +330,7 @@ Public Sub adjustMainControls()
     
     fAlpha.AdjustZoom Val(PzGGaugeSize) / 100
     
-'    'overlayWidget.ZoomDirection = PzGScrollWheelDirection
+'    overlayWidget.ZoomDirection = PzGScrollWheelDirection
 
 'PzGClockFaceSwitchPref
 'PzGMainGaugeTimeZone
@@ -353,31 +355,22 @@ Public Sub adjustMainControls()
         menuForm.mnuEditWidget.Visible = False
     End If
     
-    If PzGSmoothSecondHand = "1" Then
-        overlayWidget.SmoothSecondHand = True
-        fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = 0
-    Else
+    If PzGSmoothSecondHand = "0" Then
         overlayWidget.SmoothSecondHand = False
         fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = Val(PzGOpacity) / 100
-    End If
-
-    
-    If PzGPreventDragging = "0" Then
-        menuForm.mnuLockWidget.Checked = False
-        overlayWidget.Locked = False
     Else
-        menuForm.mnuLockWidget.Checked = True
-        overlayWidget.Locked = True ' this is just here for continuity's sake, it is also set at the time the control is selected
-        ' the button depression is achieved in cfAlpha when creating each Widget-instance and setting widget characteristics at creation time
+        overlayWidget.SmoothSecondHand = True
+        fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = 0
     End If
         
     If PzGPreventDragging = "0" Then
         menuForm.mnuLockWidget.Checked = False
         overlayWidget.Locked = False
+        fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = Val(PzGOpacity) / 100
     Else
         menuForm.mnuLockWidget.Checked = True
         overlayWidget.Locked = True ' this is just here for continuity's sake, it is also set at the time the control is selected
-        ' the button depression is achieved in cfAlpha when creating each Widget-instance and setting widget characteristics at creation time
+        fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = 0
     End If
     
     If PzGShowTaskbar = "0" Then
@@ -385,6 +378,53 @@ Public Sub adjustMainControls()
     Else
         fAlpha.gaugeForm.ShowInTaskbar = True
     End If
+    
+    ' set the characteristics of the interactive areas
+    ' Note: set the Hover colour close to the original layer to avoid too much intrusion, 0 being grey
+    With fAlpha.gaugeForm.Widgets("housing/helpbutton").Widget
+        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .MousePointer = IDC_HAND
+    End With
+     
+    With fAlpha.gaugeForm.Widgets("housing/startbutton").Widget
+        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .MousePointer = IDC_HAND
+    End With
+      
+    With fAlpha.gaugeForm.Widgets("housing/stopbutton").Widget
+        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .MousePointer = IDC_HAND
+    End With
+      
+    With fAlpha.gaugeForm.Widgets("housing/switchfacesbutton").Widget
+        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .MousePointer = IDC_HAND
+    End With
+          
+    With fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget
+        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .MousePointer = IDC_HAND
+    End With
+          
+    With fAlpha.gaugeForm.Widgets("housing/prefsbutton").Widget
+        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .MousePointer = IDC_HAND
+    End With
+          
+    With fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget
+        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .MousePointer = IDC_HAND
+    End With
+    
+    With fAlpha.gaugeForm.Widgets("housing/surround").Widget
+        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .MousePointer = IDC_SIZEALL
+    End With
+    
+    'Dim W As cWidgetBase
+    'Set W = fAlpha.gaugeForm.Widgets("housing/surround").Widget
+    'W.HoverColor = 0
+    'W.MousePointer = IDC_SIZEALL
                  
     ' set the z-ordering of the window
     Call setWindowZordering
@@ -725,7 +765,7 @@ Private Sub createStandardFormsOnCurrentDisplay()
     On Error GoTo createStandardFormsOnCurrentDisplay_Error
 
     With New_c.Displays(1) 'get the current Display
-      fMain.initAndShowStandardForms .WorkLeft, .WorkTop, 1000, 1000, "Panzer JustClock Gauge"
+      fMain.initAndShowStandardForms .WorkLeft, .WorkTop, 1000, 1000, widgetName
     End With
 
     On Error GoTo 0

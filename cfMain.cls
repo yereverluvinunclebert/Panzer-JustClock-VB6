@@ -24,6 +24,9 @@ Public WithEvents aboutForm As cWidgetForm
 Attribute aboutForm.VB_VarHelpID = -1
 Public WithEvents helpForm As cWidgetForm
 Attribute helpForm.VB_VarHelpID = -1
+Public WithEvents licenceForm As cWidgetForm
+Attribute licenceForm.VB_VarHelpID = -1
+
 
 '---------------------------------------------------------------------------------------
 ' Procedure : initAndShowStandardForms
@@ -70,8 +73,20 @@ Public Sub initAndShowStandardForms(ByVal X As Long, ByVal Y As Long, Optional B
     ' make the help form transparent
     helpForm.WidgetRoot.BackColor = -1
          
-    ' create a new globe widget with a name and location, first step of that is to run Class_Initialize
+    ' create a new help widget image with a name and location
     Set helpWidget = helpForm.Widgets.Add(New cwHelp, "help", 0, 0, 1400, 1150)
+
+       
+    ' -oOo-
+    
+    ' create an invisible form using a Cairo Widget Form with the predefined caption and sizing
+    Set licenceForm = Cairo.WidgetForms.Create(WFFStyleTool, Caption, True, 580, 480)
+    
+    ' make the help form transparent
+    licenceForm.WidgetRoot.BackColor = -1
+         
+    ' create a new licence widget with a name and location
+    Set licenceWidget = licenceForm.Widgets.Add(New cwLicence, "licence", 0, 0, 550, 450)
 
 
    On Error GoTo 0
