@@ -27,6 +27,13 @@ Attribute helpForm.VB_VarHelpID = -1
 Public WithEvents licenceForm As cWidgetForm
 Attribute licenceForm.VB_VarHelpID = -1
 
+Private WithEvents acceptButton As cwButton
+Attribute acceptButton.VB_VarHelpID = -1
+Private WithEvents declineButton As cwButton
+Attribute declineButton.VB_VarHelpID = -1
+Private WithEvents textBox As cwTextBox
+Attribute textBox.VB_VarHelpID = -1
+
 
 '---------------------------------------------------------------------------------------
 ' Procedure : initAndShowStandardForms
@@ -50,11 +57,11 @@ Public Sub initAndShowStandardForms(ByVal X As Long, ByVal Y As Long, Optional B
     
     aboutFormWidth = 1600
     aboutFormHeight = 1200
-    aboutWidgetWidth = 745
-    aboutWidgetHeight = 622
+    aboutWidgetWidth = 1700
+    aboutWidgetHeight = 1500
     
     ' create an invisible form using a Cairo Widget Form with the predefined caption and sizing
-    Set aboutForm = Cairo.WidgetForms.Create(WFFStyleTool, "About the " & Caption & " Widget", True, 1600, 1200)
+    Set aboutForm = Cairo.WidgetForms.Create(WFFStyleTool, "About the " & Caption & " Widget", True, aboutWidgetWidth, aboutWidgetHeight)
     
     ' make the about form transparent
     aboutForm.WidgetRoot.BackColor = -1
@@ -62,32 +69,53 @@ Public Sub initAndShowStandardForms(ByVal X As Long, ByVal Y As Long, Optional B
     aboutLeft = (aboutFormWidth / 2) - (aboutWidgetWidth / 2)
     aboutTop = (aboutFormHeight / 2) - (aboutWidgetHeight / 2)
     
-    ' create a new globe widget with a name and location, first step of that is to run Class_Initialize
-    Set aboutWidget = aboutForm.Widgets.Add(New cwAbout, "about", aboutLeft, aboutTop, aboutWidgetWidth, aboutWidgetHeight)
+    ' create a new about widget with a name, position and size, first step of that is to run Class_Initialize
+    Set aboutWidget = aboutForm.Widgets.Add(New cwAbout, "about", 100, 100, aboutWidgetWidth, aboutWidgetHeight)
        
     ' -oOo-
     
-    ' create an invisible form using a Cairo Widget Form with the predefined caption and sizing
+    ' create an invisible form using a Cairo Widget Form with a predefined caption and sizing
     Set helpForm = Cairo.WidgetForms.Create(WFFStyleTool, Caption, , 1400, 1200)
     
     ' make the help form transparent
     helpForm.WidgetRoot.BackColor = -1
          
-    ' create a new help widget image with a name and location
+    ' create a new help widget image with a name, position and size
     Set helpWidget = helpForm.Widgets.Add(New cwHelp, "help", 0, 0, 1400, 1150)
-
        
     ' -oOo-
     
     ' create an invisible form using a Cairo Widget Form with the predefined caption and sizing
-    Set licenceForm = Cairo.WidgetForms.Create(WFFStyleTool, Caption, True, 580, 480)
+    Set licenceForm = Cairo.WidgetForms.Create(WFFStyleTool, Caption, True, 580, 490)
     
-    ' make the help form transparent
+    ' make the licence form transparent
     licenceForm.WidgetRoot.BackColor = -1
          
-    ' create a new licence widget with a name and location
+    ' create a new licence class widget with a name, position and size
     Set licenceWidget = licenceForm.Widgets.Add(New cwLicence, "licence", 0, 0, 550, 450)
-
+    
+    ' add two RC predefined button controls to the licence form
+    Set declineButton = licenceForm.Widgets.Add(New_W("cwButton"), "declineButton", 352, 397, 70, 29)
+        declineButton.Caption = ""
+        declineButton.Widget.Alpha = 0.05
+    
+    Set acceptButton = licenceForm.Widgets.Add(New_W("cwButton"), "acceptButton", 428, 397, 70, 29)
+        acceptButton.Caption = ""
+        acceptButton.Widget.Alpha = 0.05
+        
+    Set textBox = licenceForm.Widgets.Add(New_W("cwTextBox"), "textBox", 50, 60, 440, 280)
+        textBox.MultiLine = True
+        textBox.ScrollBars = vbVertical
+        textBox.Widget.BackColor = &H4000&
+        textBox.Widget.FontSize = 11
+        textBox.Widget.ForeColor = vbWhite
+        textBox.Text = widgetName & vbCrLf & vbCrLf & _
+        "Copyright © 1992-2023 Dean Beedell" & vbCrLf & vbCrLf & _
+        "This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public Licence as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version." & vbCrLf & vbCrLf & _
+            "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details." & vbCrLf & vbCrLf & _
+            "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA" & vbCrLf & vbCrLf & _
+            "If you use this software in any way whatsoever then that implies acceptance of the licence. If you do not wish to comply with the licence terms then please remove the download, binary and source code from your systems immediately." & vbCrLf & vbCrLf & _
+            "You may use any of my own imagery in your own creations but commercially only with my permission. In all other non-commercial cases I require a credit to the original artist using my name or one of my pseudonyms and a link to my site. With regard to the commercial use of incorporated images, permission and a licence would need to be obtained from the original owner and creator, ie. me."
 
    On Error GoTo 0
    Exit Sub
@@ -96,5 +124,53 @@ initAndShowStandardForms_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure initAndShowStandardForms of Class Module cfMain"
     
+End Sub
+
+'---------------------------------------------------------------------------------------
+' Procedure : acceptButton_Click
+' Author    : beededea
+' Date      : 20/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Sub acceptButton_Click()
+   On Error GoTo acceptButton_Click_Error
+
+    MsgBox "User accepted licence, thankyou."
+    
+    licenceForm.Hide
+
+   On Error GoTo 0
+   Exit Sub
+
+acceptButton_Click_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure acceptButton_Click of Class Module cfMain"
+End Sub
+
+'---------------------------------------------------------------------------------------
+' Procedure : declineButton_Click
+' Author    : beededea
+' Date      : 20/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Sub declineButton_Click()
+    
+    Dim answer As VbMsgBoxResult: answer = vbNo
+        
+    On Error GoTo declineButton_Click_Error
+
+    answer = MsgBox("Licence declined, please destroy your copy of this widget and its documentation.", vbYes)
+    If answer = 1 Then
+        Call thisForm_Unload
+    End If
+
+   On Error GoTo 0
+   Exit Sub
+
+declineButton_Click_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure declineButton_Click of Class Module cfMain"
 End Sub
 

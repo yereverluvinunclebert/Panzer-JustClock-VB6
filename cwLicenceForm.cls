@@ -67,34 +67,34 @@ End Sub
 
 Public Property Get Widget() As cWidgetBase: Set Widget = W: End Property
 Public Property Get Widgets() As cWidgets:  Set Widgets = W.Widgets: End Property ' does this really need to be exposed?
-'---------------------------------------------------------------------------------------
-' Procedure : W_MouseDown
-' Author    : beededea
-' Date      : 17/05/2023
-' Purpose   :
-'---------------------------------------------------------------------------------------
+''---------------------------------------------------------------------------------------
+'' Procedure : W_MouseDown
+'' Author    : beededea
+'' Date      : 17/05/2023
+'' Purpose   :
+''---------------------------------------------------------------------------------------
+''
+'Private Sub W_MouseDown(Button As Integer, shift As Integer, ByVal X As Single, ByVal Y As Single)
+'   On Error GoTo W_MouseDown_Error
 '
-Private Sub W_MouseDown(Button As Integer, shift As Integer, ByVal X As Single, ByVal Y As Single)
-   On Error GoTo W_MouseDown_Error
-   
-    Dim fileToPlay As String: fileToPlay = vbNullString
-
-    'Me.Hide ' no possibility of fade out in a VB6 form
-    
-    fileToPlay = "ting.wav"
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
-    End If
-
-    tmrFadeOut.Enabled = True ' this is not currently making the opacity reduce
-
-   On Error GoTo 0
-   Exit Sub
-
-W_MouseDown_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_MouseDown of Class Module cwLicence"
-End Sub
+'    Dim fileToPlay As String: fileToPlay = vbNullString
+'
+'    'Me.Hide ' no possibility of fade out in a VB6 form
+'
+'    fileToPlay = "ting.wav"
+'    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+'        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+'    End If
+'
+'    tmrFadeOut.Enabled = True ' this is not currently making the opacity reduce
+'
+'   On Error GoTo 0
+'   Exit Sub
+'
+'W_MouseDown_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_MouseDown of Class Module cwLicence"
+'End Sub
 '---------------------------------------------------------------------------------------
 ' Procedure : opacity
 ' Author    : beededea
@@ -287,25 +287,25 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
     'CC.Rectangle 0, 0, 200, 200, True
     W.FontSize = 6
     W.SelectFontSettingsInto CC
-    CC.DrawText 30, -170, dx, dy, "Copyright © 2012-2016 Dean Beedell and Harry Whitfield", , , 2, True, , 1
-    CC.DrawText 30, -150, dx, dy, "This program is free software; you can redistribute it and/or modify it under ", , , 2, True, , 1
-    CC.DrawText 30, -140, dx, dy, "the terms of the GNU General Public Licence as published by the Free Software ", , , 2, True, , 1
-    CC.DrawText 30, -130, dx, dy, "Foundation either version 2 of the License, or (at your option) any later version. ", , , 2, True, , 1
-    CC.DrawText 30, -120, dx, dy, "the terms of the GNU General Public Licence as published by the Free Software ", , , 2, True, , 1
-    CC.DrawText 30, -100, dx, dy, "This program is distributed in the hope that it will be useful, but WITHOUT ", , , 2, True, , 1
-    CC.DrawText 30, -90, dx, dy, "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or  ", , , 2, True, , 1
-    CC.DrawText 30, -80, dx, dy, "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License ", , , 2, True, , 1
-    CC.DrawText 30, -70, dx, dy, "for more details.  ", , , 2, True, , 1
-    CC.DrawText 30, -50, dx, dy, "You should have received a copy of the GNU General Public License along with ", , , 2, True, , 1
-    CC.DrawText 30, -40, dx, dy, "this program; if not, write to the Free Software Foundation, Inc., ", , , 2, True, , 1
-    CC.DrawText 30, -30, dx, dy, "51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA  ", , , 2, True, , 1
+'    CC.DrawText 30, -170, dx, dy, "Copyright © 2012-2016 Dean Beedell and Harry Whitfield", , , 2, True, , 1
+'    CC.DrawText 30, -150, dx, dy, "This program is free software; you can redistribute it and/or modify it under ", , , 2, True, , 1
+'    CC.DrawText 30, -140, dx, dy, "the terms of the GNU General Public Licence as published by the Free Software ", , , 2, True, , 1
+'    CC.DrawText 30, -130, dx, dy, "Foundation either version 2 of the License, or (at your option) any later version. ", , , 2, True, , 1
+'    CC.DrawText 30, -120, dx, dy, "the terms of the GNU General Public Licence as published by the Free Software ", , , 2, True, , 1
+'    CC.DrawText 30, -100, dx, dy, "This program is distributed in the hope that it will be useful, but WITHOUT ", , , 2, True, , 1
+'    CC.DrawText 30, -90, dx, dy, "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or  ", , , 2, True, , 1
+'    CC.DrawText 30, -80, dx, dy, "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License ", , , 2, True, , 1
+'    CC.DrawText 30, -70, dx, dy, "for more details.  ", , , 2, True, , 1
+'    CC.DrawText 30, -50, dx, dy, "You should have received a copy of the GNU General Public License along with ", , , 2, True, , 1
+'    CC.DrawText 30, -40, dx, dy, "this program; if not, write to the Free Software Foundation, Inc., ", , , 2, True, , 1
+'    CC.DrawText 30, -30, dx, dy, "51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA  ", , , 2, True, , 1
     
     
-    W.FontSize = 7
+    W.FontSize = 6
     W.SelectFontSettingsInto CC
 '
-    CC.DrawText 48, 10, dx, dy, "If you do not agree with the terms set forth above, please click the ", , , 2, True, , 1
-    CC.DrawText 48, 20, dx, dy, "Decline button below and destroy this widget and its documentation ", , , 2, True, , 1
+    CC.DrawText 48, 13, dx, dy, "If you do not agree with the terms set forth above, please click the ", , , 2, True, , 1
+    CC.DrawText 48, 23, dx, dy, "Decline button below and destroy this widget and its documentation ", , , 2, True, , 1
     
     W.FontSize = 8
 

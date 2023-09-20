@@ -259,7 +259,7 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
     
     On Error GoTo Draw_Error
 
-    If PzGDpiAwareness = "1" Then scaleValue = 1.4
+    If PzGDpiAwareness = "1" Then scaleValue = 1.5
     
     CC.ScaleDrawings scaleValue, scaleValue
 
@@ -272,7 +272,7 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
     W.SelectFontSettingsInto CC
     W.Refresh
    
-    CC.DrawText 350, 0, dx, dy - 490, "version " & App.Major & "." & App.Minor & "." & App.Revision & vbNullString, , , 2, True, , mOpacity
+    CC.DrawText 350, 0, dx, dy - 1020, "version " & App.Major & "." & App.Minor & "." & App.Revision & vbNullString, , , 2, True, , mOpacity
 
    On Error GoTo 0
    Exit Sub
