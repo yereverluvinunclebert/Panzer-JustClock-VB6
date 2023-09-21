@@ -272,7 +272,7 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
     W.SelectFontSettingsInto CC
     W.Refresh
    
-    CC.DrawText 350, 0, dx, dy - 1020, "version " & App.Major & "." & App.Minor & "." & App.Revision & vbNullString, , , 2, True, , mOpacity
+    CC.DrawText 350, 0, dx, dy - 1020, "version " & App.Major & "." & App.Minor & "." & App.Revision & " Alpha", , , 2, True, , mOpacity
 
    On Error GoTo 0
    Exit Sub

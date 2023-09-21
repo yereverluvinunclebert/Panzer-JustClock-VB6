@@ -1249,7 +1249,7 @@ Public Sub changeFormFont(ByVal formName As Object, ByVal suppliedFont As String
       
     ' loop through all the controls and identify the labels and text boxes
     For Each ctrl In formName.Controls
-        If (TypeOf ctrl Is CommandButton) Or (TypeOf ctrl Is TextBox) Or (TypeOf ctrl Is FileListBox) Or (TypeOf ctrl Is Label) Or (TypeOf ctrl Is ComboBox) Or (TypeOf ctrl Is CheckBox) Or (TypeOf ctrl Is OptionButton) Or (TypeOf ctrl Is Frame) Or (TypeOf ctrl Is ListBox) Then
+        If (TypeOf ctrl Is CommandButton) Or (TypeOf ctrl Is textBox) Or (TypeOf ctrl Is FileListBox) Or (TypeOf ctrl Is Label) Or (TypeOf ctrl Is ComboBox) Or (TypeOf ctrl Is CheckBox) Or (TypeOf ctrl Is OptionButton) Or (TypeOf ctrl Is Frame) Or (TypeOf ctrl Is ListBox) Then
             If suppliedFont <> vbNullString Then ctrl.Font.Name = suppliedFont
             If suppliedSize > 0 Then ctrl.Font.Size = suppliedSize
             ctrl.Font.Italic = suppliedItalics
@@ -1454,9 +1454,17 @@ End Function
 '---------------------------------------------------------------------------------------
 '
 Public Sub aboutClickEvent()
+    Dim fileToPlay As String: fileToPlay = vbNullString
 
-    ' The RC forms are measured in pixels so the positioning needs to turn the twips into pixels
     On Error GoTo aboutClickEvent_Error
+    
+    fileToPlay = "till.wav"
+    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    End If
+    
+    
+    ' The RC forms are measured in pixels so the positioning needs to turn the twips into pixels
    
     fMain.aboutForm.Top = (screenHeightPixels / 2) - (fMain.aboutForm.Height / 2)
     fMain.aboutForm.Left = (screenWidthPixels / 2) - (fMain.aboutForm.Width / 2)

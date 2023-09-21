@@ -70,6 +70,15 @@
 ' create a licence class - done
 
 ' licence form, a simple RC6 image form containing pre-defined RC widgets, one each for the accept and decline buttons - done
+' licence form, added pre-defined RC textbox widget to store the licence text - done
+
+' tooltips also resize when the whole thing is resized, code received from Olaf and ColinE66 - testing required
+
+' smooth ticking toggle generates an error when ticking is stopped.
+
+' monitorProperties, make it work
+
+' msgboxA - replace the standard message boxes with my own.
 '
 ' time zone code - wip - look at YWE and replicate
 ' daylight saving time - wip
@@ -77,15 +86,10 @@
 
 ' date/day fields altered by DST and timezone changes
 
-' tooltips also resize when the whole thing is resized, code received from Olaf and ColinE66 - testing required
-
-' smooth ticking toggle generates an error when ticking is stopped.
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
-' monitorProperties, make it work
 
-' msgboxA - replace the standard message boxes with my own.
 
 
 ' RC BUGS & LIMITATIONS

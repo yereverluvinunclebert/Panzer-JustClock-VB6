@@ -21,15 +21,19 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-'these Public Props are set in the Parent (here, cfAlpha)
+'these Public Properties are set in the Parent (here, cfAlpha)
 Public cCollOverlayImages As cCollection
 Public cxPerc As Single
 Public cyPerc As Single
 
 Private WithEvents W As cWidgetBase
 Attribute W.VB_VarHelpID = -1
-Private WithEvents tmrClock As cTimer, HDeg As Double, MDeg As Double, SDeg As Double, MsDeg As Double
+Private WithEvents tmrClock As cTimer
 Attribute tmrClock.VB_VarHelpID = -1
+Private HDeg As Double
+Private MDeg As Double
+Private SDeg As Double
+Private MsDeg As Double
 
 '------------------------------------------------------ STARTS
 Private Type SYSTEMTIME
@@ -89,8 +93,44 @@ Class_Initialize_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Class_Initialize of Class Module cwOverlay"
 End Sub
 
-Public Property Get Widget() As cWidgetBase: Set Widget = W: End Property
-Public Property Get Widgets() As cWidgets: Set Widgets = W.Widgets: End Property
+'---------------------------------------------------------------------------------------
+' Procedure : Widget
+' Author    : beededea
+' Date      : 21/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get Widget() As cWidgetBase
+   On Error GoTo Widget_Error
+
+    Set Widget = W
+
+   On Error GoTo 0
+   Exit Property
+
+Widget_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Widget of Class Module cwOverlay"
+End Property
+'---------------------------------------------------------------------------------------
+' Procedure : Widgets
+' Author    : beededea
+' Date      : 21/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get Widgets() As cWidgets
+   On Error GoTo Widgets_Error
+
+    Set Widgets = W.Widgets
+
+   On Error GoTo 0
+   Exit Property
+
+Widgets_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Widgets of Class Module cwOverlay"
+End Property
 
 
 '---------------------------------------------------------------------------------------
@@ -131,9 +171,10 @@ Public Property Let Ticking(ByVal newValue As Boolean)
         Else
             intervalValue = 500
         End If
-        Set tmrClock = New_c.Timer(intervalValue, mTicking)
+
+        tmrClock.Enabled = True
     Else
-        Set tmrClock = Nothing
+        tmrClock.Enabled = False
     End If
 
    On Error GoTo 0
@@ -287,7 +328,7 @@ End Property
 '             For this Overlay-Widget alone, we make everything "fully click-through"
 '---------------------------------------------------------------------------------------------
 '
-Private Sub W_HitTest(ByVal x As Single, ByVal y As Single, HitResultHit As Boolean) 'ensure ClickThrough-behaviour in ImagePixels which are "fully Alpha"
+Private Sub W_HitTest(ByVal X As Single, ByVal Y As Single, HitResultHit As Boolean) 'ensure ClickThrough-behaviour in ImagePixels which are "fully Alpha"
    On Error GoTo W_HitTest_Error
 
    HitResultHit = False

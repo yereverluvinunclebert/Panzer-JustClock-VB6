@@ -105,7 +105,9 @@ Option Explicit
 ' Procedure : Form_Load
 ' Author    : beededea
 ' Date      : 07/04/2020
-' Purpose   : The main dock won't take a menu when using GDI so we have a separate form for the menu
+' Purpose   : We have a separate form for the right click menu. We do not need an on-form menu for the
+'               various RC6 forms so a native VB6 menu will do. It looks good in any case as it is
+'               merely replicating the Yahoo widget menu.
 '---------------------------------------------------------------------------------------
 '
 Private Sub Form_Load()
