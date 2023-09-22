@@ -1992,9 +1992,13 @@ Private Type ControlPositionType
     FontSize As Single
 End Type
 
-Private m_ControlPositions() As ControlPositionType
-Private m_FormWid As Single
-Private m_FormHgt As Single
+Private prefsControlPositions() As ControlPositionType
+Private prefsCurrentWidth As Single
+Private prefsCurrentHeight As Single
+
+Private msgBoxAControlPositions() As ControlPositionType
+Private msgBoxACurrentWidth As Single
+Private msgBoxACurrentHeight As Single
 
 Private dynamicSizingFlg As Boolean
 Private lastFormHeight As Long
@@ -3503,8 +3507,9 @@ Private Sub Form_Resize()
     
     If dynamicSizingFlg = True Then
         Me.Width = Me.Height / ratio ' maintain the aspect ratio
-        Call resizeControls
-        
+        Call resizeControls(panzerPrefs, prefsControlPositions(), prefsCurrentWidth, prefsCurrentHeight)
+        Call tweakPrefsControlPositions(panzerPrefs, prefsCurrentWidth, prefsCurrentHeight)
+
         Call loadHigherResImages
     Else
         If Me.WindowState = 0 Then
@@ -3535,11 +3540,18 @@ End Sub
 ' Purpose   : final tweak the bottom frame top and left positions
 '---------------------------------------------------------------------------------------
 '
-Private Sub tweakPrefsControlPositions(ByVal x_scale As Single, ByVal y_scale As Single)
+Private Sub tweakPrefsControlPositions(ByVal thisForm As Form, ByVal m_FormWid As Single, ByVal m_FormHgt)
 
     ' not sure why but the resizeControls routine can lead to incorrect positioning of frames and buttons
+    Dim x_scale As Single: x_scale = 0
+    Dim y_scale As Single: y_scale = 0
     
-   On Error GoTo tweakPrefsControlPositions_Error
+    On Error GoTo tweakPrefsControlPositions_Error
+   
+
+    ' Get the form's current scale factors.
+    x_scale = thisForm.ScaleWidth / m_FormWid
+    y_scale = thisForm.ScaleHeight / m_FormHgt
 
     fraGeneral.Left = fraGeneralButton.Left
     fraConfig.Left = fraGeneralButton.Left
@@ -4288,7 +4300,7 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
     thisFraButtonName.BorderStyle = 1
 
     ' Get the form's current scale factors.
-    y_scale = ScaleHeight / m_FormHgt
+    y_scale = ScaleHeight / prefsCurrentHeight
     
     btnHelp.Top = fraGeneral.Top + fraGeneral.Height + (250 * y_scale)
     btnSave.Top = btnHelp.Top
@@ -4785,7 +4797,7 @@ End Sub
 ' Credit    : Rod Stephens vb-helper.com
 '---------------------------------------------------------------------------------------
 '
-Private Sub SaveSizes()
+Private Sub SaveSizes(ByRef thisForm As Form, ByRef m_ControlPositions() As ControlPositionType, ByRef m_FormWid As Single, ByRef m_FormHgt As Single)
     Dim i As Integer: i = 0
     Dim a As Integer: a = 0
     Dim Ctrl As Control
@@ -4795,7 +4807,7 @@ Private Sub SaveSizes()
 
     ReDim m_ControlPositions(1 To Controls.Count)
     i = 1
-    For Each Ctrl In Controls
+    For Each Ctrl In thisForm.Controls
         With m_ControlPositions(i)
             If (TypeOf Ctrl Is CommandButton) Or (TypeOf Ctrl Is ListBox) Or (TypeOf Ctrl Is textBox) Or (TypeOf Ctrl Is FileListBox) Or (TypeOf Ctrl Is Label) Or (TypeOf Ctrl Is ComboBox) Or (TypeOf Ctrl Is CheckBox) Or (TypeOf Ctrl Is OptionButton) Or (TypeOf Ctrl Is Frame) Or (TypeOf Ctrl Is Image) Or (TypeOf Ctrl Is PictureBox) Or (TypeOf Ctrl Is Slider) Then
                 a = 1
@@ -4812,8 +4824,8 @@ Private Sub SaveSizes()
     Next Ctrl
 
     ' Save the form's size.
-    m_FormWid = Me.ScaleWidth
-    m_FormHgt = Me.ScaleHeight
+    m_FormWid = thisForm.ScaleWidth
+    m_FormHgt = thisForm.ScaleHeight
 
    On Error GoTo 0
    Exit Sub
@@ -4831,7 +4843,7 @@ End Sub
 ' Purpose   : Arrange the controls for the new size.
 '---------------------------------------------------------------------------------------
 '
-Private Sub resizeControls()
+Private Sub resizeControls(ByRef thisForm As Form, ByRef m_ControlPositions() As ControlPositionType, ByVal m_FormWid As Single, ByVal m_FormHgt)
     Dim i As Integer: i = 0
     Dim Ctrl As Control
     Dim x_scale As Single: x_scale = 0
@@ -4841,12 +4853,12 @@ Private Sub resizeControls()
     On Error GoTo ResizeControls_Error
 
     ' Get the form's current scale factors.
-    x_scale = ScaleWidth / m_FormWid
-    y_scale = ScaleHeight / m_FormHgt
+    x_scale = thisForm.ScaleWidth / m_FormWid
+    y_scale = thisForm.ScaleHeight / m_FormHgt
 
     ' Position the controls.
     i = 1
-    For Each Ctrl In Controls
+    For Each Ctrl In thisForm.Controls
         With m_ControlPositions(i)
             If (TypeOf Ctrl Is CommandButton) Or (TypeOf Ctrl Is ListBox) Or (TypeOf Ctrl Is textBox) Or (TypeOf Ctrl Is FileListBox) Or (TypeOf Ctrl Is Label) Or (TypeOf Ctrl Is ComboBox) Or (TypeOf Ctrl Is CheckBox) Or (TypeOf Ctrl Is OptionButton) Or (TypeOf Ctrl Is Frame) Or (TypeOf Ctrl Is Slider) Then
                 Ctrl.Left = x_scale * .Left
@@ -4877,9 +4889,7 @@ Private Sub resizeControls()
     
     currFontSize = y_scale * txtPrefsFontCurrentSize.FontSize
     txtPrefsFontCurrentSize.Text = currFontSize
-    
-    Call tweakPrefsControlPositions(x_scale, y_scale)
-    
+        
   
    On Error GoTo 0
    Exit Sub
@@ -5040,7 +5050,8 @@ Private Sub setframeHeights()
         fraDevelopment.Width = fraAbout.Width
         fraWindow.Width = fraAbout.Width
     
-        Call SaveSizes
+        ' save the initial positions of ALL the controls on the prefs form
+        Call SaveSizes(panzerPrefs, prefsControlPositions(), prefsCurrentWidth, prefsCurrentHeight)
     Else
         fraGeneral.Height = 7757
         fraConfig.Height = 6632
