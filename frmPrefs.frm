@@ -2882,9 +2882,8 @@ Private Sub btnCancel_Click()
    On Error GoTo btnCancel_Click_Error
 
     btnSave.Enabled = False ' disable the save button
+    panzerPrefs.Hide
     panzerPrefs.themeTimer.Enabled = False
-
-    Unload Me
 
    On Error GoTo 0
    Exit Sub

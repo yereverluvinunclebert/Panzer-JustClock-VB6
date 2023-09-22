@@ -76,9 +76,15 @@
 ' smooth ticking toggle generates an error when ticking is stopped - done
 ' enable prefs tooltips checkbox checked at startup - done
 
-' msgboxA - replace the standard message boxes with my own.
+' resizeControls and saveSizes made form agnostic - done
+' msgboxA - replace the standard message boxes with my own - wip
+' apply resizeControls to msgBoxA
+
+' load the prefs form earlier, just make it hidden
 
 ' monitorProperties, make it work
+
+' DPI switching off - errors
 
 ' time zone code - wip - look at YWE and replicate
 ' daylight saving time - wip
@@ -88,7 +94,10 @@
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
-' drag corner
+' drag corner, implement
+
+' low DPI mode, run, test and fix
+
 
 ' RC BUGS & LIMITATIONS
 ' =====================
