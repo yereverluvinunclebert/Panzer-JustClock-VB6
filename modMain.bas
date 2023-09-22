@@ -26,6 +26,8 @@ Public fAlpha As New cfAlpha
 Public overlayWidget As cwOverlay
 Public widgetName As String
 
+
+
 '---------------------------------------------------------------------------------------
 ' Procedure : Main
 ' Author    : beededea
@@ -592,7 +594,7 @@ Public Sub validateInputs()
         'If PzGSecondaryDaylightSaving = vbNullString Then PzGSecondaryDaylightSaving = "1"
 
         ' Configuration
-        If PzGEnableTooltips = vbNullString Then PzGEnableTooltips = "1"
+        If PzGEnableTooltips = vbNullString Then PzGEnableTooltips = "0"
         If PzGEnablePrefsTooltips = vbNullString Then PzGEnablePrefsTooltips = "1"
         If PzGEnableBalloonTooltips = vbNullString Then PzGEnableBalloonTooltips = "1"
         If PzGShowTaskbar = vbNullString Then PzGShowTaskbar = "0"
@@ -898,4 +900,43 @@ End Sub
 
 
      
+
+
+
+' .74 DAEB 22/05/2022 rDIConConfig.frm Msgbox replacement that can be placed on top of the form instead as the middle of the screen, see Steamydock for a potential replacement?
+'---------------------------------------------------------------------------------------
+' Procedure : msgBoxA
+' Author    : beededea
+' Date      : 20/05/2022
+' Purpose   :         ans = msgBoxA(sTitle & " Command Issued - " & sCommand, vbOKOnly, "Message", False)
+'---------------------------------------------------------------------------------------
+'
+Public Function msgBoxA(ByVal msgBoxPrompt As String, Optional ByVal msgButton As VbMsgBoxResult, Optional ByVal msgTitle As String, Optional ByVal msgShowAgainChkBox As Boolean = False, Optional ByRef msgContext As String = "none") As Integer
+     
+    ' set the defined properties of a form
+    On Error GoTo msgBoxA_Error
+
+    frmMessage.propMessage = msgBoxPrompt
+    frmMessage.propTitle = msgTitle
+    frmMessage.propShowAgainChkBox = msgShowAgainChkBox
+    frmMessage.propButtonVal = msgButton
+    frmMessage.propMsgContext = msgContext
+    frmMessage.Display ' run a subroutine in the form that displays the form
+
+    msgBoxA = frmMessage.propReturnedValue
+
+    On Error GoTo 0
+    Exit Function
+
+msgBoxA_Error:
+
+    With Err
+         If .Number <> 0 Then
+            MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure msgBoxA of Module mdlMain"
+            Resume Next
+          End If
+    End With
+
+End Function
+
 

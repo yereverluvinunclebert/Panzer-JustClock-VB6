@@ -660,7 +660,7 @@ Public Sub checkLicenceState()
         If slicence = "0" Or slicence = "" Then
             Call LoadFileToTB(frmLicence.txtLicenceTextBox, App.Path & "\Resources\txt\licence.txt", False)
             
-            frmLicence.show vbModal ' show the licence screen in VB modal mode (ie. on its own)
+            frmLicence.Show vbModal ' show the licence screen in VB modal mode (ie. on its own)
             ' on the licence box change the state fo the licence acceptance
         End If
     End If
@@ -1245,22 +1245,22 @@ End Sub
 Public Sub changeFormFont(ByVal formName As Object, ByVal suppliedFont As String, ByVal suppliedSize As Integer, ByVal suppliedWeight As Integer, ByVal suppliedStyle As Boolean, ByVal suppliedItalics As Boolean, ByVal suppliedColour As Long)
     On Error GoTo changeFormFont_Error
         
-    Dim ctrl As Control
+    Dim Ctrl As Control
       
     ' loop through all the controls and identify the labels and text boxes
-    For Each ctrl In formName.Controls
-        If (TypeOf ctrl Is CommandButton) Or (TypeOf ctrl Is textBox) Or (TypeOf ctrl Is FileListBox) Or (TypeOf ctrl Is Label) Or (TypeOf ctrl Is ComboBox) Or (TypeOf ctrl Is CheckBox) Or (TypeOf ctrl Is OptionButton) Or (TypeOf ctrl Is Frame) Or (TypeOf ctrl Is ListBox) Then
-            If suppliedFont <> vbNullString Then ctrl.Font.Name = suppliedFont
-            If suppliedSize > 0 Then ctrl.Font.Size = suppliedSize
-            ctrl.Font.Italic = suppliedItalics
+    For Each Ctrl In formName.Controls
+        If (TypeOf Ctrl Is CommandButton) Or (TypeOf Ctrl Is textBox) Or (TypeOf Ctrl Is FileListBox) Or (TypeOf Ctrl Is Label) Or (TypeOf Ctrl Is ComboBox) Or (TypeOf Ctrl Is CheckBox) Or (TypeOf Ctrl Is OptionButton) Or (TypeOf Ctrl Is Frame) Or (TypeOf Ctrl Is ListBox) Then
+            If suppliedFont <> vbNullString Then Ctrl.Font.Name = suppliedFont
+            If suppliedSize > 0 Then Ctrl.Font.Size = suppliedSize
+            Ctrl.Font.Italic = suppliedItalics
             
             Select Case True
-                Case (TypeOf ctrl Is CommandButton)
+                Case (TypeOf Ctrl Is CommandButton)
                     ' stupif fecking VB6 will not let you change the font of the forecolour on a button!
                     'Ctrl.ForeColor = suppliedColour
                     ' do nothing
                 Case Else
-                    ctrl.ForeColor = suppliedColour
+                    Ctrl.ForeColor = suppliedColour
             End Select
         End If
     Next
@@ -1463,22 +1463,21 @@ Public Sub aboutClickEvent()
         PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
-    
     ' The RC forms are measured in pixels so the positioning needs to turn the twips into pixels
    
     fMain.aboutForm.Top = (screenHeightPixels / 2) - (fMain.aboutForm.Height / 2)
     fMain.aboutForm.Left = (screenWidthPixels / 2) - (fMain.aboutForm.Width / 2)
      
-    fMain.aboutForm.Load
-    fMain.aboutForm.show
-    
     aboutWidget.opacity = 0
-    aboutWidget.show = True
-    aboutWidget.Widget.Refresh
+    aboutWidget.ShowMe = True
+    'aboutWidget.Widget.Refresh
     
-     If (fMain.aboutForm.WindowState = 1) Then
-         fMain.aboutForm.WindowState = 0
-     End If
+    'fMain.aboutForm.Load
+    fMain.aboutForm.Show
+      
+    If (fMain.aboutForm.WindowState = 1) Then
+        fMain.aboutForm.WindowState = 0
+    End If
 
    On Error GoTo 0
    Exit Sub
@@ -1487,7 +1486,89 @@ aboutClickEvent_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure aboutClickEvent of Module Module1"
 End Sub
+'---------------------------------------------------------------------------------------
+' Procedure : helpSplash
+' Author    : beededea
+' Date      : 03/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Sub helpSplash()
 
+    Dim fileToPlay As String: fileToPlay = vbNullString
+
+    On Error GoTo helpSplash_Error
+
+    fileToPlay = "till.wav"
+    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    End If
+
+
+    fMain.helpForm.Top = (screenHeightPixels / 2) - (fMain.helpForm.Height / 2)
+    fMain.helpForm.Left = (screenWidthPixels / 2) - (fMain.helpForm.Width / 2)
+     
+    helpWidget.opacity = 0
+    helpWidget.Show = True
+    'helpWidget.Widget.Refresh
+    
+    'fMain.helpForm.Load
+    fMain.helpForm.Show
+    
+     If (fMain.helpForm.WindowState = 1) Then
+         fMain.helpForm.WindowState = 0
+     End If
+
+   On Error GoTo 0
+   Exit Sub
+
+helpSplash_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure helpSplash of Form menuForm"
+     
+End Sub
+'---------------------------------------------------------------------------------------
+' Procedure : licenceSplash
+' Author    : beededea
+' Date      : 03/08/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Sub licenceSplash()
+
+    Dim fileToPlay As String: fileToPlay = vbNullString
+
+    On Error GoTo licenceSplash_Error
+
+    fileToPlay = "till.wav"
+    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    End If
+
+    fMain.licenceForm.Top = (screenHeightPixels / 2) - (fMain.licenceForm.Height / 2)
+    fMain.licenceForm.Left = (screenWidthPixels / 2) - (fMain.licenceForm.Width / 2)
+     
+    licenceWidget.opacity = 0
+    'opacityflag = 0
+    licenceWidget.ShowMe = True
+    'licenceWidget.Widget.Refresh
+    
+    'fMain.licenceForm.Load
+    fMain.licenceForm.Show
+
+    
+     If (fMain.licenceForm.WindowState = 1) Then
+         fMain.licenceForm.WindowState = 0
+     End If
+
+   On Error GoTo 0
+   Exit Sub
+
+licenceSplash_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure licenceSplash of Form menuForm"
+     
+End Sub
 '---------------------------------------------------------------------------------------
 ' Procedure : mnuCoffee_ClickEvent
 ' Author    : beededea
@@ -1551,7 +1632,6 @@ Public Sub mnuLicence_ClickEvent()
    On Error GoTo mnuLicence_ClickEvent_Error
 
     Call LoadFileToTB(frmLicence.txtLicenceTextBox, App.Path & "\Resources\txt\licence.txt", False)
-    'frmLicence.show
     
     Call licenceSplash
 
@@ -1661,7 +1741,7 @@ Public Sub makeVisibleFormElements()
     
     ' The RC forms are measured in pixels, whereas the native forms are in twips, do remember that...
 
-    fAlpha.gaugeForm.show
+    fAlpha.gaugeForm.Show
 
     On Error GoTo 0
     Exit Sub
@@ -1770,7 +1850,7 @@ End Sub
     'f5 18
 '---------------------------------------------------------------------------------------
 '
-Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal shift As Integer)
+Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal Shift As Integer)
 
     On Error GoTo getkeypress_Error
 
@@ -1779,7 +1859,7 @@ Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal shift As Integer)
             SHIFT_1 = False
     End If
     
-    If shift Then
+    If Shift Then
         SHIFT_1 = True
     End If
 
@@ -2085,7 +2165,7 @@ Public Sub makeProgramPreferencesAvailable()
             If panzerPrefs.Left < 0 Then panzerPrefs.Left = 0
             If panzerPrefs.Top < 0 Then panzerPrefs.Top = 0
             
-            panzerPrefs.show  ' show it again
+            panzerPrefs.Show  ' show it again
             panzerPrefs.SetFocus
         End If
     End If
@@ -2253,88 +2333,7 @@ lockWidget_Error:
 End Sub
 
 
-'---------------------------------------------------------------------------------------
-' Procedure : helpSplash
-' Author    : beededea
-' Date      : 03/08/2023
-' Purpose   :
-'---------------------------------------------------------------------------------------
-'
-Public Sub helpSplash()
 
-    Dim fileToPlay As String: fileToPlay = vbNullString
-
-    On Error GoTo helpSplash_Error
-
-    fileToPlay = "till.wav"
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
-    End If
-
-
-    fMain.helpForm.Top = (screenHeightPixels / 2) - (fMain.helpForm.Height / 2)
-    fMain.helpForm.Left = (screenWidthPixels / 2) - (fMain.helpForm.Width / 2)
-     
-    fMain.helpForm.Load
-    fMain.helpForm.show
-    
-    helpWidget.opacity = 0
-    helpWidget.show = True
-    helpWidget.Widget.Refresh
-    
-     If (fMain.helpForm.WindowState = 1) Then
-         fMain.helpForm.WindowState = 0
-     End If
-
-   On Error GoTo 0
-   Exit Sub
-
-helpSplash_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure helpSplash of Form menuForm"
-     
-End Sub
-'---------------------------------------------------------------------------------------
-' Procedure : licenceSplash
-' Author    : beededea
-' Date      : 03/08/2023
-' Purpose   :
-'---------------------------------------------------------------------------------------
-'
-Public Sub licenceSplash()
-
-    Dim fileToPlay As String: fileToPlay = vbNullString
-
-    On Error GoTo licenceSplash_Error
-
-    fileToPlay = "till.wav"
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
-    End If
-
-
-    fMain.licenceForm.Top = (screenHeightPixels / 2) - (fMain.licenceForm.Height / 2)
-    fMain.licenceForm.Left = (screenWidthPixels / 2) - (fMain.licenceForm.Width / 2)
-     
-    fMain.licenceForm.Load
-    fMain.licenceForm.show
-    
-    licenceWidget.opacity = 0
-    licenceWidget.show = True
-    licenceWidget.Widget.Refresh
-    
-     If (fMain.licenceForm.WindowState = 1) Then
-         fMain.licenceForm.WindowState = 0
-     End If
-
-   On Error GoTo 0
-   Exit Sub
-
-licenceSplash_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure licenceSplash of Form menuForm"
-     
-End Sub
 
 '---------------------------------------------------------------------------------------
 ' Procedure : SwitchOff

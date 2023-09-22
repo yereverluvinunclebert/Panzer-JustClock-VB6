@@ -483,7 +483,6 @@ End Sub
 '
 Private Sub mnuLicence_Click()
     On Error GoTo mnuLicence_Click_Error
-    '''If debugflg = 1  Then msgBox "%" & "mnuLicence_Click"
         
     Call mnuLicence_ClickEvent
 

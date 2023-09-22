@@ -22,19 +22,23 @@ Option Explicit
  
 Private WithEvents W As cWidgetBase '<- this is required in each cwImplementation...
 Attribute W.VB_VarHelpID = -1
-Private WithEvents tmrFadeIn As cTimer
-Attribute tmrFadeIn.VB_VarHelpID = -1
-Private WithEvents tmrFadeOut As cTimer
-Attribute tmrFadeOut.VB_VarHelpID = -1
+Private WithEvents tmrLicenceFadeIn As cTimer
+Attribute tmrLicenceFadeIn.VB_VarHelpID = -1
+Private WithEvents tmrLicenceFadeOut As cTimer
+Attribute tmrLicenceFadeOut.VB_VarHelpID = -1
 
 Private licencexo As Integer
 Private licenceyo As Integer
 
 Private mOpacity As Double
-Private mShow As Boolean
+Private mShowMe As Boolean
+
+Private opacityflag As Integer
+
+
 
 'property opacity is a property that populates mOpacity used by RenderSurfaceContent
-'property show is a property that populates mShow that triggers a fade in timer
+'property ShowMe is a property that populates mShowMe that triggers a fade in timer
 
 '---------------------------------------------------------------------------------------
 ' Procedure : Class_Initialize
@@ -49,13 +53,11 @@ Private Sub Class_Initialize()
 
     licencexo = 0
     licenceyo = 0
-    opacity = 0
-    show = False
 
     Set W = Cairo.WidgetBase '<- this is required in each cwImplementation...
    
-    Set tmrFadeIn = New_c.Timer(20, False)
-    Set tmrFadeOut = New_c.Timer(20, False)
+    Set tmrLicenceFadeIn = New_c.Timer(20, False)
+    Set tmrLicenceFadeOut = New_c.Timer(20, False)
 
    On Error GoTo 0
    Exit Sub
@@ -65,36 +67,63 @@ Class_Initialize_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Class_Initialize of Class Module cwLicence"
 End Sub
 
-Public Property Get Widget() As cWidgetBase: Set Widget = W: End Property
-Public Property Get Widgets() As cWidgets:  Set Widgets = W.Widgets: End Property ' does this really need to be exposed?
-''---------------------------------------------------------------------------------------
-'' Procedure : W_MouseDown
-'' Author    : beededea
-'' Date      : 17/05/2023
-'' Purpose   :
-''---------------------------------------------------------------------------------------
-''
-'Private Sub W_MouseDown(Button As Integer, shift As Integer, ByVal X As Single, ByVal Y As Single)
-'   On Error GoTo W_MouseDown_Error
+'---------------------------------------------------------------------------------------
+' Procedure : Widget
+' Author    : olaf schmidt
+' Date      : 21/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
 '
-'    Dim fileToPlay As String: fileToPlay = vbNullString
+Public Property Get Widget() As cWidgetBase
+   On Error GoTo Widget_Error
+
+    Set Widget = W
+
+   On Error GoTo 0
+   Exit Property
+
+Widget_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Widget of Class Module cwOverlay"
+End Property
+'---------------------------------------------------------------------------------------
+' Procedure : Widgets
+' Author    : olaf schmidt
+' Date      : 21/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
 '
-'    'Me.Hide ' no possibility of fade out in a VB6 form
+Public Property Get Widgets() As cWidgets
+   On Error GoTo Widgets_Error
+
+    Set Widgets = W.Widgets
+
+   On Error GoTo 0
+   Exit Property
+
+Widgets_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Widgets of Class Module cwOverlay"
+End Property
+'---------------------------------------------------------------------------------------
+' Procedure : W_MouseMove
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
 '
-'    fileToPlay = "ting.wav"
-'    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-'        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
-'    End If
-'
-'    tmrFadeOut.Enabled = True ' this is not currently making the opacity reduce
-'
-'   On Error GoTo 0
-'   Exit Sub
-'
-'W_MouseDown_Error:
-'
-'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_MouseDown of Class Module cwLicence"
-'End Sub
+Private Sub W_MouseMove(Button As Integer, Shift As Integer, ByVal X As Single, ByVal Y As Single)
+   On Error GoTo W_MouseDown_Error
+
+    opacityflag = 1
+
+   On Error GoTo 0
+   Exit Sub
+
+W_MouseDown_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_MouseDown of Class Module cwAbout"
+End Sub
 '---------------------------------------------------------------------------------------
 ' Procedure : opacity
 ' Author    : beededea
@@ -135,63 +164,71 @@ opacityGet_Error:
 End Property
 
 '---------------------------------------------------------------------------------------
-' Procedure : show
+' Procedure : ShowMe
 ' Author    : beededea
 ' Date      : 17/05/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Property Let show(ByVal newValue As Boolean)
-    On Error GoTo showLet_Error
+Public Property Let ShowMe(ByVal newValue As Boolean)
+    On Error GoTo ShowMeLet_Error
 
-    mShow = newValue
-    If mShow = True Then tmrFadeIn.Enabled = True
+    mShowMe = newValue
+    If mShowMe = True Then
+        mOpacity = 0
+        tmrLicenceFadeOut.Enabled = False
+        tmrLicenceFadeIn.Enabled = True
+    Else
+        opacityflag = 0
+        tmrLicenceFadeIn.Enabled = False
+        tmrLicenceFadeOut.Enabled = True
+        mOpacity = 0
+    End If
     
     On Error GoTo 0
     Exit Property
 
-showLet_Error:
+ShowMeLet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure show of Class Module cwLicence"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure ShowMe of Class Module cwLicence"
 End Property
 '---------------------------------------------------------------------------------------
-' Procedure : show
+' Procedure : ShowMe
 ' Author    : beededea
 ' Date      : 17/05/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Property Get show() As Boolean
-   On Error GoTo showGet_Error
+Public Property Get ShowMe() As Boolean
+   On Error GoTo ShowMeGet_Error
 
-   show = mShow
+   ShowMe = mShowMe
 
    On Error GoTo 0
    Exit Property
 
-showGet_Error:
+ShowMeGet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure show of Class Module cwLicence"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure ShowMe of Class Module cwLicence"
 End Property
 
 '
 '---------------------------------------------------------------------------------------
-' Procedure : tmrFadeIn_Timer
+' Procedure : tmrLicenceFadeIn_Timer
 ' Author    : beededea
 ' Date      : 17/05/2023
 ' Purpose   : timer to make the Licence form or Licence image fade in opacity
 '---------------------------------------------------------------------------------------
 '
-Private Sub tmrFadeIn_Timer()
+Private Sub tmrLicenceFadeIn_Timer()
       
-   On Error GoTo tmrFadeIn_Timer_Error
-    fMain.licenceForm.show
+   On Error GoTo tmrLicenceFadeIn_Timer_Error
     
-    opacity = opacity + 0.05
-    If opacity >= 1 Then
-        opacity = 1
+    opacity = opacity + 0.01
+    If opacity >= 0.2 Then
+        opacity = 0.2
 
-        tmrFadeIn.Enabled = False
+        tmrLicenceFadeIn.Enabled = False
 
         Exit Sub
     End If
@@ -200,28 +237,27 @@ Private Sub tmrFadeIn_Timer()
    On Error GoTo 0
    Exit Sub
 
-tmrFadeIn_Timer_Error:
+tmrLicenceFadeIn_Timer_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrFadeIn_Timer of Class Module cwLicence"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrLicenceFadeIn_Timer of Class Module cwLicence"
 End Sub
 '
 '---------------------------------------------------------------------------------------
-' Procedure : tmrFadeOut_Timer
+' Procedure : tmrLicenceFadeOut_Timer
 ' Author    : beededea
 ' Date      : 17/05/2023
 ' Purpose   : timer to make the Licence form or Licence image fade out in opacity
 '---------------------------------------------------------------------------------------
-' < - this timer is not causing the opacity to fade out
-Private Sub tmrFadeOut_Timer()
+Private Sub tmrLicenceFadeOut_Timer()
       
-   On Error GoTo tmrFadeOut_Timer_Error
+   On Error GoTo tmrLicenceFadeOut_Timer_Error
 
     opacity = opacity - 0.05
     
     If opacity < 0 Then
         opacity = 0
         
-        tmrFadeOut.Enabled = False
+        tmrLicenceFadeOut.Enabled = False
         fMain.licenceForm.Hide
         
         Exit Sub
@@ -232,9 +268,9 @@ Private Sub tmrFadeOut_Timer()
    On Error GoTo 0
    Exit Sub
 
-tmrFadeOut_Timer_Error:
+tmrLicenceFadeOut_Timer_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrFadeOut_Timer of Class Module cwLicence"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrLicenceFadeOut_Timer of Class Module cwLicence"
 End Sub
 '---------------------------------------------------------------------------------------
 ' Procedure : W_Paint
@@ -246,7 +282,7 @@ End Sub
 Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As Single, ByVal dx_Aligned As Single, ByVal dy_Aligned As Single, UserObj As Object)
    On Error GoTo W_Paint_Error
 
-    Draw CC, dx_Aligned, dy_Aligned, mOpacity
+    Draw CC, dx_Aligned, dy_Aligned
 
    On Error GoTo 0
    Exit Sub
@@ -263,9 +299,10 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Single, ByVal mOpacity As Double)
+Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Single)
    
     Dim scaleValue As Double: scaleValue = 0.8
+    Dim currentOpacity As Double: currentOpacity = 0
     
     On Error GoTo Draw_Error
 
@@ -273,7 +310,13 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
 
     CC.ScaleDrawings scaleValue, scaleValue
 
-    CC.RenderSurfaceContent "licence", licencexo, licenceyo, , , , 0.1
+    If opacityflag = 0 Then
+        currentOpacity = mOpacity
+    Else
+        currentOpacity = 1
+    End If
+    
+    CC.RenderSurfaceContent "licence", licencexo, licenceyo, , , , currentOpacity
         
     'set some Font- and ForeColor-Properties and draw some Text on the Widget
     W.FontItalic = False
@@ -284,23 +327,6 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
    
     CC.DrawText 30, -200, dx, dy, "Licence Agreement " & widgetName, , , 2, True, , 1
     
-    'CC.Rectangle 0, 0, 200, 200, True
-    W.FontSize = 6
-    W.SelectFontSettingsInto CC
-'    CC.DrawText 30, -170, dx, dy, "Copyright © 2012-2016 Dean Beedell and Harry Whitfield", , , 2, True, , 1
-'    CC.DrawText 30, -150, dx, dy, "This program is free software; you can redistribute it and/or modify it under ", , , 2, True, , 1
-'    CC.DrawText 30, -140, dx, dy, "the terms of the GNU General Public Licence as published by the Free Software ", , , 2, True, , 1
-'    CC.DrawText 30, -130, dx, dy, "Foundation either version 2 of the License, or (at your option) any later version. ", , , 2, True, , 1
-'    CC.DrawText 30, -120, dx, dy, "the terms of the GNU General Public Licence as published by the Free Software ", , , 2, True, , 1
-'    CC.DrawText 30, -100, dx, dy, "This program is distributed in the hope that it will be useful, but WITHOUT ", , , 2, True, , 1
-'    CC.DrawText 30, -90, dx, dy, "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or  ", , , 2, True, , 1
-'    CC.DrawText 30, -80, dx, dy, "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License ", , , 2, True, , 1
-'    CC.DrawText 30, -70, dx, dy, "for more details.  ", , , 2, True, , 1
-'    CC.DrawText 30, -50, dx, dy, "You should have received a copy of the GNU General Public License along with ", , , 2, True, , 1
-'    CC.DrawText 30, -40, dx, dy, "this program; if not, write to the Free Software Foundation, Inc., ", , , 2, True, , 1
-'    CC.DrawText 30, -30, dx, dy, "51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA  ", , , 2, True, , 1
-    
-    
     W.FontSize = 6
     W.SelectFontSettingsInto CC
 '
@@ -310,12 +336,12 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
     W.FontSize = 8
 
     W.SelectFontSettingsInto CC
-    
-    W.Refresh
+
     CC.DrawText 240, 50, dx, dy, "Decline", , , 2, True, , 1
     CC.DrawText 290, 50, dx, dy, "Accept", , , 2, True, , 1
    
-
+    W.Refresh
+    
    On Error GoTo 0
    Exit Sub
 
@@ -324,5 +350,6 @@ Draw_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Draw of Class Module cwLicence"
 
 End Sub
+
 
 

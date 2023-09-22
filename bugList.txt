@@ -71,33 +71,32 @@
 
 ' licence form, a simple RC6 image form containing pre-defined RC widgets, one each for the accept and decline buttons - done
 ' licence form, added pre-defined RC textbox widget to store the licence text - done
+' give the about form entry a 'ting' - done
 
-' tooltips also resize when the whole thing is resized, code received from Olaf and ColinE66 - testing required
+' smooth ticking toggle generates an error when ticking is stopped - done
+' enable prefs tooltips checkbox checked at startup - done
 
-' smooth ticking toggle generates an error when ticking is stopped.
+' msgboxA - replace the standard message boxes with my own.
 
 ' monitorProperties, make it work
 
-' msgboxA - replace the standard message boxes with my own.
-'
 ' time zone code - wip - look at YWE and replicate
 ' daylight saving time - wip
 ' system startup running - wip
 
 ' date/day fields altered by DST and timezone changes
 
-
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
-
-
+' drag corner
 
 ' RC BUGS & LIMITATIONS
 ' =====================
 
-' aboutForm is not fading back-in but instantly hiding in DPI aware mode, opacity is acting strangely on second fade in
+' aboutForm is not fading back-in but instantly hiding in DPI aware mode, opacity is acting strangely on second fade in. Confirmed.
 
-
+' tooltips also resize when the whole thing is resized, code received from Olaf tested - resizing results in missing text and blank tooltips, using non-standard font centurion light
+' RC6 needs a static tooltip option.
 
 tickButton.opacity = 0;
 fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = 0 

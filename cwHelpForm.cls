@@ -49,7 +49,7 @@ Private Sub Class_Initialize()
 
     helpxo = 0
     helpyo = 0
-    opacity = 0
+    'opacity = 0
     show = False
 
     Set W = Cairo.WidgetBase '<- this is required in each cwImplementation...

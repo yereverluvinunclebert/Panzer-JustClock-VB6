@@ -67,7 +67,7 @@ Private mHidden As Boolean ' property Hidden
 
 '---------------------------------------------------------------------------------------
 ' Procedure : Class_Initialize
-' Author    : beededea
+' Author    : olaf schmidt
 ' Date      : 31/07/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ End Sub
 
 '---------------------------------------------------------------------------------------
 ' Procedure : Widget
-' Author    : beededea
+' Author    : olaf schmidt
 ' Date      : 21/09/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ Widget_Error:
 End Property
 '---------------------------------------------------------------------------------------
 ' Procedure : Widgets
-' Author    : beededea
+' Author    : olaf schmidt
 ' Date      : 21/09/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
@@ -243,7 +243,7 @@ End Property ' the earth SmoothSecondHand flag
 Public Property Get Locked() As Boolean
    On Error GoTo LockedGet_Error
 
-  Locked = mLocked
+   Locked = mLocked
 
    On Error GoTo 0
    Exit Property
@@ -262,7 +262,7 @@ End Property
 Public Property Let Locked(ByVal newValue As Boolean)
    On Error GoTo LockedLet_Error
 
-  If mLocked <> newValue Then mLocked = newValue Else Exit Property
+   If mLocked <> newValue Then mLocked = newValue Else Exit Property
 
    On Error GoTo 0
    Exit Property
@@ -282,7 +282,7 @@ End Property
 Public Property Get Hidden() As Boolean
    On Error GoTo HiddenGet_Error
 
-  Hidden = mHidden
+   Hidden = mHidden
 
    On Error GoTo 0
    Exit Property
@@ -322,7 +322,7 @@ End Property
 '
 '---------------------------------------------------------------------------------------------
 ' Procedure : W_HitTest
-' Author    : beededea
+' Author    : olaf schmidt
 ' Date      : 01/08/2023
 ' Purpose   : This is run continuously for the whole widget.
 '             For this Overlay-Widget alone, we make everything "fully click-through"
@@ -344,7 +344,7 @@ End Sub
 
 '---------------------------------------------------------------------------------------
 ' Procedure : W_Paint
-' Author    : beededea
+' Author    : olaf schmidt
 ' Date      : 01/08/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
@@ -430,7 +430,7 @@ End Sub
  
 '---------------------------------------------------------------------------------------
 ' Procedure : tmrClock_Timer
-' Author    : beededea
+' Author    : olaf schmidt
 ' Date      : 30/07/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------

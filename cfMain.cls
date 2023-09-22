@@ -27,6 +27,10 @@ Attribute helpForm.VB_VarHelpID = -1
 Public WithEvents licenceForm As cWidgetForm
 Attribute licenceForm.VB_VarHelpID = -1
 
+Public licenceFormX As Long
+Public licenceFormY As Long
+Public licenceFormZ As Single
+
 Private WithEvents acceptButton As cwButton
 Attribute acceptButton.VB_VarHelpID = -1
 Private WithEvents declineButton As cwButton
@@ -134,12 +138,19 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub acceptButton_Click()
-   On Error GoTo acceptButton_Click_Error
+    Dim answer As VbMsgBoxResult: answer = vbNo
+    On Error GoTo acceptButton_Click_Error
 
-    MsgBox "User accepted licence, thankyou."
+    answer = msgBoxA("User accepted licence, thankyou.", vbOKOnly, "Licence Acceptance", False)
     
-    licenceForm.Hide
+    'MsgBox "User accepted licence, thankyou."
+    
+    licenceWidget.ShowMe = False
+    licenceWidget.opacity = 0
+    licenceWidget.Widget.Refresh
 
+    licenceForm.Visible = False
+    
    On Error GoTo 0
    Exit Sub
 
@@ -174,3 +185,36 @@ declineButton_Click_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure declineButton_Click of Class Module cfMain"
 End Sub
 
+
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : licenceForm_MouseMove
+' Author    : beededea
+' Date      : 31/07/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Sub licenceForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer, ByRef X As Single, ByRef Y As Single)
+  Static x0 As Single, y0 As Single: If Button = 0 Then x0 = X: y0 = Y 'just store the offsets when no button is down
+  
+   On Error GoTo licenceForm_MouseMove_Error
+    
+    If overlayWidget.Locked = True Then Exit Sub
+    If PzGIgnoreMouse = "1" Then Exit Sub
+
+    If Button = vbLeftButton And Not licenceForm.ActiveWidget Is Nothing Then 'Form-Dragging (under certain conditions)
+
+      licenceFormX = (X - x0) * licenceForm.WidgetRoot.Zoom + licenceForm.Left
+      licenceFormY = (Y - y0) * licenceForm.WidgetRoot.Zoom + licenceForm.Top
+      licenceForm.Move licenceFormX, licenceFormY
+    End If
+
+
+   On Error GoTo 0
+   Exit Sub
+
+licenceForm_MouseMove_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure licenceForm_MouseMove of Class Module cfAlpha"
+End Sub

@@ -26,7 +26,7 @@ Private mGlowing As Boolean
 
 '---------------------------------------------------------------------------------------
 ' Procedure : Class_Initialize
-' Author    : beededea
+' Author    : olaf schmidt
 ' Date      : 31/07/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ End Sub
 
 '---------------------------------------------------------------------------------------
 ' Procedure : InitFromPSD
-' Author    : beededea
+' Author    : olaf schmidt
 ' Date      : 31/07/2023
 ' Purpose   :    loads up the Cairo imageList with keyed entries and a surface from each and every PSD layer
 '                adds path X,Y and alpha to the excluded collection
@@ -288,7 +288,7 @@ Private Sub stopbutton_mouseUp(ByRef Sender As Object)
            
     Call SwitchOff
     
-    fileToPlay = "mistake.wav"
+    fileToPlay = "stop.wav"
     If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
@@ -659,7 +659,7 @@ End Sub
 
 '---------------------------------------------------------------------------------------
 ' Procedure : AdjustZoom
-' Author    : beededea
+' Author    : olaf schmidt
 ' Date      : 31/07/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
