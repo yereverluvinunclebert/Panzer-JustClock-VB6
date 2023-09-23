@@ -33,7 +33,7 @@ Private licenceyo As Integer
 Private mOpacity As Double
 Private mShowMe As Boolean
 
-Private opacityflag As Integer
+Private opacityflag As Integer ' needs this var as it appears there is a bug in RC that causes the widget to lose opacity
 
 
 
@@ -112,7 +112,7 @@ End Property
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub W_MouseMove(Button As Integer, Shift As Integer, ByVal X As Single, ByVal Y As Single)
+Private Sub W_MouseMove(Button As Integer, Shift As Integer, ByVal x As Single, ByVal Y As Single)
    On Error GoTo W_MouseDown_Error
 
     opacityflag = 1

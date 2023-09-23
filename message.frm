@@ -111,23 +111,64 @@ Private yesNoReturnValue As Integer
 Private formMsgContext As String
 Private formShowAgainChkBox As Boolean
 
+'---------------------------------------------------------------------------------------
+' Property : btnButtonTwo_Click
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Private Sub btnButtonTwo_Click()
+   On Error GoTo btnButtonTwo_Click_Error
+
     If formShowAgainChkBox = True Then SaveSetting App.EXEName, "Options", "Show message" & formMsgContext, chkShowAgain.Value
     yesNoReturnValue = 7
     Unload Me
+
+   On Error GoTo 0
+   Exit Sub
+
+btnButtonTwo_Click_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property btnButtonTwo_Click of Form frmMessage"
 End Sub
 
+'---------------------------------------------------------------------------------------
+' Property : btnButtonOne_Click
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Private Sub btnButtonOne_Click()
+   On Error GoTo btnButtonOne_Click_Error
+
     Me.Visible = False
     If formShowAgainChkBox = True Then SaveSetting App.EXEName, "Options", "Show message" & formMsgContext, chkShowAgain.Value
     yesNoReturnValue = 6
     Unload Me
+
+   On Error GoTo 0
+   Exit Sub
+
+btnButtonOne_Click_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property btnButtonOne_Click of Form frmMessage"
 End Sub
 
+'---------------------------------------------------------------------------------------
+' Procedure : Display
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Public Sub Display()
 
     Dim intShow As Integer
     
+   On Error GoTo Display_Error
+
     If formShowAgainChkBox = True Then
     
         chkShowAgain.Visible = True
@@ -141,12 +182,28 @@ Public Sub Display()
         Me.show vbModal
     End If
 
+   On Error GoTo 0
+   Exit Sub
+
+Display_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Display of Form frmMessage"
+
 End Sub
 ' property to allow a message to be passed to the form
+'---------------------------------------------------------------------------------------
+' Property  : propMessage
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Public Property Let propMessage(ByVal strMessage As String)
 
     Dim intDiff As Integer
     
+    On Error GoTo propMessage_Error
+
     lblMessage.Caption = strMessage
     
     ' Expand the form and move the other controls if the message is too long to show.
@@ -154,33 +211,98 @@ Public Property Let propMessage(ByVal strMessage As String)
     Me.Height = Me.Height + intDiff
     
     fraMessage.Height = fraMessage.Height + intDiff
+
     fraPicVB.Top = fraPicVB.Top + (intDiff / 2)
         
     chkShowAgain.Top = chkShowAgain.Top + intDiff
     btnButtonOne.Top = btnButtonOne.Top + intDiff
     btnButtonTwo.Top = btnButtonTwo.Top + intDiff
 
+   On Error GoTo 0
+   Exit Property
+
+propMessage_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property propMessage of Form frmMessage"
+
 End Property
 
+'---------------------------------------------------------------------------------------
+' Property  : propTitle
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Public Property Let propTitle(ByVal strTitle As String)
+   On Error GoTo propTitle_Error
+
     If strTitle = "" Then
         frmMessage.Caption = "SteamyDock Icon Enhanced Settings"
     Else
         frmMessage.Caption = strTitle
     End If
+
+   On Error GoTo 0
+   Exit Property
+
+propTitle_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property propTitle of Form frmMessage"
 End Property
 
+'---------------------------------------------------------------------------------------
+' Property  : propMsgContext
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Public Property Let propMsgContext(ByVal thisContext As String)
+   On Error GoTo propMsgContext_Error
+
     formMsgContext = thisContext
+
+   On Error GoTo 0
+   Exit Property
+
+propMsgContext_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property propMsgContext of Form frmMessage"
 End Property
 
+'---------------------------------------------------------------------------------------
+' Property  : propShowAgainChkBox
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Public Property Let propShowAgainChkBox(ByVal showAgainVis As Boolean)
+   On Error GoTo propShowAgainChkBox_Error
+
     formShowAgainChkBox = showAgainVis
+
+   On Error GoTo 0
+   Exit Property
+
+propShowAgainChkBox_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property propShowAgainChkBox of Form frmMessage"
 End Property
 
+'---------------------------------------------------------------------------------------
+' Property  : propButtonVal
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Public Property Let propButtonVal(ByVal buttonVal As Integer)
     
     Dim fileToPlay As String: fileToPlay = vbNullString
+
+   On Error GoTo propButtonVal_Error
 
     btnButtonOne.Visible = False
     btnButtonTwo.Visible = False
@@ -273,22 +395,59 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
         picVBQuestion.Visible = True
     End If
 
+
+   On Error GoTo 0
+   Exit Property
+
+propButtonVal_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property propButtonVal of Form frmMessage"
         
 End Property
 
+'---------------------------------------------------------------------------------------
+' Procedure : propReturnedValue
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Public Property Get propReturnedValue()
 
+   On Error GoTo propReturnedValue_Error
+
     propReturnedValue = yesNoReturnValue
+
+   On Error GoTo 0
+   Exit Property
+
+propReturnedValue_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure propReturnedValue of Form frmMessage"
     
 End Property
 
 
+'---------------------------------------------------------------------------------------
+' Procedure : Form_Load
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Private Sub Form_Load()
 
     Dim Ctrl As Control
 
+   On Error GoTo Form_Load_Error
+
     mintLabelHeight = lblMessage.Height
     
+    ' save the initial positions of ALL the controls on the msgbox form
+    Call SaveSizes(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight)
+
+    frmMessage.Width = 6500
+    frmMessage.Height = 4500
         
     ' .TBD DAEB 05/05/2021 frmMessage.frm Added the font mod. here instead of within the changeFont tool
     '                       as each instance of the form is new, the font modification must be here.
@@ -302,8 +461,36 @@ Private Sub Form_Load()
     Next
 
     chkShowAgain.Visible = False
+
+   On Error GoTo 0
+   Exit Sub
+
+Form_Load_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Form_Load of Form frmMessage"
     
 End Sub
+
+'---------------------------------------------------------------------------------------
+' Property : Form_Resize
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Sub Form_Resize()
+   On Error GoTo Form_Resize_Error
+
+        Call resizeControls(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight)
+
+   On Error GoTo 0
+   Exit Sub
+
+Form_Resize_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Form_Resize of Form frmMessage"
+End Sub
+
 ' .74 DAEB 22/05/2022 rDIConConfig.frm Msgbox replacement that can be placed on top of the form instead as the middle of the screen ENDS
 Private Sub picVBInformation_Click()
 

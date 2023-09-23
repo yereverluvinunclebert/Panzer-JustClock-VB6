@@ -660,7 +660,7 @@ Public Sub checkLicenceState()
         If slicence = "0" Or slicence = "" Then
             Call LoadFileToTB(frmLicence.txtLicenceTextBox, App.Path & "\Resources\txt\licence.txt", False)
             
-            frmLicence.Show vbModal ' show the licence screen in VB modal mode (ie. on its own)
+            frmLicence.show vbModal ' show the licence screen in VB modal mode (ie. on its own)
             ' on the licence box change the state fo the licence acceptance
         End If
     End If
@@ -1473,7 +1473,7 @@ Public Sub aboutClickEvent()
     'aboutWidget.Widget.Refresh
     
     'fMain.aboutForm.Load
-    fMain.aboutForm.Show
+    fMain.aboutForm.show
       
     If (fMain.aboutForm.WindowState = 1) Then
         fMain.aboutForm.WindowState = 0
@@ -1509,11 +1509,11 @@ Public Sub helpSplash()
     fMain.helpForm.Left = (screenWidthPixels / 2) - (fMain.helpForm.Width / 2)
      
     helpWidget.opacity = 0
-    helpWidget.Show = True
+    helpWidget.show = True
     'helpWidget.Widget.Refresh
     
     'fMain.helpForm.Load
-    fMain.helpForm.Show
+    fMain.helpForm.show
     
      If (fMain.helpForm.WindowState = 1) Then
          fMain.helpForm.WindowState = 0
@@ -1554,7 +1554,7 @@ Public Sub licenceSplash()
     'licenceWidget.Widget.Refresh
     
     'fMain.licenceForm.Load
-    fMain.licenceForm.Show
+    fMain.licenceForm.show
 
     
      If (fMain.licenceForm.WindowState = 1) Then
@@ -1578,9 +1578,12 @@ End Sub
 '
 Public Sub mnuCoffee_ClickEvent()
     Dim answer As VbMsgBoxResult: answer = vbNo
+    Dim answerMsg As String: answerMsg = vbNullString
     On Error GoTo mnuCoffee_ClickEvent_Error
     
-    answer = MsgBox(" Help support the creation of more widgets like this, DO send us a coffee! This button opens a browser window and connects to the Kofi donate page for this widget). Will you be kind and proceed?", vbExclamation + vbYesNo)
+    'answer = MsgBox(" Help support the creation of more widgets like this, DO send us a coffee! This button opens a browser window and connects to the Kofi donate page for this widget). Will you be kind and proceed?", vbExclamation + vbYesNo)
+    answerMsg = " Help support the creation of more widgets like this, DO send us a coffee! This button opens a browser window and connects to the Kofi donate page for this widget). Will you be kind and proceed?"
+    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Donate a Kofi", False)
 
     If answer = vbYes Then
         Call ShellExecute(menuForm.hwnd, "Open", "https://www.ko-fi.com/yereverluvinunclebert", vbNullString, App.Path, 1)
@@ -1741,7 +1744,7 @@ Public Sub makeVisibleFormElements()
     
     ' The RC forms are measured in pixels, whereas the native forms are in twips, do remember that...
 
-    fAlpha.gaugeForm.Show
+    fAlpha.gaugeForm.show
 
     On Error GoTo 0
     Exit Sub
@@ -2165,7 +2168,7 @@ Public Sub makeProgramPreferencesAvailable()
             If panzerPrefs.Left < 0 Then panzerPrefs.Left = 0
             If panzerPrefs.Top < 0 Then panzerPrefs.Top = 0
             
-            panzerPrefs.Show  ' show it again
+            panzerPrefs.show  ' show it again
             panzerPrefs.SetFocus
         End If
     End If

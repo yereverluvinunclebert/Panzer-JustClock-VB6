@@ -77,10 +77,15 @@
 ' enable prefs tooltips checkbox checked at startup - done
 
 ' resizeControls and saveSizes made form agnostic - done
-' msgboxA - replace the standard message boxes with my own - wip
-' apply resizeControls to msgBoxA
+' load the prefs form earlier, just make it hidden - done
 
-' load the prefs form earlier, just make it hidden
+' fix bug in resizeControls - the control count must be the same in saveSizes and resizeControls - done
+' prefs object referred to implicitly in resizeControls, needed the form name added - done
+' prefs placement when unloaded moved to the close button - done
+' add top and tails to properties in frmMessage - done
+
+' msgboxA - replace the standard message boxes with my own - wip
+' apply resizeControls to msgBoxA - wip
 
 ' monitorProperties, make it work
 

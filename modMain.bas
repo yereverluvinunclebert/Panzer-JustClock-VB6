@@ -5,7 +5,7 @@ Option Explicit
 
 '------------------------------------------------------ STARTS
 ' for SetWindowPos z-ordering
-Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
+Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 
 Private Const HWND_TOP As Long = 0 ' for SetWindowPos z-ordering
 Private Const HWND_TOPMOST As Long = -1
@@ -70,6 +70,12 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     fAlpha.FX = 222 'init position- and zoom-values (directly set on Public-Props of the Form-hosting Class)
     fAlpha.FY = 111
     fAlpha.FZ = 0.4
+    
+    prefsCurrentWidth = 9075
+    prefsCurrentHeight = 16450
+    
+    msgBoxACurrentWidth = 6105
+    msgBoxACurrentHeight = 2565
     
     extractCommand = Command$ ' capture any parameter passed
     
@@ -136,6 +142,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' configure any global timers here
     Call configureTimers
     
+    'load the preferences form but don't yet show it, speeds up access to the prefs when required
     Load panzerPrefs
     
     ' RC message pump will auto-exit when Cairo Forms > 0 so we run it only when 0, this prevents message interruption
@@ -910,7 +917,7 @@ End Sub
 ' Procedure : msgBoxA
 ' Author    : beededea
 ' Date      : 20/05/2022
-' Purpose   :         ans = msgBoxA(sTitle & " Command Issued - " & sCommand, vbOKOnly, "Message", False)
+' Purpose   :         ans = msgBoxA("main message", vbOKOnly, "title bar message", False)
 '---------------------------------------------------------------------------------------
 '
 Public Function msgBoxA(ByVal msgBoxPrompt As String, Optional ByVal msgButton As VbMsgBoxResult, Optional ByVal msgTitle As String, Optional ByVal msgShowAgainChkBox As Boolean = False, Optional ByRef msgContext As String = "none") As Integer
