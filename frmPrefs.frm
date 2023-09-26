@@ -14,143 +14,6 @@ Begin VB.Form panzerPrefs
    ScaleWidth      =   8955
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
-   Begin VB.Frame fraFonts 
-      Caption         =   "Fonts"
-      Height          =   4245
-      Left            =   240
-      TabIndex        =   9
-      Top             =   1230
-      Width           =   7335
-      Begin VB.Frame fraFontsInner 
-         BorderStyle     =   0  'None
-         Height          =   3750
-         Left            =   765
-         TabIndex        =   26
-         Top             =   360
-         Width           =   6105
-         Begin VB.TextBox txtPrefsFontCurrentSize 
-            Height          =   315
-            Left            =   4125
-            Locked          =   -1  'True
-            TabIndex        =   136
-            ToolTipText     =   "Disabled for manual input. Shows the current font size when form resizing is enabled."
-            Top             =   1065
-            Visible         =   0   'False
-            Width           =   600
-         End
-         Begin VB.TextBox txtPrefsFontSize 
-            Height          =   315
-            Left            =   1635
-            Locked          =   -1  'True
-            TabIndex        =   29
-            Text            =   "8"
-            ToolTipText     =   "Disabled for manual input. Choose a font size using the font selector to be used within this preferences window only"
-            Top             =   1065
-            Width           =   510
-         End
-         Begin VB.CommandButton btnPrefsFont 
-            Caption         =   "Font"
-            Height          =   300
-            Left            =   4950
-            Style           =   1  'Graphical
-            TabIndex        =   28
-            ToolTipText     =   "The Font Selector."
-            Top             =   90
-            Width           =   585
-         End
-         Begin VB.TextBox txtPrefsFont 
-            Height          =   315
-            Left            =   1635
-            Locked          =   -1  'True
-            TabIndex        =   27
-            Text            =   "Times New Roman"
-            ToolTipText     =   "Disabled for manual input. Choose a font via the font selector to be used only for this preferences window"
-            Top             =   90
-            Width           =   3285
-         End
-         Begin VB.Label lblFontsTab 
-            Caption         =   "My preferred font for this utility is Centurion Light SF at 12pt size."
-            Height          =   420
-            Index           =   1
-            Left            =   1665
-            TabIndex        =   101
-            ToolTipText     =   "We suggest Centurion Light SF at 8pt - which you will find in the FCW program folder"
-            Top             =   2925
-            Width           =   4170
-         End
-         Begin VB.Label lblFontsTab 
-            Caption         =   "Next time you open the prefs it will revert to the default."
-            Height          =   420
-            Index           =   4
-            Left            =   1665
-            TabIndex        =   153
-            ToolTipText     =   "We suggest Centurion Light SF at 8pt - which you will find in the FCW program folder"
-            Top             =   2550
-            Width           =   4245
-         End
-         Begin VB.Label lblCurrentFontsTab 
-            Caption         =   "Resized Font"
-            Height          =   315
-            Left            =   4875
-            TabIndex        =   137
-            ToolTipText     =   "Disabled for manual input. Shows the current font size when form resizing is enabled."
-            Top             =   1110
-            Visible         =   0   'False
-            Width           =   2400
-         End
-         Begin VB.Label lblFontsTab 
-            Caption         =   $"frmPrefs.frx":385D2
-            Height          =   900
-            Index           =   0
-            Left            =   1665
-            TabIndex        =   100
-            ToolTipText     =   "We suggest Centurion Light SF at 8pt - which you will find in the FCW program folder"
-            Top             =   1605
-            Width           =   4155
-         End
-         Begin VB.Label lblFontsTab 
-            Caption         =   "The chosen font size *"
-            Height          =   480
-            Index           =   7
-            Left            =   2295
-            TabIndex        =   33
-            ToolTipText     =   "Choose a font size that fits the text boxes"
-            Top             =   1095
-            Width           =   2400
-         End
-         Begin VB.Label lblFontsTab 
-            Caption         =   "Base Font Size :"
-            Height          =   330
-            Index           =   3
-            Left            =   360
-            TabIndex        =   32
-            Tag             =   "lblPrefsFontSize"
-            Top             =   1095
-            Width           =   1230
-         End
-         Begin VB.Label lblFontsTab 
-            Caption         =   "Config Window Font:"
-            Height          =   300
-            Index           =   2
-            Left            =   15
-            TabIndex        =   31
-            Tag             =   "lblPrefsFont"
-            ToolTipText     =   "We suggest Centurion Light SF at 8pt - which you will find in the FCW program folder"
-            Top             =   120
-            Width           =   1635
-         End
-         Begin VB.Label lblFontsTab 
-            Caption         =   "Choose a font to be used for the text in this preferences window, gauge tooltips and message boxes *"
-            Height          =   480
-            Index           =   6
-            Left            =   1620
-            TabIndex        =   30
-            ToolTipText     =   "We suggest Centurion Light SF at 8pt - which you will find in the FCW program folder"
-            Top             =   480
-            Width           =   4035
-         End
-      End
-   End
    Begin VB.Frame fraConfig 
       Caption         =   "Configuration"
       Height          =   6540
@@ -160,7 +23,7 @@ Begin VB.Form panzerPrefs
       Width           =   7140
       Begin VB.Frame fraConfigInner 
          BorderStyle     =   0  'None
-         Height          =   5685
+         Height          =   5745
          Left            =   435
          TabIndex        =   34
          Top             =   435
@@ -169,53 +32,37 @@ Begin VB.Form panzerPrefs
             Caption         =   "Enable Preference Utility Tooltips *"
             Height          =   225
             Left            =   2010
-            TabIndex        =   157
+            TabIndex        =   155
             ToolTipText     =   "Check the box to enable tooltips for all controls in the preferences utility"
-            Top             =   5235
+            Top             =   3720
             Width           =   3345
          End
          Begin VB.CheckBox chkDpiAwareness 
-            Caption         =   "DPI Awareness Enable"
+            Caption         =   "DPI Awareness Enable *"
             Height          =   225
             Left            =   2010
-            TabIndex        =   151
+            TabIndex        =   149
             ToolTipText     =   "Check the box to make the program DPI aware. RESTART required."
-            Top             =   4125
+            Top             =   4500
             Width           =   3405
          End
          Begin VB.CheckBox chkShowTaskbar 
             Caption         =   "Show Widget in Taskbar"
             Height          =   225
             Left            =   2010
-            TabIndex        =   143
+            TabIndex        =   141
             ToolTipText     =   "Check the box to show the widget in the taskbar"
-            Top             =   3735
+            Top             =   4110
             Width           =   3405
          End
          Begin VB.ComboBox cmbScrollWheelDirection 
             Height          =   315
             Left            =   1995
             Style           =   2  'Dropdown List
-            TabIndex        =   90
+            TabIndex        =   88
             ToolTipText     =   "To change the direction of the mouse scroll wheel when resiziing the globe gauge."
             Top             =   1695
             Width           =   2490
-         End
-         Begin VB.Frame fraAllowShutdowns 
-            BorderStyle     =   0  'None
-            Height          =   1245
-            Left            =   1425
-            TabIndex        =   40
-            Top             =   5370
-            Width           =   4575
-            Begin VB.Label lblConfigurationTab 
-               Height          =   660
-               Index           =   8
-               Left            =   270
-               TabIndex        =   41
-               Top             =   525
-               Width           =   3720
-            End
          End
          Begin VB.CheckBox chkEnableBalloonTooltips 
             Caption         =   "Enable Balloon Tooltips on all Controls *"
@@ -224,7 +71,7 @@ Begin VB.Form panzerPrefs
             TabIndex        =   39
             ToolTipText     =   "Check the box to enable larger balloon tooltips for all controls on the main program"
             Top             =   3345
-            Width           =   3405
+            Width           =   4035
          End
          Begin VB.CheckBox chkEnableTooltips 
             Caption         =   "Enable Main Program Tooltips"
@@ -238,7 +85,7 @@ Begin VB.Form panzerPrefs
          Begin vb6projectCCRSlider.Slider sliGaugeSize 
             Height          =   390
             Left            =   1920
-            TabIndex        =   98
+            TabIndex        =   96
             ToolTipText     =   "Adjust to a percentage of the original size. You can also use Ctrl+Mousewheel."
             Top             =   60
             Width           =   3870
@@ -251,21 +98,21 @@ Begin VB.Form panzerPrefs
             SelStart        =   20
          End
          Begin VB.Label lblConfiguration 
-            Caption         =   $"frmPrefs.frx":386AD
-            Height          =   660
+            Caption         =   $"frmPrefs.frx":385D2
+            Height          =   870
             Index           =   0
             Left            =   1980
-            TabIndex        =   152
-            Top             =   4485
-            Width           =   4305
+            TabIndex        =   150
+            Top             =   4830
+            Width           =   4290
          End
          Begin VB.Label lblConfiguration 
             Caption         =   "The scroll-wheel resizing direction can be determined here. The direction chosen causes the gauge to grow. *"
-            Height          =   660
+            Height          =   690
             Index           =   6
             Left            =   2025
-            TabIndex        =   123
-            Top             =   2145
+            TabIndex        =   121
+            Top             =   2115
             Width           =   3930
          End
          Begin VB.Label lblGaugeSize 
@@ -273,7 +120,7 @@ Begin VB.Form panzerPrefs
             Height          =   315
             Index           =   4
             Left            =   4770
-            TabIndex        =   94
+            TabIndex        =   92
             Top             =   555
             Width           =   345
          End
@@ -282,7 +129,7 @@ Begin VB.Form panzerPrefs
             Height          =   315
             Index           =   3
             Left            =   3990
-            TabIndex        =   93
+            TabIndex        =   91
             Top             =   555
             Width           =   345
          End
@@ -291,7 +138,7 @@ Begin VB.Form panzerPrefs
             Height          =   315
             Index           =   1
             Left            =   2730
-            TabIndex        =   92
+            TabIndex        =   90
             Top             =   555
             Width           =   345
          End
@@ -300,7 +147,7 @@ Begin VB.Form panzerPrefs
             Height          =   345
             Index           =   3
             Left            =   255
-            TabIndex        =   91
+            TabIndex        =   89
             ToolTipText     =   "To change the direction of the mouse scroll wheel when resiziing the globe gauge."
             Top             =   1740
             Width           =   2055
@@ -310,7 +157,7 @@ Begin VB.Form panzerPrefs
             Height          =   555
             Index           =   2
             Left            =   2070
-            TabIndex        =   89
+            TabIndex        =   87
             ToolTipText     =   "Adjust to a percentage of the original size. You can also use Ctrl+Mousewheel."
             Top             =   870
             Width           =   3810
@@ -320,7 +167,7 @@ Begin VB.Form panzerPrefs
             Height          =   315
             Index           =   1
             Left            =   885
-            TabIndex        =   88
+            TabIndex        =   86
             Top             =   105
             Width           =   975
          End
@@ -329,7 +176,7 @@ Begin VB.Form panzerPrefs
             Height          =   315
             Index           =   2
             Left            =   3345
-            TabIndex        =   87
+            TabIndex        =   85
             Top             =   555
             Width           =   840
          End
@@ -338,7 +185,7 @@ Begin VB.Form panzerPrefs
             Height          =   315
             Index           =   5
             Left            =   5385
-            TabIndex        =   86
+            TabIndex        =   84
             Top             =   555
             Width           =   735
          End
@@ -347,9 +194,146 @@ Begin VB.Form panzerPrefs
             Height          =   315
             Index           =   0
             Left            =   1980
-            TabIndex        =   85
+            TabIndex        =   83
             Top             =   555
             Width           =   345
+         End
+      End
+   End
+   Begin VB.Frame fraFonts 
+      Caption         =   "Fonts"
+      Height          =   4245
+      Left            =   240
+      TabIndex        =   9
+      Top             =   1230
+      Width           =   7335
+      Begin VB.Frame fraFontsInner 
+         BorderStyle     =   0  'None
+         Height          =   3750
+         Left            =   690
+         TabIndex        =   26
+         Top             =   360
+         Width           =   6105
+         Begin VB.TextBox txtPrefsFontCurrentSize 
+            Height          =   315
+            Left            =   4200
+            Locked          =   -1  'True
+            TabIndex        =   134
+            ToolTipText     =   "Disabled for manual input. Shows the current font size when form resizing is enabled."
+            Top             =   1065
+            Visible         =   0   'False
+            Width           =   600
+         End
+         Begin VB.TextBox txtPrefsFontSize 
+            Height          =   315
+            Left            =   1710
+            Locked          =   -1  'True
+            TabIndex        =   29
+            Text            =   "8"
+            ToolTipText     =   "Disabled for manual input. Choose a font size using the font selector to be used within this preferences window only"
+            Top             =   1065
+            Width           =   510
+         End
+         Begin VB.CommandButton btnPrefsFont 
+            Caption         =   "Font"
+            Height          =   300
+            Left            =   5025
+            Style           =   1  'Graphical
+            TabIndex        =   28
+            ToolTipText     =   "The Font Selector."
+            Top             =   90
+            Width           =   585
+         End
+         Begin VB.TextBox txtPrefsFont 
+            Height          =   315
+            Left            =   1710
+            Locked          =   -1  'True
+            TabIndex        =   27
+            Text            =   "Times New Roman"
+            ToolTipText     =   "Disabled for manual input. Choose a font via the font selector to be used only for this preferences window"
+            Top             =   90
+            Width           =   3285
+         End
+         Begin VB.Label lblFontsTab 
+            Caption         =   "My preferred font for this utility is Centurion Light SF at 8pt size."
+            Height          =   480
+            Index           =   1
+            Left            =   1740
+            TabIndex        =   99
+            ToolTipText     =   "We suggest Centurion Light SF at 8pt - which you will find in the FCW program folder"
+            Top             =   2970
+            Width           =   4395
+         End
+         Begin VB.Label lblFontsTab 
+            Caption         =   "Next time you open the prefs it will revert to the default."
+            Height          =   420
+            Index           =   4
+            Left            =   1740
+            TabIndex        =   151
+            ToolTipText     =   "We suggest Centurion Light SF at 8pt - which you will find in the FCW program folder"
+            Top             =   2550
+            Width           =   4395
+         End
+         Begin VB.Label lblCurrentFontsTab 
+            Caption         =   "Resized Font"
+            Height          =   315
+            Left            =   4950
+            TabIndex        =   135
+            ToolTipText     =   "Disabled for manual input. Shows the current font size when form resizing is enabled."
+            Top             =   1110
+            Visible         =   0   'False
+            Width           =   2400
+         End
+         Begin VB.Label lblFontsTab 
+            Caption         =   $"frmPrefs.frx":38686
+            Height          =   900
+            Index           =   0
+            Left            =   1740
+            TabIndex        =   98
+            ToolTipText     =   "We suggest Centurion Light SF at 8pt - which you will find in the FCW program folder"
+            Top             =   1605
+            Width           =   4395
+         End
+         Begin VB.Label lblFontsTab 
+            Caption         =   "The chosen font size *"
+            Height          =   480
+            Index           =   7
+            Left            =   2370
+            TabIndex        =   33
+            ToolTipText     =   "Choose a font size that fits the text boxes"
+            Top             =   1095
+            Width           =   2400
+         End
+         Begin VB.Label lblFontsTab 
+            Caption         =   "Base Font Size :"
+            Height          =   330
+            Index           =   3
+            Left            =   435
+            TabIndex        =   32
+            Tag             =   "lblPrefsFontSize"
+            Top             =   1095
+            Width           =   1230
+         End
+         Begin VB.Label lblFontsTab 
+            Caption         =   "Prefs Window Font:"
+            Height          =   300
+            Index           =   2
+            Left            =   15
+            TabIndex        =   31
+            Tag             =   "lblPrefsFont"
+            ToolTipText     =   "We suggest Centurion Light SF at 8pt - which you will find in the FCW program folder"
+            Top             =   120
+            Width           =   1665
+         End
+         Begin VB.Label lblFontsTab 
+            Caption         =   "Choose a font to be used for the text in this preferences window, gauge tooltips and message boxes *"
+            Height          =   480
+            Index           =   6
+            Left            =   1695
+            TabIndex        =   30
+            ToolTipText     =   "We suggest Centurion Light SF at 8pt - which you will find in the FCW program folder"
+            Top             =   480
+            Width           =   4035
          End
       End
    End
@@ -358,7 +342,7 @@ Begin VB.Form panzerPrefs
       ForeColor       =   &H80000008&
       Height          =   7650
       Left            =   75
-      TabIndex        =   52
+      TabIndex        =   50
       Top             =   1200
       Visible         =   0   'False
       Width           =   7995
@@ -366,16 +350,16 @@ Begin VB.Form panzerPrefs
          BorderStyle     =   0  'None
          Height          =   6375
          Left            =   465
-         TabIndex        =   53
+         TabIndex        =   51
          Top             =   300
          Width           =   6600
          Begin VB.ComboBox cmbTickSwitchPref 
             Height          =   315
-            ItemData        =   "frmPrefs.frx":38752
+            ItemData        =   "frmPrefs.frx":38761
             Left            =   2010
-            List            =   "frmPrefs.frx":38754
+            List            =   "frmPrefs.frx":38763
             Style           =   2  'Dropdown List
-            TabIndex        =   158
+            TabIndex        =   156
             Top             =   5175
             Width           =   3720
          End
@@ -383,7 +367,7 @@ Begin VB.Form panzerPrefs
             Height          =   315
             Left            =   4875
             Locked          =   -1  'True
-            TabIndex        =   155
+            TabIndex        =   153
             Text            =   "0"
             Top             =   3660
             Width           =   720
@@ -391,7 +375,7 @@ Begin VB.Form panzerPrefs
          Begin VB.ListBox lstTimezoneRegions 
             Height          =   840
             Left            =   2010
-            TabIndex        =   154
+            TabIndex        =   152
             Top             =   3645
             Width           =   2640
          End
@@ -399,17 +383,17 @@ Begin VB.Form panzerPrefs
             Height          =   315
             Left            =   2025
             Style           =   2  'Dropdown List
-            TabIndex        =   148
+            TabIndex        =   146
             Top             =   2325
             Width           =   3720
          End
          Begin VB.ComboBox cmbMainGaugeTimeZone 
             Height          =   315
-            ItemData        =   "frmPrefs.frx":38756
+            ItemData        =   "frmPrefs.frx":38765
             Left            =   2010
-            List            =   "frmPrefs.frx":38758
+            List            =   "frmPrefs.frx":38767
             Style           =   2  'Dropdown List
-            TabIndex        =   145
+            TabIndex        =   143
             Top             =   1185
             Width           =   3720
          End
@@ -417,7 +401,7 @@ Begin VB.Form panzerPrefs
             Caption         =   "Run the JustClock Widget at Windows Startup "
             Height          =   465
             Left            =   1995
-            TabIndex        =   95
+            TabIndex        =   93
             ToolTipText     =   "Check this box to enable the automatic start of the program when Windows is started."
             Top             =   4560
             Width           =   4020
@@ -426,7 +410,7 @@ Begin VB.Form panzerPrefs
             Caption         =   "Ticking toggle *"
             Height          =   225
             Left            =   1995
-            TabIndex        =   54
+            TabIndex        =   52
             ToolTipText     =   "When checked this box enables the spinning earth functionality. That's it!"
             Top             =   180
             Width           =   3405
@@ -436,7 +420,7 @@ Begin VB.Form panzerPrefs
             Height          =   660
             Index           =   9
             Left            =   2025
-            TabIndex        =   160
+            TabIndex        =   158
             Top             =   5610
             Width           =   3810
          End
@@ -444,17 +428,17 @@ Begin VB.Form panzerPrefs
             Caption         =   "Secondhand Movement :"
             Height          =   480
             Index           =   3
-            Left            =   105
-            TabIndex        =   159
+            Left            =   0
+            TabIndex        =   157
             Top             =   5235
-            Width           =   1890
+            Width           =   1950
          End
          Begin VB.Label lblGeneral 
             Caption         =   "Bias (mins)"
             Height          =   345
             Index           =   1
             Left            =   4875
-            TabIndex        =   156
+            TabIndex        =   154
             Top             =   4035
             Width           =   1740
          End
@@ -462,17 +446,17 @@ Begin VB.Form panzerPrefs
             Caption         =   "Daylight Saving :"
             Height          =   345
             Index           =   8
-            Left            =   750
-            TabIndex        =   150
+            Left            =   600
+            TabIndex        =   148
             Top             =   2400
-            Width           =   1740
+            Width           =   1365
          End
          Begin VB.Label lblGeneral 
-            Caption         =   $"frmPrefs.frx":3875A
+            Caption         =   $"frmPrefs.frx":38769
             Height          =   660
             Index           =   7
             Left            =   2010
-            TabIndex        =   149
+            TabIndex        =   147
             Top             =   2850
             Width           =   3810
          End
@@ -480,17 +464,17 @@ Begin VB.Form panzerPrefs
             Caption         =   "Main Gauge Time Zone :"
             Height          =   480
             Index           =   5
-            Left            =   105
-            TabIndex        =   147
+            Left            =   30
+            TabIndex        =   145
             Top             =   1245
-            Width           =   1890
+            Width           =   1950
          End
          Begin VB.Label lblGeneral 
             Caption         =   "Choose the timezone for the main clock. Defaults to the system time."
             Height          =   660
             Index           =   4
             Left            =   2025
-            TabIndex        =   146
+            TabIndex        =   144
             Top             =   1695
             Width           =   3810
          End
@@ -499,7 +483,7 @@ Begin VB.Form panzerPrefs
             Height          =   315
             Index           =   6
             Left            =   510
-            TabIndex        =   97
+            TabIndex        =   95
             Top             =   165
             Width           =   1320
          End
@@ -507,8 +491,8 @@ Begin VB.Form panzerPrefs
             Caption         =   "Auto Start :"
             Height          =   375
             Index           =   11
-            Left            =   1140
-            TabIndex        =   96
+            Left            =   960
+            TabIndex        =   94
             Tag             =   "lblRefreshInterval"
             Top             =   4680
             Width           =   1740
@@ -518,10 +502,477 @@ Begin VB.Form panzerPrefs
             Height          =   660
             Index           =   2
             Left            =   2025
-            TabIndex        =   55
+            TabIndex        =   53
             Tag             =   "lblEnableSoundsDesc"
             Top             =   540
             Width           =   3615
+         End
+      End
+   End
+   Begin VB.Frame fraDevelopment 
+      Caption         =   "Development"
+      Height          =   6210
+      Left            =   240
+      TabIndex        =   48
+      Top             =   1200
+      Visible         =   0   'False
+      Width           =   8520
+      Begin VB.Frame fraDevelopmentInner 
+         BorderStyle     =   0  'None
+         Height          =   5595
+         Left            =   870
+         TabIndex        =   49
+         Top             =   300
+         Width           =   7455
+         Begin VB.Frame fraDefaultEditor 
+            BorderStyle     =   0  'None
+            Height          =   2370
+            Left            =   75
+            TabIndex        =   136
+            Top             =   3165
+            Width           =   7290
+            Begin VB.CommandButton btnDefaultEditor 
+               Caption         =   "..."
+               Height          =   300
+               Left            =   5115
+               Style           =   1  'Graphical
+               TabIndex        =   138
+               ToolTipText     =   "Click to select the .vbp file to edit the program - You need to have access to the source!"
+               Top             =   210
+               Width           =   315
+            End
+            Begin VB.TextBox txtDefaultEditor 
+               Height          =   315
+               Left            =   1440
+               TabIndex        =   137
+               Text            =   " eg. E:\vb6\fire call\FireCallWin.vbp"
+               Top             =   195
+               Width           =   3660
+            End
+            Begin VB.Label lblGitHub 
+               Caption         =   $"frmPrefs.frx":38800
+               ForeColor       =   &H8000000D&
+               Height          =   810
+               Left            =   1560
+               TabIndex        =   142
+               ToolTipText     =   "Double Click to visit github"
+               Top             =   1515
+               Width           =   4935
+            End
+            Begin VB.Label lblDebug 
+               Caption         =   $"frmPrefs.frx":38899
+               Height          =   930
+               Index           =   9
+               Left            =   1545
+               TabIndex        =   140
+               Top             =   690
+               Width           =   4785
+            End
+            Begin VB.Label lblDebug 
+               Caption         =   "Default Editor :"
+               Height          =   255
+               Index           =   7
+               Left            =   285
+               TabIndex        =   139
+               Tag             =   "lblSharedInputFile"
+               Top             =   225
+               Width           =   1350
+            End
+         End
+         Begin VB.TextBox txtDblClickCommand 
+            Height          =   315
+            Left            =   1515
+            TabIndex        =   61
+            ToolTipText     =   "Enter a Windows command for the gauge to operate when double-clicked."
+            Top             =   1095
+            Width           =   3660
+         End
+         Begin VB.CommandButton btnOpenFile 
+            Caption         =   "..."
+            Height          =   300
+            Left            =   5175
+            Style           =   1  'Graphical
+            TabIndex        =   58
+            ToolTipText     =   "Click to select a particular file for the gauge to run or open when double-clicked."
+            Top             =   2250
+            Width           =   315
+         End
+         Begin VB.TextBox txtOpenFile 
+            Height          =   315
+            Left            =   1515
+            TabIndex        =   57
+            ToolTipText     =   "Enter a particular file for the gauge to run or open when double-clicked."
+            Top             =   2235
+            Width           =   3660
+         End
+         Begin VB.ComboBox cmbDebug 
+            Height          =   315
+            ItemData        =   "frmPrefs.frx":3893D
+            Left            =   1530
+            List            =   "frmPrefs.frx":3893F
+            Style           =   2  'Dropdown List
+            TabIndex        =   54
+            ToolTipText     =   "Choose to set debug mode."
+            Top             =   -15
+            Width           =   2160
+         End
+         Begin VB.Label lblDebug 
+            Caption         =   "DblClick Command :"
+            Height          =   510
+            Index           =   1
+            Left            =   -15
+            TabIndex        =   63
+            Tag             =   "lblPrefixString"
+            Top             =   1155
+            Width           =   1545
+         End
+         Begin VB.Label lblConfigurationTab 
+            Caption         =   "Shift+double-clicking on the widget image will open this file. "
+            Height          =   375
+            Index           =   6
+            Left            =   1560
+            TabIndex        =   62
+            Top             =   2730
+            Width           =   3705
+         End
+         Begin VB.Label lblDebug 
+            Caption         =   "Default command to run when the gauge receives a double-click eg %SystemRoot%/system32/ncpa.cpl"
+            Height          =   570
+            Index           =   5
+            Left            =   1590
+            TabIndex        =   60
+            Tag             =   "lblSharedInputFileDesc"
+            Top             =   1605
+            Width           =   4410
+         End
+         Begin VB.Label lblDebug 
+            Caption         =   "Open File :"
+            Height          =   255
+            Index           =   4
+            Left            =   645
+            TabIndex        =   59
+            Tag             =   "lblSharedInputFile"
+            Top             =   2280
+            Width           =   1350
+         End
+         Begin VB.Label lblDebug 
+            Caption         =   "Turning on the debugging will provide extra information in the debug window.  *"
+            Height          =   495
+            Index           =   2
+            Left            =   1545
+            TabIndex        =   56
+            Tag             =   "lblAlarmSoundDesc"
+            Top             =   450
+            Width           =   4455
+         End
+         Begin VB.Label lblDebug 
+            Caption         =   "Debug :"
+            Height          =   375
+            Index           =   0
+            Left            =   855
+            TabIndex        =   55
+            Tag             =   "lblAlarmSound"
+            Top             =   45
+            Width           =   1740
+         End
+      End
+   End
+   Begin VB.Frame fraPosition 
+      Caption         =   "Position"
+      Height          =   7440
+      Left            =   240
+      TabIndex        =   46
+      Top             =   1230
+      Visible         =   0   'False
+      Width           =   8520
+      Begin VB.Frame fraPositionInner 
+         BorderStyle     =   0  'None
+         Height          =   6960
+         Left            =   150
+         TabIndex        =   47
+         Top             =   300
+         Width           =   7680
+         Begin VB.CheckBox chkPreventDragging 
+            Caption         =   "Widget Position Locked. *"
+            Height          =   225
+            Left            =   2265
+            TabIndex        =   129
+            ToolTipText     =   "Checking this box turns off the ability to drag the program with the mouse, locking it in position."
+            Top             =   3465
+            Width           =   2505
+         End
+         Begin VB.TextBox txtPortraitYoffset 
+            Height          =   315
+            Left            =   2250
+            TabIndex        =   81
+            ToolTipText     =   "Enter a prefix/nickname for outgoing messages."
+            Top             =   6465
+            Width           =   2130
+         End
+         Begin VB.TextBox txtPortraitHoffset 
+            Height          =   315
+            Left            =   2250
+            TabIndex        =   79
+            ToolTipText     =   "Enter a prefix/nickname for outgoing messages."
+            Top             =   6000
+            Width           =   2130
+         End
+         Begin VB.TextBox txtLandscapeVoffset 
+            Height          =   315
+            Left            =   2250
+            TabIndex        =   77
+            ToolTipText     =   "Enter a prefix/nickname for outgoing messages."
+            Top             =   4875
+            Width           =   2130
+         End
+         Begin VB.TextBox txtLandscapeHoffset 
+            Height          =   315
+            Left            =   2250
+            TabIndex        =   75
+            Top             =   4425
+            Width           =   2130
+         End
+         Begin VB.ComboBox cmbWidgetLandscape 
+            Height          =   315
+            Left            =   2250
+            Style           =   2  'Dropdown List
+            TabIndex        =   73
+            ToolTipText     =   "Choose the alarm sound."
+            Top             =   3930
+            Width           =   2160
+         End
+         Begin VB.ComboBox cmbWidgetPortrait 
+            Height          =   315
+            Left            =   2250
+            Style           =   2  'Dropdown List
+            TabIndex        =   70
+            ToolTipText     =   "Choose the alarm sound."
+            Top             =   5505
+            Width           =   2160
+         End
+         Begin VB.ComboBox cmbWidgetPosition 
+            Height          =   315
+            Left            =   2265
+            Style           =   2  'Dropdown List
+            TabIndex        =   67
+            ToolTipText     =   "Choose the alarm sound."
+            Top             =   2100
+            Width           =   2160
+         End
+         Begin VB.ComboBox cmbAspectHidden 
+            Height          =   315
+            Left            =   2265
+            Style           =   2  'Dropdown List
+            TabIndex        =   64
+            ToolTipText     =   "Choose the alarm sound."
+            Top             =   0
+            Width           =   2160
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   "(px)"
+            Height          =   300
+            Index           =   7
+            Left            =   4530
+            TabIndex        =   160
+            Tag             =   "lblPrefixString"
+            Top             =   6495
+            Width           =   435
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   "(px)"
+            Height          =   300
+            Index           =   5
+            Left            =   4530
+            TabIndex        =   159
+            Tag             =   "lblPrefixString"
+            Top             =   6045
+            Width           =   435
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   "*"
+            Height          =   255
+            Index           =   1
+            Left            =   4545
+            TabIndex        =   132
+            Tag             =   "lblAlarmSound"
+            Top             =   45
+            Width           =   345
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   "(px)"
+            Height          =   300
+            Index           =   4
+            Left            =   4530
+            TabIndex        =   128
+            Tag             =   "lblPrefixString"
+            Top             =   4905
+            Width           =   435
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   "(px)"
+            Height          =   300
+            Index           =   2
+            Left            =   4530
+            TabIndex        =   127
+            Tag             =   "lblPrefixString"
+            Top             =   4500
+            Width           =   390
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   "Portrait Top Y pos :"
+            Height          =   510
+            Index           =   17
+            Left            =   645
+            TabIndex        =   82
+            Tag             =   "lblPrefixString"
+            Top             =   6480
+            Width           =   2175
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   "Portrait Left X pos :"
+            Height          =   510
+            Index           =   16
+            Left            =   660
+            TabIndex        =   80
+            Tag             =   "lblPrefixString"
+            Top             =   6015
+            Width           =   2175
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   "Landscape Top Y pos :"
+            Height          =   510
+            Index           =   15
+            Left            =   420
+            TabIndex        =   78
+            Tag             =   "lblPrefixString"
+            Top             =   4905
+            Width           =   2175
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   "Landscape Left X pos :"
+            Height          =   510
+            Index           =   14
+            Left            =   420
+            TabIndex        =   76
+            Tag             =   "lblPrefixString"
+            Top             =   4455
+            Width           =   2175
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   "Locked in Landscape :"
+            Height          =   435
+            Index           =   13
+            Left            =   450
+            TabIndex        =   74
+            Tag             =   "lblAlarmSound"
+            Top             =   3975
+            Width           =   2115
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   $"frmPrefs.frx":38941
+            Height          =   3120
+            Index           =   12
+            Left            =   5145
+            TabIndex        =   72
+            Tag             =   "lblAlarmSoundDesc"
+            Top             =   3480
+            Width           =   2520
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   "Locked in Portrait :"
+            Height          =   375
+            Index           =   11
+            Left            =   690
+            TabIndex        =   71
+            Tag             =   "lblAlarmSound"
+            Top             =   5550
+            Width           =   2040
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   $"frmPrefs.frx":38B13
+            Height          =   705
+            Index           =   10
+            Left            =   2250
+            TabIndex        =   69
+            Tag             =   "lblAlarmSoundDesc"
+            Top             =   2550
+            Width           =   4455
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   "Widget Position by Percent:"
+            Height          =   375
+            Index           =   8
+            Left            =   195
+            TabIndex        =   68
+            Tag             =   "lblAlarmSound"
+            Top             =   2145
+            Width           =   2355
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   $"frmPrefs.frx":38BB2
+            Height          =   3045
+            Index           =   6
+            Left            =   2265
+            TabIndex        =   66
+            Tag             =   "lblAlarmSoundDesc"
+            Top             =   450
+            Width           =   5175
+         End
+         Begin VB.Label lblPosition 
+            Caption         =   "Aspect Ratio Hidden Mode :"
+            Height          =   375
+            Index           =   3
+            Left            =   120
+            TabIndex        =   65
+            Tag             =   "lblAlarmSound"
+            Top             =   45
+            Width           =   2145
+         End
+      End
+   End
+   Begin VB.Frame fraSounds 
+      Caption         =   "Sounds"
+      Height          =   1965
+      Left            =   240
+      TabIndex        =   13
+      Top             =   1230
+      Visible         =   0   'False
+      Width           =   7965
+      Begin VB.Frame fraSoundsInner 
+         BorderStyle     =   0  'None
+         Height          =   1605
+         Left            =   930
+         TabIndex        =   25
+         Top             =   285
+         Width           =   5160
+         Begin VB.CheckBox chkEnableSounds 
+            Caption         =   "Enable Sounds for the Animations"
+            Height          =   225
+            Left            =   1485
+            TabIndex        =   36
+            ToolTipText     =   "Check this box to enable or disable all of the sounds used during any animation on the main screen."
+            Top             =   285
+            Width           =   3405
+         End
+         Begin VB.Label lblSoundsTab 
+            Caption         =   "Audio :"
+            Height          =   255
+            Index           =   3
+            Left            =   885
+            TabIndex        =   97
+            Tag             =   "lblSharedInputFile"
+            Top             =   285
+            Width           =   765
+         End
+         Begin VB.Label lblSoundsTab 
+            Caption         =   "When checked, this box enables all the sounds used during any animation/interaction with the main program."
+            Height          =   705
+            Index           =   4
+            Left            =   1515
+            TabIndex        =   37
+            Tag             =   "lblEnableSoundsDesc"
+            Top             =   645
+            Width           =   3705
          End
       End
    End
@@ -535,7 +986,7 @@ Begin VB.Form panzerPrefs
       Caption         =   "Enable Corner Resize"
       Height          =   210
       Left            =   3240
-      TabIndex        =   135
+      TabIndex        =   133
       Top             =   10125
       Visible         =   0   'False
       Width           =   2250
@@ -544,21 +995,21 @@ Begin VB.Form panzerPrefs
       BorderStyle     =   0  'None
       Height          =   1140
       Left            =   7695
-      TabIndex        =   102
+      TabIndex        =   100
       Top             =   0
       Width           =   975
       Begin VB.Label lblAbout 
          Caption         =   "About"
          Height          =   240
          Left            =   255
-         TabIndex        =   103
+         TabIndex        =   101
          Top             =   855
          Width           =   615
       End
       Begin VB.Image imgAbout 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":387F1
+         Picture         =   "frmPrefs.frx":38D57
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -566,7 +1017,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgAboutClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":38D79
+         Picture         =   "frmPrefs.frx":392DF
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -576,7 +1027,7 @@ Begin VB.Form panzerPrefs
       BorderStyle     =   0  'None
       Height          =   1140
       Left            =   1215
-      TabIndex        =   46
+      TabIndex        =   44
       Top             =   -15
       Width           =   930
       Begin VB.Label lblConfig 
@@ -584,14 +1035,14 @@ Begin VB.Form panzerPrefs
          Height          =   240
          Index           =   0
          Left            =   270
-         TabIndex        =   47
+         TabIndex        =   45
          Top             =   855
          Width           =   510
       End
       Begin VB.Image imgConfig 
          Height          =   600
          Left            =   165
-         Picture         =   "frmPrefs.frx":39264
+         Picture         =   "frmPrefs.frx":397CA
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -599,7 +1050,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgConfigClicked 
          Height          =   600
          Left            =   165
-         Picture         =   "frmPrefs.frx":39843
+         Picture         =   "frmPrefs.frx":39DA9
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -609,21 +1060,21 @@ Begin VB.Form panzerPrefs
       BorderStyle     =   0  'None
       Height          =   1140
       Left            =   5490
-      TabIndex        =   44
+      TabIndex        =   42
       Top             =   0
       Width           =   1065
       Begin VB.Label lblDevelopment 
          Caption         =   "Development"
          Height          =   240
          Left            =   45
-         TabIndex        =   45
+         TabIndex        =   43
          Top             =   855
          Width           =   960
       End
       Begin VB.Image imgDevelopment 
          Height          =   600
          Left            =   150
-         Picture         =   "frmPrefs.frx":39D48
+         Picture         =   "frmPrefs.frx":3A2AE
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -631,7 +1082,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgDevelopmentClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3A300
+         Picture         =   "frmPrefs.frx":3A866
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -641,7 +1092,7 @@ Begin VB.Form panzerPrefs
       BorderStyle     =   0  'None
       Height          =   1140
       Left            =   4410
-      TabIndex        =   42
+      TabIndex        =   40
       Top             =   0
       Width           =   930
       Begin VB.Label lblPosition 
@@ -649,14 +1100,14 @@ Begin VB.Form panzerPrefs
          Height          =   240
          Index           =   0
          Left            =   180
-         TabIndex        =   43
+         TabIndex        =   41
          Top             =   855
          Width           =   615
       End
       Begin VB.Image imgPosition 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3A686
+         Picture         =   "frmPrefs.frx":3ABEC
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -664,7 +1115,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgPositionClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3AC57
+         Picture         =   "frmPrefs.frx":3B1BD
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -709,7 +1160,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgSounds 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3AFF5
+         Picture         =   "frmPrefs.frx":3B55B
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -717,7 +1168,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgSoundsClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3B5B4
+         Picture         =   "frmPrefs.frx":3BB1A
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -757,7 +1208,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgWindow 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3BA84
+         Picture         =   "frmPrefs.frx":3BFEA
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -765,7 +1216,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgWindowClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3BF4E
+         Picture         =   "frmPrefs.frx":3C4B4
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -789,7 +1240,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgFonts 
          Height          =   600
          Left            =   180
-         Picture         =   "frmPrefs.frx":3C2FA
+         Picture         =   "frmPrefs.frx":3C860
          Stretch         =   -1  'True
          Top             =   195
          Width           =   600
@@ -797,7 +1248,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgFontsClicked 
          Height          =   600
          Left            =   180
-         Picture         =   "frmPrefs.frx":3C850
+         Picture         =   "frmPrefs.frx":3CDB6
          Stretch         =   -1  'True
          Top             =   195
          Width           =   600
@@ -812,7 +1263,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgGeneral 
          Height          =   600
          Left            =   165
-         Picture         =   "frmPrefs.frx":3CCE9
+         Picture         =   "frmPrefs.frx":3D24F
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -834,174 +1285,6 @@ Begin VB.Form panzerPrefs
          Width           =   600
       End
    End
-   Begin VB.Frame fraDevelopment 
-      Caption         =   "Development"
-      Height          =   6210
-      Left            =   240
-      TabIndex        =   50
-      Top             =   1200
-      Visible         =   0   'False
-      Width           =   8520
-      Begin VB.Frame fraDevelopmentInner 
-         BorderStyle     =   0  'None
-         Height          =   5595
-         Left            =   870
-         TabIndex        =   51
-         Top             =   300
-         Width           =   7455
-         Begin VB.Frame fraDefaultEditor 
-            BorderStyle     =   0  'None
-            Height          =   2370
-            Left            =   75
-            TabIndex        =   138
-            Top             =   3165
-            Width           =   7290
-            Begin VB.CommandButton btnDefaultEditor 
-               Caption         =   "..."
-               Height          =   300
-               Left            =   5115
-               Style           =   1  'Graphical
-               TabIndex        =   140
-               ToolTipText     =   "Click to select the .vbp file to edit the program - You need to have access to the source!"
-               Top             =   210
-               Width           =   315
-            End
-            Begin VB.TextBox txtDefaultEditor 
-               Height          =   315
-               Left            =   1440
-               TabIndex        =   139
-               Text            =   " eg. E:\vb6\fire call\FireCallWin.vbp"
-               Top             =   195
-               Width           =   3660
-            End
-            Begin VB.Label lblGitHub 
-               Caption         =   $"frmPrefs.frx":3D153
-               ForeColor       =   &H8000000D&
-               Height          =   810
-               Left            =   1560
-               TabIndex        =   144
-               ToolTipText     =   "Double Click to visit github"
-               Top             =   1515
-               Width           =   4560
-            End
-            Begin VB.Label lblDebug 
-               Caption         =   $"frmPrefs.frx":3D1EC
-               Height          =   930
-               Index           =   9
-               Left            =   1545
-               TabIndex        =   142
-               Top             =   690
-               Width           =   4785
-            End
-            Begin VB.Label lblDebug 
-               Caption         =   "Default Editor :"
-               Height          =   255
-               Index           =   7
-               Left            =   285
-               TabIndex        =   141
-               Tag             =   "lblSharedInputFile"
-               Top             =   225
-               Width           =   1350
-            End
-         End
-         Begin VB.TextBox txtDblClickCommand 
-            Height          =   315
-            Left            =   1515
-            TabIndex        =   63
-            ToolTipText     =   "Enter a Windows command for the gauge to operate when double-clicked."
-            Top             =   1095
-            Width           =   3660
-         End
-         Begin VB.CommandButton btnOpenFile 
-            Caption         =   "..."
-            Height          =   300
-            Left            =   5175
-            Style           =   1  'Graphical
-            TabIndex        =   60
-            ToolTipText     =   "Click to select a particular file for the gauge to run or open when double-clicked."
-            Top             =   2250
-            Width           =   315
-         End
-         Begin VB.TextBox txtOpenFile 
-            Height          =   315
-            Left            =   1515
-            TabIndex        =   59
-            ToolTipText     =   "Enter a particular file for the gauge to run or open when double-clicked."
-            Top             =   2235
-            Width           =   3660
-         End
-         Begin VB.ComboBox cmbDebug 
-            Height          =   315
-            ItemData        =   "frmPrefs.frx":3D290
-            Left            =   1530
-            List            =   "frmPrefs.frx":3D292
-            Style           =   2  'Dropdown List
-            TabIndex        =   56
-            ToolTipText     =   "Choose to set debug mode."
-            Top             =   -15
-            Width           =   2160
-         End
-         Begin VB.Label lblDebug 
-            Caption         =   "DblClick Command :"
-            Height          =   510
-            Index           =   1
-            Left            =   -15
-            TabIndex        =   65
-            Tag             =   "lblPrefixString"
-            Top             =   1155
-            Width           =   1545
-         End
-         Begin VB.Label lblConfigurationTab 
-            Caption         =   "Shift+double-clicking on the widget image will open this file. "
-            Height          =   375
-            Index           =   6
-            Left            =   1560
-            TabIndex        =   64
-            Top             =   2730
-            Width           =   3705
-         End
-         Begin VB.Label lblDebug 
-            Caption         =   "Default command to run when the gauge receives a double-click eg %SystemRoot%/system32/ncpa.cpl"
-            Height          =   570
-            Index           =   5
-            Left            =   1590
-            TabIndex        =   62
-            Tag             =   "lblSharedInputFileDesc"
-            Top             =   1605
-            Width           =   4410
-         End
-         Begin VB.Label lblDebug 
-            Caption         =   "Open File :"
-            Height          =   255
-            Index           =   4
-            Left            =   645
-            TabIndex        =   61
-            Tag             =   "lblSharedInputFile"
-            Top             =   2280
-            Width           =   1350
-         End
-         Begin VB.Label lblDebug 
-            Caption         =   "Turning on the debugging will provide extra information in the debug window.  *"
-            Height          =   495
-            Index           =   2
-            Left            =   1545
-            TabIndex        =   58
-            Tag             =   "lblAlarmSoundDesc"
-            Top             =   450
-            Width           =   4455
-         End
-         Begin VB.Label lblDebug 
-            Caption         =   "Debug :"
-            Height          =   375
-            Index           =   0
-            Left            =   855
-            TabIndex        =   57
-            Tag             =   "lblAlarmSound"
-            Top             =   45
-            Width           =   1740
-         End
-      End
-   End
    Begin VB.Frame fraWindow 
       Caption         =   "Window"
       Height          =   6300
@@ -1020,14 +1303,14 @@ Begin VB.Form panzerPrefs
             BorderStyle     =   0  'None
             Height          =   2010
             Left            =   480
-            TabIndex        =   124
+            TabIndex        =   122
             Top             =   2325
             Width           =   5130
             Begin VB.ComboBox cmbHidingTime 
                Height          =   315
                Left            =   825
                Style           =   2  'Dropdown List
-               TabIndex        =   127
+               TabIndex        =   125
                Top             =   1680
                Width           =   3720
             End
@@ -1035,7 +1318,7 @@ Begin VB.Form panzerPrefs
                Caption         =   "Hiding Widget *"
                Height          =   225
                Left            =   855
-               TabIndex        =   125
+               TabIndex        =   123
                Top             =   225
                Width           =   2955
             End
@@ -1044,16 +1327,16 @@ Begin VB.Form panzerPrefs
                Height          =   345
                Index           =   2
                Left            =   90
-               TabIndex        =   128
+               TabIndex        =   126
                Top             =   210
                Width           =   720
             End
             Begin VB.Label lblWindowLevel 
-               Caption         =   $"frmPrefs.frx":3D294
+               Caption         =   $"frmPrefs.frx":3D6B9
                Height          =   975
                Index           =   1
                Left            =   855
-               TabIndex        =   126
+               TabIndex        =   124
                Top             =   600
                Width           =   3900
             End
@@ -1095,7 +1378,7 @@ Begin VB.Form panzerPrefs
             Height          =   660
             Index           =   3
             Left            =   1320
-            TabIndex        =   133
+            TabIndex        =   131
             Top             =   570
             Width           =   3810
          End
@@ -1164,57 +1447,11 @@ Begin VB.Form panzerPrefs
          End
       End
    End
-   Begin VB.Frame fraSounds 
-      Caption         =   "Sounds"
-      Height          =   1965
-      Left            =   240
-      TabIndex        =   13
-      Top             =   1230
-      Visible         =   0   'False
-      Width           =   7965
-      Begin VB.Frame fraSoundsInner 
-         BorderStyle     =   0  'None
-         Height          =   1755
-         Left            =   930
-         TabIndex        =   25
-         Top             =   135
-         Width           =   5160
-         Begin VB.CheckBox chkEnableSounds 
-            Caption         =   "Enable Sounds for the Animations"
-            Height          =   225
-            Left            =   1485
-            TabIndex        =   36
-            ToolTipText     =   "Check this box to enable or disable all of the sounds used during any animation on the main screen."
-            Top             =   465
-            Width           =   3405
-         End
-         Begin VB.Label lblSoundsTab 
-            Caption         =   "Audio :"
-            Height          =   255
-            Index           =   3
-            Left            =   885
-            TabIndex        =   99
-            Tag             =   "lblSharedInputFile"
-            Top             =   465
-            Width           =   765
-         End
-         Begin VB.Label lblSoundsTab 
-            Caption         =   "When checked, this box enables all the sounds used during any animation/interaction with the main program."
-            Height          =   660
-            Index           =   4
-            Left            =   1515
-            TabIndex        =   37
-            Tag             =   "lblEnableSoundsDesc"
-            Top             =   825
-            Width           =   3615
-         End
-      End
-   End
    Begin VB.Frame fraAbout 
       Caption         =   "About"
       Height          =   8580
       Left            =   255
-      TabIndex        =   104
+      TabIndex        =   102
       Top             =   1185
       Visible         =   0   'False
       Width           =   8520
@@ -1222,7 +1459,7 @@ Begin VB.Form panzerPrefs
          BorderStyle     =   0  'None
          Height          =   6435
          Left            =   7950
-         TabIndex        =   118
+         TabIndex        =   116
          Top             =   1995
          Width           =   420
       End
@@ -1234,8 +1471,8 @@ Begin VB.Form panzerPrefs
          Left            =   300
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
-         TabIndex        =   117
-         Text            =   "frmPrefs.frx":3D337
+         TabIndex        =   115
+         Text            =   "frmPrefs.frx":3D75C
          Top             =   2205
          Width           =   8010
       End
@@ -1253,7 +1490,7 @@ Begin VB.Form panzerPrefs
          Height          =   360
          Left            =   6780
          Style           =   1  'Graphical
-         TabIndex        =   108
+         TabIndex        =   106
          ToolTipText     =   "This gives access to the debugging tool"
          Top             =   1110
          Width           =   1470
@@ -1272,7 +1509,7 @@ Begin VB.Form panzerPrefs
          Height          =   360
          Left            =   6780
          Style           =   1  'Graphical
-         TabIndex        =   107
+         TabIndex        =   105
          ToolTipText     =   "This will link you to the Rocket/Steamy dock users Group"
          Top             =   735
          Width           =   1470
@@ -1291,7 +1528,7 @@ Begin VB.Form panzerPrefs
          Height          =   360
          Left            =   6780
          Style           =   1  'Graphical
-         TabIndex        =   106
+         TabIndex        =   104
          ToolTipText     =   "Here you can visit the update location where you can download new versions of the programs."
          Top             =   360
          Width           =   1470
@@ -1310,7 +1547,7 @@ Begin VB.Form panzerPrefs
          Height          =   360
          Left            =   6780
          Style           =   1  'Graphical
-         TabIndex        =   105
+         TabIndex        =   103
          ToolTipText     =   "Opens a browser window and sends you to our donate page on Amazon"
          Top             =   1485
          Width           =   1470
@@ -1329,7 +1566,7 @@ Begin VB.Form panzerPrefs
          EndProperty
          Height          =   225
          Left            =   2940
-         TabIndex        =   122
+         TabIndex        =   120
          Top             =   510
          Width           =   495
       End
@@ -1347,7 +1584,7 @@ Begin VB.Form panzerPrefs
          EndProperty
          Height          =   240
          Left            =   3450
-         TabIndex        =   121
+         TabIndex        =   119
          Top             =   510
          Width           =   525
       End
@@ -1365,7 +1602,7 @@ Begin VB.Form panzerPrefs
          EndProperty
          Height          =   240
          Left            =   2730
-         TabIndex        =   120
+         TabIndex        =   118
          Top             =   510
          Width           =   225
       End
@@ -1383,7 +1620,7 @@ Begin VB.Form panzerPrefs
          EndProperty
          Height          =   240
          Left            =   3090
-         TabIndex        =   119
+         TabIndex        =   117
          Top             =   510
          Width           =   225
       End
@@ -1400,7 +1637,7 @@ Begin VB.Form panzerPrefs
          EndProperty
          Height          =   225
          Left            =   2715
-         TabIndex        =   116
+         TabIndex        =   114
          Top             =   855
          Width           =   2175
       End
@@ -1417,7 +1654,7 @@ Begin VB.Form panzerPrefs
          EndProperty
          Height          =   225
          Left            =   1050
-         TabIndex        =   115
+         TabIndex        =   113
          Top             =   855
          Width           =   795
       End
@@ -1434,7 +1671,7 @@ Begin VB.Form panzerPrefs
          EndProperty
          Height          =   225
          Left            =   1065
-         TabIndex        =   114
+         TabIndex        =   112
          Top             =   495
          Width           =   795
       End
@@ -1451,7 +1688,7 @@ Begin VB.Form panzerPrefs
          EndProperty
          Height          =   225
          Left            =   2715
-         TabIndex        =   113
+         TabIndex        =   111
          Top             =   1215
          Width           =   2175
       End
@@ -1468,7 +1705,7 @@ Begin VB.Form panzerPrefs
          EndProperty
          Height          =   225
          Left            =   1050
-         TabIndex        =   112
+         TabIndex        =   110
          Top             =   1215
          Width           =   1470
       End
@@ -1485,7 +1722,7 @@ Begin VB.Form panzerPrefs
          EndProperty
          Height          =   225
          Left            =   1050
-         TabIndex        =   111
+         TabIndex        =   109
          Top             =   1560
          Width           =   1470
       End
@@ -1502,7 +1739,7 @@ Begin VB.Form panzerPrefs
          EndProperty
          Height          =   225
          Left            =   2715
-         TabIndex        =   110
+         TabIndex        =   108
          Top             =   1560
          Width           =   3735
       End
@@ -1519,247 +1756,16 @@ Begin VB.Form panzerPrefs
          EndProperty
          Height          =   225
          Left            =   3900
-         TabIndex        =   109
+         TabIndex        =   107
          Top             =   510
          Width           =   1245
-      End
-   End
-   Begin VB.Frame fraPosition 
-      Caption         =   "Position"
-      Height          =   7440
-      Left            =   240
-      TabIndex        =   48
-      Top             =   1230
-      Visible         =   0   'False
-      Width           =   8520
-      Begin VB.Frame fraPositionInner 
-         BorderStyle     =   0  'None
-         Height          =   6960
-         Left            =   150
-         TabIndex        =   49
-         Top             =   300
-         Width           =   7680
-         Begin VB.CheckBox chkPreventDragging 
-            Caption         =   "Widget Position Locked. *"
-            Height          =   225
-            Left            =   2265
-            TabIndex        =   131
-            ToolTipText     =   "Checking this box turns off the ability to drag the program with the mouse, locking it in position."
-            Top             =   3465
-            Width           =   2505
-         End
-         Begin VB.TextBox txtPortraitYoffset 
-            Height          =   315
-            Left            =   2250
-            TabIndex        =   83
-            ToolTipText     =   "Enter a prefix/nickname for outgoing messages."
-            Top             =   6465
-            Width           =   2130
-         End
-         Begin VB.TextBox txtPortraitHoffset 
-            Height          =   315
-            Left            =   2250
-            TabIndex        =   81
-            ToolTipText     =   "Enter a prefix/nickname for outgoing messages."
-            Top             =   6000
-            Width           =   2130
-         End
-         Begin VB.TextBox txtLandscapeVoffset 
-            Height          =   315
-            Left            =   2250
-            TabIndex        =   79
-            ToolTipText     =   "Enter a prefix/nickname for outgoing messages."
-            Top             =   4875
-            Width           =   2130
-         End
-         Begin VB.TextBox txtLandscapeHoffset 
-            Height          =   315
-            Left            =   2250
-            TabIndex        =   77
-            Top             =   4425
-            Width           =   2130
-         End
-         Begin VB.ComboBox cmbWidgetLandscape 
-            Height          =   315
-            Left            =   2250
-            Style           =   2  'Dropdown List
-            TabIndex        =   75
-            ToolTipText     =   "Choose the alarm sound."
-            Top             =   3930
-            Width           =   2160
-         End
-         Begin VB.ComboBox cmbWidgetPortrait 
-            Height          =   315
-            Left            =   2250
-            Style           =   2  'Dropdown List
-            TabIndex        =   72
-            ToolTipText     =   "Choose the alarm sound."
-            Top             =   5505
-            Width           =   2160
-         End
-         Begin VB.ComboBox cmbWidgetPosition 
-            Height          =   315
-            Left            =   2265
-            Style           =   2  'Dropdown List
-            TabIndex        =   69
-            ToolTipText     =   "Choose the alarm sound."
-            Top             =   2100
-            Width           =   2160
-         End
-         Begin VB.ComboBox cmbAspectHidden 
-            Height          =   315
-            Left            =   2265
-            Style           =   2  'Dropdown List
-            TabIndex        =   66
-            ToolTipText     =   "Choose the alarm sound."
-            Top             =   0
-            Width           =   2160
-         End
-         Begin VB.Label lblPosition 
-            Caption         =   "*"
-            Height          =   255
-            Index           =   1
-            Left            =   4545
-            TabIndex        =   134
-            Tag             =   "lblAlarmSound"
-            Top             =   45
-            Width           =   345
-         End
-         Begin VB.Label Label2 
-            Caption         =   "(px)"
-            Height          =   300
-            Left            =   4530
-            TabIndex        =   130
-            Tag             =   "lblPrefixString"
-            Top             =   4905
-            Width           =   435
-         End
-         Begin VB.Label Label1 
-            Caption         =   "(px)"
-            Height          =   300
-            Left            =   4530
-            TabIndex        =   129
-            Tag             =   "lblPrefixString"
-            Top             =   4500
-            Width           =   390
-         End
-         Begin VB.Label lblPosition 
-            Caption         =   "Portrait Top Y pos :"
-            Height          =   510
-            Index           =   17
-            Left            =   720
-            TabIndex        =   84
-            Tag             =   "lblPrefixString"
-            Top             =   6480
-            Width           =   2175
-         End
-         Begin VB.Label lblPosition 
-            Caption         =   "Portrait Left X pos :"
-            Height          =   510
-            Index           =   16
-            Left            =   660
-            TabIndex        =   82
-            Tag             =   "lblPrefixString"
-            Top             =   6015
-            Width           =   2175
-         End
-         Begin VB.Label lblPosition 
-            Caption         =   "Landscape Top Y pos :"
-            Height          =   510
-            Index           =   15
-            Left            =   480
-            TabIndex        =   80
-            Tag             =   "lblPrefixString"
-            Top             =   4905
-            Width           =   2175
-         End
-         Begin VB.Label lblPosition 
-            Caption         =   "Landscape Left X pos :"
-            Height          =   510
-            Index           =   14
-            Left            =   480
-            TabIndex        =   78
-            Tag             =   "lblPrefixString"
-            Top             =   4455
-            Width           =   2175
-         End
-         Begin VB.Label lblPosition 
-            Caption         =   "Widget Locked in Landscape:"
-            Height          =   375
-            Index           =   13
-            Left            =   0
-            TabIndex        =   76
-            Tag             =   "lblAlarmSound"
-            Top             =   3975
-            Width           =   2205
-         End
-         Begin VB.Label lblPosition 
-            Caption         =   $"frmPrefs.frx":3E2EE
-            Height          =   3120
-            Index           =   12
-            Left            =   5145
-            TabIndex        =   74
-            Tag             =   "lblAlarmSoundDesc"
-            Top             =   3480
-            Width           =   2520
-         End
-         Begin VB.Label lblPosition 
-            Caption         =   "Widget Locked in Portrait:"
-            Height          =   375
-            Index           =   11
-            Left            =   300
-            TabIndex        =   73
-            Tag             =   "lblAlarmSound"
-            Top             =   5550
-            Width           =   2040
-         End
-         Begin VB.Label lblPosition 
-            Caption         =   $"frmPrefs.frx":3E4C0
-            Height          =   705
-            Index           =   10
-            Left            =   2250
-            TabIndex        =   71
-            Tag             =   "lblAlarmSoundDesc"
-            Top             =   2550
-            Width           =   4455
-         End
-         Begin VB.Label lblPosition 
-            Caption         =   "Widget Position by Percent:"
-            Height          =   375
-            Index           =   8
-            Left            =   195
-            TabIndex        =   70
-            Tag             =   "lblAlarmSound"
-            Top             =   2145
-            Width           =   2355
-         End
-         Begin VB.Label lblPosition 
-            Caption         =   $"frmPrefs.frx":3E55F
-            Height          =   3045
-            Index           =   6
-            Left            =   2265
-            TabIndex        =   68
-            Tag             =   "lblAlarmSoundDesc"
-            Top             =   450
-            Width           =   5175
-         End
-         Begin VB.Label lblPosition 
-            Caption         =   "Aspect Ratio Hidden Mode :"
-            Height          =   375
-            Index           =   3
-            Left            =   120
-            TabIndex        =   67
-            Tag             =   "lblAlarmSound"
-            Top             =   45
-            Width           =   2145
-         End
       End
    End
    Begin VB.Label lblAsterix 
       Caption         =   "All controls marked with a * take effect immediately."
       Height          =   300
       Left            =   1920
-      TabIndex        =   132
+      TabIndex        =   130
       Top             =   10155
       Width           =   3870
    End
@@ -1984,13 +1990,11 @@ Private Declare Function lstrlenW Lib "kernel32" _
 
 Private PzGPrefsLoadedFlg As Boolean
 
-
-
-Private dynamicSizingFlg As Boolean
+Private prefsDynamicSizingFlg As Boolean
 Private lastFormHeight As Long
 
-Private Const cFormHeight As Long = 11055
-Private Const cFormWidth  As Long = 9090
+Private Const cPrefsFormHeight As Long = 11055
+Private Const cPrefsFormWidth  As Long = 9090
 Private topIconWidth As Long
 
 
@@ -2005,25 +2009,34 @@ Private topIconWidth As Long
 '
 Private Sub chkDpiAwareness_Click()
     Dim answer As VbMsgBoxResult: answer = vbNo
+    Dim answerMsg As String: answerMsg = vbNullString
 
     On Error GoTo chkDpiAwareness_Click_Error
 
     btnSave.Enabled = True ' enable the save button
-    If startupFlg = False Then
-    
-        If chkDpiAwareness.Value = 1 Then
-            PzGDpiAwareness = "1"
-        Else
-            PzGDpiAwareness = "0"
-        End If
+    If startupFlg = False Then ' don't run this on startup
+                    
+        If chkDpiAwareness.Value = 0 Then
         
-        sPutINISetting "Software\PzJustClock", "dpiAwareness", PzGDpiAwareness, PzGSettingsFile
+            'answer = MsgBox("You must close this widget and restart it, in order to change the widget's DPI awareness (a simple reload just won't cut it), do you want me to close and restart this widget? I can do it now for you.", vbYesNo)
+            answerMsg = "You must close this widget and restart it, in order to change the widget's DPI awareness (a simple reload just won't cut it), do you want me to close and restart this widget? I can do it now for you."
+            answer = msgBoxA(answerMsg, vbYesNo, "DpiAwareness Confirmation", False)
+            PzGDpiAwareness = "0"
+            sPutINISetting "Software\PzJustClock", "dpiAwareness", PzGDpiAwareness, PzGSettingsFile
+     
+            If answer = vbNo Then
             
-        answer = MsgBox("You must close this widget and restart it, in order to change the widget's DPI awareness (a simple reload just won't cut it), do you want me to close and restart this widget? I can do it now for you.", vbYesNo)
-        If answer = vbNo Then
-            Exit Sub
+                answerMsg = "OK, the widget is still DPI aware until you restart. Some forms may show abnormally."
+                answer = msgBoxA(answerMsg, vbYesNo, "DpiAwareness Notification", False)
+
+                Exit Sub
+            Else
+                Call restart
+            End If
         Else
-            Call restart
+            PzGDpiAwareness = "1"
+            sPutINISetting "Software\PzJustClock", "dpiAwareness", PzGDpiAwareness, PzGSettingsFile
+            Call reloadWidget
         End If
     End If
 
@@ -2104,8 +2117,6 @@ chkShowTaskbar_Click_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure chkShowTaskbar_Click of Form panzerPrefs"
 End Sub
 
-
-
 Private Sub cmbMainGaugeTimeZone_Change()
     btnSave.Enabled = True ' enable the save button
 End Sub
@@ -2126,7 +2137,7 @@ Private Sub Form_Load()
 
     On Error GoTo Form_Load_Error
     
-    dynamicSizingFlg = False
+    prefsDynamicSizingFlg = False
     startupFlg = True ' this is used to prevent some control initialisations from running code at startup
     lastFormHeight = 0
     topIconWidth = 600 '40 pixels
@@ -2141,7 +2152,7 @@ Private Sub Form_Load()
     btnSave.Enabled = False ' disable the save button
 
     If PzGDpiAwareness = "1" Then
-        dynamicSizingFlg = True
+        prefsDynamicSizingFlg = True
         chkEnableResizing.Value = 1
     End If
     
@@ -2190,9 +2201,6 @@ Form_Load_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Form_Load of Form panzerPrefs"
 
 End Sub
-
-
-
 
 
 '---------------------------------------------------------------------------------------
@@ -2270,6 +2278,7 @@ End Sub
 Private Sub btnOpenFile_Click()
     Dim retFileName As String: retFileName = vbNullString
     Dim answer As VbMsgBoxResult: answer = vbNo
+    Dim answerMsg As String: answerMsg = vbNullString
 
     On Error GoTo btnOpenFile_Click_Error
 
@@ -2284,7 +2293,9 @@ Private Sub btnOpenFile_Click()
     End If
     
     If Not fFExists(retFileName) Then
-        answer = MsgBox("The file doesn't currently exist, do you want me to create the chosen file, " & "   -  are you sure?", vbYesNo)
+        'answer = MsgBox("The file doesn't currently exist, do you want me to create the chosen file, " & "   -  are you sure?", vbYesNo)
+        answerMsg = "The file doesn't currently exist, do you want me to create the chosen file, " & "   -  are you sure?"
+        answer = msgBoxA(answerMsg, vbYesNo, "Create file confirmation", False)
         If answer = vbNo Then
             Exit Sub
         End If
@@ -2350,6 +2361,7 @@ End Sub
 Private Sub btnDefaultEditor_Click()
     Dim retFileName As String: retFileName = vbNullString
     Dim answer As VbMsgBoxResult: answer = vbNo
+    Dim answerMsg As String: answerMsg = vbNullString
 
     On Error GoTo btnDefaultEditor_Click_Error
 
@@ -2364,7 +2376,9 @@ Private Sub btnDefaultEditor_Click()
     End If
     
     If Not fFExists(retFileName) Then
-        answer = MsgBox("The file doesn't currently exist, do you want me to create the chosen file, " & "   -  are you sure?", vbYesNo)
+        'answer = MsgBox("The file doesn't currently exist, do you want me to create the chosen file, " & "   -  are you sure?", vbYesNo)
+        answerMsg = "The file doesn't currently exist, do you want me to create the chosen file, " & "   -  are you sure?"
+        answer = msgBoxA(answerMsg, vbYesNo, "Default Editor Confirmation", False)
         If answer = vbNo Then
             Exit Sub
         End If
@@ -2967,8 +2981,12 @@ Private Sub btnSave_Click()
 '    PzGhLocationPercPrefValue
 
     ' fonts
-    PzGPrefsFont = txtPrefsFont.Text
-    PzGPrefsFontSize = txtPrefsFontSize.Text
+    PzGprefsFont = txtPrefsFont.Text
+    If PzGDpiAwareness = "1" Then
+        PzGPrefsFontSizeHighDPI = txtPrefsFontSize.Text
+    Else
+        PzGPrefsFontSizeLowDPI = txtPrefsFontSize.Text
+    End If
     'PzGPrefsFontItalics = txtFontSize.Text
 
     ' Windows
@@ -3018,8 +3036,9 @@ Private Sub btnSave_Click()
         sPutINISetting "Software\PzJustClock", "widgetLandscape", PzGWidgetLandscape, PzGSettingsFile
         sPutINISetting "Software\PzJustClock", "widgetPortrait", PzGWidgetPortrait, PzGSettingsFile
 
-        sPutINISetting "Software\PzJustClock", "prefsFont", PzGPrefsFont, PzGSettingsFile
-        sPutINISetting "Software\PzJustClock", "prefsFontSize", PzGPrefsFontSize, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "prefsFont", PzGprefsFont, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "prefsFontSizeHighDPI", PzGPrefsFontSizeHighDPI, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "prefsFontSizeLowDPI", PzGPrefsFontSizeLowDPI, PzGSettingsFile
         sPutINISetting "Software\PzJustClock", "prefsFontItalics", PzGPrefsFontItalics, PzGSettingsFile
         sPutINISetting "Software\PzJustClock", "prefsFontColour", PzGPrefsFontColour, PzGSettingsFile
 
@@ -3085,6 +3104,7 @@ End Sub
 '
 Private Sub chkEnableTooltips_Click()
     Dim answer As VbMsgBoxResult: answer = vbNo
+    Dim answerMsg As String: answerMsg = vbNullString
     On Error GoTo chkEnableTooltips_Click_Error
 
     btnSave.Enabled = True ' enable the save button
@@ -3098,7 +3118,9 @@ Private Sub chkEnableTooltips_Click()
         
         sPutINISetting "Software\PzJustClock", "enableTooltips", PzGEnableTooltips, PzGSettingsFile
 
-        answer = MsgBox("You must soft reload this widget, in order to change the tooltip setting, do you want me to reload this widget? I can do it now for you.", vbYesNo)
+        'answer = MsgBox("You must soft reload this widget, in order to change the tooltip setting, do you want me to reload this widget? I can do it now for you.", vbYesNo)
+        answerMsg = "You must soft reload this widget, in order to change the tooltip setting, do you want me to reload this widget? I can do it now for you."
+        answer = msgBoxA(answerMsg, vbYesNo, "Request to Enable Tooltips", False)
         If answer = vbNo Then
             Exit Sub
         Else
@@ -3149,21 +3171,33 @@ Private Sub btnPrefsFont_Click()
     On Error GoTo btnPrefsFont_Click_Error
 
     btnSave.Enabled = True ' enable the save button
-    fntFont = PzGPrefsFont
-    fntSize = Val(PzGPrefsFontSize)
+    fntFont = PzGprefsFont
+    
+    If PzGDpiAwareness = "1" Then
+        fntSize = Val(PzGPrefsFontSizeHighDPI)
+    Else
+        fntSize = Val(PzGPrefsFontSizeLowDPI)
+    End If
     fntItalics = CBool(PzGPrefsFontItalics)
     fntColour = CLng(PzGPrefsFontColour)
         
     Call changeFont(panzerPrefs, True, fntFont, fntSize, fntWeight, fntStyle, fntColour, fntItalics, fntUnderline, fntFontResult)
     
-    PzGPrefsFont = CStr(fntFont)
-    PzGPrefsFontSize = CStr(fntSize)
+    PzGprefsFont = CStr(fntFont)
+    
+    If PzGDpiAwareness = "1" Then
+        PzGPrefsFontSizeHighDPI = CStr(fntSize)
+    Else
+        PzGPrefsFontSizeLowDPI = CStr(fntSize)
+    End If
+    
     PzGPrefsFontItalics = CStr(fntItalics)
     PzGPrefsFontColour = CStr(fntColour)
 
     If fFExists(PzGSettingsFile) Then ' does the tool's own settings.ini exist?
-        sPutINISetting "Software\PzJustClock", "prefsFont", PzGPrefsFont, PzGSettingsFile
-        sPutINISetting "Software\PzJustClock", "prefsFontSize", PzGPrefsFontSize, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "prefsFont", PzGprefsFont, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "prefsFontSizeHighDPI", PzGPrefsFontSizeHighDPI, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "prefsFontSizeLowDPI", PzGPrefsFontSizeLowDPI, PzGSettingsFile
         sPutINISetting "Software\PzJustClock", "prefsFontItalics", PzGPrefsFontItalics, PzGSettingsFile
         sPutINISetting "Software\PzJustClock", "PrefsFontColour", PzGPrefsFontColour, PzGSettingsFile
     End If
@@ -3245,13 +3279,17 @@ Private Sub adjustPrefsControls()
     txtOpenFile.Text = PzGOpenFile
     txtDefaultEditor.Text = PzGDefaultEditor
     
-    If PzGPrefsFont <> vbNullString Then
-        Call changeFormFont(panzerPrefs, PzGPrefsFont, Val(PzGPrefsFontSize), fntWeight, fntStyle, PzGPrefsFontItalics, PzGPrefsFontColour)
+     ' fonts tab
+    If PzGprefsFont <> vbNullString Then
+        txtPrefsFont.Text = PzGprefsFont
+        If PzGDpiAwareness = "1" Then
+            Call changeFormFont(panzerPrefs, PzGprefsFont, Val(PzGPrefsFontSizeHighDPI), fntWeight, fntStyle, PzGPrefsFontItalics, PzGPrefsFontColour)
+            txtPrefsFontSize.Text = PzGPrefsFontSizeHighDPI
+        Else
+            Call changeFormFont(panzerPrefs, PzGprefsFont, Val(PzGPrefsFontSizeLowDPI), fntWeight, fntStyle, PzGPrefsFontItalics, PzGPrefsFontColour)
+            txtPrefsFontSize.Text = PzGPrefsFontSizeLowDPI
+        End If
     End If
-       
-    ' fonts tab
-    txtPrefsFont.Text = PzGPrefsFont
-    txtPrefsFontSize.Text = PzGPrefsFontSize
     
     ' position tab
     cmbAspectHidden.ListIndex = Val(PzGAspectHidden)
@@ -3378,7 +3416,6 @@ Private Sub populatePrefsComboBoxes()
     cmbMainDaylightSaving.ItemData(0) = 0
 '    cmbMainDaylightSaving.AddItem "Daylight Savings Activated", 1
 '    cmbMainDaylightSaving.ItemData(0) = 1
-    
 
     cmbTickSwitchPref.AddItem "Tick", 0
     cmbTickSwitchPref.ItemData(0) = 0
@@ -3490,9 +3527,9 @@ Private Sub Form_Resize()
     
     If WindowState = vbMinimized Then Exit Sub
 
-    ratio = cFormHeight / cFormWidth
+    ratio = cPrefsFormHeight / cPrefsFormWidth
     
-    If dynamicSizingFlg = True Then
+    If prefsDynamicSizingFlg = True Then
 
         Call resizeControls(Me, prefsControlPositions(), prefsCurrentWidth, prefsCurrentHeight)
         Call tweakPrefsControlPositions(Me, prefsCurrentWidth, prefsCurrentHeight)
@@ -3536,7 +3573,6 @@ Private Sub tweakPrefsControlPositions(ByVal thisForm As Form, ByVal m_FormWid A
     Dim y_scale As Single: y_scale = 0
     
     On Error GoTo tweakPrefsControlPositions_Error
-   
 
     ' Get the form's current scale factors.
     x_scale = thisForm.ScaleWidth / m_FormWid
@@ -3570,6 +3606,8 @@ Private Sub tweakPrefsControlPositions(ByVal thisForm As Form, ByVal m_FormWid A
     btnSave.Left = btnCancel.Left - btnSave.Width - (150 * x_scale)
     btnHelp.Left = fraGeneral.Left
 
+    txtPrefsFontCurrentSize.Text = y_scale * txtPrefsFontCurrentSize.FontSize
+    
    On Error GoTo 0
    Exit Sub
 
@@ -3782,10 +3820,13 @@ End Sub
 '
 Private Sub lblGitHub_dblClick()
     Dim answer As VbMsgBoxResult: answer = vbNo
+    Dim answerMsg As String: answerMsg = vbNullString
     
-   On Error GoTo lblGitHub_dblClick_Error
+    On Error GoTo lblGitHub_dblClick_Error
 
-    answer = MsgBox("This option opens a browser window and take you straight to Github. Proceed?", vbExclamation + vbYesNo)
+    ' answer = MsgBox("This option opens a browser window and take you straight to Github. Proceed?", vbExclamation + vbYesNo)
+    answerMsg = "This option opens a browser window and take you straight to Github. Proceed?"
+    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Proceed to Github? ", False)
     If answer = vbYes Then
        Call ShellExecute(Me.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6", vbNullString, App.Path, 1)
     End If
@@ -3911,7 +3952,9 @@ End Sub
 '
 Private Sub sliOpacity_Click()
     Dim answer As VbMsgBoxResult: answer = vbNo
-   On Error GoTo sliOpacity_Change_Error
+    Dim answerMsg As String: answerMsg = vbNullString
+    
+    On Error GoTo sliOpacity_Change_Error
 
     btnSave.Enabled = True ' enable the save button
 
@@ -3920,7 +3963,9 @@ Private Sub sliOpacity_Click()
     
         sPutINISetting "Software\PzJustClock", "opacity", PzGOpacity, PzGSettingsFile
 
-        answer = MsgBox("You must perform a hard reload on this widget in order to change the widget's opacity, do you want me to do it for you now?", vbYesNo)
+        answerMsg = "You must perform a hard reload on this widget in order to change the widget's opacity, do you want me to do it for you now?"
+        answer = msgBoxA(answerMsg, vbYesNo, "Hard Reload Request", False)
+        'answer = MsgBox("You must perform a hard reload on this widget in order to change the widget's opacity, do you want me to do it for you now?", vbYesNo)
         If answer = vbNo Then
             Exit Sub
         Else
@@ -4308,7 +4353,7 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
     captionHeight = Me.Height - Me.ScaleHeight - borderWidth
         
     ' under windows 10+ the internal window calcs are all wrong due to the bigger title bars
-    If dynamicSizingFlg = False Then
+    If prefsDynamicSizingFlg = False Then
         padding = 200 ' add normal padding below the help button to position the bottom of the form
 
         lastFormHeight = btnHelp.Top + btnHelp.Height + captionHeight + borderWidth + padding
@@ -4797,9 +4842,9 @@ Private Sub loadHigherResImages()
    
     If WindowState = vbMinimized Then Exit Sub
     
-    'ratio = cFormHeight / cFormWidth
+    'ratio = cPrefsFormHeight / cPrefsFormWidth
 
-    If dynamicSizingFlg = False Then
+    If prefsDynamicSizingFlg = False Then
         Exit Sub
     End If
     
@@ -4870,13 +4915,13 @@ Private Sub chkEnableResizing_Click()
    On Error GoTo chkEnableResizing_Click_Error
 
     If chkEnableResizing.Value = 1 Then
-        dynamicSizingFlg = True
+        prefsDynamicSizingFlg = True
         txtPrefsFontCurrentSize.Visible = True
         lblCurrentFontsTab.Visible = True
         'Call writePrefsPosition
         chkEnableResizing.Caption = "Disable Corner Resizing"
     Else
-        dynamicSizingFlg = False
+        prefsDynamicSizingFlg = False
         txtPrefsFontCurrentSize.Visible = False
         lblCurrentFontsTab.Visible = False
         Unload panzerPrefs
@@ -4914,7 +4959,7 @@ End Sub
 Private Sub setframeHeights()
    On Error GoTo setframeHeights_Error
 
-    If dynamicSizingFlg = True Then
+    If prefsDynamicSizingFlg = True Then
         fraGeneral.Height = fraAbout.Height
         fraFonts.Height = fraAbout.Height
         fraConfig.Height = fraAbout.Height
@@ -5426,6 +5471,38 @@ IsWinNTPlus_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure IsWinNTPlus of Form panzerPrefs"
 
 End Function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+'  --- All folded content will be temporary put under this lines ---
+'/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+'CODEFOLD STORAGE:
+'CODEFOLD STORAGE END:
+'\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+'--- If you're Subclassing: Move the CODEFOLD STORAGE up as needed ---
+'/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+
+
+
+
+
+
 
 
 

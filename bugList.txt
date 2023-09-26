@@ -84,24 +84,42 @@
 ' prefs placement when unloaded moved to the close button - done
 ' add top and tails to properties in frmMessage - done
 
-' msgboxA - replace the standard message boxes with my own - wip
-' apply resizeControls to msgBoxA - wip
+' msgboxA - replace the standard message boxes with my own - done
+' apply resizeControls to msgBoxA - done
+' fix msgBoxA icon sizing, cutting off the image bottom - done
+' restart now calls the correct binary - done
+
+' DPI switching off - when switching to low DPI mode it needs to change the font to the unresized font
+' low DPI font vs high DPI font?
+
+' low DPI mode, run, test and fix
+' DPI switched off, needs to restart switch to fixed, non-resized size mode
+' DPI switched off, the tabs need to size and fit the height as per PzEarth widget
+
+' when switched from low to high DPI, the icons no longer resize
+' when switched from low to high DPI, the prefs does not re-open after the reloadWidget
+
+' implement font characteristics var for the main utility
+
+' drag corner, implement
+
+' msgbox icons - create new versions to allow resizing as per the prefs
+
+' check system startup operating - wip
 
 ' monitorProperties, make it work
-
-' DPI switching off - errors
+'    add second monitor
+'    see FCW and whether it has monitor awareness
+'    duplicate that observed
 
 ' time zone code - wip - look at YWE and replicate
 ' daylight saving time - wip
-' system startup running - wip
-
 ' date/day fields altered by DST and timezone changes
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
-' drag corner, implement
-
-' low DPI mode, run, test and fix
+' vbNo
+' vbYes
 
 
 ' RC BUGS & LIMITATIONS

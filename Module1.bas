@@ -331,8 +331,9 @@ Public PzGOpenFile As String
 Public PzGDefaultEditor As String
        
 ' font
-Public PzGPrefsFont  As String
-Public PzGPrefsFontSize As String
+Public PzGprefsFont  As String
+Public PzGPrefsFontSizeHighDPI As String
+Public PzGPrefsFontSizeLowDPI As String
 Public PzGPrefsFontItalics  As String
 Public PzGPrefsFontColour  As String
 
@@ -658,9 +659,10 @@ Public Sub checkLicenceState()
         slicence = fGetINISetting("Software\PzJustClock", "Licence", PzGSettingsFile)
         ' if the licence state is not already accepted then display the licence form
         If slicence = "0" Or slicence = "" Then
-            Call LoadFileToTB(frmLicence.txtLicenceTextBox, App.Path & "\Resources\txt\licence.txt", False)
+            'Call LoadFileToTB(frmLicence.txtLicenceTextBox, App.Path & "\Resources\txt\licence.txt", False)
             
-            frmLicence.show vbModal ' show the licence screen in VB modal mode (ie. on its own)
+            Call licenceSplash
+            'frmLicence.show vbModal ' show the licence screen in VB modal mode (ie. on its own)
             ' on the licence box change the state fo the licence acceptance
         End If
     End If
@@ -1607,9 +1609,13 @@ End Sub
 Public Sub mnuSupport_ClickEvent()
 
     Dim answer As VbMsgBoxResult: answer = vbNo
+    Dim answerMsg As String: answerMsg = vbNullString
+
     On Error GoTo mnuSupport_ClickEvent_Error
     
-    answer = MsgBox("Visiting the support page - this button opens a browser window and connects to our Github issues page where you can send us a support query. Proceed?", vbExclamation + vbYesNo)
+    'answer = MsgBox("Visiting the support page - this button opens a browser window and connects to our Github issues page where you can send us a support query. Proceed?", vbExclamation + vbYesNo)
+    answerMsg = "Visiting the support page - this button opens a browser window and connects to our Github issues page where you can send us a support query. Proceed?"
+    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Contact Support", False)
 
     If answer = vbYes Then
         Call ShellExecute(menuForm.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-Earth-gauge-VB6/issues", vbNullString, App.Path, 1)
@@ -1634,7 +1640,7 @@ Public Sub mnuLicence_ClickEvent()
 
    On Error GoTo mnuLicence_ClickEvent_Error
 
-    Call LoadFileToTB(frmLicence.txtLicenceTextBox, App.Path & "\Resources\txt\licence.txt", False)
+    'Call LoadFileToTB(frmLicence.txtLicenceTextBox, App.Path & "\Resources\txt\licence.txt", False)
     
     Call licenceSplash
 
@@ -1657,7 +1663,7 @@ Public Sub setMainTooltips()
    On Error GoTo setMainTooltips_Error
 
     If PzGEnableTooltips = "1" Then
-        overlayWidget.Widget.FontName = PzGPrefsFont ' does not apply to the tooltip
+        overlayWidget.Widget.FontName = PzGprefsFont ' does not apply to the tooltip
         overlayWidget.Widget.ToolTip = "Use CTRL+mouse scrollwheel up/down to resize."
         helpWidget.Widget.ToolTip = "Click on me to make me go away."
         aboutWidget.Widget.ToolTip = "Click on me to make me go away."
@@ -1709,8 +1715,8 @@ Public Sub ChangeToolTipWidgetDefaultSettings(ByRef My_Widget As cWidgetBase)
 
     With My_Widget
     
-    .FontName = PzGPrefsFont
-    .FontSize = Val(PzGPrefsFontSize)
+    .FontName = PzGprefsFont
+    .FontSize = Val(PzGPrefsFontSizeLowDPI)
     
     End With
 
@@ -2042,7 +2048,7 @@ Public Sub unloadAllForms(ByVal endItAll As Boolean)
     ' unload the native VB6 and RC6 forms
     
     Unload panzerPrefs
-    Unload frmLicence
+    'Unload frmLicence
     Unload frmTimer
     Unload menuForm
 
@@ -2059,7 +2065,7 @@ Public Sub unloadAllForms(ByVal endItAll As Boolean)
     Set fAlpha.gaugeForm = Nothing
     Set fMain.licenceForm = Nothing
     
-    Set frmLicence = Nothing
+    'Set frmLicence = Nothing
     Set frmTimer = Nothing
     Set menuForm = Nothing
     
@@ -2440,6 +2446,7 @@ End Sub
 '
 Public Sub restart()
     Dim answer As VbMsgBoxResult: answer = vbNo
+    Dim answerMsg As String: answerMsg = vbNullString
     Dim thisCommand As String: thisCommand = vbNullString
     
     On Error GoTo restart_Error
@@ -2449,10 +2456,12 @@ Public Sub restart()
     If fFExists(thisCommand) Then
         
         ' run the selected program
-        Call ShellExecute(panzerPrefs.hwnd, "open", thisCommand, "PzJustClock.exe", "", 1)
+        Call ShellExecute(panzerPrefs.hwnd, "open", thisCommand, "Panzer Just Clock.exe", "", 1)
         
     Else
-        answer = MsgBox(thisCommand & " is missing", vbOKOnly + vbExclamation)
+    'answer = MsgBox(thisCommand & " is missing", vbOKOnly + vbExclamation)
+    answerMsg = thisCommand & " is missing"
+    answer = msgBoxA(answerMsg, vbOKOnly + vbExclamation, "Restart Error Notification", False)
     End If
 
    On Error GoTo 0

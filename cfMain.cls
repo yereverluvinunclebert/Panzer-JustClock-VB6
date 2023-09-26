@@ -46,7 +46,7 @@ Attribute textBox.VB_VarHelpID = -1
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Sub initAndShowStandardForms(ByVal X As Long, ByVal Y As Long, Optional ByVal dx As Long, Optional ByVal dy As Long, Optional ByVal Caption As String)
+Public Sub initAndShowStandardForms(ByVal x As Long, ByVal Y As Long, Optional ByVal dx As Long, Optional ByVal dy As Long, Optional ByVal Caption As String)
     
     Dim aboutLeft As Long: aboutLeft = 0
     Dim aboutTop As Long: aboutTop = 0
@@ -70,8 +70,8 @@ Public Sub initAndShowStandardForms(ByVal X As Long, ByVal Y As Long, Optional B
     ' make the about form transparent
     aboutForm.WidgetRoot.BackColor = -1
     
-    aboutLeft = (aboutFormWidth / 2) - (aboutWidgetWidth / 2)
-    aboutTop = (aboutFormHeight / 2) - (aboutWidgetHeight / 2)
+'    aboutLeft = (aboutFormWidth / 2) - (aboutWidgetWidth / 2)
+'    aboutTop = (aboutFormHeight / 2) - (aboutWidgetHeight / 2)
     
     ' create a new about widget with a name, position and size, first step of that is to run Class_Initialize
     Set aboutWidget = aboutForm.Widgets.Add(New cwAbout, "about", 100, 100, aboutWidgetWidth, aboutWidgetHeight)
@@ -169,10 +169,13 @@ End Sub
 Private Sub declineButton_Click()
     
     Dim answer As VbMsgBoxResult: answer = vbNo
+    Dim answerMsg As String: answerMsg = vbNullString
         
     On Error GoTo declineButton_Click_Error
 
-    answer = MsgBox("Licence declined, please destroy your copy of this widget and its documentation.", vbYes)
+    'answer = MsgBox("Licence declined, please destroy your copy of this widget and its documentation.", vbYes)
+    answer = msgBoxA("Licence declined, please destroy your copy of this widget and its documentation.", vbYes, "Licence Declined", False)
+
     If answer = 1 Then
         Call thisForm_Unload
     End If
@@ -195,8 +198,8 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub licenceForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer, ByRef X As Single, ByRef Y As Single)
-  Static x0 As Single, y0 As Single: If Button = 0 Then x0 = X: y0 = Y 'just store the offsets when no button is down
+Private Sub licenceForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef Y As Single)
+  Static x0 As Single, y0 As Single: If Button = 0 Then x0 = x: y0 = Y 'just store the offsets when no button is down
   
    On Error GoTo licenceForm_MouseMove_Error
     
@@ -205,7 +208,7 @@ Private Sub licenceForm_MouseMove(ByRef Button As Integer, ByRef Shift As Intege
 
     If Button = vbLeftButton And Not licenceForm.ActiveWidget Is Nothing Then 'Form-Dragging (under certain conditions)
 
-      licenceFormX = (X - x0) * licenceForm.WidgetRoot.Zoom + licenceForm.Left
+      licenceFormX = (x - x0) * licenceForm.WidgetRoot.Zoom + licenceForm.Left
       licenceFormY = (Y - y0) * licenceForm.WidgetRoot.Zoom + licenceForm.Top
       licenceForm.Move licenceFormX, licenceFormY
     End If

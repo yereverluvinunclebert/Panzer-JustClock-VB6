@@ -162,9 +162,6 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
             Case "housing/helpbutton"
                 If PzGEnableBalloonTooltips = "1" Then CreateToolTip gaugeForm.hwnd, "This button opens the one-page help file for this widget. There is a further detailed CHM help file available from the right-click menu that contains all the information that you need to run this widget.", _
                      TTIconInfo, widgetName & " Help Button Help", , , , True
-'            Case "housing/surround"
-'                If PzGEnableBalloonTooltips = "1" Then CreateToolTip gaugeForm.hwnd, "You may drag this widget around using the mouse, when the widget is not locked into position.", _
-'                     TTIconInfo, widgetName & " Surround Help", , , , True
             Case Else
                 If PzGEnableBalloonTooltips = "1" Then CreateToolTip gaugeForm.hwnd, "Right Click to open the menu and the preferences. CTRL+ Mouse scrollwheel UP/DOWN to resize. " _
                     & vbCrLf & "You can turn off the balloon tooltips in the preferences.", _
@@ -528,10 +525,10 @@ End Sub
 ' Purpose   : get F5 and SHIFT keypresses
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_KeyDown(ByRef KeyCode As Integer, ByRef shift As Integer)
+Private Sub gaugeForm_KeyDown(ByRef KeyCode As Integer, ByRef Shift As Integer)
     On Error GoTo gaugeForm_KeyDown_Error
 
-    Call getKeyPress(KeyCode, shift)
+    Call getKeyPress(KeyCode, Shift)
 
     On Error GoTo 0
     Exit Sub
@@ -548,7 +545,7 @@ End Sub
 ' Purpose   : save the form x,y position when ever the globe/form is dragged
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_MouseUp(ByRef Button As Integer, ByRef shift As Integer, ByRef X As Single, ByRef Y As Single)
+Private Sub gaugeForm_MouseUp(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef Y As Single)
     On Error GoTo gaugeForm_MouseUp_Error
 
     'If overlayWidget.Locked = True Then Exit Sub
@@ -581,8 +578,8 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_MouseMove(ByRef Button As Integer, ByRef shift As Integer, ByRef X As Single, ByRef Y As Single)
-  Static x0 As Single, y0 As Single: If Button = 0 Then x0 = X: y0 = Y 'just store the offsets when no button is down
+Private Sub gaugeForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef Y As Single)
+  Static x0 As Single, y0 As Single: If Button = 0 Then x0 = x: y0 = Y 'just store the offsets when no button is down
   
    On Error GoTo gaugeForm_MouseMove_Error
     
@@ -591,7 +588,7 @@ Private Sub gaugeForm_MouseMove(ByRef Button As Integer, ByRef shift As Integer,
 
     If Button = vbLeftButton And Not gaugeForm.ActiveWidget Is Nothing Then 'Form-Dragging (under certain conditions)
 
-      FX = (X - x0) * gaugeForm.WidgetRoot.Zoom + gaugeForm.Left
+      FX = (x - x0) * gaugeForm.WidgetRoot.Zoom + gaugeForm.Left
       FY = (Y - y0) * gaugeForm.WidgetRoot.Zoom + gaugeForm.Top
       gaugeForm.Move FX, FY
     End If
@@ -689,7 +686,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_MouseDown(ByRef Button As Integer, ByRef shift As Integer, ByRef X As Single, ByRef Y As Single)
+Private Sub gaugeForm_MouseDown(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef Y As Single)
    On Error GoTo W_MouseDown_Error
 
     If Button = vbRightButton Then

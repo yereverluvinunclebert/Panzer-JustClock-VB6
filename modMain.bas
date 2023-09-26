@@ -74,8 +74,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     prefsCurrentWidth = 9075
     prefsCurrentHeight = 16450
     
-    msgBoxACurrentWidth = 6105
-    msgBoxACurrentHeight = 2565
+
     
     extractCommand = Command$ ' capture any parameter passed
     
@@ -239,8 +238,9 @@ Private Sub initialiseGlobalVars()
     PzGDefaultEditor = vbNullString
          
     ' font
-    PzGPrefsFont = vbNullString
-    PzGPrefsFontSize = vbNullString
+    PzGprefsFont = vbNullString
+    PzGPrefsFontSizeHighDPI = vbNullString
+    PzGPrefsFontSizeLowDPI = vbNullString
     PzGPrefsFontItalics = vbNullString
     PzGPrefsFontColour = vbNullString
     
@@ -532,8 +532,9 @@ Public Sub readSettingsFile(ByVal location As String, ByVal PzGSettingsFile As S
         PzGhLocationPercPrefValue = fGetINISetting(location, "hLocationPercPrefValue", PzGSettingsFile)
 
         ' font
-        PzGPrefsFont = fGetINISetting(location, "prefsFont", PzGSettingsFile)
-        PzGPrefsFontSize = fGetINISetting(location, "prefsFontSize", PzGSettingsFile)
+        PzGprefsFont = fGetINISetting(location, "prefsFont", PzGSettingsFile)
+        PzGPrefsFontSizeHighDPI = fGetINISetting(location, "prefsFontSizeLowDPI", PzGSettingsFile)
+        PzGPrefsFontSizeLowDPI = fGetINISetting(location, "prefsFontSizeLowDPI", PzGSettingsFile)
         PzGPrefsFontItalics = fGetINISetting(location, "prefsFontItalics", PzGSettingsFile)
         PzGPrefsFontColour = fGetINISetting(location, "prefsFontColour", PzGSettingsFile)
         
@@ -613,8 +614,9 @@ Public Sub validateInputs()
 
                
         ' fonts
-        If PzGPrefsFont = vbNullString Then PzGPrefsFont = "times new roman" 'prefsFont", PzGSettingsFile)
-        If PzGPrefsFontSize = vbNullString Then PzGPrefsFontSize = "8" 'prefsFontSize", PzGSettingsFile)
+        If PzGprefsFont = vbNullString Then PzGprefsFont = "times new roman" 'prefsFont", PzGSettingsFile)
+        If PzGPrefsFontSizeHighDPI = vbNullString Then PzGPrefsFontSizeHighDPI = "8" 'prefsFontSizeLowDPI", PzGSettingsFile)
+        If PzGPrefsFontSizeLowDPI = vbNullString Then PzGPrefsFontSizeLowDPI = "8" 'prefsFontSizeLowDPI", PzGSettingsFile)
         If PzGPrefsFontItalics = vbNullString Then PzGPrefsFontItalics = "false"
         If PzGPrefsFontColour = vbNullString Then PzGPrefsFontColour = "0"
 

@@ -15,15 +15,15 @@ Begin VB.Form frmMessage
    Begin VB.Frame fraMessage 
       BackColor       =   &H00FFFFFF&
       BorderStyle     =   0  'None
-      Height          =   1410
+      Height          =   1485
       Left            =   -30
       TabIndex        =   2
       Top             =   0
-      Width           =   5970
+      Width           =   6000
       Begin VB.Frame fraPicVB 
          BackColor       =   &H00FFFFFF&
          BorderStyle     =   0  'None
-         Height          =   780
+         Height          =   850
          Left            =   195
          TabIndex        =   4
          Top             =   270
@@ -64,11 +64,11 @@ Begin VB.Form frmMessage
       Begin VB.Label lblMessage 
          AutoSize        =   -1  'True
          BackColor       =   &H00FFFFFF&
-         Caption         =   "*"
+         Caption         =   "* Some message text and more text in addition"
          Height          =   195
          Left            =   1110
          TabIndex        =   3
-         Top             =   570
+         Top             =   360
          Width           =   4455
          WordWrap        =   -1  'True
       End
@@ -110,6 +110,12 @@ Private mintLabelHeight As Integer
 Private yesNoReturnValue As Integer
 Private formMsgContext As String
 Private formShowAgainChkBox As Boolean
+
+'Private lastFormHeight As Long
+
+Private msgBoxAdynamicSizingFlg As Boolean
+Private Const cMsgBoxAFormHeight As Long = 2565
+Private Const cMsgBoxAFormWidth  As Long = 11055
 
 '---------------------------------------------------------------------------------------
 ' Property : btnButtonTwo_Click
@@ -167,7 +173,7 @@ Public Sub Display()
 
     Dim intShow As Integer
     
-   On Error GoTo Display_Error
+    On Error GoTo Display_Error
 
     If formShowAgainChkBox = True Then
     
@@ -207,10 +213,13 @@ Public Property Let propMessage(ByVal strMessage As String)
     lblMessage.Caption = strMessage
     
     ' Expand the form and move the other controls if the message is too long to show.
+    Me.Height = 4000
     intDiff = lblMessage.Height - mintLabelHeight
-    Me.Height = Me.Height + intDiff
     
-    fraMessage.Height = fraMessage.Height + intDiff
+    'Me.Height = Me.Height + intDiff
+    
+    'fraMessage.Height = fraMessage.Height + intDiff + 200
+    'if fraMessage.Height
 
     fraPicVB.Top = fraPicVB.Top + (intDiff / 2)
         
@@ -341,15 +350,7 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
         End If
     End If
 
-    If buttonVal = 2 Then 'vbAbortRetryIgnore 2
-        btnButtonOne.Visible = True
-        btnButtonTwo.Visible = True
-        'btnButtonThree.Visible = True
-        btnButtonOne.Caption = "Abort"
-        btnButtonOne.Caption = "Retry"
-        'btnButtonThree.Caption = "Ignore"
-        picVBQuestion.Visible = True
-    End If
+
     If buttonVal = 0 Then '    vbOKOnly 0
         picVBInformation.Visible = True
         btnButtonOne.Visible = True
@@ -364,12 +365,14 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
         btnButtonTwo.Caption = "Cancel"
         picVBQuestion.Visible = True
     End If
-    If buttonVal = 2 Then '    vbCancel 2
-        btnButtonOne.Visible = False
+    If buttonVal = 2 Then 'vbAbortRetryIgnore 2
+        btnButtonOne.Visible = True
         btnButtonTwo.Visible = True
-        btnButtonOne.Caption = ""
-        btnButtonTwo.Caption = "Cancel"
-        picVBInformation.Visible = True
+        'btnButtonThree.Visible = True
+        btnButtonOne.Caption = "Abort"
+        btnButtonOne.Caption = "Retry"
+        'btnButtonThree.Caption = "Ignore"
+        picVBQuestion.Visible = True
     End If
     If buttonVal = 3 Then '    vbYesNoCancel 3
         btnButtonOne.Visible = True
@@ -394,7 +397,20 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
         btnButtonTwo.Caption = "Cancel"
         picVBQuestion.Visible = True
     End If
-
+    If buttonVal = 6 Then '    vbYes 6
+        'btnButtonOne.Visible = True
+        btnButtonTwo.Visible = True
+        btnButtonOne.Caption = ""
+        btnButtonTwo.Caption = "Yes"
+        picVBQuestion.Visible = True
+    End If
+    If buttonVal = 7 Then '    vbNo 7
+        'btnButtonOne.Visible = True
+        btnButtonTwo.Visible = True
+        btnButtonOne.Caption = ""
+        btnButtonTwo.Caption = "No"
+        picVBQuestion.Visible = True
+    End If
 
    On Error GoTo 0
    Exit Property
@@ -439,23 +455,35 @@ Private Sub Form_Load()
 
     Dim Ctrl As Control
 
-   On Error GoTo Form_Load_Error
+    On Error GoTo Form_Load_Error
 
     mintLabelHeight = lblMessage.Height
+    
+    If PzGDpiAwareness = "1" Then
+        msgBoxAdynamicSizingFlg = True
+    End If
+    
+    msgBoxACurrentWidth = cMsgBoxAFormWidth
+    msgBoxACurrentHeight = cMsgBoxAFormHeight
     
     ' save the initial positions of ALL the controls on the msgbox form
     Call SaveSizes(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight)
 
-    frmMessage.Width = 6500
-    frmMessage.Height = 4500
+'    frmMessage.Width = 6500
+'    frmMessage.Height = 4500
         
     ' .TBD DAEB 05/05/2021 frmMessage.frm Added the font mod. here instead of within the changeFont tool
     '                       as each instance of the form is new, the font modification must be here.
     For Each Ctrl In Controls
          If (TypeOf Ctrl Is CommandButton) Or (TypeOf Ctrl Is textBox) Or (TypeOf Ctrl Is FileListBox) Or (TypeOf Ctrl Is Label) Or (TypeOf Ctrl Is ComboBox) Or (TypeOf Ctrl Is CheckBox) Or (TypeOf Ctrl Is OptionButton) Or (TypeOf Ctrl Is Frame) Or (TypeOf Ctrl Is ListBox) Then
-           If PzGPrefsFont <> "" Then Ctrl.Font.Name = PzGPrefsFont
-           If Val(Abs(PzGPrefsFontSize)) > 0 Then Ctrl.Font.Size = Val(Abs(PzGPrefsFontSize))
-                       'Ctrl.Font.Italic = CBool(SDSuppliedFontItalics) TBD
+            If PzGprefsFont <> "" Then Ctrl.Font.Name = PzGprefsFont
+           
+            If PzGDpiAwareness = "1" Then
+                If Val(Abs(PzGPrefsFontSizeHighDPI)) > 0 Then Ctrl.Font.Size = Val(Abs(PzGPrefsFontSizeHighDPI))
+            Else
+                If Val(Abs(PzGPrefsFontSizeLowDPI)) > 0 Then Ctrl.Font.Size = Val(Abs(PzGPrefsFontSizeLowDPI))
+            End If
+            'Ctrl.Font.Italic = CBool(SDSuppliedFontItalics) TBD
            'If suppliedStyle <> "" Then Ctrl.Font.Style = suppliedStyle
         End If
     Next
@@ -479,9 +507,31 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub Form_Resize()
-   On Error GoTo Form_Resize_Error
+
+    Dim ratio As Double: ratio = 0
+    
+    On Error GoTo Form_Resize_Error
+    
+    If WindowState = vbMinimized Then Exit Sub
+
+    ratio = cMsgBoxAFormHeight / cMsgBoxAFormWidth
+    
+    If msgBoxAdynamicSizingFlg = True Then
 
         Call resizeControls(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight)
+        
+        Me.Width = Me.Height / ratio ' maintain the aspect ratio
+
+        'Call loadHigherResImages
+    Else
+        If Me.WindowState = 0 Then
+            If Me.Width > 9090 Then Me.Width = 9090
+            If Me.Width < 6105 Then Me.Width = 6105
+            'If lastFormHeight <> 0 Then Me.Height = lastFormHeight
+        End If
+    End If
+    
+    Call resizeControls(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight)
 
    On Error GoTo 0
    Exit Sub
