@@ -507,7 +507,7 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub Form_Resize()
-
+    Dim currentFont As Integer: currentFont = 0
     Dim ratio As Double: ratio = 0
     
     On Error GoTo Form_Resize_Error
@@ -515,10 +515,15 @@ Private Sub Form_Resize()
     If WindowState = vbMinimized Then Exit Sub
 
     ratio = cMsgBoxAFormHeight / cMsgBoxAFormWidth
+    If PzGDpiAwareness = "1" Then
+        currentFont = PzGPrefsFontSizeHighDPI
+    Else
+        currentFont = PzGPrefsFontSizeLowDPI
+    End If
     
     If msgBoxAdynamicSizingFlg = True Then
 
-        Call resizeControls(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight)
+        Call resizeControls(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight, currentFont)
         
         Me.Width = Me.Height / ratio ' maintain the aspect ratio
 
@@ -531,7 +536,7 @@ Private Sub Form_Resize()
         End If
     End If
     
-    Call resizeControls(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight)
+    'Call resizeControls(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight, currentFont)
 
    On Error GoTo 0
    Exit Sub

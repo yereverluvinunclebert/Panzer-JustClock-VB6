@@ -2438,18 +2438,18 @@ End Sub
 
 
 '---------------------------------------------------------------------------------------
-' Procedure : restart
+' Procedure : hardRestart
 ' Author    : beededea
 ' Date      : 14/08/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Sub restart()
+Public Sub hardRestart()
     Dim answer As VbMsgBoxResult: answer = vbNo
     Dim answerMsg As String: answerMsg = vbNullString
     Dim thisCommand As String: thisCommand = vbNullString
     
-    On Error GoTo restart_Error
+    On Error GoTo hardRestart_Error
 
     thisCommand = App.Path & "\restart.exe"
     
@@ -2457,19 +2457,18 @@ Public Sub restart()
         
         ' run the selected program
         Call ShellExecute(panzerPrefs.hwnd, "open", thisCommand, "Panzer Just Clock.exe", "", 1)
-        
     Else
-    'answer = MsgBox(thisCommand & " is missing", vbOKOnly + vbExclamation)
-    answerMsg = thisCommand & " is missing"
-    answer = msgBoxA(answerMsg, vbOKOnly + vbExclamation, "Restart Error Notification", False)
+        'answer = MsgBox(thisCommand & " is missing", vbOKOnly + vbExclamation)
+        answerMsg = thisCommand & " is missing"
+        answer = msgBoxA(answerMsg, vbOKOnly + vbExclamation, "Restart Error Notification", False)
     End If
 
    On Error GoTo 0
    Exit Sub
 
-restart_Error:
+hardRestart_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure restart of Module Module1"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure hardRestart of Module Module1"
 
 End Sub
 

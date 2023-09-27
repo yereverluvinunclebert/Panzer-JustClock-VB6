@@ -97,7 +97,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     Call validateInputs
     
     If PzGDpiAwareness = "1" Then
-        If Not InIDE Then Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
+        'If Not InIDE Then
+        Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
     End If
         
     'load the collection for storing the overlay surfaces with its relevant keys direct from the PSD
@@ -533,7 +534,7 @@ Public Sub readSettingsFile(ByVal location As String, ByVal PzGSettingsFile As S
 
         ' font
         PzGprefsFont = fGetINISetting(location, "prefsFont", PzGSettingsFile)
-        PzGPrefsFontSizeHighDPI = fGetINISetting(location, "prefsFontSizeLowDPI", PzGSettingsFile)
+        PzGPrefsFontSizeHighDPI = fGetINISetting(location, "prefsFontSizeHighDPI", PzGSettingsFile)
         PzGPrefsFontSizeLowDPI = fGetINISetting(location, "prefsFontSizeLowDPI", PzGSettingsFile)
         PzGPrefsFontItalics = fGetINISetting(location, "prefsFontItalics", PzGSettingsFile)
         PzGPrefsFontColour = fGetINISetting(location, "prefsFontColour", PzGSettingsFile)

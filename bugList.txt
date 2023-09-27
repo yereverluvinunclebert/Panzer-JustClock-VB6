@@ -89,21 +89,22 @@
 ' fix msgBoxA icon sizing, cutting off the image bottom - done
 ' restart now calls the correct binary - done
 
-' DPI switching off - when switching to low DPI mode it needs to change the font to the unresized font
-' low DPI font vs high DPI font?
+' implement font sizing var forr low DPI font vs high DPI font - done
+' DPI switching off - when switching to low DPI mode it needs to change the font to the unresized font - done
+' DPI switched off, needs to restart to fixed, non-resizable mode - done
 
-' low DPI mode, run, test and fix
-' DPI switched off, needs to restart switch to fixed, non-resized size mode
-' DPI switched off, the tabs need to size and fit the height as per PzEarth widget
+' low DPI mode, run, test and fix - wip
+' DPI switched off, the tabs need to size and fit the height as per old PzEarth widget
 
-' when switched from low to high DPI, the icons no longer resize
-' when switched from low to high DPI, the prefs does not re-open after the reloadWidget
+' when switched from low to high DPI, the icons no longer resize, staying small
+' when switched from low to high DPI, the prefs does not re-open after the reloadWidget, add a parameter to the restart
 
-' implement font characteristics var for the main utility
+' implement font characteristics var for the main utility if it should need a font for itself
 
 ' drag corner, implement
 
 ' msgbox icons - create new versions to allow resizing as per the prefs
+' msgbox icon .top is too low after a DPI change.
 
 ' check system startup operating - wip
 
@@ -120,7 +121,6 @@
 
 ' vbNo
 ' vbYes
-
 
 ' RC BUGS & LIMITATIONS
 ' =====================

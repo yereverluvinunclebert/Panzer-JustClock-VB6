@@ -67,7 +67,7 @@ Begin VB.Form menuForm
       Begin VB.Menu blank4 
          Caption         =   ""
       End
-      Begin VB.Menu menuRestart 
+      Begin VB.Menu menuReload 
          Caption         =   "Reload Widget (F5)"
       End
       Begin VB.Menu mnuEditWidget 
@@ -131,27 +131,29 @@ End Sub
 
 
 '---------------------------------------------------------------------------------------
-' Procedure : menuRestart_Click
+' Procedure : menuReload_Click
 ' Author    : beededea
 ' Date      : 03/05/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub menuRestart_Click()
+Private Sub menuReload_Click()
 
-    On Error GoTo menuRestart_Click_Error
+    On Error GoTo menuReload_Click_Error
    
     Call reloadWidget
 
     On Error GoTo 0
     Exit Sub
 
-menuRestart_Click_Error:
+menuReload_Click_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure menuRestart_Click of Form menuForm"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure menuReload_Click of Form menuForm"
 End Sub
 
       
+
+
 
 '---------------------------------------------------------------------------------------
 ' Procedure : mnuAppFolder_Click
