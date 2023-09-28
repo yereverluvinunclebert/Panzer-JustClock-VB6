@@ -1618,7 +1618,7 @@ Public Sub mnuSupport_ClickEvent()
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Contact Support", False)
 
     If answer = vbYes Then
-        Call ShellExecute(menuForm.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-Earth-gauge-VB6/issues", vbNullString, App.Path, 1)
+        Call ShellExecute(menuForm.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/issues", vbNullString, App.Path, 1)
     End If
 
    On Error GoTo 0
@@ -2456,7 +2456,7 @@ Public Sub hardRestart()
     If fFExists(thisCommand) Then
         
         ' run the selected program
-        Call ShellExecute(panzerPrefs.hwnd, "open", thisCommand, "Panzer Just Clock.exe", "", 1)
+        Call ShellExecute(panzerPrefs.hwnd, "open", thisCommand, "Panzer Just Clock.exe prefs", "", 1)
     Else
         'answer = MsgBox(thisCommand & " is missing", vbOKOnly + vbExclamation)
         answerMsg = thisCommand & " is missing"

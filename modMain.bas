@@ -74,8 +74,6 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     prefsCurrentWidth = 9075
     prefsCurrentHeight = 16450
     
-
-    
     extractCommand = Command$ ' capture any parameter passed
     
     ' initialise global vars
@@ -131,12 +129,12 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' if the program is run in unhide mode, write the settings and exit
     Call handleUnhideMode(extractCommand)
     
-    ' if a first time run shows prefs
-    If PzGFirstTimeRun = "true" Then     'parse the command line
+    ' if the parameter states re-open prefs then shows the prefs
+    If extractCommand = "prefs" Then
         Call makeProgramPreferencesAvailable
     End If
     
-    ' check for first time running
+    ' check and handle first time running
     Call checkFirstTime
 
     ' configure any global timers here
@@ -164,7 +162,7 @@ End Sub
 ' Procedure : checkFirstTime
 ' Author    : beededea
 ' Date      : 12/05/2023
-' Purpose   : check for first time running
+' Purpose   : check for first time running, first time run shows prefs
 '---------------------------------------------------------------------------------------
 '
 Private Sub checkFirstTime()
@@ -172,6 +170,7 @@ Private Sub checkFirstTime()
    On Error GoTo checkFirstTime_Error
 
     If PzGFirstTimeRun = "true" Then
+        Call makeProgramPreferencesAvailable
         PzGFirstTimeRun = "false"
         sPutINISetting "Software\PzJustClock", "firstTimeRun", PzGFirstTimeRun, PzGSettingsFile
     End If

@@ -47,7 +47,7 @@ Public Sub resizeControls(ByRef thisForm As Form, ByRef m_ControlPositions() As 
                     Ctrl.Left = x_scale * .Left
                     Ctrl.Top = y_scale * .Top
                     Ctrl.Width = x_scale * .Width
-                    Ctrl.Height = Ctrl.Width
+                    Ctrl.Height = Ctrl.Width ' always square in our case
                     
                     Ctrl.Refresh
                 Else

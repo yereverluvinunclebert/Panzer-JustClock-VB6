@@ -89,22 +89,29 @@
 ' fix msgBoxA icon sizing, cutting off the image bottom - done
 ' restart now calls the correct binary - done
 
-' implement font sizing var forr low DPI font vs high DPI font - done
+' implement font sizing var for low DPI font vs high DPI font - done
 ' DPI switching off - when switching to low DPI mode it needs to change the font to the unresized font - done
 ' DPI switched off, needs to restart to fixed, non-resizable mode - done
 
-' low DPI mode, run, test and fix - wip
-' DPI switched off, the tabs need to size and fit the height as per old PzEarth widget
+' low DPI mode, run, test and fix image issues - cannot run with full high DPI mode within the IDE, icons are always mal-sized - done
+' when DPI changed, always hard restarts - done
+' soft reload code distinguished from hard restarts by renaming the functions - done
+' font labels merged and built manually using vbCRLf, redundant labels removed - done
 
-' when switched from low to high DPI, the icons no longer resize, staying small
-' when switched from low to high DPI, the prefs does not re-open after the reloadWidget, add a parameter to the restart
+' DPI switched off, the tabs need to size and fit the height as per old PzEarth widget - done
 
-' implement font characteristics var for the main utility if it should need a font for itself
+' when switched from low to high DPI, the prefs does not re-open after the reloadWidget, add a parameter to the restart - done
+
+' msgbox icons - create new sizes of the icon images to allow resizing as per the prefs
+' msgboxA icon .top is too low after a DPI change.
+' msgboxA - in low DPI mode is too tall
+
+' msgBoxA - add vbNo
+' msgBoxA - add vbYes
 
 ' drag corner, implement
 
-' msgbox icons - create new versions to allow resizing as per the prefs
-' msgbox icon .top is too low after a DPI change.
+' steamydock msgboxA with 'go away' boxes
 
 ' check system startup operating - wip
 
@@ -119,8 +126,8 @@
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
-' vbNo
-' vbYes
+
+' implement font characteristics var for the main utility if it should need a font for itself
 
 ' RC BUGS & LIMITATIONS
 ' =====================
