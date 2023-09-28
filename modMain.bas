@@ -27,7 +27,6 @@ Public overlayWidget As cwOverlay
 Public widgetName As String
 
 
-
 '---------------------------------------------------------------------------------------
 ' Procedure : Main
 ' Author    : beededea
@@ -75,6 +74,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     prefsCurrentHeight = 16450
     
     extractCommand = Command$ ' capture any parameter passed
+    If restart = True Then extractCommand = vbNullString
     
     ' initialise global vars
     Call initialiseGlobalVars
@@ -132,6 +132,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' if the parameter states re-open prefs then shows the prefs
     If extractCommand = "prefs" Then
         Call makeProgramPreferencesAvailable
+        extractCommand = vbNullString
     End If
     
     ' check and handle first time running
@@ -146,9 +147,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' RC message pump will auto-exit when Cairo Forms > 0 so we run it only when 0, this prevents message interruption
     ' when running twice on reload.
     If Cairo.WidgetForms.Count = 0 Then Cairo.WidgetForms.EnterMessageLoop
-  
-    'Debug.Print "App-ShutDown (one can buffer these values for the next run):"; fAlpha.FX; fAlpha.FY; fAlpha.FZ
-   
+     
    On Error GoTo 0
    Exit Sub
 

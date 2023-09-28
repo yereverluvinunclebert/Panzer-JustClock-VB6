@@ -213,14 +213,16 @@ Public Property Let propMessage(ByVal strMessage As String)
     lblMessage.Caption = strMessage
     
     ' Expand the form and move the other controls if the message is too long to show.
-    Me.Height = 4000
+      
     intDiff = lblMessage.Height - mintLabelHeight
     
-    'Me.Height = Me.Height + intDiff
-    
-    'fraMessage.Height = fraMessage.Height + intDiff + 200
-    'if fraMessage.Height
+    If PzGDpiAwareness = "1" Then
+        Me.Height = 4000
+    Else
+        Me.Height = Me.Height + intDiff
+    End If
 
+    fraMessage.Height = fraMessage.Height + intDiff
     fraPicVB.Top = fraPicVB.Top + (intDiff / 2)
         
     chkShowAgain.Top = chkShowAgain.Top + intDiff
@@ -466,11 +468,10 @@ Private Sub Form_Load()
     msgBoxACurrentWidth = cMsgBoxAFormWidth
     msgBoxACurrentHeight = cMsgBoxAFormHeight
     
-    ' save the initial positions of ALL the controls on the msgbox form
-    Call SaveSizes(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight)
-
-'    frmMessage.Width = 6500
-'    frmMessage.Height = 4500
+    If PzGDpiAwareness = "1" Then
+        ' save the initial positions of ALL the controls on the msgbox form
+        Call SaveSizes(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight)
+    End If
         
     ' .TBD DAEB 05/05/2021 frmMessage.frm Added the font mod. here instead of within the changeFont tool
     '                       as each instance of the form is new, the font modification must be here.

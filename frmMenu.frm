@@ -140,7 +140,7 @@ End Sub
 Private Sub menuReload_Click()
 
     On Error GoTo menuReload_Click_Error
-   
+    
     Call reloadWidget
 
     On Error GoTo 0

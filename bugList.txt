@@ -101,10 +101,10 @@
 ' DPI switched off, the tabs need to size and fit the height as per old PzEarth widget - done
 
 ' when switched from low to high DPI, the prefs does not re-open after the reloadWidget, add a parameter to the restart - done
+' msgboxA - in low DPI mode is too tall - done
 
-' msgbox icons - create new sizes of the icon images to allow resizing as per the prefs
-' msgboxA icon .top is too low after a DPI change.
-' msgboxA - in low DPI mode is too tall
+' msgbox icons - create new sizes of the information icon image to allow resizing as per the prefs - done
+' msgbox icons - create new sizes of the exclamation icon image to allow resizing as per the prefs
 
 ' msgBoxA - add vbNo
 ' msgBoxA - add vbYes

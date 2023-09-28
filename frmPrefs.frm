@@ -3549,7 +3549,7 @@ Private Sub Form_Resize()
 
         Call loadHigherResImages
     Else
-        If Me.WindowState = 0 Then
+        If Me.WindowState = 0 Then ' normal
             If Me.Width > 9090 Then Me.Width = 9090
             If Me.Width < 9085 Then Me.Width = 9090
             If lastFormHeight <> 0 Then Me.Height = lastFormHeight
@@ -4374,7 +4374,7 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
     ' Get the form's current scale factors.
     y_scale = ScaleHeight / prefsCurrentHeight
     
-    If PzGPrefsFontSizeHighDPI = "1" Then
+    If PzGDpiAwareness = "1" Then
         btnHelp.Top = fraGeneral.Top + fraGeneral.Height + (250 * y_scale)
     Else
         btnHelp.Top = thisFraName.Top + thisFraName.Height + (250 * y_scale)
@@ -5020,8 +5020,10 @@ Private Sub setframeHeights()
         fraDevelopment.Width = fraAbout.Width
         fraWindow.Width = fraAbout.Width
     
-        ' save the initial positions of ALL the controls on the prefs form
-        Call SaveSizes(panzerPrefs, prefsControlPositions(), prefsCurrentWidth, prefsCurrentHeight)
+        If PzGDpiAwareness = "1" Then
+            ' save the initial positions of ALL the controls on the prefs form
+            Call SaveSizes(panzerPrefs, prefsControlPositions(), prefsCurrentWidth, prefsCurrentHeight)
+        End If
     Else
         fraGeneral.Height = 7757
         fraConfig.Height = 6632
