@@ -31,10 +31,10 @@ Public licenceFormX As Long
 Public licenceFormY As Long
 Public licenceFormZ As Single
 
-Private WithEvents acceptButton As cwButton
-Attribute acceptButton.VB_VarHelpID = -1
-Private WithEvents declineButton As cwButton
-Attribute declineButton.VB_VarHelpID = -1
+Private WithEvents btnAccept As cwButton
+Attribute btnAccept.VB_VarHelpID = -1
+Private WithEvents btnDecline As cwButton
+Attribute btnDecline.VB_VarHelpID = -1
 Private WithEvents textBox As cwTextBox
 Attribute textBox.VB_VarHelpID = -1
 
@@ -98,20 +98,29 @@ Public Sub initAndShowStandardForms(ByVal x As Long, ByVal Y As Long, Optional B
     ' create a new licence class widget with a name, position and size
     Set licenceWidget = licenceForm.Widgets.Add(New cwLicence, "licence", 0, 0, 550, 450)
     
-    ' add two RC predefined button controls to the licence form
-    Set declineButton = licenceForm.Widgets.Add(New_W("cwButton"), "declineButton", 352, 397, 70, 29)
-        declineButton.Caption = ""
-        declineButton.Widget.Alpha = 0.05
+    If PzGDpiAwareness = "1" Then
+        Set btnDecline = licenceForm.Widgets.Add(New_W("cwButton"), "btnDecline", 352, 397, 70, 29)
+        Set btnAccept = licenceForm.Widgets.Add(New_W("cwButton"), "btnAccept", 428, 397, 70, 29)
+        Set textBox = licenceForm.Widgets.Add(New_W("cwTextBox"), "textBox", 50, 60, 440, 280)
+        textBox.Widget.FontSize = 11
+    Else
+        Set btnDecline = licenceForm.Widgets.Add(New_W("cwButton"), "btnDecline", 189, 210, 40, 18)
+        Set btnAccept = licenceForm.Widgets.Add(New_W("cwButton"), "btnAccept", 228, 210, 40, 18)
+        Set textBox = licenceForm.Widgets.Add(New_W("cwTextBox"), "textBox", 25, 30, 240, 155)
+        textBox.Widget.FontSize = 8
+    End If
     
-    Set acceptButton = licenceForm.Widgets.Add(New_W("cwButton"), "acceptButton", 428, 397, 70, 29)
-        acceptButton.Caption = ""
-        acceptButton.Widget.Alpha = 0.05
+    ' add two RC predefined button controls to the licence form
+        btnDecline.Caption = ""
+        btnDecline.Widget.Alpha = 0.05
+    
+        btnAccept.Caption = ""
+        btnAccept.Widget.Alpha = 0.05
         
-    Set textBox = licenceForm.Widgets.Add(New_W("cwTextBox"), "textBox", 50, 60, 440, 280)
         textBox.MultiLine = True
         textBox.ScrollBars = vbVertical
         textBox.Widget.BackColor = &H4000&
-        textBox.Widget.FontSize = 11
+        
         textBox.Widget.ForeColor = vbWhite
         textBox.Text = widgetName & vbCrLf & vbCrLf & _
         "Copyright © 1992-2023 Dean Beedell" & vbCrLf & vbCrLf & _
@@ -131,15 +140,15 @@ initAndShowStandardForms_Error:
 End Sub
 
 '---------------------------------------------------------------------------------------
-' Procedure : acceptButton_Click
+' Procedure : btnAccept_Click
 ' Author    : beededea
 ' Date      : 20/09/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub acceptButton_Click()
+Private Sub btnAccept_Click()
     Dim answer As VbMsgBoxResult: answer = vbNo
-    On Error GoTo acceptButton_Click_Error
+    On Error GoTo btnAccept_Click_Error
 
     answer = msgBoxA("User accepted licence, thankyou.", vbOKOnly, "Licence Acceptance", False)
     
@@ -154,38 +163,38 @@ Private Sub acceptButton_Click()
    On Error GoTo 0
    Exit Sub
 
-acceptButton_Click_Error:
+btnAccept_Click_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure acceptButton_Click of Class Module cfMain"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure btnAccept_Click of Class Module cfMain"
 End Sub
 
 '---------------------------------------------------------------------------------------
-' Procedure : declineButton_Click
+' Procedure : btnDecline_Click
 ' Author    : beededea
 ' Date      : 20/09/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub declineButton_Click()
+Private Sub btnDecline_Click()
     
     Dim answer As VbMsgBoxResult: answer = vbNo
     Dim answerMsg As String: answerMsg = vbNullString
         
-    On Error GoTo declineButton_Click_Error
+    On Error GoTo btnDecline_Click_Error
 
     'answer = MsgBox("Licence declined, please destroy your copy of this widget and its documentation.", vbYes)
-    answer = msgBoxA("Licence declined, please destroy your copy of this widget and its documentation.", vbYes, "Licence Declined", False)
+    answer = msgBoxA("Licence declined, please destroy your copy of this widget and its documentation. This widget will now unload.", vbOKOnly, "Licence Declined", False)
 
-    If answer = 1 Then
+    If answer = 6 Then ' OK
         Call thisForm_Unload
     End If
 
    On Error GoTo 0
    Exit Sub
 
-declineButton_Click_Error:
+btnDecline_Click_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure declineButton_Click of Class Module cfMain"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure btnDecline_Click of Class Module cfMain"
 End Sub
 
 

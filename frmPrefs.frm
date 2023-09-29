@@ -2699,7 +2699,7 @@ End Sub
 ' Author    : beededea
 ' Date      : 08/05/2023
 ' Purpose   : calling a manual property to a form allows external checks to the form to
-'             determine whether it is loaded, without also activating it automatically.
+'             determine whether it is loaded, without also activating the form automatically.
 '---------------------------------------------------------------------------------------
 '
 Public Property Get IsVisible() As Boolean

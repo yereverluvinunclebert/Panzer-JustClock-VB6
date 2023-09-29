@@ -73,7 +73,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     prefsCurrentWidth = 9075
     prefsCurrentHeight = 16450
     
-    extractCommand = Command$ ' capture any parameter passed
+    extractCommand = Command$ ' capture any parameter passed, remove if a soft reload
     If restart = True Then extractCommand = vbNullString
     
     ' initialise global vars
@@ -95,7 +95,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     Call validateInputs
     
     If PzGDpiAwareness = "1" Then
-        'If Not InIDE Then
+        'If Not InIDE Then Cairo.SetDPIAwareness ' avoids the VB6 IDE shrinking
         Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
     End If
         

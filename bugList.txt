@@ -102,8 +102,8 @@
 
 ' when switched from low to high DPI, the prefs does not re-open after the reloadWidget, add a parameter to the restart - done
 ' msgboxA - in low DPI mode is too tall - done
-
 ' msgbox icons - create new sizes of the information icon image to allow resizing as per the prefs - done
+
 ' msgbox icons - create new sizes of the exclamation icon image to allow resizing as per the prefs
 
 ' msgBoxA - add vbNo
@@ -111,7 +111,7 @@
 
 ' drag corner, implement
 
-' steamydock msgboxA with 'go away' boxes
+' msgboxA with 'go away' boxes as per steamydock
 
 ' check system startup operating - wip
 
@@ -119,6 +119,7 @@
 '    add second monitor
 '    see FCW and whether it has monitor awareness
 '    duplicate that observed
+'    might use RC6 for this?
 
 ' time zone code - wip - look at YWE and replicate
 ' daylight saving time - wip
@@ -126,6 +127,7 @@
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
+' overlay transparency not implemented yet
 
 ' implement font characteristics var for the main utility if it should need a font for itself
 

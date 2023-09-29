@@ -1558,6 +1558,7 @@ Public Sub licenceSplash()
     'fMain.licenceForm.Load
     fMain.licenceForm.show
 
+    ' the btnDecline_Click and btnAccept_Click are in modmain.bas
     
      If (fMain.licenceForm.WindowState = 1) Then
          fMain.licenceForm.WindowState = 0

@@ -327,11 +327,11 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
    
     CC.DrawText 30, -200, dx, dy, "Licence Agreement " & widgetName, , , 2, True, , 1
     
-    W.FontSize = 6
+    W.FontSize = 7
     W.SelectFontSettingsInto CC
 '
-    CC.DrawText 48, 13, dx, dy, "If you do not agree with the terms set forth above, please click the ", , , 2, True, , 1
-    CC.DrawText 48, 23, dx, dy, "Decline button below and destroy this widget and its documentation ", , , 2, True, , 1
+    CC.DrawText 38, 13, dx, dy, "If you do not agree with the terms set forth above, please click the ", , , 2, True, , 1
+    CC.DrawText 38, 23, dx, dy, "Decline button below and destroy this widget and its documentation ", , , 2, True, , 1
     
     W.FontSize = 8
 
