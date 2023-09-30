@@ -58,13 +58,11 @@ End Sub
 '
 Public Sub mainRoutine(ByVal restart As Boolean)
     Dim extractCommand As String: extractCommand = vbNullString
-    'Dim chosenDragLayer As String: chosenDragLayer = vbNullString
     Dim thisPSDFullPath As String: thisPSDFullPath = vbNullString
 
     On Error GoTo main_routine_Error
     
     widgetName = "Panzer Just Clock Gauge"
-    'chosenDragLayer = "housing/surround"
     thisPSDFullPath = App.Path & "\Res\justClockVB6.psd"
     fAlpha.FX = 222 'init position- and zoom-values (directly set on Public-Props of the Form-hosting Class)
     fAlpha.FY = 111

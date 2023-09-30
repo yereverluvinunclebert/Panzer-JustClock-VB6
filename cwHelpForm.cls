@@ -78,8 +78,6 @@ Private Sub W_MouseDown(Button As Integer, Shift As Integer, ByVal x As Single, 
    On Error GoTo W_MouseDown_Error
    
     Dim fileToPlay As String: fileToPlay = vbNullString
-
-    'Me.Hide ' no possibility of fade out in a VB6 form
     
     fileToPlay = "ting.wav"
     If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then

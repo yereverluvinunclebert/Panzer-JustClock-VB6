@@ -109,17 +109,18 @@
 ' licence widgets on the licence form, too large for low DPI usage, added sizing for all elements - done
 
 ' transparency not implemented yet on the surround and start/stop buttons - done
+' licence form, too large for low DPI usage, meaning the widget image within is not centered - done
+' about form, too large for low DPI usage, meaning the widget image within is not centered - done
+' msgbox icons - create new sizes of the windowsCritical icon image to allow resizing as per the prefs - done
 
-' msgbox icons - create new sizes of the windowsQuestion icon image to allow resizing as per the prefs
-
-' licence form, too large for low DPI usage, meaning the widget image within is not centered.
+' msgboxA with 'go away' boxes as per steamydock - wip
 
 ' msgBoxA - add vbNo
 ' msgBoxA - add vbYes
 
 ' drag corner, implement
 
-' msgboxA with 'go away' boxes as per steamydock - wip
+' add icon resizing to frmMessage msgBoxA
 
 ' check system startup operating - wip
 
@@ -135,9 +136,13 @@
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
-
-
 ' implement font characteristics var for the main utility if it should need a font for itself
+
+' rubberduck
+
+' review code
+
+' setup2go
 
 ' RC BUGS & LIMITATIONS
 ' =====================
