@@ -39,6 +39,8 @@
  This version was developed on Windows 7 using 32 bit VisualBasic 6 as a FOSS 
  project creating a WoW64 widget for the desktop. 
  
+![licenceForm001](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/83301647-0e30-494f-b724-47aa57c1a03b)
+
  It is open source to allow easy configuration, bug-fixing, enhancement and 
  community contribution towards free-and-useful VB6 utilities that can be created
  by anyone. The first step was the creation of this template program to form the 
