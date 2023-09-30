@@ -104,14 +104,22 @@
 ' msgboxA - in low DPI mode is too tall - done
 ' msgbox icons - create new sizes of the information icon image to allow resizing as per the prefs - done
 
-' msgbox icons - create new sizes of the exclamation icon image to allow resizing as per the prefs
+' msgbox icons - create new sizes of the exclamation icon image to allow resizing as per the prefs - done
+
+' licence widgets on the licence form, too large for low DPI usage, added sizing for all elements - done
+
+' overlay transparency not implemented yet
+
+' msgbox icons - create new sizes of the windowsQuestion icon image to allow resizing as per the prefs
+
+' licence form, too large for low DPI usage, meaning the widget image within is not centered.
 
 ' msgBoxA - add vbNo
 ' msgBoxA - add vbYes
 
 ' drag corner, implement
 
-' msgboxA with 'go away' boxes as per steamydock
+' msgboxA with 'go away' boxes as per steamydock - wip
 
 ' check system startup operating - wip
 
@@ -127,7 +135,7 @@
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
-' overlay transparency not implemented yet
+
 
 ' implement font characteristics var for the main utility if it should need a font for itself
 

@@ -20,7 +20,7 @@ Public collPSDNonUIElements As cCollection, FX As Long, FY As Long, FZ As Single
 
 Private PSDWidth As Long
 Private PSDHeight As Long
-Private DragWidgetKey As String
+'Private DragWidgetKey As String
 
 Private mGlowing As Boolean
 
@@ -76,7 +76,7 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional ByVal WidgetKeyForDragg
     With New_c.SimplePSD(PSD_FileNameOrByteArray)  'create a new PSD-Parser.instance (and load the passed content)
         PSDWidth = .Width
         PSDHeight = .Height       'store the original Psd-Pixel-Width/Height in Private vars (as the base from which we calculate the zoomed Form-Width/Height)
-        DragWidgetKey = LCase$(WidgetKeyForDragging) 'store the passed WidgetKey (for the Widget, which allows Form-Dragging on MouseDown)
+        'DragWidgetKey = LCase$(WidgetKeyForDragging) 'store the passed WidgetKey (for the Widget, which allows Form-Dragging on MouseDown)
     
         For i = 0 To .LayersCount - 1 ' loop through each of the Layers in the PSD
             If .LayerByteSize(i) Then  ' this is a true Alpha-Surface-Layer and not just a PSD layer 'group'
@@ -95,7 +95,7 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional ByVal WidgetKeyForDragg
                         Set W = gaugeForm.Widgets.Add(New_W("cwAlphaImg"), LCase$(.LayerPath(i)), .LayerX(i), .LayerY(i), .LayerWidth(i), .LayerHeight(i)).Widget
                             W.ImageKey = W.Key 'W.Key equals ImageList-Key, set above - and LayerPath(i) at this point ... set it also as the ImageKey of our new created Widget
                         If PzGOpacity < 1 Then
-                            W.Alpha = Val(PzGOpacity) / 200 ' a bit of a bodge as the included/excluded layers do not 'seem' to handle alpha the same
+                            W.Alpha = Val(PzGOpacity) / 100 ' a bit of a bodge as the included/excluded layers do not 'seem' to handle alpha the same
                         Else
                             W.Alpha = 1
                         End If
@@ -696,7 +696,6 @@ Private Sub gaugeForm_MouseDown(ByRef Button As Integer, ByRef Shift As Integer,
         ' do whatever you want with a mouseDown here, not doing anything at the moment but we will...
     End If
 
-
    On Error GoTo 0
    Exit Sub
 
@@ -705,49 +704,4 @@ W_MouseDown_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_MouseDown of Class Module cwOverlay"
 End Sub
 
-
-'
-''---------------------------------------------------------------------------------------
-'' Procedure : Glowing
-'' Author    : beededea
-'' Date      : 17/05/2023
-'' Purpose   :
-''---------------------------------------------------------------------------------------
-''
-'Public Property Get Glowing() As Boolean
-'   On Error GoTo GlowingGet_Error
-'
-'  Glowing = mGlowing
-'
-'   On Error GoTo 0
-'   Exit Property
-'
-'GlowingGet_Error:
-'
-'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Glowing of Class Module cwOverlay"
-'End Property
-''---------------------------------------------------------------------------------------
-'' Procedure : Glowing
-'' Author    :
-'' Date      : 09/05/2023
-'' Purpose   :
-''---------------------------------------------------------------------------------------
-''
-'Public Property Let Glowing(ByVal newValue As Boolean)
-'   On Error GoTo GlowingLet_Error
-'
-'  If mGlowing <> newValue Then mGlowing = newValue Else Exit Property
-'    If mGlowing Then
-'        'Set tmrClock = New_c.Timer(200, True)
-'    Else
-'        'Set tmrClock = Nothing
-'    End If
-'
-'   On Error GoTo 0
-'   Exit Property
-'
-'GlowingLet_Error:
-'
-'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Glowing of Class Module cwOverlay"
-'End Property ' the earth Glowing flag
 

@@ -58,13 +58,13 @@ End Sub
 '
 Public Sub mainRoutine(ByVal restart As Boolean)
     Dim extractCommand As String: extractCommand = vbNullString
-    Dim chosenDragLayer As String: chosenDragLayer = vbNullString
+    'Dim chosenDragLayer As String: chosenDragLayer = vbNullString
     Dim thisPSDFullPath As String: thisPSDFullPath = vbNullString
 
     On Error GoTo main_routine_Error
     
     widgetName = "Panzer Just Clock Gauge"
-    chosenDragLayer = "housing/surround"
+    'chosenDragLayer = "housing/surround"
     thisPSDFullPath = App.Path & "\Res\justClockVB6.psd"
     fAlpha.FX = 222 'init position- and zoom-values (directly set on Public-Props of the Form-hosting Class)
     fAlpha.FY = 111
@@ -103,7 +103,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     If restart = False Then Call loadExcludePathCollection ' no need to reload the collPSDNonUIElements layer name keys
     
     ' start the load of the PSD file using the RC6 PSD-Parser.instance
-    Call fAlpha.InitFromPSD(thisPSDFullPath, chosenDragLayer)  ' no optional close layer as 3rd param
+    Call fAlpha.InitFromPSD(thisPSDFullPath)  ' no optional close layer as 3rd param
             
     ' check first usage and display licence screen
     Call checkLicenceState
@@ -399,16 +399,19 @@ Public Sub adjustMainControls()
     With fAlpha.gaugeForm.Widgets("housing/startbutton").Widget
         .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
         .MousePointer = IDC_HAND
+        .Alpha = Val(PzGOpacity) / 100
     End With
       
     With fAlpha.gaugeForm.Widgets("housing/stopbutton").Widget
         .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
         .MousePointer = IDC_HAND
+        .Alpha = Val(PzGOpacity) / 100
     End With
       
     With fAlpha.gaugeForm.Widgets("housing/switchfacesbutton").Widget
         .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
         .MousePointer = IDC_HAND
+        .Alpha = Val(PzGOpacity) / 100
     End With
           
     With fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget
@@ -429,6 +432,8 @@ Public Sub adjustMainControls()
     With fAlpha.gaugeForm.Widgets("housing/surround").Widget
         .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
         .MousePointer = IDC_SIZEALL
+        .Alpha = Val(PzGOpacity) / 100
+
     End With
     
     'Dim W As cWidgetBase
