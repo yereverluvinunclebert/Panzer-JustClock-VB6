@@ -169,9 +169,7 @@ Private Sub btnAccept_Click()
     Dim answer As VbMsgBoxResult: answer = vbNo
     On Error GoTo btnAccept_Click_Error
 
-    answer = msgBoxA("User accepted licence, thankyou.", vbOKOnly, "Licence Acceptance", False)
-    
-    'MsgBox "User accepted licence, thankyou."
+    answer = msgBoxA("User accepted licence, thankyou.", vbOKOnly, "Licence Acceptance", True, "btnAcceptClick")
     
     licenceWidget.ShowMe = False
     licenceWidget.opacity = 0

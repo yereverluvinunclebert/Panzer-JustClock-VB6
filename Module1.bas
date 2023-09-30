@@ -1584,9 +1584,9 @@ Public Sub mnuCoffee_ClickEvent()
     Dim answerMsg As String: answerMsg = vbNullString
     On Error GoTo mnuCoffee_ClickEvent_Error
     
-    'answer = MsgBox(" Help support the creation of more widgets like this, DO send us a coffee! This button opens a browser window and connects to the Kofi donate page for this widget). Will you be kind and proceed?", vbExclamation + vbYesNo)
+    answer = vbYes
     answerMsg = " Help support the creation of more widgets like this, DO send us a coffee! This button opens a browser window and connects to the Kofi donate page for this widget). Will you be kind and proceed?"
-    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Donate a Kofi", False)
+    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Donate a Kofi", True, "mnuCoffeeClickEvent")
 
     If answer = vbYes Then
         Call ShellExecute(menuForm.hwnd, "Open", "https://www.ko-fi.com/yereverluvinunclebert", vbNullString, App.Path, 1)
@@ -1614,9 +1614,9 @@ Public Sub mnuSupport_ClickEvent()
 
     On Error GoTo mnuSupport_ClickEvent_Error
     
-    'answer = MsgBox("Visiting the support page - this button opens a browser window and connects to our Github issues page where you can send us a support query. Proceed?", vbExclamation + vbYesNo)
+    answer = vbYes
     answerMsg = "Visiting the support page - this button opens a browser window and connects to our Github issues page where you can send us a support query. Proceed?"
-    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Contact Support", False)
+    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Contact Support", True, "mnuSupportClickEvent")
 
     If answer = vbYes Then
         Call ShellExecute(menuForm.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/issues", vbNullString, App.Path, 1)
@@ -2521,3 +2521,40 @@ InDebugMode_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure InDebugMode of Module Module1"
 End Function
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : clearAllMessageBoxRegistryEntries
+' Author    : beededea
+' Date      : 11/04/2023
+' Purpose   : Clear all the message box "show again" entries in the registry
+'---------------------------------------------------------------------------------------
+'
+Public Sub clearAllMessageBoxRegistryEntries()
+    On Error GoTo clearAllMessageBoxRegistryEntries_Error
+
+    SaveSetting App.EXEName, "Options", "Show message" & "mnuFacebookClick", 0
+    SaveSetting App.EXEName, "Options", "Show message" & "mnuLatestClick", 0
+    SaveSetting App.EXEName, "Options", "Show message" & "mnuSweetsClick", 0
+    SaveSetting App.EXEName, "Options", "Show message" & "mnuWidgetsClick", 0
+    SaveSetting App.EXEName, "Options", "Show message" & "mnuCoffeeClickEvent", 0
+    SaveSetting App.EXEName, "Options", "Show message" & "mnuSupportClickEvent", 0
+'    SaveSetting App.EXEName, "Options", "Show message" & "chkDpiAwarenessRestart", 0
+'    SaveSetting App.EXEName, "Options", "Show message" & "chkDpiAwarenessAbnormal", 0
+'    SaveSetting App.EXEName, "Options", "Show message" & "chkEnableTooltipsClick", 0
+    SaveSetting App.EXEName, "Options", "Show message" & "lblGitHubDblClick", 0
+    SaveSetting App.EXEName, "Options", "Show message" & "sliOpacityClick", 0
+
+    On Error GoTo 0
+    Exit Sub
+
+clearAllMessageBoxRegistryEntries_Error:
+
+    With Err
+         If .Number <> 0 Then
+            MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure clearAllMessageBoxRegistryEntries of Form dock"
+            Resume Next
+          End If
+    End With
+    
+End Sub

@@ -90,7 +90,7 @@ Begin VB.Form frmMessage
       Width           =   972
    End
    Begin VB.CheckBox chkShowAgain 
-      Caption         =   "&Hide this message for the rest of this session"
+      Caption         =   "&Hide this message."
       Height          =   420
       Left            =   75
       TabIndex        =   5

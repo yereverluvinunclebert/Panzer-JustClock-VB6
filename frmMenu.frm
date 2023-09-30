@@ -429,10 +429,11 @@ Public Sub mnuFacebook_Click()
     Dim answerMsg As String: answerMsg = vbNullString
     
     On Error GoTo mnuFacebook_Click_Error
-    '''If debugflg = 1  Then msgBox "%" & "mnuFacebook_Click"
+    
+    answer = vbYes
 
     answerMsg = "Visiting the Facebook chat page - this button opens a browser window and connects to our Facebook chat page. Proceed?"
-    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Visit Facebook Request", False)
+    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Visit Facebook Request", True, "mnuFacebookClick")
     'answer = MsgBox("Visiting the Facebook chat page - this button opens a browser window and connects to our Facebook chat page. Proceed?", vbExclamation + vbYesNo)
     If answer = vbYes Then
         Call ShellExecute(Me.hwnd, "Open", "http://www.facebook.com/profile.php?id=100012278951649", vbNullString, App.Path, 1)
@@ -462,10 +463,10 @@ Public Sub mnuLatest_Click()
     On Error GoTo mnuLatest_Click_Error
     '''If debugflg = 1  Then msgBox "%" & "mnuLatest_Click"
     
-    'MsgBox "The download menu option is not yet enabled."
+    answer = vbYes
 
     answerMsg = "Download latest version of the program from github - this button opens a browser window and connects to the widget download page where you can check and download the latest SETUP.EXE file). Proceed?"
-    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Upgrade", False)
+    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Upgrade", True, "mnuLatestClick")
     'answer = MsgBox("Download latest version of the program from github - this button opens a browser window and connects to the widget download page where you can check and download the latest SETUP.EXE file). Proceed?", vbExclamation + vbYesNo)
 
     If answer = vbYes Then
@@ -538,10 +539,9 @@ Private Sub mnuSweets_Click()
     Dim answerMsg As String: answerMsg = vbNullString
 
     On Error GoTo mnuSweets_Click_Error
-       '''If debugflg = 1  Then msgBox "%" & "mnuSweets_Click"
-    
+    answer = vbYes
     answerMsg = " Help support the creation of more widgets like this. Buy me a Kofi! This button opens a browser window and connects to Kofi donation page). Will you be kind and proceed?"
-    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Donate a Kofi", False)
+    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Donate a Kofi", True, "mnuSweetsClick")
     'answer = MsgBox(" Help support the creation of more widgets like this. Buy me a Kofi! This button opens a browser window and connects to Kofi donation page). Will you be kind and proceed?", vbExclamation + vbYesNo)
 
     If answer = vbYes Then
@@ -613,10 +613,10 @@ Private Sub mnuWidgets_Click()
     Dim answerMsg As String: answerMsg = vbNullString
     
     On Error GoTo mnuWidgets_Click_Error
-    '''If debugflg = 1  Then msgBox "%" & "mnuWidgets_Click"
+    answer = vbYes
 
     answerMsg = " This button opens a browser window and connects to the Steampunk widgets page on my site. Do you wish to proceed?"
-    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to connect to Steampunk widgets", False)
+    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to connect to Steampunk widgets", True, "mnuWidgetsClick")
     'answer = MsgBox(" This button opens a browser window and connects to the Steampunk widgets page on my site. Do you wish to proceed?", vbExclamation + vbYesNo)
 
     If answer = vbYes Then

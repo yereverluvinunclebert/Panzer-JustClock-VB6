@@ -2005,10 +2005,9 @@ Private Sub chkDpiAwareness_Click()
     btnSave.Enabled = True ' enable the save button
     If startupFlg = False Then ' don't run this on startup
                     
-        
-        'answer = MsgBox("You must close this widget and restart it, in order to change the widget's DPI awareness (a simple reload just won't cut it), do you want me to close and restart this widget? I can do it now for you.", vbYesNo)
+        answer = vbYes
         answerMsg = "You must close this widget and HARD restart it, in order to change the widget's DPI awareness (a simple soft reload just won't cut it), do you want me to close and restart this widget? I can do it now for you."
-        answer = msgBoxA(answerMsg, vbYesNo, "DpiAwareness Confirmation", False)
+        answer = msgBoxA(answerMsg, vbYesNo, "DpiAwareness Confirmation", True, "chkDpiAwarenessRestart")
         
         If chkDpiAwareness.Value = 0 Then
             PzGDpiAwareness = "0"
@@ -2019,9 +2018,9 @@ Private Sub chkDpiAwareness_Click()
         sPutINISetting "Software\PzJustClock", "dpiAwareness", PzGDpiAwareness, PzGSettingsFile
         
         If answer = vbNo Then
-        
+            answer = vbYes
             answerMsg = "OK, the widget is still DPI aware until you restart. Some forms may show abnormally."
-            answer = msgBoxA(answerMsg, vbYesNo, "DpiAwareness Notification", False)
+            answer = msgBoxA(answerMsg, vbYesNo, "DpiAwareness Notification", True, "chkDpiAwarenessAbnormal")
         
             Exit Sub
         Else
@@ -2279,6 +2278,8 @@ Private Sub btnOpenFile_Click()
 
     On Error GoTo btnOpenFile_Click_Error
 
+
+    
     Call addTargetFile(txtOpenFile.Text, retFileName)
     
     If retFileName <> vbNullString Then
@@ -2291,6 +2292,7 @@ Private Sub btnOpenFile_Click()
     
     If Not fFExists(retFileName) Then
         'answer = MsgBox("The file doesn't currently exist, do you want me to create the chosen file, " & "   -  are you sure?", vbYesNo)
+        answer = vbYes
         answerMsg = "The file doesn't currently exist, do you want me to create the chosen file, " & "   -  are you sure?"
         answer = msgBoxA(answerMsg, vbYesNo, "Create file confirmation", False)
         If answer = vbNo Then
@@ -2389,7 +2391,7 @@ Private Sub btnDefaultEditor_Click()
     End If
     
     If Not fFExists(retFileName) Then
-        'answer = MsgBox("The file doesn't currently exist, do you want me to create the chosen file, " & "   -  are you sure?", vbYesNo)
+        answer = vbYes
         answerMsg = "The file doesn't currently exist, do you want me to create the chosen file, " & "   -  are you sure?"
         answer = msgBoxA(answerMsg, vbYesNo, "Default Editor Confirmation", False)
         If answer = vbNo Then
@@ -3134,9 +3136,9 @@ Private Sub chkEnableTooltips_Click()
         
         sPutINISetting "Software\PzJustClock", "enableTooltips", PzGEnableTooltips, PzGSettingsFile
 
-        'answer = MsgBox("You must soft reload this widget, in order to change the tooltip setting, do you want me to reload this widget? I can do it now for you.", vbYesNo)
+        answer = vbYes
         answerMsg = "You must soft reload this widget, in order to change the tooltip setting, do you want me to reload this widget? I can do it now for you."
-        answer = msgBoxA(answerMsg, vbYesNo, "Request to Enable Tooltips", False)
+        answer = msgBoxA(answerMsg, vbYesNo, "Request to Enable Tooltips", True, "chkEnableTooltipsClick")
         If answer = vbNo Then
             Exit Sub
         Else
@@ -3853,9 +3855,9 @@ Private Sub lblGitHub_dblClick()
     
     On Error GoTo lblGitHub_dblClick_Error
 
-    ' answer = MsgBox("This option opens a browser window and take you straight to Github. Proceed?", vbExclamation + vbYesNo)
+    answer = vbYes
     answerMsg = "This option opens a browser window and take you straight to Github. Proceed?"
-    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Proceed to Github? ", False)
+    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Proceed to Github? ", True, "lblGitHubDblClick")
     If answer = vbYes Then
        Call ShellExecute(Me.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6", vbNullString, App.Path, 1)
     End If
@@ -4023,9 +4025,9 @@ Private Sub sliOpacity_Click()
         PzGOpacity = LTrim$(Str$(sliOpacity.Value))
     
         sPutINISetting "Software\PzJustClock", "opacity", PzGOpacity, PzGSettingsFile
-
+        answer = vbYes
         answerMsg = "You must perform a hard reload on this widget in order to change the widget's opacity, do you want me to do it for you now?"
-        answer = msgBoxA(answerMsg, vbYesNo, "Hard Reload Request", False)
+        answer = msgBoxA(answerMsg, vbYesNo, "Hard Reload Request", True, "sliOpacityClick")
         'answer = MsgBox("You must perform a hard reload on this widget in order to change the widget's opacity, do you want me to do it for you now?", vbYesNo)
         If answer = vbNo Then
             Exit Sub

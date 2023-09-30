@@ -112,8 +112,9 @@
 ' licence form, too large for low DPI usage, meaning the widget image within is not centered - done
 ' about form, too large for low DPI usage, meaning the widget image within is not centered - done
 ' msgbox icons - create new sizes of the windowsCritical icon image to allow resizing as per the prefs - done
+' msgboxA with 'go away' boxes as per steamydock - done
 
-' msgboxA with 'go away' boxes as per steamydock - wip
+' msgbox icons - create new sizes of the windowsQuestion icon image to allow resizing as per the prefs
 
 ' msgBoxA - add vbNo
 ' msgBoxA - add vbYes

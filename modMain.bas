@@ -74,6 +74,9 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     extractCommand = Command$ ' capture any parameter passed, remove if a soft reload
     If restart = True Then extractCommand = vbNullString
     
+    ' Clear all the message box "show again" entries in the registry
+    Call clearAllMessageBoxRegistryEntries
+    
     ' initialise global vars
     Call initialiseGlobalVars
     
@@ -926,7 +929,7 @@ End Sub
 ' Procedure : msgBoxA
 ' Author    : beededea
 ' Date      : 20/05/2022
-' Purpose   :         ans = msgBoxA("main message", vbOKOnly, "title bar message", False)
+' Purpose   : ans = msgBoxA("main message", vbOKOnly, "title bar message", False)
 '---------------------------------------------------------------------------------------
 '
 Public Function msgBoxA(ByVal msgBoxPrompt As String, Optional ByVal msgButton As VbMsgBoxResult, Optional ByVal msgTitle As String, Optional ByVal msgShowAgainChkBox As Boolean = False, Optional ByRef msgContext As String = "none") As Integer
