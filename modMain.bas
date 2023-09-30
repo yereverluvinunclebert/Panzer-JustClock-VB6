@@ -365,23 +365,6 @@ Public Sub adjustMainControls()
         menuForm.mnuEditWidget.Visible = False
     End If
     
-    If PzGSmoothSecondHand = "0" Then
-        overlayWidget.SmoothSecondHand = False
-        fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = Val(PzGOpacity) / 100
-    Else
-        overlayWidget.SmoothSecondHand = True
-        fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = 0
-    End If
-        
-    If PzGPreventDragging = "0" Then
-        menuForm.mnuLockWidget.Checked = False
-        overlayWidget.Locked = False
-        fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = Val(PzGOpacity) / 100
-    Else
-        menuForm.mnuLockWidget.Checked = True
-        overlayWidget.Locked = True ' this is just here for continuity's sake, it is also set at the time the control is selected
-        fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = 0
-    End If
     
     If PzGShowTaskbar = "0" Then
         fAlpha.gaugeForm.ShowInTaskbar = False
@@ -394,6 +377,7 @@ Public Sub adjustMainControls()
     With fAlpha.gaugeForm.Widgets("housing/helpbutton").Widget
         .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
         .MousePointer = IDC_HAND
+        .Alpha = Val(PzGOpacity) / 100
     End With
      
     With fAlpha.gaugeForm.Widgets("housing/startbutton").Widget
@@ -422,6 +406,7 @@ Public Sub adjustMainControls()
     With fAlpha.gaugeForm.Widgets("housing/prefsbutton").Widget
         .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
         .MousePointer = IDC_HAND
+        .Alpha = Val(PzGOpacity) / 100
     End With
           
     With fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget
@@ -435,6 +420,26 @@ Public Sub adjustMainControls()
         .Alpha = Val(PzGOpacity) / 100
 
     End With
+    
+    
+    If PzGSmoothSecondHand = "0" Then
+        overlayWidget.SmoothSecondHand = False
+        fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = Val(PzGOpacity) / 100
+    Else
+        overlayWidget.SmoothSecondHand = True
+        fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = 0
+    End If
+        
+    If PzGPreventDragging = "0" Then
+        menuForm.mnuLockWidget.Checked = False
+        overlayWidget.Locked = False
+        fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = Val(PzGOpacity) / 100
+    Else
+        menuForm.mnuLockWidget.Checked = True
+        overlayWidget.Locked = True ' this is just here for continuity's sake, it is also set at the time the control is selected
+        fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = 0
+    End If
+
     
     'Dim W As cWidgetBase
     'Set W = fAlpha.gaugeForm.Widgets("housing/surround").Widget

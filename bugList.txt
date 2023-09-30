@@ -108,7 +108,7 @@
 
 ' licence widgets on the licence form, too large for low DPI usage, added sizing for all elements - done
 
-' overlay transparency not implemented yet
+' transparency not implemented yet on the surround and start/stop buttons - done
 
 ' msgbox icons - create new sizes of the windowsQuestion icon image to allow resizing as per the prefs
 
@@ -146,6 +146,10 @@
 
 ' tooltips also resize when the whole thing is resized, code received from Olaf tested - resizing results in missing text and blank tooltips, using non-standard font centurion light
 ' RC6 needs a static tooltip option.
+
+' when placing widgets on the main alpha form they take opacity changes and become fully transparent as expected, no problem.
+' However, when placing widgets on top of other widgets the opacity cumulates and they become significantly more opaque.
+' on circular elements, the surrounding transparent areas become opaque
 
 tickButton.opacity = 0;
 fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = 0 

@@ -55,7 +55,7 @@ End Sub
 '                cwOverlay class puts it on the screen
 '---------------------------------------------------------------------------------------
 '
-Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional ByVal WidgetKeyForDragging As String, Optional ByVal WidgetKeyForClose As String)
+Public Sub InitFromPSD(PSD_FileNameOrByteArray)
     
     Const AlphaWithTaskbarEntry = 6
     Const AlphaNoTaskbarEntry = 7
@@ -95,7 +95,7 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray, Optional ByVal WidgetKeyForDragg
                         Set W = gaugeForm.Widgets.Add(New_W("cwAlphaImg"), LCase$(.LayerPath(i)), .LayerX(i), .LayerY(i), .LayerWidth(i), .LayerHeight(i)).Widget
                             W.ImageKey = W.Key 'W.Key equals ImageList-Key, set above - and LayerPath(i) at this point ... set it also as the ImageKey of our new created Widget
                         If PzGOpacity < 1 Then
-                            W.Alpha = Val(PzGOpacity) / 100 ' a bit of a bodge as the included/excluded layers do not 'seem' to handle alpha the same
+                            W.Alpha = Val(PzGOpacity) / 100
                         Else
                             W.Alpha = 1
                         End If
@@ -703,5 +703,4 @@ W_MouseDown_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_MouseDown of Class Module cwOverlay"
 End Sub
-
 
