@@ -5,7 +5,7 @@ Option Explicit
 
 '------------------------------------------------------ STARTS
 ' for SetWindowPos z-ordering
-Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
+Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 
 Private Const HWND_TOP As Long = 0 ' for SetWindowPos z-ordering
 Private Const HWND_TOPMOST As Long = -1
@@ -73,9 +73,6 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     
     extractCommand = Command$ ' capture any parameter passed, remove if a soft reload
     If restart = True Then extractCommand = vbNullString
-    
-    ' Clear all the message box "show again" entries in the registry
-    Call clearAllMessageBoxRegistryEntries
     
     ' initialise global vars
     Call initialiseGlobalVars

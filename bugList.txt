@@ -114,14 +114,16 @@
 ' msgbox icons - create new sizes of the windowsCritical icon image to allow resizing as per the prefs - done
 ' msgboxA with 'go away' boxes as per steamydock - done
 
-' msgbox icons - create new sizes of the windowsQuestion icon image to allow resizing as per the prefs
+' reset message pop-ups button added to fonts tab - done
+' resizing enabled for low DPI - done
+' msgbox icons - create new sizes of the windowsQuestion icon image to allow resizing as per the prefs - done
 
 ' msgBoxA - add vbNo
 ' msgBoxA - add vbYes
 
-' drag corner, implement
-
 ' add icon resizing to frmMessage msgBoxA
+
+' drag corner, implement
 
 ' check system startup operating - wip
 
@@ -137,7 +139,9 @@
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
-' implement font characteristics var for the main utility if it should need a font for itself
+' implement font characteristics variable for the main utility if it should ever need a font for itself
+
+' create a RC project to fade a widget in and out
 
 ' rubberduck
 

@@ -2539,9 +2539,9 @@ Public Sub clearAllMessageBoxRegistryEntries()
     SaveSetting App.EXEName, "Options", "Show message" & "mnuWidgetsClick", 0
     SaveSetting App.EXEName, "Options", "Show message" & "mnuCoffeeClickEvent", 0
     SaveSetting App.EXEName, "Options", "Show message" & "mnuSupportClickEvent", 0
-'    SaveSetting App.EXEName, "Options", "Show message" & "chkDpiAwarenessRestart", 0
-'    SaveSetting App.EXEName, "Options", "Show message" & "chkDpiAwarenessAbnormal", 0
-'    SaveSetting App.EXEName, "Options", "Show message" & "chkEnableTooltipsClick", 0
+    SaveSetting App.EXEName, "Options", "Show message" & "chkDpiAwarenessRestart", 0
+    SaveSetting App.EXEName, "Options", "Show message" & "chkDpiAwarenessAbnormal", 0
+    SaveSetting App.EXEName, "Options", "Show message" & "chkEnableTooltipsClick", 0
     SaveSetting App.EXEName, "Options", "Show message" & "lblGitHubDblClick", 0
     SaveSetting App.EXEName, "Options", "Show message" & "sliOpacityClick", 0
 
