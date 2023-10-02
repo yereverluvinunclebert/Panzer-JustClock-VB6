@@ -2558,3 +2558,55 @@ clearAllMessageBoxRegistryEntries_Error:
     End With
     
 End Sub
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : determineIconWidth
+' Author    : beededea
+' Date      : 02/10/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Function determineIconWidth(ByRef thisForm As Form, ByVal thisDynamicSizingFlg As Boolean) As Long
+
+    Dim topIconWidth As Long: topIconWidth = 0
+    
+    On Error GoTo determineIconWidth_Error
+    
+    topIconWidth = 600 '40 pixels
+
+    If thisDynamicSizingFlg = False Then
+        Exit Function
+    End If
+    
+    If thisForm.Width < 10500 Then
+        topIconWidth = 600
+    End If
+    
+    If thisForm.Width >= 10500 And thisForm.Width < 12000 Then
+        topIconWidth = 730
+    End If
+            
+    If thisForm.Width >= 12000 And thisForm.Width < 13500 Then
+        topIconWidth = 834
+    End If
+            
+    If thisForm.Width >= 13500 And thisForm.Width < 15000 Then
+        topIconWidth = 940
+    End If
+            
+    If thisForm.Width >= 15000 Then
+        topIconWidth = 1010
+    End If
+    
+    determineIconWidth = topIconWidth
+    
+    On Error GoTo 0
+    Exit Function
+
+determineIconWidth_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure determineIconWidth of Form panzerPrefs"
+Exit Function
+
+End Function

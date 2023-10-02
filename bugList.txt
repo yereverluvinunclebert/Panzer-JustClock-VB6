@@ -141,7 +141,7 @@
 
 ' implement font characteristics variable for the main utility if it should ever need a font for itself
 
-' create a RC project to fade a widget in and out
+' create a RC project to fade a widget in and out  to demonstrate the RC bug
 
 ' rubberduck
 

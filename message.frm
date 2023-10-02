@@ -527,10 +527,11 @@ Private Sub Form_Resize()
     If msgBoxAdynamicSizingFlg = True Then
 
         Call resizeControls(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight, currentFont)
+        'Call loadHigherResMessageImages
         
         Me.Width = Me.Height / ratio ' maintain the aspect ratio
 
-        'Call loadHigherResImages
+        'Call loadHigherResPrefsImages
     Else
         If Me.WindowState = 0 Then
             If Me.Width > 9090 Then Me.Width = 9090
@@ -549,7 +550,31 @@ Form_Resize_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Form_Resize of Form frmMessage"
 End Sub
 
-' .74 DAEB 22/05/2022 rDIConConfig.frm Msgbox replacement that can be placed on top of the form instead as the middle of the screen ENDS
-Private Sub picVBInformation_Click()
 
-End Sub
+''---------------------------------------------------------------------------------------
+'' Procedure : loadHigherResMessageImages
+'' Author    : beededea
+'' Date      : 18/06/2023
+'' Purpose   :
+''---------------------------------------------------------------------------------------
+''
+'Private Sub loadHigherResMessageImages()
+'
+'    On Error GoTo loadHigherResMessageImages_Error
+'
+'    If WindowState = vbMinimized Then Exit Sub
+'
+'    If panzerPrefs.mnuDark.Checked = True Then
+'        'Call setMessageIconImagesDark(determineIconWidth(Me, msgBoxAdynamicSizingFlg))
+'    Else
+'        'Call setMessageIconImagesLight(determineIconWidth(Me, msgBoxAdynamicSizingFlg))
+'    End If
+'
+'   On Error GoTo 0
+'   Exit Sub
+'
+'loadHigherResMessageImages_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure loadHigherResMessageImages of Form panzerPrefs"
+'End Sub
+
