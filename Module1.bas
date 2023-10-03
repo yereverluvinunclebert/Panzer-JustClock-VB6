@@ -349,15 +349,17 @@ Public PzGFirstTimeRun  As String
 ' General storage variables declared
 Public PzGSettingsDir As String
 Public PzGSettingsFile As String
-Public PzGMaximiseFormX As String
-Public PzGMaximiseFormY As String
+Public PzGClockHighDpiXPos As String
+Public PzGClockHighDpiYPos As String
+Public PzGClockLowDpiXPos As String
+Public PzGClockLowDpiYPos As String
 Public PzGLastSelectedTab As String
 Public PzGSkinTheme As String
 Public PzGUnhide As String
 
 ' vars stored for positioning the prefs form
-Public PzGFormXPosTwips As String
-Public PzGFormYPosTwips As String
+Public PzGFormHighDpiXPosTwips As String
+Public PzGFormHighDpiYPosTwips As String
 '------------------------------------------------------ ENDS
 
 
@@ -1743,11 +1745,16 @@ Public Sub makeVisibleFormElements()
 
     'NOTE that when you position a widget you are positioning the form it is drawn upon.
     
-'     PzGMaximiseFormX = fGetINISetting("Software\PzJustClock", "maximiseFormX", PzGSettingsFile)
-'     PzGMaximiseFormY = fGetINISetting("Software\PzJustClock", "maximiseFormY", PzGSettingsFile)
+'     PzGClockHighDpiXPos = fGetINISetting("Software\PzJustClock", "clockHighDpiXPos", PzGSettingsFile)
+'     PzGclockHighDpiYPos = fGetINISetting("Software\PzJustClock", "clockHighDpiYPos", PzGSettingsFile)
 
-    fAlpha.gaugeForm.Left = Val(PzGMaximiseFormX)
-    fAlpha.gaugeForm.Top = Val(PzGMaximiseFormY)
+    If PzGDpiAwareness = "1" Then
+        fAlpha.gaugeForm.Left = Val(PzGClockHighDpiXPos)
+        fAlpha.gaugeForm.Top = Val(PzGClockHighDpiYPos)
+    Else
+        fAlpha.gaugeForm.Left = Val(PzGClockLowDpiXPos)
+        fAlpha.gaugeForm.Top = Val(PzGClockLowDpiYPos)
+    End If
     
     ' The RC forms are measured in pixels, whereas the native forms are in twips, do remember that...
 
@@ -2124,12 +2131,19 @@ Public Sub savePosition()
 
    On Error GoTo savePosition_Error
 
-    PzGMaximiseFormX = Str$(fAlpha.gaugeForm.Left) ' saving in pixels
-    PzGMaximiseFormY = Str$(fAlpha.gaugeForm.Top)
+    If PzGDpiAwareness = "1" Then
+        PzGClockHighDpiXPos = Str$(fAlpha.gaugeForm.Left) ' saving in pixels
+        PzGClockHighDpiYPos = Str$(fAlpha.gaugeForm.Top)
+        sPutINISetting "Software\PzJustClock", "clockHighDpiXPos", PzGClockHighDpiXPos, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "clockHighDpiYPos", PzGClockHighDpiYPos, PzGSettingsFile
+    Else
+        PzGClockLowDpiXPos = Str$(fAlpha.gaugeForm.Left) ' saving in pixels
+        PzGClockLowDpiYPos = Str$(fAlpha.gaugeForm.Top)
+        sPutINISetting "Software\PzJustClock", "clockLowDpiXPos", PzGClockLowDpiXPos, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "clockLowDpiYPos", PzGClockLowDpiYPos, PzGSettingsFile
+    End If
+    
     PzGGaugeSize = Str$(fAlpha.gaugeForm.WidgetRoot.Zoom * 100)
-
-    sPutINISetting "Software\PzJustClock", "maximiseFormX", PzGMaximiseFormX, PzGSettingsFile
-    sPutINISetting "Software\PzJustClock", "maximiseFormY", PzGMaximiseFormY, PzGSettingsFile
     sPutINISetting "Software\PzJustClock", "gaugeSize", PzGGaugeSize, PzGSettingsFile
 
    On Error GoTo 0
@@ -2201,18 +2215,18 @@ Public Sub readPrefsPosition()
             
    On Error GoTo readPrefsPosition_Error
 
-    PzGFormXPosTwips = fGetINISetting("Software\PzJustClock", "formXPos", PzGSettingsFile)
-    PzGFormYPosTwips = fGetINISetting("Software\PzJustClock", "formYPos", PzGSettingsFile)
+    PzGFormHighDpiXPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiXPos", PzGSettingsFile)
+    PzGFormHighDpiYPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiYPos", PzGSettingsFile)
 
     ' if a current location not stored then position to the middle of the screen
-    If PzGFormXPosTwips <> "" Then
-        panzerPrefs.Left = Val(PzGFormXPosTwips)
+    If PzGFormHighDpiXPosTwips <> "" Then
+        panzerPrefs.Left = Val(PzGFormHighDpiXPosTwips)
     Else
         panzerPrefs.Left = screenWidthTwips / 2 - panzerPrefs.Width / 2
     End If
 
-    If PzGFormYPosTwips <> "" Then
-        panzerPrefs.Top = Val(PzGFormYPosTwips)
+    If PzGFormHighDpiYPosTwips <> "" Then
+        panzerPrefs.Top = Val(PzGFormHighDpiYPosTwips)
     Else
         panzerPrefs.Top = Screen.Height / 2 - panzerPrefs.Height / 2
     End If
@@ -2236,12 +2250,12 @@ Public Sub writePrefsPosition()
    On Error GoTo writePrefsPosition_Error
 
     If panzerPrefs.WindowState = vbNormal Then ' when vbMinimised the value = -48000  !
-        PzGFormXPosTwips = Str$(panzerPrefs.Left)
-        PzGFormYPosTwips = Str$(panzerPrefs.Top)
+        PzGFormHighDpiXPosTwips = Str$(panzerPrefs.Left)
+        PzGFormHighDpiYPosTwips = Str$(panzerPrefs.Top)
         
         ' now write those params to the toolSettings.ini
-        sPutINISetting "Software\PzJustClock", "formXPos", PzGFormXPosTwips, PzGSettingsFile
-        sPutINISetting "Software\PzJustClock", "formYPos", PzGFormYPosTwips, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "formHighDpiXPos", PzGFormHighDpiXPosTwips, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "formHighDpiYPos", PzGFormHighDpiYPosTwips, PzGSettingsFile
     End If
     
     On Error GoTo 0

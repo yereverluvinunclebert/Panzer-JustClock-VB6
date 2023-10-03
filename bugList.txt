@@ -118,6 +118,10 @@
 ' resizing enabled for low DPI - done
 ' msgbox icons - create new sizes of the windowsQuestion icon image to allow resizing as per the prefs - done
 
+' update HTMP help - done
+' create compiled CHM - done
+' check system startup operating - done
+
 ' change current clock x/y position to high DPI position
 ' add clock low DPI x/y position to new low DPI position vars
 
@@ -131,7 +135,7 @@
 
 ' drag corner, implement
 
-' check system startup operating - wip
+' differnet scaling
 
 ' monitorProperties, make it work
 '    add second monitor

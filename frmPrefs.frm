@@ -2206,8 +2206,8 @@ Private Sub Form_Load()
     startupFlg = True ' this is used to prevent some control initialisations from running code at startup
     lastFormHeight = 0
 
-    PzGFormXPosTwips = ""
-    PzGFormYPosTwips = ""
+    PzGFormHighDpiXPosTwips = ""
+    PzGFormHighDpiYPosTwips = ""
     PzGPrefsLoadedFlg = True ' this is a variable tested by an added form property to indicate whether the form is loaded or not
     PzGWindowLevelWasChanged = False
     prefsFormHeight = prefsCurrentHeight
@@ -3152,8 +3152,12 @@ Private Sub btnSave_Click()
         sPutINISetting "Software\PzJustClock", "openFile", PzGOpenFile, PzGSettingsFile
         sPutINISetting "Software\PzJustClock", "defaultEditor", PzGDefaultEditor, PzGSettingsFile
         
-        sPutINISetting "Software\PzJustClock", "maximiseFormX", PzGMaximiseFormX, PzGSettingsFile
-        sPutINISetting "Software\PzJustClock", "maximiseFormY", PzGMaximiseFormY, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "clockHighDpiXPos", PzGClockHighDpiXPos, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "clockHighDpiYPos", PzGClockHighDpiYPos, PzGSettingsFile
+        
+        sPutINISetting "Software\PzJustClock", "clockLowDpiXPos", PzGClockLowDpiXPos, PzGSettingsFile
+        sPutINISetting "Software\PzJustClock", "clockLowDpiYPos", PzGClockLowDpiYPos, PzGSettingsFile
+        
 
         'save the values from the Text Items
 
@@ -3395,13 +3399,23 @@ Private Sub adjustPrefsControls()
         If aspectRatio = "landscape" Then
 '            txtLandscapeHoffset.Text = fAlpha.gaugeForm.Left
 '            txtLandscapeVoffset.Text = fAlpha.gaugeForm.Top
-            txtLandscapeHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & PzGMaximiseFormX & "px"
-            txtLandscapeVoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & PzGMaximiseFormY & "px"
+            If PzGDpiAwareness = "1" Then
+                txtLandscapeHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & PzGClockHighDpiXPos & "px"
+                txtLandscapeVoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & PzGClockHighDpiYPos & "px"
+            Else
+                txtLandscapeHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & PzGClockLowDpiXPos & "px"
+                txtLandscapeVoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & PzGClockLowDpiYPos & "px"
+            End If
         Else
 '            txtPortraitHoffset.Text = fAlpha.gaugeForm.Left
 '            txtPortraitYoffset.Text = fAlpha.gaugeForm.Top
-            txtPortraitHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & PzGMaximiseFormX & "px"
-            txtPortraitYoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & PzGMaximiseFormY & "px"
+            If PzGDpiAwareness = "1" Then
+                txtPortraitHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & PzGClockHighDpiXPos & "px"
+                txtPortraitYoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & PzGClockHighDpiYPos & "px"
+            Else
+                txtPortraitHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & PzGClockLowDpiXPos & "px"
+                txtPortraitYoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & PzGClockLowDpiYPos & "px"
+            End If
         End If
     End If
     
