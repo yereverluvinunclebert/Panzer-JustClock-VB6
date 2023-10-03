@@ -601,9 +601,9 @@ Begin VB.Form panzerPrefs
    End
    Begin VB.Timer positionTimer 
       Enabled         =   0   'False
-      Interval        =   10000
-      Left            =   1155
-      Top             =   9705
+      Interval        =   5000
+      Left            =   1170
+      Top             =   9690
    End
    Begin VB.CheckBox chkEnableResizing 
       Caption         =   "Enable Corner Resize"
@@ -2208,6 +2208,11 @@ Private Sub Form_Load()
 
     PzGFormHighDpiXPosTwips = ""
     PzGFormHighDpiYPosTwips = ""
+    
+    PzGFormLowDpiXPosTwips = ""
+    PzGFormLowDpiYPosTwips = ""
+    
+    
     PzGPrefsLoadedFlg = True ' this is a variable tested by an added form property to indicate whether the form is loaded or not
     PzGWindowLevelWasChanged = False
     prefsFormHeight = prefsCurrentHeight

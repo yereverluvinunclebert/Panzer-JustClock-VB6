@@ -360,6 +360,11 @@ Public PzGUnhide As String
 ' vars stored for positioning the prefs form
 Public PzGFormHighDpiXPosTwips As String
 Public PzGFormHighDpiYPosTwips As String
+
+Public PzGFormLowDpiXPosTwips As String
+Public PzGFormLowDpiYPosTwips As String
+
+
 '------------------------------------------------------ ENDS
 
 
@@ -2215,22 +2220,40 @@ Public Sub readPrefsPosition()
             
    On Error GoTo readPrefsPosition_Error
 
-    PzGFormHighDpiXPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiXPos", PzGSettingsFile)
-    PzGFormHighDpiYPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiYPos", PzGSettingsFile)
-
-    ' if a current location not stored then position to the middle of the screen
-    If PzGFormHighDpiXPosTwips <> "" Then
-        panzerPrefs.Left = Val(PzGFormHighDpiXPosTwips)
+    If PzGDpiAwareness = "1" Then
+        PzGFormHighDpiXPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiXPos", PzGSettingsFile)
+        PzGFormHighDpiYPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiYPos", PzGSettingsFile)
+        
+        ' if a current location not stored then position to the middle of the screen
+        If PzGFormHighDpiXPosTwips <> "" Then
+            panzerPrefs.Left = Val(PzGFormHighDpiXPosTwips)
+        Else
+            panzerPrefs.Left = screenWidthTwips / 2 - panzerPrefs.Width / 2
+        End If
+        
+        If PzGFormHighDpiYPosTwips <> "" Then
+            panzerPrefs.Top = Val(PzGFormHighDpiYPosTwips)
+        Else
+            panzerPrefs.Top = Screen.Height / 2 - panzerPrefs.Height / 2
+        End If
     Else
-        panzerPrefs.Left = screenWidthTwips / 2 - panzerPrefs.Width / 2
+        PzGFormLowDpiXPosTwips = fGetINISetting("Software\PzJustClock", "formLowDpiXPosTwips", PzGSettingsFile)
+        PzGFormLowDpiYPosTwips = fGetINISetting("Software\PzJustClock", "formLowDpiYPosTwips", PzGSettingsFile)
+        
+        ' if a current location not stored then position to the middle of the screen
+        If PzGFormLowDpiXPosTwips <> "" Then
+            panzerPrefs.Left = Val(PzGFormLowDpiXPosTwips)
+        Else
+            panzerPrefs.Left = screenWidthTwips / 2 - panzerPrefs.Width / 2
+        End If
+        
+        If PzGFormLowDpiYPosTwips <> "" Then
+            panzerPrefs.Top = Val(PzGFormLowDpiYPosTwips)
+        Else
+            panzerPrefs.Top = Screen.Height / 2 - panzerPrefs.Height / 2
+        End If
     End If
-
-    If PzGFormHighDpiYPosTwips <> "" Then
-        panzerPrefs.Top = Val(PzGFormHighDpiYPosTwips)
-    Else
-        panzerPrefs.Top = Screen.Height / 2 - panzerPrefs.Height / 2
-    End If
-
+   
    On Error GoTo 0
    Exit Sub
 
@@ -2250,12 +2273,23 @@ Public Sub writePrefsPosition()
    On Error GoTo writePrefsPosition_Error
 
     If panzerPrefs.WindowState = vbNormal Then ' when vbMinimised the value = -48000  !
-        PzGFormHighDpiXPosTwips = Str$(panzerPrefs.Left)
-        PzGFormHighDpiYPosTwips = Str$(panzerPrefs.Top)
+        If PzGDpiAwareness = "1" Then
+            PzGFormHighDpiXPosTwips = Str$(panzerPrefs.Left)
+            PzGFormHighDpiYPosTwips = Str$(panzerPrefs.Top)
+            
+            ' now write those params to the toolSettings.ini
+            sPutINISetting "Software\PzJustClock", "formHighDpiXPosTwips", PzGFormHighDpiXPosTwips, PzGSettingsFile
+            sPutINISetting "Software\PzJustClock", "formHighDpiYPosTwips", PzGFormHighDpiYPosTwips, PzGSettingsFile
+        Else
+            PzGFormLowDpiXPosTwips = Str$(panzerPrefs.Left)
+            PzGFormLowDpiYPosTwips = Str$(panzerPrefs.Top)
+            
+            ' now write those params to the toolSettings.ini
+            sPutINISetting "Software\PzJustClock", "formLowDpiXPosTwips", PzGFormLowDpiXPosTwips, PzGSettingsFile
+            sPutINISetting "Software\PzJustClock", "formLowDpiYPosTwips", PzGFormLowDpiYPosTwips, PzGSettingsFile
+            
+        End If
         
-        ' now write those params to the toolSettings.ini
-        sPutINISetting "Software\PzJustClock", "formHighDpiXPos", PzGFormHighDpiXPosTwips, PzGSettingsFile
-        sPutINISetting "Software\PzJustClock", "formHighDpiYPos", PzGFormHighDpiYPosTwips, PzGSettingsFile
     End If
     
     On Error GoTo 0
