@@ -7,7 +7,6 @@ Begin VB.Form frmMessage
    ClientWidth     =   5985
    ControlBox      =   0   'False
    LinkTopic       =   "Form1"
-   MaxButton       =   0   'False
    PaletteMode     =   1  'UseZOrder
    ScaleHeight     =   2100
    ScaleWidth      =   5985
@@ -23,15 +22,15 @@ Begin VB.Form frmMessage
       Begin VB.Frame fraPicVB 
          BackColor       =   &H00FFFFFF&
          BorderStyle     =   0  'None
-         Height          =   850
+         Height          =   1410
          Left            =   195
          TabIndex        =   4
-         Top             =   270
+         Top             =   30
          Width           =   735
          Begin VB.Image picVBInformation 
+            Appearance      =   0  'Flat
             Height          =   720
             Left            =   0
-            Picture         =   "message.frx":0000
             Top             =   0
             Visible         =   0   'False
             Width           =   720
@@ -39,15 +38,14 @@ Begin VB.Form frmMessage
          Begin VB.Image picVBCritical 
             Height          =   720
             Left            =   0
-            Picture         =   "message.frx":11EA
-            Top             =   0
+            Top             =   -15
             Visible         =   0   'False
             Width           =   720
          End
          Begin VB.Image picVBExclamation 
+            Appearance      =   0  'Flat
             Height          =   720
             Left            =   0
-            Picture         =   "message.frx":23D2
             Top             =   0
             Visible         =   0   'False
             Width           =   720
@@ -55,7 +53,6 @@ Begin VB.Form frmMessage
          Begin VB.Image picVBQuestion 
             Height          =   720
             Left            =   0
-            Picture         =   "message.frx":360A
             Top             =   0
             Visible         =   0   'False
             Width           =   720
@@ -96,7 +93,7 @@ Begin VB.Form frmMessage
       TabIndex        =   5
       Top             =   1560
       Visible         =   0   'False
-      Width           =   3435
+      Width           =   1755
    End
 End
 Attribute VB_Name = "frmMessage"
@@ -113,7 +110,7 @@ Private formShowAgainChkBox As Boolean
 
 'Private lastFormHeight As Long
 
-Private msgBoxAdynamicSizingFlg As Boolean
+Private msgBoxADynamicSizingFlg As Boolean
 Private Const cMsgBoxAFormHeight As Long = 2565
 Private Const cMsgBoxAFormWidth  As Long = 11055
 
@@ -223,7 +220,7 @@ Public Property Let propMessage(ByVal strMessage As String)
     End If
 
     fraMessage.Height = fraMessage.Height + intDiff
-    fraPicVB.Top = fraPicVB.Top + (intDiff / 2)
+    fraPicVB.Top = fraPicVB.Top - 100 '+ (intDiff / 2)
         
     chkShowAgain.Top = chkShowAgain.Top + intDiff
     btnButtonOne.Top = btnButtonOne.Top + intDiff
@@ -464,16 +461,16 @@ Private Sub Form_Load()
     mintLabelHeight = lblMessage.Height
     
     If PzGDpiAwareness = "1" Then
-        msgBoxAdynamicSizingFlg = True
+        msgBoxADynamicSizingFlg = True
     End If
     
     msgBoxACurrentWidth = cMsgBoxAFormWidth
     msgBoxACurrentHeight = cMsgBoxAFormHeight
     
-    If PzGDpiAwareness = "1" Then
+    'If PzGDpiAwareness = "1" Then
         ' save the initial positions of ALL the controls on the msgbox form
         Call SaveSizes(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight)
-    End If
+    'End If
         
     ' .TBD DAEB 05/05/2021 frmMessage.frm Added the font mod. here instead of within the changeFont tool
     '                       as each instance of the form is new, the font modification must be here.
@@ -524,24 +521,15 @@ Private Sub Form_Resize()
         currentFont = PzGPrefsFontSizeLowDPI
     End If
     
-    If msgBoxAdynamicSizingFlg = True Then
+    If msgBoxADynamicSizingFlg = True Then
 
         Call resizeControls(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight, currentFont)
-        'Call loadHigherResMessageImages
+        Call loadHigherResMessageImages
         
         Me.Width = Me.Height / ratio ' maintain the aspect ratio
 
-        'Call loadHigherResPrefsImages
-    Else
-        If Me.WindowState = 0 Then
-            If Me.Width > 9090 Then Me.Width = 9090
-            If Me.Width < 6105 Then Me.Width = 6105
-            'If lastFormHeight <> 0 Then Me.Height = lastFormHeight
-        End If
     End If
     
-    'Call resizeControls(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight, currentFont)
-
    On Error GoTo 0
    Exit Sub
 
@@ -551,30 +539,64 @@ Form_Resize_Error:
 End Sub
 
 
-''---------------------------------------------------------------------------------------
-'' Procedure : loadHigherResMessageImages
-'' Author    : beededea
-'' Date      : 18/06/2023
-'' Purpose   :
-''---------------------------------------------------------------------------------------
-''
-'Private Sub loadHigherResMessageImages()
+'---------------------------------------------------------------------------------------
+' Procedure : loadHigherResMessageImages
+' Author    : beededea
+' Date      : 18/06/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
 '
-'    On Error GoTo loadHigherResMessageImages_Error
-'
-'    If WindowState = vbMinimized Then Exit Sub
-'
-'    If panzerPrefs.mnuDark.Checked = True Then
-'        'Call setMessageIconImagesDark(determineIconWidth(Me, msgBoxAdynamicSizingFlg))
-'    Else
-'        'Call setMessageIconImagesLight(determineIconWidth(Me, msgBoxAdynamicSizingFlg))
-'    End If
-'
-'   On Error GoTo 0
-'   Exit Sub
-'
-'loadHigherResMessageImages_Error:
-'
-'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure loadHigherResMessageImages of Form panzerPrefs"
-'End Sub
+Private Sub loadHigherResMessageImages()
 
+    On Error GoTo loadHigherResMessageImages_Error
+
+    If WindowState = vbMinimized Then Exit Sub
+
+'    If panzerPrefs.mnuDark.Checked = True Then
+'        Call setMessageIconImagesDark(determineIconWidth(Me, msgBoxADynamicSizingFlg))
+'    Else
+        Call setMessageIconImagesLight(2000)
+'    End If
+
+   On Error GoTo 0
+   Exit Sub
+
+loadHigherResMessageImages_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure loadHigherResMessageImages of Form panzerPrefs"
+End Sub
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : setPrefsIconImagesLight
+' Author    : beededea
+' Date      : 22/06/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Sub setMessageIconImagesLight(ByVal thisIconWidth As Long)
+    
+    Dim resourcePath As String: resourcePath = vbNullString
+    
+    On Error GoTo setMessageIconImagesLight_Error
+    
+    resourcePath = App.Path & "\resources\images"
+    
+    If fFExists(resourcePath & "\windowsInformation" & thisIconWidth & ".jpg") Then Set picVBInformation.Picture = LoadPicture(resourcePath & "\windowsInformation" & thisIconWidth & ".jpg")
+    If fFExists(resourcePath & "\windowsOrangeExclamation" & thisIconWidth & ".jpg") Then Set picVBExclamation.Picture = LoadPicture(resourcePath & "\windowsOrangeExclamation" & thisIconWidth & ".jpg")
+    If fFExists(resourcePath & "\windowsShieldQMark" & thisIconWidth & ".jpg") Then Set picVBQuestion.Picture = LoadPicture(resourcePath & "\windowsShieldQMark" & thisIconWidth & ".jpg")
+    If fFExists(resourcePath & "\windowsCritical" & thisIconWidth & ".jpg") Then Set picVBCritical.Picture = LoadPicture(resourcePath & "\windowsCritical" & thisIconWidth & ".jpg")
+    
+    picVBInformation.Refresh
+    picVBQuestion.Refresh
+    picVBExclamation.Refresh
+    picVBCritical.Refresh
+    
+   On Error GoTo 0
+   Exit Sub
+
+setMessageIconImagesLight_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure setMessageIconImagesLight of Form frmMessage"
+
+End Sub

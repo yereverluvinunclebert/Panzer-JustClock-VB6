@@ -1588,7 +1588,7 @@ Public Sub mnuCoffee_ClickEvent()
     answerMsg = " Help support the creation of more widgets like this, DO send us a coffee! This button opens a browser window and connects to the Kofi donate page for this widget). Will you be kind and proceed?"
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Donate a Kofi", True, "mnuCoffeeClickEvent")
 
-    If answer = vbYes Then
+    If answer = vbYes Or answer = 0 Then
         Call ShellExecute(menuForm.hwnd, "Open", "https://www.ko-fi.com/yereverluvinunclebert", vbNullString, App.Path, 1)
     End If
 
@@ -2573,14 +2573,12 @@ Public Function determineIconWidth(ByRef thisForm As Form, ByVal thisDynamicSizi
     
     On Error GoTo determineIconWidth_Error
     
-    topIconWidth = 600 '40 pixels
-
     If thisDynamicSizingFlg = False Then
-        Exit Function
+        'Exit Function
     End If
     
     If thisForm.Width < 10500 Then
-        topIconWidth = 600
+        topIconWidth = 600 '40 pixels
     End If
     
     If thisForm.Width >= 10500 And thisForm.Width < 12000 Then
@@ -2598,7 +2596,7 @@ Public Function determineIconWidth(ByRef thisForm As Form, ByVal thisDynamicSizi
     If thisForm.Width >= 15000 Then
         topIconWidth = 1010
     End If
-    
+    'topIconWidth = 2000
     determineIconWidth = topIconWidth
     
     On Error GoTo 0

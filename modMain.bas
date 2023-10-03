@@ -5,7 +5,7 @@ Option Explicit
 
 '------------------------------------------------------ STARTS
 ' for SetWindowPos z-ordering
-Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
+Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 
 Private Const HWND_TOP As Long = 0 ' for SetWindowPos z-ordering
 Private Const HWND_TOPMOST As Long = -1
@@ -93,8 +93,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     Call validateInputs
     
     If PzGDpiAwareness = "1" Then
-        'If Not InIDE Then Cairo.SetDPIAwareness ' avoids the VB6 IDE shrinking
-        Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
+        If Not InIDE Then Cairo.SetDPIAwareness ' avoids the VB6 IDE shrinking
+        'Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
     End If
         
     'load the collection for storing the overlay surfaces with its relevant keys direct from the PSD

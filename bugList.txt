@@ -118,10 +118,16 @@
 ' resizing enabled for low DPI - done
 ' msgbox icons - create new sizes of the windowsQuestion icon image to allow resizing as per the prefs - done
 
+' change current clock x/y position to high DPI position
+' add clock low DPI x/y position to new low DPI position vars
+
+' change current prefs x/y position to high DPI position
+' add prefs low DPI x/y position to new low DPI position vars
+
 ' msgBoxA - add vbNo
 ' msgBoxA - add vbYes
 
-' add icon resizing to frmMessage msgBoxA
+' add icon resizing to frmMessage msgBoxA - wip
 
 ' drag corner, implement
 

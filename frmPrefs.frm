@@ -5133,6 +5133,9 @@ Private Sub setframeHeights()
         fraDevelopment.Height = 6297
         fraAbout.Height = 8700
     End If
+    
+    
+
 
    On Error GoTo 0
    Exit Sub
