@@ -1782,7 +1782,9 @@ Begin VB.Form panzerPrefs
       Height          =   165
       Left            =   8745
       TabIndex        =   163
+      ToolTipText     =   "drag me"
       Top             =   10410
+      Visible         =   0   'False
       Width           =   345
    End
    Begin VB.Label lblSize 
@@ -2245,12 +2247,9 @@ Private Sub Form_Load()
     PzGFormLowDpiXPosTwips = ""
     PzGFormLowDpiYPosTwips = ""
     
-    
     PzGPrefsLoadedFlg = True ' this is a variable tested by an added form property to indicate whether the form is loaded or not
     PzGWindowLevelWasChanged = False
     prefsFormHeight = prefsCurrentHeight
-    
-    'PzGEnablePrefsTooltips = "0"
     
     With lblDragCorner
       .ForeColor = &H80000015
@@ -2260,6 +2259,7 @@ Private Sub Form_Load()
       .Font.Name = "Marlett"
       .Caption = "o"
       .Font.Bold = False
+      .Visible = False
    End With
     
     btnSave.Enabled = False ' disable the save button
@@ -2267,6 +2267,7 @@ Private Sub Form_Load()
     If PzGDpiAwareness = "1" Then
         prefsDynamicSizingFlg = True
         chkEnableResizing.Value = 1
+        lblDragCorner.Visible = True
     End If
     
     ' read the last saved position from the settings.ini
@@ -3686,7 +3687,7 @@ Private Sub Form_Resize()
     
     If WindowState = vbMinimized Then Exit Sub
     
-    
+    ' move the drag corner label along with the form's bottom right corner
     lblDragCorner.Move Me.ScaleLeft + Me.ScaleWidth - (lblDragCorner.Width + 40), _
                Me.ScaleTop + Me.ScaleHeight - (lblDragCorner.Height + 40)
 
@@ -5690,12 +5691,19 @@ IsWinNTPlus_Error:
 
 End Function
 
-
-
-Private Sub lblDragCorner_MouseMove(Button As Integer, _
+Private Sub lblDragCorner_MouseDown(Button As Integer, _
                              Shift As Integer, _
                              X As Single, _
                              Y As Single)
+
+  If Button = vbLeftButton Then
+    ReleaseCapture
+    SendMessage Me.hwnd, WM_NCLBUTTONDOWN, HTBOTTOMRIGHT, 0
+  End If
+
+End Sub
+
+Private Sub lblDragCorner_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
     lblDragCorner.MousePointer = 8
    

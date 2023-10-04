@@ -130,8 +130,10 @@
 ' create compiled CHM - done
 ' created 1920 icons for the frmMessage to display - done
 ' add icon resizing to frmMessage msgBoxA - done
+' drag corner, implement - done
+' fixed Krool's slider instances min and max defaulting to 0 and 10 - done
 
-' drag corner, implement
+' disable the drag corner in low DPI mode
 
 ' different scaling
 
