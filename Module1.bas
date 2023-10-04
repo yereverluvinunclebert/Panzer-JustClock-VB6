@@ -1259,10 +1259,11 @@ Public Sub changeFormFont(ByVal formName As Object, ByVal suppliedFont As String
     ' loop through all the controls and identify the labels and text boxes
     For Each Ctrl In formName.Controls
         If (TypeOf Ctrl Is CommandButton) Or (TypeOf Ctrl Is textBox) Or (TypeOf Ctrl Is FileListBox) Or (TypeOf Ctrl Is Label) Or (TypeOf Ctrl Is ComboBox) Or (TypeOf Ctrl Is CheckBox) Or (TypeOf Ctrl Is OptionButton) Or (TypeOf Ctrl Is Frame) Or (TypeOf Ctrl Is ListBox) Then
-            If suppliedFont <> vbNullString Then Ctrl.Font.Name = suppliedFont
-            If suppliedSize > 0 Then Ctrl.Font.Size = suppliedSize
-            Ctrl.Font.Italic = suppliedItalics
-            
+            If Ctrl.Name <> "lblDragCorner" Then
+                If suppliedFont <> vbNullString Then Ctrl.Font.Name = suppliedFont
+                If suppliedSize > 0 Then Ctrl.Font.Size = suppliedSize
+                Ctrl.Font.Italic = suppliedItalics
+            End If
             Select Case True
                 Case (TypeOf Ctrl Is CommandButton)
                     ' stupif fecking VB6 will not let you change the font of the forecolour on a button!

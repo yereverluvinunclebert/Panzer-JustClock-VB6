@@ -467,7 +467,6 @@ Public Sub mnuLatest_Click()
 
     answerMsg = "Download latest version of the program from github - this button opens a browser window and connects to the widget download page where you can check and download the latest SETUP.EXE file). Proceed?"
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Upgrade", True, "mnuLatestClick")
-    'answer = MsgBox("Download latest version of the program from github - this button opens a browser window and connects to the widget download page where you can check and download the latest SETUP.EXE file). Proceed?", vbExclamation + vbYesNo)
 
     If answer = vbYes Then
         Call ShellExecute(Me.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6", vbNullString, App.Path, 1)

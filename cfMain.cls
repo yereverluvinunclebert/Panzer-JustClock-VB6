@@ -202,9 +202,7 @@ Private Sub btnDecline_Click()
     'answer = MsgBox("Licence declined, please destroy your copy of this widget and its documentation.", vbYes)
     answer = msgBoxA("Licence declined, please destroy your copy of this widget and its documentation. This widget will now unload.", vbOKOnly, "Licence Declined", False)
 
-    If answer = 6 Then ' OK
-        Call thisForm_Unload
-    End If
+    Call thisForm_Unload
 
    On Error GoTo 0
    Exit Sub

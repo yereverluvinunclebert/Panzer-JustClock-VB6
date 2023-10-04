@@ -310,7 +310,7 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
     
     Dim fileToPlay As String: fileToPlay = vbNullString
 
-   On Error GoTo propButtonVal_Error
+    On Error GoTo propButtonVal_Error
 
     btnButtonOne.Visible = False
     btnButtonTwo.Visible = False
@@ -322,8 +322,10 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
     picVBQuestion.Visible = False
 
     btnButtonOne.Left = 3885
-
-    If buttonVal >= 64 Then ' vbInformation
+    
+    If buttonVal = 0 Then ' vbInformation
+       picVBInformation.Visible = True
+    ElseIf buttonVal >= 64 Then ' vbInformation
        buttonVal = buttonVal - 64
        picVBInformation.Visible = True
     ElseIf buttonVal >= 48 Then '    vbExclamation
@@ -352,10 +354,10 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
 
     If buttonVal = 0 Then '    vbOKOnly 0
         picVBInformation.Visible = True
-        btnButtonOne.Visible = True
-        btnButtonTwo.Visible = False
-        btnButtonOne.Caption = "OK"
-        btnButtonOne.Left = 4620
+        btnButtonOne.Visible = False
+        btnButtonTwo.Visible = True
+        btnButtonTwo.Caption = "OK"
+        'btnButtonOne.Left = 4620
     End If
     If buttonVal = 1 Then '    vbOKCancel 1
         btnButtonOne.Visible = True
@@ -396,20 +398,20 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
         btnButtonTwo.Caption = "Cancel"
         picVBQuestion.Visible = True
     End If
-    If buttonVal = 6 Then '    vbYes 6
-        'btnButtonOne.Visible = True
-        btnButtonTwo.Visible = True
-        btnButtonOne.Caption = ""
-        btnButtonTwo.Caption = "Yes"
-        picVBQuestion.Visible = True
-    End If
-    If buttonVal = 7 Then '    vbNo 7
-        'btnButtonOne.Visible = True
-        btnButtonTwo.Visible = True
-        btnButtonOne.Caption = ""
-        btnButtonTwo.Caption = "No"
-        picVBQuestion.Visible = True
-    End If
+'    If buttonVal = 6 Then '    vbYes 6
+'        'btnButtonOne.Visible = True
+'        btnButtonTwo.Visible = True
+'        btnButtonOne.Caption = ""
+'        btnButtonTwo.Caption = "Yes"
+'        picVBQuestion.Visible = True
+'    End If
+'    If buttonVal = 7 Then '    vbNo 7
+'        'btnButtonOne.Visible = True
+'        btnButtonTwo.Visible = True
+'        btnButtonOne.Caption = ""
+'        btnButtonTwo.Caption = "No"
+'        picVBQuestion.Visible = True
+'    End If
 
    On Error GoTo 0
    Exit Property
@@ -555,7 +557,7 @@ Private Sub loadHigherResMessageImages()
 '    If panzerPrefs.mnuDark.Checked = True Then
 '        Call setMessageIconImagesDark(determineIconWidth(Me, msgBoxADynamicSizingFlg))
 '    Else
-        Call setMessageIconImagesLight(2000)
+        Call setMessageIconImagesLight(1920)
 '    End If
 
    On Error GoTo 0

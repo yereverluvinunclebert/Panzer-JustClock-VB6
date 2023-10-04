@@ -118,7 +118,7 @@
 ' resizing enabled for low DPI - done
 ' msgbox icons - create new sizes of the windowsQuestion icon image to allow resizing as per the prefs - done
 
-' update HTMP help - done
+' update HTMP help with recent changes - done
 ' create compiled CHM - done
 ' check system startup operating - done
 ' change current clock x/y position to high DPI position - done
@@ -126,16 +126,16 @@
 ' change current prefs x/y position to high DPI position - done
 ' add prefs low DPI x/y position to new low DPI position vars - done
 
-' msgBoxA - add vbNo
-' msgBoxA - add vbYes
-
-' add icon resizing to frmMessage msgBoxA - wip
+' update HTMP help to reduce CHM size, using JPGs - done
+' create compiled CHM - done
+' created 1920 icons for the frmMessage to display - done
+' add icon resizing to frmMessage msgBoxA - done
 
 ' drag corner, implement
 
 ' different scaling
 
-' monitorProperties, make it work
+' monitorProperties, make it work as per iconSettings and FCW.
 '    add second monitor
 '    see FCW and whether it has monitor awareness
 '    duplicate that observed
