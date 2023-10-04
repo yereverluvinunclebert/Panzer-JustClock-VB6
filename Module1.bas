@@ -2221,8 +2221,8 @@ Public Sub readPrefsPosition()
    On Error GoTo readPrefsPosition_Error
 
     If PzGDpiAwareness = "1" Then
-        PzGFormHighDpiXPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiXPos", PzGSettingsFile)
-        PzGFormHighDpiYPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiYPos", PzGSettingsFile)
+        PzGFormHighDpiXPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiXPosTwips", PzGSettingsFile)
+        PzGFormHighDpiYPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiYPosTwips", PzGSettingsFile)
         
         ' if a current location not stored then position to the middle of the screen
         If PzGFormHighDpiXPosTwips <> "" Then

@@ -121,12 +121,10 @@
 ' update HTMP help - done
 ' create compiled CHM - done
 ' check system startup operating - done
-
-' change current clock x/y position to high DPI position
-' add clock low DPI x/y position to new low DPI position vars
-
-' change current prefs x/y position to high DPI position
-' add prefs low DPI x/y position to new low DPI position vars
+' change current clock x/y position to high DPI position - done
+' add clock low DPI x/y position to new low DPI position vars - done
+' change current prefs x/y position to high DPI position - done
+' add prefs low DPI x/y position to new low DPI position vars - done
 
 ' msgBoxA - add vbNo
 ' msgBoxA - add vbYes
@@ -135,7 +133,7 @@
 
 ' drag corner, implement
 
-' differnet scaling
+' different scaling
 
 ' monitorProperties, make it work
 '    add second monitor
