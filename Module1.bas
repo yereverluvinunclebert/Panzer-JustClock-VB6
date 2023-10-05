@@ -331,7 +331,8 @@ Public PzGOpenFile As String
 Public PzGDefaultEditor As String
        
 ' font
-Public PzGprefsFont  As String
+Public PzGClockFont As String
+Public PzGPrefsFont As String
 Public PzGPrefsFontSizeHighDPI As String
 Public PzGPrefsFontSizeLowDPI As String
 Public PzGPrefsFontItalics  As String
@@ -416,7 +417,7 @@ Private Declare Function OpenFile Lib "kernel32" (ByVal lpFileName As String, _
 Private Declare Function PathFileExists Lib "shlwapi" Alias "PathFileExistsA" (ByVal pszPath As String) As Long
 Private Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" (ByVal pszPath As String) As Long
 Public PzGWindowLevelWasChanged As Boolean
-Public startupFlg As Boolean
+
 '------------------------------------------------------ ENDS
                             
 
@@ -1672,7 +1673,7 @@ Public Sub setMainTooltips()
    On Error GoTo setMainTooltips_Error
 
     If PzGEnableTooltips = "1" Then
-        overlayWidget.Widget.FontName = PzGprefsFont ' does not apply to the tooltip
+
         overlayWidget.Widget.ToolTip = "Use CTRL+mouse scrollwheel up/down to resize."
         helpWidget.Widget.ToolTip = "Click on me to make me go away."
         aboutWidget.Widget.ToolTip = "Click on me to make me go away."
@@ -1724,8 +1725,8 @@ Public Sub ChangeToolTipWidgetDefaultSettings(ByRef My_Widget As cWidgetBase)
 
     With My_Widget
     
-    .FontName = PzGprefsFont
-    .FontSize = Val(PzGPrefsFontSizeLowDPI)
+        .FontName = PzGClockFont
+        .FontSize = Val(PzGPrefsFontSizeLowDPI)
     
     End With
 

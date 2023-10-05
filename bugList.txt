@@ -46,7 +46,7 @@
 
 ' byval/byref on recent code additions - done
 
-' try the balloon tooltips on one control onmouseOver - wip
+' try the balloon tooltips on one control onmouseOver - done
 
 ' when the standard tooltips are altered, a soft reload is required - done
 
@@ -132,10 +132,8 @@
 ' add icon resizing to frmMessage msgBoxA - done
 ' drag corner, implement - done
 ' fixed Krool's slider instances min and max defaulting to 0 and 10 - done
-
-' disable the drag corner in low DPI mode
-
-' different scaling
+' disable the drag corner in low DPI mode - done
+' implement font characteristics variable for the main utility if it should ever need a font for itself - done
 
 ' monitorProperties, make it work as per iconSettings and FCW.
 '    add second monitor
@@ -147,11 +145,14 @@
 ' daylight saving time - wip
 ' date/day fields altered by DST and timezone changes
 
+' different scaling
+
+
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
-' implement font characteristics variable for the main utility if it should ever need a font for itself
-
 ' create a RC project to fade a widget in and out  to demonstrate the RC bug
+
+' initialise a lot of public and private declared vars - wip
 
 ' rubberduck
 

@@ -5,7 +5,7 @@ Option Explicit
 
 '------------------------------------------------------ STARTS
 ' for SetWindowPos z-ordering
-Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
+Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 
 Private Const HWND_TOP As Long = 0 ' for SetWindowPos z-ordering
 Private Const HWND_TOPMOST As Long = -1
@@ -235,7 +235,8 @@ Private Sub initialiseGlobalVars()
     PzGDefaultEditor = vbNullString
          
     ' font
-    PzGprefsFont = vbNullString
+    PzGClockFont = vbNullString
+    PzGPrefsFont = vbNullString
     PzGPrefsFontSizeHighDPI = vbNullString
     PzGPrefsFontSizeLowDPI = vbNullString
     PzGPrefsFontItalics = vbNullString
@@ -543,7 +544,8 @@ Public Sub readSettingsFile(ByVal location As String, ByVal PzGSettingsFile As S
         PzGhLocationPercPrefValue = fGetINISetting(location, "hLocationPercPrefValue", PzGSettingsFile)
 
         ' font
-        PzGprefsFont = fGetINISetting(location, "prefsFont", PzGSettingsFile)
+        PzGClockFont = fGetINISetting(location, "clockFont", PzGSettingsFile)
+        PzGPrefsFont = fGetINISetting(location, "prefsFont", PzGSettingsFile)
         PzGPrefsFontSizeHighDPI = fGetINISetting(location, "prefsFontSizeHighDPI", PzGSettingsFile)
         PzGPrefsFontSizeLowDPI = fGetINISetting(location, "prefsFontSizeLowDPI", PzGSettingsFile)
         PzGPrefsFontItalics = fGetINISetting(location, "prefsFontItalics", PzGSettingsFile)
@@ -626,12 +628,12 @@ Public Sub validateInputs()
         If PzGDpiAwareness = vbNullString Then PzGDpiAwareness = "1"
         If PzGGaugeSize = vbNullString Then PzGGaugeSize = "25"
         If PzGScrollWheelDirection = vbNullString Then PzGScrollWheelDirection = "1"
-
                
         ' fonts
-        If PzGprefsFont = vbNullString Then PzGprefsFont = "times new roman" 'prefsFont", PzGSettingsFile)
-        If PzGPrefsFontSizeHighDPI = vbNullString Then PzGPrefsFontSizeHighDPI = "8" 'prefsFontSizeLowDPI", PzGSettingsFile)
-        If PzGPrefsFontSizeLowDPI = vbNullString Then PzGPrefsFontSizeLowDPI = "8" 'prefsFontSizeLowDPI", PzGSettingsFile)
+        If PzGPrefsFont = vbNullString Then PzGPrefsFont = "times new roman"
+        If PzGClockFont = vbNullString Then PzGClockFont = PzGPrefsFont
+        If PzGPrefsFontSizeHighDPI = vbNullString Then PzGPrefsFontSizeHighDPI = "8"
+        If PzGPrefsFontSizeLowDPI = vbNullString Then PzGPrefsFontSizeLowDPI = "8"
         If PzGPrefsFontItalics = vbNullString Then PzGPrefsFontItalics = "false"
         If PzGPrefsFontColour = vbNullString Then PzGPrefsFontColour = "0"
 
