@@ -206,7 +206,7 @@ Begin VB.Form panzerPrefs
             Width           =   2115
          End
          Begin VB.Label lblPosition 
-            Caption         =   $"frmPrefs.frx":385D2
+            Caption         =   $"frmPrefs.frx":1856A
             Height          =   3435
             Index           =   12
             Left            =   5145
@@ -226,7 +226,7 @@ Begin VB.Form panzerPrefs
             Width           =   2040
          End
          Begin VB.Label lblPosition 
-            Caption         =   $"frmPrefs.frx":387A4
+            Caption         =   $"frmPrefs.frx":1873C
             Height          =   705
             Index           =   10
             Left            =   2250
@@ -246,7 +246,7 @@ Begin VB.Form panzerPrefs
             Width           =   2355
          End
          Begin VB.Label lblPosition 
-            Caption         =   $"frmPrefs.frx":38843
+            Caption         =   $"frmPrefs.frx":187DB
             Height          =   3045
             Index           =   6
             Left            =   2265
@@ -361,7 +361,7 @@ Begin VB.Form panzerPrefs
             Width           =   2400
          End
          Begin VB.Label lblFontsTab 
-            Caption         =   $"frmPrefs.frx":389E8
+            Caption         =   $"frmPrefs.frx":18980
             Height          =   1710
             Index           =   0
             Left            =   1725
@@ -496,7 +496,7 @@ Begin VB.Form panzerPrefs
             SelStart        =   5
          End
          Begin VB.Label lblConfiguration 
-            Caption         =   $"frmPrefs.frx":38B26
+            Caption         =   $"frmPrefs.frx":18ABE
             Height          =   930
             Index           =   0
             Left            =   1980
@@ -631,7 +631,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgAbout 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":38BDA
+         Picture         =   "frmPrefs.frx":18B72
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -639,7 +639,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgAboutClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":39162
+         Picture         =   "frmPrefs.frx":190FA
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -664,7 +664,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgConfig 
          Height          =   600
          Left            =   165
-         Picture         =   "frmPrefs.frx":3964D
+         Picture         =   "frmPrefs.frx":195E5
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -672,7 +672,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgConfigClicked 
          Height          =   600
          Left            =   165
-         Picture         =   "frmPrefs.frx":39C2C
+         Picture         =   "frmPrefs.frx":19BC4
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -696,7 +696,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgDevelopment 
          Height          =   600
          Left            =   150
-         Picture         =   "frmPrefs.frx":3A131
+         Picture         =   "frmPrefs.frx":1A0C9
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -704,7 +704,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgDevelopmentClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3A6E9
+         Picture         =   "frmPrefs.frx":1A681
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -729,7 +729,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgPosition 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3AA6F
+         Picture         =   "frmPrefs.frx":1AA07
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -737,7 +737,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgPositionClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3B040
+         Picture         =   "frmPrefs.frx":1AFD8
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -782,7 +782,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgSounds 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3B3DE
+         Picture         =   "frmPrefs.frx":1B376
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -790,7 +790,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgSoundsClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3B99D
+         Picture         =   "frmPrefs.frx":1B935
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -830,7 +830,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgWindow 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3BE6D
+         Picture         =   "frmPrefs.frx":1BE05
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -838,7 +838,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgWindowClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":3C337
+         Picture         =   "frmPrefs.frx":1C2CF
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -862,7 +862,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgFonts 
          Height          =   600
          Left            =   180
-         Picture         =   "frmPrefs.frx":3C6E3
+         Picture         =   "frmPrefs.frx":1C67B
          Stretch         =   -1  'True
          Top             =   195
          Width           =   600
@@ -870,7 +870,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgFontsClicked 
          Height          =   600
          Left            =   180
-         Picture         =   "frmPrefs.frx":3CC39
+         Picture         =   "frmPrefs.frx":1CBD1
          Stretch         =   -1  'True
          Top             =   195
          Width           =   600
@@ -948,7 +948,7 @@ Begin VB.Form panzerPrefs
                Width           =   3660
             End
             Begin VB.Label lblGitHub 
-               Caption         =   $"frmPrefs.frx":3D0D2
+               Caption         =   $"frmPrefs.frx":1D06A
                ForeColor       =   &H8000000D&
                Height          =   915
                Left            =   1560
@@ -958,7 +958,7 @@ Begin VB.Form panzerPrefs
                Width           =   4935
             End
             Begin VB.Label lblDebug 
-               Caption         =   $"frmPrefs.frx":3D16B
+               Caption         =   $"frmPrefs.frx":1D103
                Height          =   930
                Index           =   9
                Left            =   1545
@@ -1005,9 +1005,9 @@ Begin VB.Form panzerPrefs
          End
          Begin VB.ComboBox cmbDebug 
             Height          =   315
-            ItemData        =   "frmPrefs.frx":3D20F
+            ItemData        =   "frmPrefs.frx":1D1A7
             Left            =   1530
-            List            =   "frmPrefs.frx":3D211
+            List            =   "frmPrefs.frx":1D1A9
             Style           =   2  'Dropdown List
             TabIndex        =   54
             ToolTipText     =   "Choose to set debug mode."
@@ -1093,9 +1093,9 @@ Begin VB.Form panzerPrefs
          Width           =   6600
          Begin VB.ComboBox cmbTickSwitchPref 
             Height          =   315
-            ItemData        =   "frmPrefs.frx":3D213
+            ItemData        =   "frmPrefs.frx":1D1AB
             Left            =   2010
-            List            =   "frmPrefs.frx":3D215
+            List            =   "frmPrefs.frx":1D1AD
             Style           =   2  'Dropdown List
             TabIndex        =   154
             Top             =   5175
@@ -1127,9 +1127,9 @@ Begin VB.Form panzerPrefs
          End
          Begin VB.ComboBox cmbMainGaugeTimeZone 
             Height          =   315
-            ItemData        =   "frmPrefs.frx":3D217
+            ItemData        =   "frmPrefs.frx":1D1AF
             Left            =   2010
-            List            =   "frmPrefs.frx":3D219
+            List            =   "frmPrefs.frx":1D1B1
             Style           =   2  'Dropdown List
             TabIndex        =   142
             Top             =   1185
@@ -1190,7 +1190,7 @@ Begin VB.Form panzerPrefs
             Width           =   1365
          End
          Begin VB.Label lblGeneral 
-            Caption         =   $"frmPrefs.frx":3D21B
+            Caption         =   $"frmPrefs.frx":1D1B3
             Height          =   660
             Index           =   7
             Left            =   2010
@@ -1318,7 +1318,7 @@ Begin VB.Form panzerPrefs
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
          TabIndex        =   114
-         Text            =   "frmPrefs.frx":3D2B2
+         Text            =   "frmPrefs.frx":1D24A
          Top             =   2205
          Width           =   8010
       End
@@ -1654,7 +1654,7 @@ Begin VB.Form panzerPrefs
                Width           =   720
             End
             Begin VB.Label lblWindowLevel 
-               Caption         =   $"frmPrefs.frx":3E269
+               Caption         =   $"frmPrefs.frx":1E201
                Height          =   975
                Index           =   1
                Left            =   855
@@ -2063,12 +2063,6 @@ Private Sub Form_Initialize()
     prefsDynamicSizingFlg = False
     lastFormHeight = 0
 
-'    PzGFormHighDpiXPosTwips = ""
-'    PzGFormHighDpiYPosTwips = ""
-'
-'    PzGFormLowDpiXPosTwips = ""
-'    PzGFormLowDpiYPosTwips = ""
-
     On Error GoTo 0
     Exit Sub
 
@@ -2089,7 +2083,7 @@ Private Sub Form_Load()
     Dim prefsFormHeight As Long: prefsFormHeight = 0
 
     On Error GoTo Form_Load_Error
-    
+        
     prefsStartupFlg = True ' this is used to prevent some control initialisations from running code at startup
     prefsDynamicSizingFlg = False
     PzGPrefsLoadedFlg = True ' this is a variable tested by an added form property to indicate whether the form is loaded or not
@@ -2150,7 +2144,7 @@ Private Sub Form_Load()
         Me.Height = prefsFormHeight
     End If
     
-    ' position the prefs on the curent monitor
+    ' position the prefs on the current monitor
     Call positionPrefsMonitor
     
     ' start the timer that records the prefs position every 10 seconds
@@ -2180,6 +2174,7 @@ Private Sub positionPrefsMonitor()
 
     Dim formLeftPixels As Long: formLeftPixels = 0
     Dim formTopPixels As Long: formTopPixels = 0
+    Dim monitorCount As Long: monitorCount = 0
     
     On Error GoTo positionPrefsMonitor_Error
     
@@ -2191,8 +2186,9 @@ Private Sub positionPrefsMonitor()
         formTopPixels = PzGFormLowDpiYPosTwips
     End If
     
-    Call adjustFormPositionToCorrectMonitor(panzerPrefs.hwnd, formLeftPixels, formTopPixels)
-
+    monitorCount = fGetMonitorCount
+    If monitorCount > 1 Then Call adjustFormPositionToCorrectMonitor(panzerPrefs.hwnd, formLeftPixels, formTopPixels)
+    
     On Error GoTo 0
     Exit Sub
 
@@ -3759,7 +3755,7 @@ End Sub
 '
 Private Sub Form_Resize()
     Dim ratio As Double: ratio = 0
-    Dim currentFont As Integer: currentFont = 0
+    Dim currentFont As Long: currentFont = 0
     
     On Error GoTo Form_Resize_Error
     

@@ -412,7 +412,7 @@ Private Sub prefsbutton_mouseDown(ByRef Sender As Object)
     If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
-    
+   'MsgBox "prefsbutton_mouseDown"
    Call makeProgramPreferencesAvailable
 
    On Error GoTo 0

@@ -478,7 +478,7 @@ Private Sub Form_Load()
     '                       as each instance of the form is new, the font modification must be here.
     For Each Ctrl In Controls
          If (TypeOf Ctrl Is CommandButton) Or (TypeOf Ctrl Is textBox) Or (TypeOf Ctrl Is FileListBox) Or (TypeOf Ctrl Is Label) Or (TypeOf Ctrl Is ComboBox) Or (TypeOf Ctrl Is CheckBox) Or (TypeOf Ctrl Is OptionButton) Or (TypeOf Ctrl Is Frame) Or (TypeOf Ctrl Is ListBox) Then
-            If PzGprefsFont <> "" Then Ctrl.Font.Name = PzGprefsFont
+            If PzGPrefsFont <> "" Then Ctrl.Font.Name = PzGPrefsFont
            
             If PzGDpiAwareness = "1" Then
                 If Val(Abs(PzGPrefsFontSizeHighDPI)) > 0 Then Ctrl.Font.Size = Val(Abs(PzGPrefsFontSizeHighDPI))
@@ -509,7 +509,7 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub Form_Resize()
-    Dim currentFont As Integer: currentFont = 0
+    Dim currentFont As Long: currentFont = 0
     Dim ratio As Double: ratio = 0
     
     On Error GoTo Form_Resize_Error
@@ -518,9 +518,9 @@ Private Sub Form_Resize()
 
     ratio = cMsgBoxAFormHeight / cMsgBoxAFormWidth
     If PzGDpiAwareness = "1" Then
-        currentFont = PzGPrefsFontSizeHighDPI
+        currentFont = Val(PzGPrefsFontSizeHighDPI)
     Else
-        currentFont = PzGPrefsFontSizeLowDPI
+        currentFont = Val(PzGPrefsFontSizeLowDPI)
     End If
     
     If msgBoxADynamicSizingFlg = True Then

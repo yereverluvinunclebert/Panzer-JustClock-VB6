@@ -358,7 +358,7 @@ End Sub
 Private Sub mnuProgramPreferences_Click()
     
     On Error GoTo mnuProgramPreferences_Click_Error
-
+    
     Call makeProgramPreferencesAvailable
 
     On Error GoTo 0

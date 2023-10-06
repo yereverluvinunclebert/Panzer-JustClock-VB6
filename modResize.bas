@@ -8,12 +8,12 @@ Public Type ControlPositionType
 End Type
 
 Public prefsControlPositions() As ControlPositionType
-Public prefsCurrentWidth As Single
-Public prefsCurrentHeight As Single
+Public prefsCurrentWidth As Double
+Public prefsCurrentHeight As Double
 
 Public msgBoxAControlPositions() As ControlPositionType
-Public msgBoxACurrentWidth As Single
-Public msgBoxACurrentHeight As Single
+Public msgBoxACurrentWidth As Double
+Public msgBoxACurrentHeight As Double
 
 '---------------------------------------------------------------------------------------
 ' Procedure : ResizeControls
@@ -22,14 +22,14 @@ Public msgBoxACurrentHeight As Single
 ' Purpose   : Arrange the controls for a new size.
 '---------------------------------------------------------------------------------------
 '
-Public Sub resizeControls(ByRef thisForm As Form, ByRef m_ControlPositions() As ControlPositionType, ByVal m_FormWid As Single, ByVal m_FormHgt, ByVal formFontSize As Integer)
+Public Sub resizeControls(ByRef thisForm As Form, ByRef m_ControlPositions() As ControlPositionType, ByVal m_FormWid As Double, ByVal m_FormHgt As Double, ByVal formFontSize As Long)
     Dim i As Integer: i = 0
     Dim Ctrl As Control
     Dim x_scale As Single: x_scale = 0
     Dim y_scale As Single: y_scale = 0
         
     On Error GoTo ResizeControls_Error
-
+'
     ' Get the form's current scale factors.
     x_scale = thisForm.ScaleWidth / m_FormWid
     y_scale = thisForm.ScaleHeight / m_FormHgt
@@ -40,15 +40,15 @@ Public Sub resizeControls(ByRef thisForm As Form, ByRef m_ControlPositions() As 
     For Each Ctrl In thisForm.Controls
         With m_ControlPositions(i)
             If (TypeOf Ctrl Is CommandButton) Or (TypeOf Ctrl Is ListBox) Or (TypeOf Ctrl Is textBox) Or (TypeOf Ctrl Is FileListBox) Or (TypeOf Ctrl Is Label) Or (TypeOf Ctrl Is ComboBox) Or (TypeOf Ctrl Is CheckBox) Or (TypeOf Ctrl Is OptionButton) Or (TypeOf Ctrl Is Frame) Or (TypeOf Ctrl Is Image) Or (TypeOf Ctrl Is PictureBox) Or (TypeOf Ctrl Is Slider) Then
-      
+
                 If (TypeOf Ctrl Is Image) Then
-                    
+
                     Ctrl.Stretch = True
                     Ctrl.Left = x_scale * .Left
                     Ctrl.Top = y_scale * .Top
                     Ctrl.Width = x_scale * .Width
                     Ctrl.Height = Ctrl.Width ' always square in our case
-                    
+
                     Ctrl.Refresh
                 Else
                     Ctrl.Left = x_scale * .Left
@@ -88,7 +88,7 @@ End Sub
 ' Credit    : Rod Stephens vb-helper.com
 '---------------------------------------------------------------------------------------
 '
-Public Sub SaveSizes(ByVal thisForm As Form, ByRef m_ControlPositions() As ControlPositionType, ByRef m_FormWid As Single, ByRef m_FormHgt As Single)
+Public Sub SaveSizes(ByVal thisForm As Form, ByRef m_ControlPositions() As ControlPositionType, ByRef m_FormWid As Double, ByRef m_FormHgt As Double)
     Dim i As Integer: i = 0
     Dim a As Integer: a = 0
     Dim Ctrl As Control

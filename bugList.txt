@@ -137,12 +137,13 @@
 ' implement font characteristics variable for the main utility if it should ever need a font for itself - done
 ' initialise private declared vars in prefs using form_initialise - done
 
-' add second monitor - wip
-' monitorProperties, make it work and observe the result as per FCW - wip
+' monitorProperties, make it work and observe the result as per FCW - done
 
-' adjustFormPositionToCorrectMonitor, make it work and observe the result as per FCW
-'    duplicate that observed
-'    might use RC6 for this?
+' test usage of RC6 for monitor awareness
+
+' add second monitor - wip
+
+' adjustFormPositionToCorrectMonitor, make it work and observe the result as per FCW - wip
 
 ' time zone code - wip - look at YWE and replicate
 ' daylight saving time - wip
@@ -157,6 +158,10 @@
 ' initialise a lot of public and private declared vars - wip
 
 ' check if all current public vars need to be public
+
+' adjustFormPositionToCorrectMonitor - licence form
+' adjustFormPositionToCorrectMonitor - about form
+' adjustFormPositionToCorrectMonitor - help form
 
 ' rubberduck
 

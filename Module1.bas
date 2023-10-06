@@ -389,7 +389,7 @@ Public CTRL_1 As Boolean
 Public SHIFT_1 As Boolean
 
 ' other globals
-Public debugflg As Integer
+Public debugFlg As Integer
 Public minutesToHide As Integer
 Public aspectRatio As String
   
@@ -1750,6 +1750,7 @@ Public Sub makeVisibleFormElements()
 
     Dim formLeftPixels As Long: formLeftPixels = 0
     Dim formTopPixels As Long: formTopPixels = 0
+    Dim monitorCount As Long: monitorCount = 0
     
     On Error GoTo makeVisibleFormElements_Error
 
@@ -1763,10 +1764,16 @@ Public Sub makeVisibleFormElements()
         formTopPixels = Val(PzGClockLowDpiYPos)
     End If
     
-    Call adjustFormPositionToCorrectMonitor(fAlpha.gaugeForm.hwnd, formLeftPixels, formTopPixels)
-    
     ' The RC forms are measured in pixels, whereas the native forms are in twips, do remember that...
 
+    monitorCount = fGetMonitorCount
+    If monitorCount > 1 Then
+        Call adjustFormPositionToCorrectMonitor(fAlpha.gaugeForm.hwnd, formLeftPixels, formTopPixels)
+    Else
+        fAlpha.gaugeForm.Left = formLeftPixels
+        fAlpha.gaugeForm.Top = formTopPixels
+    End If
+    
     fAlpha.gaugeForm.show
 
     On Error GoTo 0
@@ -2175,31 +2182,41 @@ End Sub
 '
 Public Sub makeProgramPreferencesAvailable()
     On Error GoTo makeProgramPreferencesAvailable_Error
+'    Dim debugFlg As Integer: debugFlg = 1
+    
+'    If debugFlg = 1 Then
+'
+'        MsgBox "panzerPrefs.Visible " & panzerPrefs.Visible
+'        MsgBox "panzerPrefs.WindowState " & panzerPrefs.WindowState
+'
+'    End If
     
     If panzerPrefs.IsVisible = False Then
-    
+        panzerPrefs.Visible = True
+        panzerPrefs.show  ' show it again
+        panzerPrefs.SetFocus
+
         If panzerPrefs.WindowState = vbMinimized Then
             panzerPrefs.WindowState = vbNormal
             Call readPrefsPosition
         End If
-        
+
         ' set the current position of the utility according to previously stored positions
 
         If panzerPrefs.WindowState = vbNormal Then
-        
+
             Call readPrefsPosition
-            
+
             If panzerPrefs.Left = 0 Then
                 If ((fAlpha.gaugeForm.Left + fAlpha.gaugeForm.Width) * screenTwipsPerPixelX) + 200 + panzerPrefs.Width > screenWidthTwips Then
                     panzerPrefs.Left = (fAlpha.gaugeForm.Left * screenTwipsPerPixelX) - (panzerPrefs.Width + 200)
                 End If
             End If
-            
+
             If panzerPrefs.Left < 0 Then panzerPrefs.Left = 0
             If panzerPrefs.Top < 0 Then panzerPrefs.Top = 0
-            
-            panzerPrefs.show  ' show it again
-            panzerPrefs.SetFocus
+
+
         End If
     End If
     
@@ -2209,7 +2226,7 @@ Public Sub makeProgramPreferencesAvailable()
 
 makeProgramPreferencesAvailable_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure makeProgramPreferencesAvailable of Form menuForm"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure makeProgramPreferencesAvailable of module module1.bas"
 End Sub
     
 

@@ -59,7 +59,7 @@ End Sub
 Public Sub mainRoutine(ByVal restart As Boolean)
     Dim extractCommand As String: extractCommand = vbNullString
     Dim thisPSDFullPath As String: thisPSDFullPath = vbNullString
-
+    
     On Error GoTo main_routine_Error
     
     widgetName = "Panzer Just Clock Gauge"
@@ -93,8 +93,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     Call validateInputs
     
     If PzGDpiAwareness = "1" Then
-        If Not InIDE Then Cairo.SetDPIAwareness ' avoids the VB6 IDE shrinking
-        'Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
+        'If Not InIDE Then Cairo.SetDPIAwareness ' avoids the VB6 IDE shrinking
+        Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
     End If
         
     'load the collection for storing the overlay surfaces with its relevant keys direct from the PSD
@@ -109,14 +109,14 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' initialise and create the main forms on the current display
     Call createStandardFormsOnCurrentDisplay
     
+    ' resolve VB6 sizing width bug
+    Call determineScreenDimensions
+    
     ' check the selected monitor properties
     Call monitorProperties(fAlpha.gaugeForm)  ' might use RC6 for this?
     
     ' place the form at the saved location
     Call makeVisibleFormElements
-    
-    ' resolve VB6 sizing width bug
-    Call determineScreenDimensions
     
     ' run the functions that are also called at reload time.
     Call adjustMainControls ' this needs to be here after the initialisation of the Cairo forms and widgets
@@ -129,6 +129,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     
     ' if the parameter states re-open prefs then shows the prefs
     If extractCommand = "prefs" Then
+        'MsgBox "mainroutine"
         Call makeProgramPreferencesAvailable
         extractCommand = vbNullString
     End If
@@ -140,7 +141,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     Call configureTimers
     
     'load the preferences form but don't yet show it, speeds up access to the prefs when required
-    Load panzerPrefs
+   ' Load panzerPrefs
     
     ' RC message pump will auto-exit when Cairo Forms > 0 so we run it only when 0, this prevents message interruption
     ' when running twice on reload.
@@ -151,7 +152,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
 
 main_routine_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure main_routine of Module modMain"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure main_routine of Module modMain at "
     
 End Sub
  
@@ -167,6 +168,8 @@ Private Sub checkFirstTime()
    On Error GoTo checkFirstTime_Error
 
     If PzGFirstTimeRun = "true" Then
+        'MsgBox "checkFirstTime"
+
         Call makeProgramPreferencesAvailable
         PzGFirstTimeRun = "false"
         sPutINISetting "Software\PzJustClock", "firstTimeRun", PzGFirstTimeRun, PzGSettingsFile
@@ -284,7 +287,7 @@ Private Sub initialiseGlobalVars()
     SHIFT_1 = False
     
     ' other globals
-    debugflg = 0
+    debugFlg = 0
     minutesToHide = 0
     aspectRatio = vbNullString
     revealWidgetTimerCount = 0
