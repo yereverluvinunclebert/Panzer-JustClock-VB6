@@ -1747,21 +1747,23 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Public Sub makeVisibleFormElements()
+
+    Dim formLeftPixels As Long: formLeftPixels = 0
+    Dim formTopPixels As Long: formTopPixels = 0
     
     On Error GoTo makeVisibleFormElements_Error
 
     'NOTE that when you position a widget you are positioning the form it is drawn upon.
-    
-'     PzGClockHighDpiXPos = fGetINISetting("Software\PzJustClock", "clockHighDpiXPos", PzGSettingsFile)
-'     PzGclockHighDpiYPos = fGetINISetting("Software\PzJustClock", "clockHighDpiYPos", PzGSettingsFile)
 
     If PzGDpiAwareness = "1" Then
-        fAlpha.gaugeForm.Left = Val(PzGClockHighDpiXPos)
-        fAlpha.gaugeForm.Top = Val(PzGClockHighDpiYPos)
+        formLeftPixels = Val(PzGClockHighDpiXPos)
+        formTopPixels = Val(PzGClockHighDpiYPos)
     Else
-        fAlpha.gaugeForm.Left = Val(PzGClockLowDpiXPos)
-        fAlpha.gaugeForm.Top = Val(PzGClockLowDpiYPos)
+        formLeftPixels = Val(PzGClockLowDpiXPos)
+        formTopPixels = Val(PzGClockLowDpiYPos)
     End If
+    
+    Call adjustFormPositionToCorrectMonitor(fAlpha.gaugeForm.hwnd, formLeftPixels, formTopPixels)
     
     ' The RC forms are measured in pixels, whereas the native forms are in twips, do remember that...
 

@@ -133,11 +133,14 @@
 ' drag corner, implement - done
 ' fixed Krool's slider instances min and max defaulting to 0 and 10 - done
 ' disable the drag corner in low DPI mode - done
-' implement font characteristics variable for the main utility if it should ever need a font for itself - done
 
-' monitorProperties, make it work as per iconSettings and FCW.
-'    add second monitor
-'    see FCW and whether it has monitor awareness
+' implement font characteristics variable for the main utility if it should ever need a font for itself - done
+' initialise private declared vars in prefs using form_initialise - done
+
+' add second monitor - wip
+' monitorProperties, make it work and observe the result as per FCW - wip
+
+' adjustFormPositionToCorrectMonitor, make it work and observe the result as per FCW
 '    duplicate that observed
 '    might use RC6 for this?
 
@@ -145,14 +148,15 @@
 ' daylight saving time - wip
 ' date/day fields altered by DST and timezone changes
 
-' different scaling
-
+' different scaling, currently 150%, all good
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
-' create a RC project to fade a widget in and out  to demonstrate the RC bug
+' create a RC project to fade a widget in and out to demonstrate the RC fade out bug
 
 ' initialise a lot of public and private declared vars - wip
+
+' check if all current public vars need to be public
 
 ' rubberduck
 

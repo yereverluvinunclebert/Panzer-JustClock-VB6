@@ -5,7 +5,7 @@ Option Explicit
 
 '------------------------------------------------------ STARTS
 ' for SetWindowPos z-ordering
-Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
+Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 
 Private Const HWND_TOP As Long = 0 ' for SetWindowPos z-ordering
 Private Const HWND_TOPMOST As Long = -1
@@ -109,6 +109,9 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' initialise and create the main forms on the current display
     Call createStandardFormsOnCurrentDisplay
     
+    ' check the selected monitor properties
+    Call monitorProperties(fAlpha.gaugeForm)  ' might use RC6 for this?
+    
     ' place the form at the saved location
     Call makeVisibleFormElements
     
@@ -117,9 +120,6 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     
     ' run the functions that are also called at reload time.
     Call adjustMainControls ' this needs to be here after the initialisation of the Cairo forms and widgets
-    
-    ' check the selected monitor properties to determine form placement
-    'Call monitorProperties(frmHidden) - might use RC6 for this?
     
     ' move/hide onto/from the main screen
     Call mainScreen
