@@ -59,11 +59,12 @@ End Sub
 Public Sub mainRoutine(ByVal restart As Boolean)
     Dim extractCommand As String: extractCommand = vbNullString
     Dim thisPSDFullPath As String: thisPSDFullPath = vbNullString
+
     
     On Error GoTo main_routine_Error
     
     widgetName = "Panzer Just Clock Gauge"
-    thisPSDFullPath = App.Path & "\Res\justClockVB6.psd"
+    thisPSDFullPath = App.path & "\Res\justClockVB6.psd"
     fAlpha.FX = 222 'init position- and zoom-values (directly set on Public-Props of the Form-hosting Class)
     fAlpha.FY = 111
     fAlpha.FZ = 0.4
@@ -137,11 +138,14 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' check and handle first time running
     Call checkFirstTime
 
+    ' obtain daylight saving times data
+    Call obtainDaylightSavings
+    
     ' configure any global timers here
     Call configureTimers
     
     'load the preferences form but don't yet show it, speeds up access to the prefs when required
-   ' Load panzerPrefs
+    Load panzerPrefs
     
     ' RC message pump will auto-exit when Cairo Forms > 0 so we run it only when 0, this prevents message interruption
     ' when running twice on reload.
@@ -311,16 +315,16 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub addImagesToImageList()
-    Dim useloop As Integer: useloop = 0
+    Dim useLoop As Integer: useLoop = 0
     
     On Error GoTo addImagesToImageList_Error
 
 '    add Resources to the global ImageList that are not being pulled from the PSD directly
     
-    Cairo.ImageList.AddImage "about", App.Path & "\Resources\images\about.png"
-    Cairo.ImageList.AddImage "help", App.Path & "\Resources\images\panzergauge-help.png"
-    Cairo.ImageList.AddImage "licence", App.Path & "\Resources\images\frame.png"
-    Cairo.ImageList.AddImage "frmIcon", App.Path & "\Resources\images\Icon.png"
+    Cairo.ImageList.AddImage "about", App.path & "\Resources\images\about.png"
+    Cairo.ImageList.AddImage "help", App.path & "\Resources\images\panzergauge-help.png"
+    Cairo.ImageList.AddImage "licence", App.path & "\Resources\images\frame.png"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\Icon.png"
 
    On Error GoTo 0
    Exit Sub

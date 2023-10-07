@@ -2179,11 +2179,11 @@ Private Sub positionPrefsMonitor()
     On Error GoTo positionPrefsMonitor_Error
     
     If PzGDpiAwareness = "1" Then
-        formLeftPixels = PzGFormHighDpiXPosTwips
-        formTopPixels = PzGFormHighDpiYPosTwips
+        formLeftPixels = Val(PzGFormHighDpiXPosTwips)
+        formTopPixels = Val(PzGFormHighDpiYPosTwips)
     Else
-        formLeftPixels = PzGFormLowDpiXPosTwips
-        formTopPixels = PzGFormLowDpiYPosTwips
+        formLeftPixels = Val(PzGFormLowDpiXPosTwips)
+        formTopPixels = Val(PzGFormLowDpiYPosTwips)
     End If
     
     monitorCount = fGetMonitorCount
@@ -3110,8 +3110,8 @@ Private Sub btnHelp_Click()
     
     On Error GoTo btnHelp_Click_Error
     
-        If fFExists(App.Path & "\help\Help.chm") Then
-            Call ShellExecute(Me.hwnd, "Open", App.Path & "\help\Help.chm", vbNullString, App.Path, 1)
+        If fFExists(App.path & "\help\Help.chm") Then
+            Call ShellExecute(Me.hwnd, "Open", App.path & "\help\Help.chm", vbNullString, App.path, 1)
         Else
             MsgBox ("%Err-I-ErrorNumber 11 - The help file - Help.chm - is missing from the help folder.")
         End If
@@ -3213,7 +3213,7 @@ Private Sub btnSave_Click()
     PzGDefaultEditor = txtDefaultEditor.Text
             
     If PzGStartup = "1" Then
-        Call savestring(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PzJustClockWidget", """" & App.Path & "\" & "Panzer Just Clock.exe""")
+        Call savestring(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PzJustClockWidget", """" & App.path & "\" & "Panzer Just Clock.exe""")
     Else
         Call savestring(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PzJustClockWidget", vbNullString)
     End If
@@ -3643,7 +3643,7 @@ Private Sub populatePrefsComboBoxes()
 '    cmbClockFaceSwitchPref.AddItem "stopwatch", 1
  
     'populate one timezone combobox from file.
-    Call readFileWriteComboBox(cmbMainGaugeTimeZone, App.Path & "\Resources\txt\timezones.txt")
+    Call readFileWriteComboBox(cmbMainGaugeTimeZone, App.path & "\Resources\txt\timezones.txt")
     
     cmbMainDaylightSaving.AddItem "Daylight Savings Not used", 0
     cmbMainDaylightSaving.ItemData(0) = 0
@@ -4074,7 +4074,7 @@ Private Sub lblGitHub_dblClick()
     answerMsg = "This option opens a browser window and take you straight to Github. Proceed?"
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Proceed to Github? ", True, "lblGitHubDblClick")
     If answer = vbYes Then
-       Call ShellExecute(Me.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6", vbNullString, App.Path, 1)
+       Call ShellExecute(Me.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6", vbNullString, App.path, 1)
     End If
 
    On Error GoTo 0
@@ -4595,7 +4595,7 @@ Private Sub loadPrefsAboutText()
     lblMinorVersion.Caption = App.Minor
     lblRevisionNum.Caption = App.Revision
     
-    Call LoadFileToTB(txtAboutText, App.Path & "\resources\txt\about.txt", False)
+    Call LoadFileToTB(txtAboutText, App.path & "\resources\txt\about.txt", False)
 
    On Error GoTo 0
    Exit Sub
@@ -5302,7 +5302,7 @@ Private Sub setPrefsIconImagesDark(ByVal thisIconWidth As Long)
     
     On Error GoTo setPrefsIconImagesDark_Error
     
-    resourcePath = App.Path & "\resources\images"
+    resourcePath = App.path & "\resources\images"
 
     If fFExists(resourcePath & "\general-icon-dark-" & thisIconWidth & ".jpg") Then Set imgGeneral.Picture = LoadPicture(resourcePath & "\general-icon-dark-" & thisIconWidth & ".jpg")
     
@@ -5348,7 +5348,7 @@ Private Sub setPrefsIconImagesLight(ByVal thisIconWidth As Long)
     
     On Error GoTo setPrefsIconImagesLight_Error
     
-    resourcePath = App.Path & "\resources\images"
+    resourcePath = App.path & "\resources\images"
     
     If fFExists(resourcePath & "\config-icon-light-" & thisIconWidth & ".jpg") Then panzerPrefs.imgConfig.Picture = LoadPicture(resourcePath & "\config-icon-light-" & thisIconWidth & ".jpg")
     If fFExists(resourcePath & "\general-icon-light-" & thisIconWidth & ".jpg") Then panzerPrefs.imgGeneral.Picture = LoadPicture(resourcePath & "\general-icon-light-" & thisIconWidth & ".jpg")

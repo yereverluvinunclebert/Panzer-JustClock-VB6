@@ -138,8 +138,11 @@
 ' initialise private declared vars in prefs using form_initialise - done
 
 ' monitorProperties, make it work and observe the result as per FCW - done
+' add monitor count - done
+' different scaling, currently 150%, others good
+' 125% desktop scaling problem, find and fix, panzerPrefs custom icon caused 500003 unexpected error when form asked to appear - done
 
-' test usage of RC6 for monitor awareness
+' test usage of RC6 for monitor awareness - wip
 
 ' add second monitor - wip
 
@@ -148,8 +151,6 @@
 ' time zone code - wip - look at YWE and replicate
 ' daylight saving time - wip
 ' date/day fields altered by DST and timezone changes
-
-' different scaling, currently 150%, all good
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
@@ -163,9 +164,9 @@
 ' adjustFormPositionToCorrectMonitor - about form
 ' adjustFormPositionToCorrectMonitor - help form
 
-' rubberduck
+' review code using rubberduck
 
-' review code
+' review code using mzTools
 
 ' setup2go
 
