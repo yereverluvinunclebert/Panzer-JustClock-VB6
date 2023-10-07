@@ -144,9 +144,10 @@
 ' read the daylight saving time rule list from file - done
 ' get the number of the month given a month name - done
 
-' get the number of the day given a day name - done
-' get the number of days in a given month - done
+' get the number of the day given a day name and test - done
+' get the number of days in a given month and test - done
 
+' get Date (1..31) Of First dayName (Sun..Sat) after date (1..31) of monthName (Jan..Dec) of year (2004..) - wip
 
 ' daylight saving time - wip
 ' time zone code - wip - look at YWE and replicate - wip

@@ -31,7 +31,7 @@ Public Sub obtainDaylightSavings()
     getDaysIn = getDaysInMonth(numberOfMonth, 1961)
     
     ' get Date (1..31) Of First dayName (Sun..Sat) after date (1..31) of monthName (Jan..Dec) of year (2004..)
-    dateOfFirst = getDateOfFirst("Sun", 15, "Feb", 1961)
+    dateOfFirst = getDateOfFirst("Sun", 15, "Sep", 1961)
 
     On Error GoTo 0
     Exit Sub
@@ -254,9 +254,9 @@ End Function
 '
 Public Function getDateOfFirst(ByVal dayName As String, ByVal thisDayNumber As Integer, ByVal monthName As String, ByVal thisYear As Integer) As Integer
 '
-    Dim tDay As Integer
-    Dim tMonth As Integer
-    Dim last As Integer
+    Dim tDay As Integer: tDay = 0
+    Dim tMonth As Integer: tMonth = 0
+    Dim last As Integer: last = 0
     Dim d As Date
     Dim lastDay As Date
 
@@ -264,7 +264,14 @@ Public Function getDateOfFirst(ByVal dayName As String, ByVal thisDayNumber As I
 
     tDay = getNumberOfDay(dayName)
     tMonth = getNumberOfMonth(monthName)
+    
+    If tDay = 99 Or tMonth = 99 Then
+        getDateOfFirst = 99 ' return invalid
+        Exit Function
+    End If
+    
     last = thisDayNumber + 6
+    
     d = CDate(last & "/" & tMonth & "/" & thisYear)
     
     lastDay = DateSerial(thisYear, tMonth, last)
@@ -281,3 +288,52 @@ getDateOfFirst_Error:
 
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure getDateOfFirst of Module modDaylightSavings"
 End Function
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : getDateOfLast
+' Author    : beededea
+' Date      : 07/10/2023
+' Purpose   : get Date (1..31) Of Last dayName (Sun..Sat) of monthName (Jan..Dec) of year (2004..)
+'             dayName:     Sun, Mon, Tue, Wed, Thu, Fr, Sat
+'             monthName:   Jan, Feb, etc.
+'---------------------------------------------------------------------------------------
+'
+Public Function getDateOfLast(ByVal dayName As String, ByVal monthName As String, ByVal thisYear As Integer) As Integer
+    Dim tDay As Integer: tDay = 0
+    Dim tMonth As Integer: tMonth = 0
+    Dim last As Integer: last = 0
+    Dim d As Date
+    Dim lastDay As Date
+    
+    On Error GoTo getDateOfLast_Error
+
+    tDay = getNumberOfDay(dayName)
+    tMonth = getNumberOfMonth(monthName)
+    
+    If tDay = 99 Or tMonth = 99 Then
+        getDateOfLast = 99 ' return invalid
+        Exit Function
+    End If
+    
+    last = getDaysInMonth(tMonth, thisYear)
+    
+    d = CDate(last & "/" & tMonth & "/" & thisYear)
+    
+    lastDay = DateSerial(thisYear, tMonth, last)
+
+    If IsDate(lastDay) Then
+        getDateOfLast = last - (lastDay - tDay + 7) Mod 7 'return
+    Else
+        getDateOfLast = 99 ' return invalid
+    End If
+
+    On Error GoTo 0
+    Exit Function
+
+getDateOfLast_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure getDateOfLast of Module modDaylightSavings"
+
+End Function
+
