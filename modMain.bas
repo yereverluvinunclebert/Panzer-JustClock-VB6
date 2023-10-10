@@ -94,8 +94,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     Call validateInputs
     
     If PzGDpiAwareness = "1" Then
-        'If Not InIDE Then Cairo.SetDPIAwareness ' avoids the VB6 IDE shrinking
-        Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
+        If Not InIDE Then Cairo.SetDPIAwareness ' avoids the VB6 IDE shrinking
+        'Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
     End If
         
     'load the collection for storing the overlay surfaces with its relevant keys direct from the PSD
@@ -315,7 +315,7 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub addImagesToImageList()
-    Dim useLoop As Integer: useLoop = 0
+    Dim useloop As Integer: useloop = 0
     
     On Error GoTo addImagesToImageList_Error
 

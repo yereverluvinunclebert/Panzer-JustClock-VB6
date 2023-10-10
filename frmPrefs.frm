@@ -14,6 +14,178 @@ Begin VB.Form panzerPrefs
    ScaleWidth      =   8955
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
+   Begin VB.Frame fraGeneral 
+      Caption         =   "General"
+      ForeColor       =   &H80000008&
+      Height          =   7650
+      Left            =   75
+      TabIndex        =   50
+      Top             =   1200
+      Visible         =   0   'False
+      Width           =   7995
+      Begin VB.Frame fraGeneralInner 
+         BorderStyle     =   0  'None
+         Height          =   6375
+         Left            =   465
+         TabIndex        =   51
+         Top             =   300
+         Width           =   6600
+         Begin VB.CheckBox chkGaugeFunctions 
+            Caption         =   "Ticking toggle *"
+            Height          =   225
+            Left            =   1995
+            TabIndex        =   52
+            ToolTipText     =   "When checked this box enables the spinning earth functionality. That's it!"
+            Top             =   180
+            Width           =   3405
+         End
+         Begin VB.ComboBox cmbTickSwitchPref 
+            Height          =   315
+            ItemData        =   "frmPrefs.frx":1856A
+            Left            =   2010
+            List            =   "frmPrefs.frx":1856C
+            Style           =   2  'Dropdown List
+            TabIndex        =   154
+            Top             =   5175
+            Width           =   3720
+         End
+         Begin VB.TextBox txtBias 
+            Height          =   315
+            Left            =   4875
+            Locked          =   -1  'True
+            TabIndex        =   151
+            Text            =   "0"
+            Top             =   3660
+            Width           =   720
+         End
+         Begin VB.ListBox lstTimezoneRegions 
+            Height          =   840
+            Left            =   2010
+            TabIndex        =   150
+            Top             =   3645
+            Width           =   2640
+         End
+         Begin VB.ComboBox cmbMainDaylightSaving 
+            Height          =   315
+            Left            =   2025
+            Style           =   2  'Dropdown List
+            TabIndex        =   145
+            Top             =   2325
+            Width           =   3720
+         End
+         Begin VB.ComboBox cmbMainGaugeTimeZone 
+            Height          =   315
+            ItemData        =   "frmPrefs.frx":1856E
+            Left            =   2010
+            List            =   "frmPrefs.frx":18570
+            Style           =   2  'Dropdown List
+            TabIndex        =   142
+            Top             =   1185
+            Width           =   3720
+         End
+         Begin VB.CheckBox chkGenStartup 
+            Caption         =   "Run the JustClock Widget at Windows Startup "
+            Height          =   465
+            Left            =   1995
+            TabIndex        =   93
+            ToolTipText     =   "Check this box to enable the automatic start of the program when Windows is started."
+            Top             =   4560
+            Width           =   4020
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "The movement of the hand can be set to smooth or one-second ticks, the smooth movement uses more CPU."
+            Height          =   660
+            Index           =   9
+            Left            =   2025
+            TabIndex        =   156
+            Top             =   5610
+            Width           =   3810
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Secondhand Movement :"
+            Height          =   480
+            Index           =   3
+            Left            =   0
+            TabIndex        =   155
+            Top             =   5235
+            Width           =   1950
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Bias (mins)"
+            Height          =   345
+            Index           =   1
+            Left            =   4875
+            TabIndex        =   152
+            Top             =   4035
+            Width           =   1740
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Daylight Saving :"
+            Height          =   345
+            Index           =   8
+            Left            =   600
+            TabIndex        =   147
+            Top             =   2400
+            Width           =   1365
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   $"frmPrefs.frx":18572
+            Height          =   660
+            Index           =   7
+            Left            =   2010
+            TabIndex        =   146
+            Top             =   2850
+            Width           =   3810
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Main Gauge Time Zone :"
+            Height          =   480
+            Index           =   5
+            Left            =   30
+            TabIndex        =   144
+            Top             =   1245
+            Width           =   1950
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Choose the timezone for the main clock. Defaults to the system time."
+            Height          =   660
+            Index           =   4
+            Left            =   2025
+            TabIndex        =   143
+            Top             =   1695
+            Width           =   3810
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Gauge Functions :"
+            Height          =   315
+            Index           =   6
+            Left            =   510
+            TabIndex        =   95
+            Top             =   165
+            Width           =   1320
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "Auto Start :"
+            Height          =   375
+            Index           =   11
+            Left            =   960
+            TabIndex        =   94
+            Tag             =   "lblRefreshInterval"
+            Top             =   4680
+            Width           =   1740
+         End
+         Begin VB.Label lblGeneral 
+            Caption         =   "When checked this box enables the clock hands - That's it! *"
+            Height          =   660
+            Index           =   2
+            Left            =   2025
+            TabIndex        =   53
+            Tag             =   "lblEnableSoundsDesc"
+            Top             =   540
+            Width           =   3615
+         End
+      End
+   End
    Begin VB.Frame fraConfig 
       Caption         =   "Configuration"
       Height          =   6540
@@ -97,7 +269,7 @@ Begin VB.Form panzerPrefs
             SelStart        =   5
          End
          Begin VB.Label lblConfiguration 
-            Caption         =   $"frmPrefs.frx":1856A
+            Caption         =   $"frmPrefs.frx":18609
             Height          =   930
             Index           =   0
             Left            =   1980
@@ -196,178 +368,6 @@ Begin VB.Form panzerPrefs
             TabIndex        =   83
             Top             =   555
             Width           =   345
-         End
-      End
-   End
-   Begin VB.Frame fraGeneral 
-      Caption         =   "General"
-      ForeColor       =   &H80000008&
-      Height          =   7650
-      Left            =   75
-      TabIndex        =   50
-      Top             =   1200
-      Visible         =   0   'False
-      Width           =   7995
-      Begin VB.Frame fraGeneralInner 
-         BorderStyle     =   0  'None
-         Height          =   6375
-         Left            =   465
-         TabIndex        =   51
-         Top             =   300
-         Width           =   6600
-         Begin VB.ComboBox cmbTickSwitchPref 
-            Height          =   315
-            ItemData        =   "frmPrefs.frx":1861E
-            Left            =   2010
-            List            =   "frmPrefs.frx":18620
-            Style           =   2  'Dropdown List
-            TabIndex        =   154
-            Top             =   5175
-            Width           =   3720
-         End
-         Begin VB.TextBox txtBias 
-            Height          =   315
-            Left            =   4875
-            Locked          =   -1  'True
-            TabIndex        =   151
-            Text            =   "0"
-            Top             =   3660
-            Width           =   720
-         End
-         Begin VB.ListBox lstTimezoneRegions 
-            Height          =   840
-            Left            =   2010
-            TabIndex        =   150
-            Top             =   3645
-            Width           =   2640
-         End
-         Begin VB.ComboBox cmbMainDaylightSaving 
-            Height          =   315
-            Left            =   2025
-            Style           =   2  'Dropdown List
-            TabIndex        =   145
-            Top             =   2325
-            Width           =   3720
-         End
-         Begin VB.ComboBox cmbMainGaugeTimeZone 
-            Height          =   315
-            ItemData        =   "frmPrefs.frx":18622
-            Left            =   2010
-            List            =   "frmPrefs.frx":18624
-            Style           =   2  'Dropdown List
-            TabIndex        =   142
-            Top             =   1185
-            Width           =   3720
-         End
-         Begin VB.CheckBox chkGenStartup 
-            Caption         =   "Run the JustClock Widget at Windows Startup "
-            Height          =   465
-            Left            =   1995
-            TabIndex        =   93
-            ToolTipText     =   "Check this box to enable the automatic start of the program when Windows is started."
-            Top             =   4560
-            Width           =   4020
-         End
-         Begin VB.CheckBox chkGaugeFunctions 
-            Caption         =   "Ticking toggle *"
-            Height          =   225
-            Left            =   1995
-            TabIndex        =   52
-            ToolTipText     =   "When checked this box enables the spinning earth functionality. That's it!"
-            Top             =   180
-            Width           =   3405
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "The movement of the hand can be set to smooth or one-second ticks, the smooth movement uses more CPU."
-            Height          =   660
-            Index           =   9
-            Left            =   2025
-            TabIndex        =   156
-            Top             =   5610
-            Width           =   3810
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Secondhand Movement :"
-            Height          =   480
-            Index           =   3
-            Left            =   0
-            TabIndex        =   155
-            Top             =   5235
-            Width           =   1950
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Bias (mins)"
-            Height          =   345
-            Index           =   1
-            Left            =   4875
-            TabIndex        =   152
-            Top             =   4035
-            Width           =   1740
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Daylight Saving :"
-            Height          =   345
-            Index           =   8
-            Left            =   600
-            TabIndex        =   147
-            Top             =   2400
-            Width           =   1365
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   $"frmPrefs.frx":18626
-            Height          =   660
-            Index           =   7
-            Left            =   2010
-            TabIndex        =   146
-            Top             =   2850
-            Width           =   3810
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Main Gauge Time Zone :"
-            Height          =   480
-            Index           =   5
-            Left            =   30
-            TabIndex        =   144
-            Top             =   1245
-            Width           =   1950
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Choose the timezone for the main clock. Defaults to the system time."
-            Height          =   660
-            Index           =   4
-            Left            =   2025
-            TabIndex        =   143
-            Top             =   1695
-            Width           =   3810
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Gauge Functions :"
-            Height          =   315
-            Index           =   6
-            Left            =   510
-            TabIndex        =   95
-            Top             =   165
-            Width           =   1320
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "Auto Start :"
-            Height          =   375
-            Index           =   11
-            Left            =   960
-            TabIndex        =   94
-            Tag             =   "lblRefreshInterval"
-            Top             =   4680
-            Width           =   1740
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   "When checked this box enables the clock hands - That's it! *"
-            Height          =   660
-            Index           =   2
-            Left            =   2025
-            TabIndex        =   53
-            Tag             =   "lblEnableSoundsDesc"
-            Top             =   540
-            Width           =   3615
          End
       End
    End
