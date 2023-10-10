@@ -27,24 +27,27 @@ Public Sub obtainDaylightSavings()
     
     On Error GoTo obtainDaylightSavings_Error
 
-    Exit Sub
+    ' Exit Sub
     
+
     ' read the rule list from file
     DLSrules = getDLSrules(App.path & "\Resources\txt\DLSRules.txt")
     
-    ' get the number of the month given a month name
-    numberOfMonth = getNumberOfMonth("Feb")
-        
-    ' get the number of the day given a day name
-    numberOfDay = getNumberOfDay("Sat")
-    
-    ' get the number of days in a given month
-    getDaysIn = getDaysInMonth(numberOfMonth, 1961)
-    
-    ' get Date (1..31) Of First dayName (Sun..Sat) after date (1..31) of monthName (Jan..Dec) of year (2004..)
-    dateOfFirst = getDateOfFirst("Sun", 1, "Sep", 1961)
-    
-    tzDelta1 = theDLSdelta(DLSrules(), "EU", 0)
+    Call updateDLS
+'
+'    ' get the number of the month given a month name
+'    numberOfMonth = getNumberOfMonth("Feb")
+'
+'    ' get the number of the day given a day name
+'    numberOfDay = getNumberOfDay("Sat")
+'
+'    ' get the number of days in a given month
+'    getDaysIn = getDaysInMonth(numberOfMonth, 1961)
+'
+'    ' get Date (1..31) Of First dayName (Sun..Sat) after date (1..31) of monthName (Jan..Dec) of year (2004..)
+'    dateOfFirst = getDateOfFirst("Sun", 1, "Sep", 1961)
+'
+'    tzDelta1 = theDLSdelta(DLSrules(), "EU", 0)
 
     On Error GoTo 0
     Exit Sub
@@ -54,6 +57,126 @@ obtainDaylightSavings_Error:
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure obtainDaylightSavings of Module modDaylightSavings"
     
 End Sub
+'---------------------------------------------------------------------------------------
+' Procedure : updateDLS
+' Author    : beededea
+' Date      : 10/10/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Function updateDLS()
+
+    Dim dlsRule As Variant
+    Dim remoteGMTOffset1 As Long
+    Dim remoteGMTOffset2 As Long
+    
+    On Error GoTo updateDLS_Error
+
+
+    remoteGMTOffset1 = getRemoteOffset("GMT - 00:00 Greenwich Mean Time: London")
+    remoteGMTOffset2 = getRemoteOffset("GMT - 00:00 Greenwich Mean Time: London")
+'
+'
+'    dlsRule = preferences.mainDLSPref.value.split(/\s/)[0];
+'
+'    Print ("remoteGMTOffset1 " + remoteGMTOffset1);
+'    Print ("dlsRule >> " + dlsRule + "<< ");
+'
+'    tzDelta1 = theDLSdelta(dlsRule, remoteGMTOffset1);
+'
+'    dlsRule = preferences.secyDLSPref.value.split(/\s/)[0];
+'    tzDelta2 = theDLSdelta(dlsRule, remoteGMTOffset2);
+
+    On Error GoTo 0
+    Exit Function
+
+updateDLS_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure updateDLS of Module modDaylightSavings"
+End Function
+'---------------------------------------------------------------------------------------
+' Procedure : getRemoteOffset
+' Author    : beededea
+' Date      : 10/10/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+ Private Function getRemoteOffset(ByVal entry As String) As Long
+
+    Dim found As Boolean
+    Dim lookFor As Variant
+    Dim thisValue As Long
+    Dim foundGMT As Boolean
+    Dim foundNeg As Boolean
+    Dim foundString As Boolean
+    Dim foundHrs As Boolean
+    Dim foundMins As Boolean: foundMins = False
+    Dim subString As String
+    Dim hoursOffset As Integer
+    Dim minsOffset As Integer
+    
+    On Error GoTo getRemoteOffset_Error
+    
+    ' check for GMT 1-3
+    subString = Left$(entry, 3)
+    foundGMT = InStr(subString, "GMT")
+    
+    ' check for  +/- at pos. 5
+    subString = Mid$(entry, 5, 1)
+    If InStr(subString, "-") = 1 Then
+        foundNeg = True
+    Else
+        foundNeg = False
+    End If
+    
+    ' check for a string at 13 - end
+    subString = Mid$(entry, 13, Len(entry))
+    If subString <> vbNullString Then foundString = True
+    
+    ' check for a valid time at pos. 7-11
+    subString = Mid$(entry, 7, 5)
+    If IsNumeric(Mid$(subString, 1, 2)) Then
+        hoursOffset = Val(Mid$(subString, 1, 2))
+        foundHrs = True
+    End If
+    If IsNumeric(Mid$(subString, 4, 2)) Then
+        minsOffset = Val(Mid$(subString, 4, 2))
+        foundMins = True
+    End If
+    
+    ' check all tests have passed
+    If foundGMT = True And foundNeg = True And foundString = True And _
+        foundHrs = True And _
+        foundMins = True Then
+        found = True
+    Else
+        found = False
+        getRemoteOffset = thisValue
+        Exit Function
+    End If
+        
+    If (found = True) Then
+        thisValue = minsOffset + (60 * hoursOffset)
+        If foundNeg = True Then
+            getRemoteOffset = thisValue - thisValue * 2
+            Exit Function
+        Else
+            getRemoteOffset = thisValue
+            Exit Function
+        End If
+    End If
+    
+    getRemoteOffset = Null 'return null;
+ 
+    On Error GoTo 0
+    Exit Function
+
+getRemoteOffset_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure getRemoteOffset of Module modDaylightSavings"
+ End Function
+
+
 
 
 '---------------------------------------------------------------------------------------
@@ -69,7 +192,7 @@ Public Function getDLSrules(ByVal path As String) As String()
     Dim ruleList() As String
     Dim rules() As String
     Dim iFile As Integer: iFile = 0
-    Dim i As Variant
+    Dim I As Variant
     Dim lFileLen As Long
     Dim sBuffer As String
     Dim useloop As Integer: useloop = 0
@@ -100,13 +223,13 @@ Public Function getDLSrules(ByVal path As String) As String()
     ReDim rules(arraySize)
 
     ' convert the variants in ruleList to strings in output rules
-    For Each i In ruleList
+    For Each I In ruleList
         ' Note: to replicate the .js we should .split the rule by comma and read the contents into
         ' a 2-dimensional rules array but we run into VB6 Redim problems on 2 dimensional arrays
         ' instead we will parse the rules string when we need it.
-        rules(useloop) = CStr(i)
+        rules(useloop) = CStr(I)
         useloop = useloop + 1
-    Next i
+    Next I
     
 ErrorHandler:
     If iFile > 0 Then Close #iFile
@@ -141,7 +264,8 @@ Public Function getNumberOfMonth(ByVal thisMonth As String) As Integer
 '    monthsString = "Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11"
 '    monthArray = Split(monthsString, ",")
     
-    getNumberOfMonth = Month(CDate(thisMonth & "/1/2000")) - 1
+    getNumberOfMonth = Month(CDate(thisMonth & "/1/2000"))
+    getNumberOfMonth = getNumberOfMonth - 1 ' convert 'normal month starting number of 1 to starting with 0 UTC
     
 '    For Each i In monthArray
 '        months(useLoop) = CStr(i)
@@ -177,7 +301,7 @@ Public Function getNumberOfDay(ByVal thisDay As String) As Integer
     Dim daysString As String: daysString = vbNullString
     Dim dayArray() As String
     Dim days(6) As String
-    Dim i As Variant
+    Dim I As Variant
     Dim useloop As Integer: useloop = 0
     
     On Error GoTo getNumberOfDay_Error
@@ -185,14 +309,14 @@ Public Function getNumberOfDay(ByVal thisDay As String) As Integer
     daysString = "Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6"
     dayArray = Split(daysString, ",")
     
-    For Each i In dayArray
-        days(useloop) = CStr(i)
+    For Each I In dayArray
+        days(useloop) = CStr(I)
         If InStr(days(useloop), thisDay) > 0 Then
             getNumberOfDay = Val(LTrim$(Mid$(days(useloop), 6, Len(days(useloop))))) ' return
             Exit Function
         End If
         useloop = useloop + 1
-    Next i
+    Next I
 
     MsgBox ("getNumberOfDay: " & thisDay & " is not a valid day name")
     getNumberOfDay = 99 ' return invalid
@@ -232,7 +356,7 @@ Public Function getDaysInMonth(ByVal thisMonth As Integer, ByVal thisYear As Int
     monthDaysArray = Split(monthDaysString, ",")
     
     If thisMonth <> 1 Then ' all except Feb
-        getDaysInMonth = Val(monthDaysArray(thisMonth)) ' return
+        getDaysInMonth = Val(LTrim$(monthDaysArray(thisMonth))) ' return
         Exit Function
     End If
     
@@ -278,7 +402,7 @@ Public Function getDateOfFirst(ByVal dayName As String, ByVal thisDayNumber As I
     Dim tMonth As Integer: tMonth = 0
     Dim last As Integer: last = 0
     Dim d As Date
-    Dim lastDay As Date
+    Dim lastDay As Long
 
     On Error GoTo getDateOfFirst_Error
 
@@ -292,14 +416,12 @@ Public Function getDateOfFirst(ByVal dayName As String, ByVal thisDayNumber As I
     
     last = thisDayNumber + 6
     
-    d = CDate(last & "/" & tMonth & "/" & thisYear)
+    ' convert starting with 0 UTC to normal month starting number of 1 for the VB6 CDate function to cope with
+    d = CDate(last & "/" & tMonth + 1 & "/" & thisYear)
     
-    lastDay = DateSerial(thisYear, tMonth, last)
-    If IsDate(lastDay) Then
-        getDateOfFirst = last - (lastDay - tDay + 7) Mod 7 'return
-    Else
-        getDateOfFirst = 99 ' return invalid
-    End If
+    lastDay = Weekday(d, vbSunday)
+        
+    getDateOfFirst = last - (lastDay - tDay + 7) Mod 7 'return
 
     On Error GoTo 0
     Exit Function
@@ -324,7 +446,7 @@ Public Function getDateOfLast(ByVal dayName As String, ByVal monthName As String
     Dim tMonth As Integer: tMonth = 0
     Dim last As Integer: last = 0
     Dim d As Date
-    Dim lastDay As Date
+    Dim lastDay As Long
     
     On Error GoTo getDateOfLast_Error
 
@@ -337,16 +459,14 @@ Public Function getDateOfLast(ByVal dayName As String, ByVal monthName As String
     End If
     
     last = getDaysInMonth(tMonth, thisYear)
-    
-    d = CDate(last & "/" & tMonth & "/" & thisYear)
-    
-    lastDay = DateSerial(thisYear, tMonth, last)
 
-    If IsDate(lastDay) Then
-        getDateOfLast = last - (lastDay - tDay + 7) Mod 7 'return
-    Else
-        getDateOfLast = 99 ' return invalid
-    End If
+    ' convert starting with 0 UTC to normal month starting number of 1 for the VB6 CDate cast to cope with
+    d = CDate(last & "/" & tMonth + 1 & "/" & thisYear)
+    
+    'lastDayDate = DateSerial(thisYear, tMonth, last)
+    lastDay = Weekday(d, vbSunday)
+
+    getDateOfLast = last - (lastDay - tDay + 7) Mod 7 'return
 
     On Error GoTo 0
     Exit Function
@@ -382,11 +502,11 @@ Public Function dayOfMonth(ByVal monthName As String, ByVal dayRule As String, B
         dayOfMonth = getDateOfLast(dayName, monthName, thisYear)
         Exit Function
     End If
+    
 '    // dayRule of form Sun>=15
     dayName = Mid$(dayRule, 3)
     thisDate = Val(Mid$(dayRule, 4))
     dayOfMonth = getDateOfFirst(dayName, thisDate, monthName, thisYear)
-
 
     On Error GoTo 0
     Exit Function
@@ -428,23 +548,24 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
     Dim startYear As Integer: startYear = 0
     Dim endYear As Integer: endYear = 0
     Dim currentMonth As String: currentMonth = vbNullString
-'    Dim newMonthNumber As Integer: newMonthNumber = 0
+    Dim newMonthNumber As Integer: newMonthNumber = 0
     Dim startDate As Integer: startDate = 0
     Dim endDate As Integer: endDate = 0
-'    Dim stdTime As Date
-'    Dim theGMTOffset As Integer: theGMTOffset = 0
-'    Dim startHour As Integer: startHour = 0
-'    Dim startMin As Integer: startMin = 0
-'    Dim theStart As Date
-'    Dim endHour As Integer: endHour = 0
-'    Dim endMin As Integer: endMin = 0
-'    Dim theEnd As Date
+    Dim stdTime As Date
+    Dim theGMTOffset As Long: theGMTOffset = 0
+    Dim startHour As Integer: startHour = 0
+    Dim startMin As Integer: startMin = 0
+    Dim theStart As Date
+    Dim endHour As Integer: endHour = 0
+    Dim endMin As Integer: endMin = 0
+    Dim theEnd As Date
     Dim dlsRule As Variant
     
     Dim useloop As Integer: useloop = 0
     Dim arrayElementPresent As Boolean: arrayElementPresent = False
     Dim arrayNumber As Integer: arrayNumber = 0
     Dim ruleString As String: ruleString = vbNullString
+    Dim buildDate As String: buildDate = vbNullString
     
     monthName = ArrayString("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
     
@@ -474,7 +595,7 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
     Next useloop
     
     If arrayElementPresent = False Then
-        Debug.Print ("DLSdelta: " + rule + " is not in the list of DLS rules.")
+        Debug.Print ("DLSdelta: " & rule & " is not in the list of DLS rules.")
         theDLSdelta = 0 ' return abnormal
         Exit Function
     End If
@@ -496,7 +617,6 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
 '["AR","Oct","Sun>=15","0","60","Mar","Sun>=15","-60"]
 '["US", "Apr", "Sun>=1", "120", "60", "Oct", "lastSun", "60"]
 
-'
 '    negative times for UTC transitions (GMT starts a mid-day)
 '
     useUTC = (startTime < 0) And (endTime < 0)
@@ -528,14 +648,94 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
             startYear = startYear - 1
         End If
     End If
-'
-'
+
     If startTime < 0 Then
         startTime = 0 - startTime
     End If  ' ignore invalid sign
 
     startDate = dayOfMonth(startMonth, startDay, startYear)
     If startDate = 0 Then
+        theDLSdelta = 0 ' return abnormal
+        Exit Function
+    End If
+    
+    endDate = dayOfMonth(endMonth, endDay, endYear)
+    If endDate = 0 Then
+        theDLSdelta = 0 ' return abnormal
+        Exit Function
+    End If
+    
+    If endTime < 0 Then ' transition on previous day in standard time
+        endTime = 0 - endTime
+        endDate = endDate - 1
+        endTime = 1440 - endTime
+        If (endDate = 0) Then
+            newMonthNumber = getNumberOfMonth(endMonth) - 1
+            endMonth = monthName(newMonthNumber)
+            endDate = getDaysInMonth(newMonthNumber, endYear)
+        End If
+    End If
+    
+    Debug.Print ("startDate:  " & startMonth & " " & startDate & "," & startYear)
+    Debug.Print ("startTime:  " & (startTime - startTime Mod 60) / 60 & ":" & startTime Mod 60)
+    Debug.Print ("endDate:    " & endMonth & " " & endDate & "," & endYear)
+    Debug.Print ("endTime:    " & (endTime - endTime Mod 60) / 60 & ":" & endTime Mod 60)
+
+    theGMTOffset = 60000 * cityTimeOffset    '// was preferences.cityTimeOffset.value
+    
+    theDate = Now()
+    stdTime = Now()
+
+    startHour = Int(startTime / 60)
+    startMin = startTime Mod 60
+    
+    Debug.Print ("----")
+    Debug.Print ("startYear=" & startYear)
+    Debug.Print ("startMonth=" & (startMonth))
+    Debug.Print ("startDate=" & startDate)
+    Debug.Print ("startHour=" & startHour)
+    Debug.Print ("startMin=" & startMin)
+    
+    buildDate = Str$(startDate) & "/" & startMonth & "/" & Str$(startYear) & " " & Str$(startHour) & ":" & Str$(startMin)
+    theStart = CDate(buildDate)
+    
+    If useUTC = False Then
+        theStart = theStart - theGMTOffset
+    End If
+
+    Debug.Print ("theStart= " & theStart)
+
+    endHour = Int(endTime / 60)
+    endMin = endTime Mod 60
+
+    Debug.Print ("----")
+    Debug.Print ("endYear=" & endYear)
+    Debug.Print ("endMonth=" & endMonth)
+    Debug.Print ("endDate=" & endDate)
+    Debug.Print ("endHour=" & endHour)
+    Debug.Print ("endMin=" & endMin)
+    
+    buildDate = Str$(endDate) & "/" & endMonth & "/" & Str$(endYear) & " " & Str$(endHour) & ":" & Str$(endMin)
+    theEnd = CDate(buildDate)
+
+    If useUTC = False Then
+        theEnd = theEnd - theGMTOffset
+    End If
+    
+    Debug.Print ("theEnd=   " & theEnd)
+
+    If (stdTime < theStart) Then
+        Debug.Print ("DLS starts in " & Int((theStart - stdTime) / 60000) & " minutes.")
+    ElseIf (stdTime < theEnd) Then
+        Debug.Print ("DLS ends in   " & Int((theEnd - stdTime) / 60000) & " minutes.")
+    End If
+'
+    If (theStart <= stdTime) And (stdTime < theEnd) Then
+        Debug.Print ("----DLSdelta=" & delta)
+        theDLSdelta = delta ' return
+        Exit Function
+    Else
+        Debug.Print ("----DLSdelta=0")
         theDLSdelta = 0 ' return abnormal
         Exit Function
     End If
@@ -550,89 +750,6 @@ End Function
 
 
 
-' the following needs to be converted as part of the DLSdelta
 
-
-'
-'    endDate = dayOfMonth(endMonth, endDay, endYear)
-'    if (endDate === 0) {
-'        return 0
-'    }
-'
-'    if (endTime < 0) {  // transition on previous day in standard time
-'        endTime = 0 - endTime
-'        endDate = endDate - 1
-'        endTime = 1440 - endTime
-'        if (endDate === 0) {
-'            newMonthNumber = numberOfMonth(endMonth) - 1
-'            endMonth = monthName[newMonthNumber]
-'            endDate = getDaysIn(newMonthNumber, endYear)
-'        }
-'    }
-'
-'    Debug.Print("startDate:  " + startMonth + " " + startDate + "," + startYear)
-'    Debug.Print("startTime:  " + (startTime - startTime % 60) / 60 + ":" + startTime % 60)
-'    Debug.Print("endDate:    " + endMonth + " " + endDate + "," + endYear)
-'    Debug.Print("endTime:    " + (endTime - endTime % 60) / 60 + ":" + endTime % 60)
-'
-'    theGMTOffset = 60000 * cityTimeOffset    // was preferences.cityTimeOffset.value
-'
-'    theDate = new Date()
-'    stdTime = theDate.getTime()
-'    Debug.Print("stdTime=" + stdTime)
-'
-'    startHour = Math.floor(startTime / 60)
-'    startMin = startTime % 60
-'
-'    Debug.Print("----")
-'    Debug.Print("startYear=" + startYear)
-'    Debug.Print("numberOfMonth=" + numberOfMonth(startMonth))
-'    Debug.Print("startDate=" + startDate)
-'    Debug.Print("startHour=" + startHour)
-'    Debug.Print("startMin=" + startMin)
-'
-'    theStart = Date.UTC(startYear, numberOfMonth(startMonth), startDate, startHour, startMin, 0, 0)
-'    if (!useUTC) {
-'        theStart -= theGMTOffset
-'    }
-'
-'    Debug.Print("theStart=   " + theStart)
-'    Debug.Print("theStartUTC=" + (new Date(theStart)).toUTCString())
-'
-'    endHour = Math.floor(endTime / 60)
-'    endMin = endTime % 60
-'
-'    Debug.Print("----")
-'    Debug.Print("endYear=" + endYear)
-'    Debug.Print("numberOfMonth=" + numberOfMonth(endMonth))
-'    Debug.Print("endDate=" + endDate)
-'    Debug.Print("endHour=" + endHour)
-'    Debug.Print("endMin=" + endMin)
-'
-'    theEnd = Date.UTC(endYear, numberOfMonth(endMonth), endDate, endHour, endMin, 0, 0)
-'    if (!useUTC) {
-'        theEnd -= theGMTOffset
-'    }
-'
-'    Debug.Print("theEnd=   " + theEnd)
-'    Debug.Print("theEndUTC=" + (new Date(theEnd)).toUTCString())
-'
-'//  gTheStart = (new Date(theStart + theGMTOffset)).toUTCString().split(" ", 5).join(" ") + " LST"
-'//  gTheEnd = (new Date(theEnd + theGMTOffset + 60000 * delta)).toUTCString().split(" ", 5).join(" ") + " DST"
-'
-'    if (stdTime < theStart) {
-'        Debug.Print("DLS starts in " + Math.floor((theStart - stdTime) / 60000) + " minutes.")
-'    } else if (stdTime < theEnd) {
-'        Debug.Print("DLS ends in   " + Math.floor((theEnd - stdTime) / 60000) + " minutes.")
-'    }
-'
-'    if ((theStart <= stdTime) && (stdTime < theEnd)) {
-'        Debug.Print("----DLSdelta=" + delta)
-'        return Number(delta)
-'    } else {
-'        Debug.Print("----DLSdelta=0")
-'        return 0
-'    }
-'}
 
 
