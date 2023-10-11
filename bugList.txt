@@ -141,13 +141,20 @@
 ' add monitor count - done
 ' different scaling, currently 150%, others good
 ' 125% desktop scaling problem, find and fix, panzerPrefs custom icon caused 500003 unexpected error when form asked to appear - done
-' getDSTRules -  read the daylight saving time rule list from file - done
+' getDLSrules -  read the daylight saving time rule list from file - done
 ' getNumberOfMonth - get the number of the month given a month name - done
 
 ' getNumberOfDay - get the number of the day given a day name and test - done
 ' getDaysInMonth - get the number of days in a given month and test - done
 ' getDateOfFirst - get Date (1..31) Of First dayName (Sun..Sat) after date (1..31) of monthName (Jan..Dec) of year (2004..) - done
 ' getDateOfLast - done
+
+' dayOfMonth - done
+' updateDLS - done
+' getRemoteOffset - done
+' theDLSdelta - done
+
+' added debug.print statements for input and output for debugging - done
 
 ' daylight saving time code - test - wip
 ' time zone code - wip - look at YWE and replicate - wip

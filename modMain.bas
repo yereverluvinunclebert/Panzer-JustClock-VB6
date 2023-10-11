@@ -35,9 +35,9 @@ Public widgetName As String
 '---------------------------------------------------------------------------------------
 '
 Private Sub Main()
-    On Error GoTo Main_Error
+   On Error GoTo Main_Error
     
-    Call mainRoutine(False)
+   Call mainRoutine(False)
 
    On Error GoTo 0
    Exit Sub
