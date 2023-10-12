@@ -68,29 +68,31 @@ Private Sub updateDLS()
     Dim remoteGMTOffset1 As Long: remoteGMTOffset1 = 0
     Dim thisRule As String: thisRule = vbNullString
     Dim tzDelta1 As Long: tzDelta1 = 0
-    Dim timeZoneString As String: timeZoneString = vbNullString
     Dim thisTimeZone As String: thisTimeZone = vbNullString
+    Dim dlsRule As Variant
+    Dim separator ' variant?
+    
+    separator = (" - ")
     
     On Error GoTo updateDLS_Error
     
     Debug.Print ("%DST func updateDLS")
         
-    ' timezones.txt
+    ' From timezones.txt take the offset from the selected timezone in the prefs
     thisTimeZone = panzerPrefs.cmbMainGaugeTimeZone.List(panzerPrefs.cmbMainGaugeTimeZone.ListIndex)
     If thisTimeZone = "System Time" Then Exit Sub
-    
     remoteGMTOffset1 = getRemoteOffset(thisTimeZone)
-    timeZoneString = Left$(thisTimeZone, 2)
 
-    ' DLSRules.txt
+    ' From DLSRules.txt - assign all to an array
     DLSrules = getDLSrules(App.path & "\Resources\txt\DLSRules.txt")
 
-    ' DSLcodesWin.txt
-'    panzerPrefs.cmbMainDLSPref.AddItem "EU - Europe - European Union", 1
-'    panzerPrefs.cmbMainDLSPref.ListIndex = 1
-
+    ' From DSLcodesWin.txt, extract the current rule from the selected rule in the prefs
+    thisRule = panzerPrefs.cmbMainDaylightSaving.List(panzerPrefs.cmbMainDaylightSaving.ListIndex)
+    dlsRule = Split(thisRule, separator)
+    ' read the first component of the split rule
+    thisRule = dlsRule(0)
     
-    tzDelta1 = theDLSdelta(DLSrules, timeZoneString, remoteGMTOffset1)
+    tzDelta1 = theDLSdelta(DLSrules, thisRule, remoteGMTOffset1)
     
     Debug.Print ("%DST-I thisRule " & thisRule)
     Debug.Print ("%DST-I remoteGMTOffset1 " & remoteGMTOffset1)
@@ -497,7 +499,7 @@ Public Function getDateOfLast(ByVal dayName As String, ByVal monthName As String
     
     If tDay = 99 Or tMonth = 99 Then
         getDateOfLast = 99 ' return invalid
-        Debug.Print "%DST-O Abnormal getDateOfLast " & getDateOfLast
+        Debug.Print ("%DST-O Abnormal getDateOfLast " & getDateOfLast)
         Exit Function
     End If
     
@@ -510,7 +512,7 @@ Public Function getDateOfLast(ByVal dayName As String, ByVal monthName As String
     lastDay = Weekday(d, vbSunday)
 
     getDateOfLast = last - (lastDay - tDay + 7) Mod 7 'return
-    Debug.Print "%DST-O getDateOfLast " & getDateOfLast
+    Debug.Print ("%DST-O getDateOfLast " & getDateOfLast)
     
     On Error GoTo 0
     Exit Function
@@ -542,6 +544,7 @@ Public Function dayOfMonth(ByVal monthName As String, ByVal dayRule As String, B
 
     If IsNumeric(dayRule) Then
         dayOfMonth = CInt(dayRule)
+        Debug.Print ("%DST-O dayOfMonth " & dayOfMonth)
         Exit Function
     End If
 
@@ -587,7 +590,6 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
     
 '   set up variables
     Dim monthName() As String
-'    Dim arrayNumber As Integer: arrayNumber = 0
     Dim startMonth As String: startMonth = vbNullString
     Dim startDay As String: startDay = vbNullString
     Dim startTime As String: startTime = vbNullString
@@ -634,6 +636,7 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
 '
     If rule = "NONE" Then
         theDLSdelta = 0 ' return abnormal
+        Debug.Print ("%DST-O theDLSdelta = 0 Abnormal ")
         Exit Function
     End If
     
@@ -715,15 +718,15 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
 
     startDate = dayOfMonth(startMonth, startDay, startYear)
     If startDate = 0 Then
-        theDLSdelta = 0 ' return abnormal
-        Debug.Print "theDLSdelta " & theDLSdelta
+        theDLSdelta = 0 ' return
+        Debug.Print ("%DST   theDLSdelta " & theDLSdelta)
         Exit Function
     End If
     
     endDate = dayOfMonth(endMonth, endDay, endYear)
     If endDate = 0 Then
-        theDLSdelta = 0 ' return abnormal
-        Debug.Print "theDLSdelta " & theDLSdelta
+        theDLSdelta = 0 ' return
+        Debug.Print ("%DST   theDLSdelta " & theDLSdelta)
         Exit Function
     End If
     
@@ -794,11 +797,11 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
 '
     If (theStart <= stdTime) And (stdTime < theEnd) Then
         theDLSdelta = delta ' return
-        Debug.Print "%DST-O theDLSdelta o " & theDLSdelta
+        Debug.Print ("%DST-O theDLSdelta " & theDLSdelta)
         Exit Function
     Else
-        theDLSdelta = 0 ' return abnormal
-        Debug.Print "%DST-O Abnormal theDLSdelta abnormal o " & theDLSdelta
+        theDLSdelta = 0 ' return
+        Debug.Print ("%DST-O  theDLSdelta " & theDLSdelta)
         Exit Function
     End If
 
