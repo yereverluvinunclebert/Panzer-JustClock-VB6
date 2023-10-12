@@ -69,8 +69,8 @@ Private Sub updateDLS()
     Dim thisRule As String: thisRule = vbNullString
     Dim tzDelta1 As Long: tzDelta1 = 0
     Dim thisTimeZone As String: thisTimeZone = vbNullString
-    Dim dlsRule As Variant
-    Dim separator ' variant?
+    Dim dlsRule() As String
+    Dim separator As String: separator = vbNullString
     
     separator = (" - ")
     
@@ -115,7 +115,6 @@ End Sub
  Private Function getRemoteOffset(ByVal entry As String) As Long
 
     Dim found As Boolean: found = False
-    Dim lookFor As Variant
     Dim thisValue As Long: thisValue = 0
     Dim foundGMT As Boolean: foundGMT = False
     Dim foundNeg As Boolean: foundNeg = False
@@ -244,8 +243,8 @@ Public Function getDLSrules(ByVal path As String) As String()
     arraySize = UBound(ruleList)
     ReDim rules(arraySize)
 
-    ' convert the variants in ruleList to strings in output rules
-    For Each I In ruleList
+    ' convert the intermediate variant readinfg from ruleList to strings in output rules
+    For Each I In ruleList ' for each requires a variant as I
         ' Note: to replicate the .js we should .split the rule by comma and read the contents into
         ' a 2-dimensional rules array but we run into VB6 Redim problems on 2 dimensional arrays
         ' instead we will parse the rules string when we need it - later.
@@ -325,7 +324,7 @@ Public Function getNumberOfDay(ByVal thisDay As String) As Integer
     daysString = "Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6"
     dayArray = Split(daysString, ",")
     
-    For Each I In dayArray
+    For Each I In dayArray ' for each requires a variant as I
         days(useloop) = CStr(I)
         If InStr(days(useloop), thisDay) > 0 Then
             getNumberOfDay = Val(LTrim$(Mid$(days(useloop), 6, Len(days(useloop))))) ' return
@@ -579,8 +578,8 @@ End Function
 ' Author    : beededea
 ' Date      : 09/10/2023
 ' Purpose   :
-' parameter 1 all the rules
-' parameter 2 prefs selected rule eg. ["US","Apr","Sun>=1","120","60","Oct","lastSun","60"];
+' parameter 1 all the rules of the type: ["US","Apr","Sun>=1","120","60","Oct","lastSun","60"]
+' parameter 2 prefs selected rule eg. EU - Europe - European Union
 ' parameter 3 remote GMT Offset
 '---------------------------------------------------------------------------------------
 '
@@ -614,7 +613,7 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
     Dim endHour As Integer: endHour = 0
     Dim endMin As Integer: endMin = 0
     Dim theEnd As Date
-    Dim dlsRule As Variant
+    Dim dlsRule() As String
     
     Dim useloop As Integer: useloop = 0
     Dim arrayElementPresent As Boolean: arrayElementPresent = False
@@ -622,7 +621,7 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
     Dim ruleString As String: ruleString = vbNullString
     Dim buildDate As String: buildDate = vbNullString
     
-    Dim separator ' variant?
+    Dim separator As String
     separator = (""",""")
     
     monthName = ArrayString("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
@@ -810,7 +809,7 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
 
 theDLSdelta_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function   theDLSdelta of Module modDaylightSavings"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function theDLSdelta of Module modDaylightSavings"
 End Function
 
 

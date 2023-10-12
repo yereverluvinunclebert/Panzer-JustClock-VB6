@@ -147,18 +147,22 @@
 ' getNumberOfDay - get the number of the day given a day name and test - done
 ' getDaysInMonth - get the number of days in a given month and test - done
 ' getDateOfFirst - get Date (1..31) Of First dayName (Sun..Sat) after date (1..31) of monthName (Jan..Dec) of year (2004..) - done
-' getDateOfLast - done
+' getDateOfLast function - done
 
-' dayOfMonth - done
-' updateDLS - done
-' getRemoteOffset - done
-' theDLSdelta - done
+' dayOfMonth function - done
+' updateDLS function - done
+' getRemoteOffset function - done
+' theDLSdelta function - done
 
 ' added debug.print statements for input and output for debugging - done
+' added debug.print statements to .js version for input and output for equivalent debugging and comparison - done
+' Fill the cmbMainDaylightSaving list with the rules from DSLcodesWin.txt - done
+' extract the current rule from the selected rule in the cmbMainDaylightSaving prefs - done
+' tested rules for need of variants in 'for each' and split(). Made and tested variable type changes - done
+' time zone code - wip - look at YWE and replicate - done
 
-' daylight saving time code - test - wip
-' time zone code - wip - look at YWE and replicate - wip
-' date/day fields altered by DST and timezone changes
+' daylight saving time code - implement and test - wip
+' date/day fields altered by DST and timezone changes as per YWE version - wip
 
 ' test usage of RC6 for monitor awareness - wip
 With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisplay
