@@ -17,7 +17,7 @@ Begin VB.Form panzerPrefs
    Begin VB.Frame fraGeneral 
       Caption         =   "General"
       ForeColor       =   &H80000008&
-      Height          =   7650
+      Height          =   6495
       Left            =   75
       TabIndex        =   50
       Top             =   1200
@@ -25,19 +25,20 @@ Begin VB.Form panzerPrefs
       Width           =   7995
       Begin VB.Frame fraGeneralInner 
          BorderStyle     =   0  'None
-         Height          =   6375
+         Height          =   5595
          Left            =   465
          TabIndex        =   51
          Top             =   300
-         Width           =   6600
+         Width           =   6750
          Begin VB.ComboBox cmbMainDLSPref 
             Height          =   315
             ItemData        =   "frmPrefs.frx":1856A
-            Left            =   3000
+            Left            =   1965
             List            =   "frmPrefs.frx":18571
             Style           =   2  'Dropdown List
             TabIndex        =   164
-            Top             =   2970
+            Top             =   5370
+            Visible         =   0   'False
             Width           =   3570
          End
          Begin VB.CheckBox chkGaugeFunctions 
@@ -56,23 +57,24 @@ Begin VB.Form panzerPrefs
             List            =   "frmPrefs.frx":185A0
             Style           =   2  'Dropdown List
             TabIndex        =   154
-            Top             =   5175
+            Top             =   4215
             Width           =   3720
          End
          Begin VB.TextBox txtBias 
             Height          =   315
-            Left            =   4875
+            Left            =   5895
             Locked          =   -1  'True
             TabIndex        =   151
             Text            =   "0"
-            Top             =   3660
+            Top             =   2325
             Width           =   720
          End
          Begin VB.ListBox lstTimezoneRegions 
             Height          =   840
-            Left            =   2010
+            Left            =   -330
             TabIndex        =   150
-            Top             =   3645
+            Top             =   5385
+            Visible         =   0   'False
             Width           =   2640
          End
          Begin VB.ComboBox cmbMainDaylightSaving 
@@ -99,17 +101,8 @@ Begin VB.Form panzerPrefs
             Left            =   1995
             TabIndex        =   93
             ToolTipText     =   "Check this box to enable the automatic start of the program when Windows is started."
-            Top             =   4560
+            Top             =   3600
             Width           =   4020
-         End
-         Begin VB.Label lblGeneral 
-            Caption         =   " DST:"
-            Height          =   345
-            Index           =   10
-            Left            =   2475
-            TabIndex        =   165
-            Top             =   3015
-            Width           =   645
          End
          Begin VB.Label lblGeneral 
             Caption         =   "The movement of the hand can be set to smooth or one-second ticks, the smooth movement uses more CPU."
@@ -117,7 +110,7 @@ Begin VB.Form panzerPrefs
             Index           =   9
             Left            =   2025
             TabIndex        =   156
-            Top             =   5610
+            Top             =   4650
             Width           =   3810
          End
          Begin VB.Label lblGeneral 
@@ -126,16 +119,16 @@ Begin VB.Form panzerPrefs
             Index           =   3
             Left            =   0
             TabIndex        =   155
-            Top             =   5235
+            Top             =   4275
             Width           =   1950
          End
          Begin VB.Label lblGeneral 
             Caption         =   "Bias (mins)"
             Height          =   345
             Index           =   1
-            Left            =   4875
+            Left            =   5910
             TabIndex        =   152
-            Top             =   4035
+            Top             =   2010
             Width           =   1740
          End
          Begin VB.Label lblGeneral 
@@ -149,12 +142,12 @@ Begin VB.Form panzerPrefs
          End
          Begin VB.Label lblGeneral 
             Caption         =   $"frmPrefs.frx":185A6
-            Height          =   1275
+            Height          =   855
             Index           =   7
-            Left            =   120
+            Left            =   2025
             TabIndex        =   146
-            Top             =   2820
-            Width           =   2340
+            Top             =   2805
+            Width           =   3660
          End
          Begin VB.Label lblGeneral 
             Caption         =   "Main Gauge Time Zone :"
@@ -190,7 +183,7 @@ Begin VB.Form panzerPrefs
             Left            =   960
             TabIndex        =   94
             Tag             =   "lblRefreshInterval"
-            Top             =   4680
+            Top             =   3720
             Width           =   1740
          End
          Begin VB.Label lblGeneral 
@@ -1010,14 +1003,6 @@ Begin VB.Form panzerPrefs
       TabIndex        =   4
       Top             =   0
       Width           =   975
-      Begin VB.Image imgWindowClicked 
-         Height          =   600
-         Left            =   160
-         Picture         =   "frmPrefs.frx":1BED8
-         Stretch         =   -1  'True
-         Top             =   225
-         Width           =   600
-      End
       Begin VB.Label lblWindow 
          Caption         =   "Window"
          Height          =   240
@@ -1029,7 +1014,15 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgWindow 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":1C284
+         Picture         =   "frmPrefs.frx":1BED8
+         Stretch         =   -1  'True
+         Top             =   225
+         Width           =   600
+      End
+      Begin VB.Image imgWindowClicked 
+         Height          =   600
+         Left            =   160
+         Picture         =   "frmPrefs.frx":1C3A2
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -3664,8 +3657,11 @@ Private Sub populatePrefsComboBoxes()
     'populate one timezone combobox from file.
     Call readFileWriteComboBox(cmbMainGaugeTimeZone, App.path & "\Resources\txt\timezones.txt")
     
-    cmbMainDaylightSaving.AddItem "Daylight Savings Not used", 0
-    cmbMainDaylightSaving.ItemData(0) = 0
+    'populate one timezone combobox from file.
+    Call readFileWriteComboBox(cmbMainDaylightSaving, App.path & "\Resources\txt\DLScodesWin.txt")
+  
+'    cmbMainDaylightSaving.AddItem "Daylight Savings Not used", 0
+'    cmbMainDaylightSaving.ItemData(0) = 0
 '    cmbMainDaylightSaving.AddItem "Daylight Savings Activated", 1
 '    cmbMainDaylightSaving.ItemData(0) = 1
 
@@ -5424,9 +5420,9 @@ Private Sub cmbMainDaylightSaving_Click()
    If cmbMainDaylightSaving.ListIndex > -1 Then
    
         pos = InStr(cmbMainDaylightSaving.List(cmbMainDaylightSaving.ListIndex), vbTab)
-        txtBias.Text = Left$(cmbMainDaylightSaving.List(cmbMainDaylightSaving.ListIndex), pos)
+        'txtBias.Text = Left$(cmbMainDaylightSaving.List(cmbMainDaylightSaving.ListIndex), pos)
         'textbox to make lookups easier
-        If cmbMainDaylightSaving.ListIndex > 1 Then Call populateTimeZoneRegions
+        'If cmbMainDaylightSaving.ListIndex > 1 Then Call populateTimeZoneRegions
    End If
 
 
@@ -5578,7 +5574,7 @@ Private Function fGetTimeZoneArray() As Boolean
                   .IsDST = BiasAdjust
                   
                  'is also added to a list
-                  cmbMainDaylightSaving.AddItem .bias & vbTab & .TimeZoneName
+                  'cmbMainDaylightSaving.AddItem .bias & vbTab & .TimeZoneName
                   
                End With
                

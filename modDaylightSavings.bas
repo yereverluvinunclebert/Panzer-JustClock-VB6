@@ -56,49 +56,55 @@ obtainDaylightSavings_Error:
     
 End Sub
 '---------------------------------------------------------------------------------------
-' Procedure : updateDLS
+' Function   : updateDLS
 ' Author    : beededea
 ' Date      : 10/10/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Function updateDLS()
+Private Sub updateDLS()
 
     Dim DLSrules() As String
-    Dim remoteGMTOffset1 As Long
-    Dim thisRule As String
-    Dim tzDelta1 As Long
-    Dim ruleString As String
+    Dim remoteGMTOffset1 As Long: remoteGMTOffset1 = 0
+    Dim thisRule As String: thisRule = vbNullString
+    Dim tzDelta1 As Long: tzDelta1 = 0
+    Dim timeZoneString As String: timeZoneString = vbNullString
+    Dim thisTimeZone As String: thisTimeZone = vbNullString
     
     On Error GoTo updateDLS_Error
-
-    DLSrules = getDLSrules(App.path & "\Resources\txt\DLSRules.txt")
-
-    panzerPrefs.cmbMainDLSPref.AddItem "GMT - 00:00 Greenwich Mean Time: London", 1
-    panzerPrefs.cmbMainDLSPref.ListIndex = 1
-    
-    thisRule = panzerPrefs.cmbMainDLSPref.List(panzerPrefs.cmbMainDLSPref.ListIndex)
-
-    remoteGMTOffset1 = getRemoteOffset(thisRule)
-    
-    ruleString = Mid$(thisRule, 3, Len(thisRule))
-    
-    tzDelta1 = theDLSdelta(DLSrules, thisRule, remoteGMTOffset1)
     
     Debug.Print ("%DST func updateDLS")
+        
+    ' timezones.txt
+    thisTimeZone = panzerPrefs.cmbMainGaugeTimeZone.List(panzerPrefs.cmbMainGaugeTimeZone.ListIndex)
+    If thisTimeZone = "System Time" Then Exit Sub
+    
+    remoteGMTOffset1 = getRemoteOffset(thisTimeZone)
+    timeZoneString = Left$(thisTimeZone, 2)
+
+    ' DLSRules.txt
+    DLSrules = getDLSrules(App.path & "\Resources\txt\DLSRules.txt")
+
+    ' DSLcodesWin.txt
+'    panzerPrefs.cmbMainDLSPref.AddItem "EU - Europe - European Union", 1
+'    panzerPrefs.cmbMainDLSPref.ListIndex = 1
+
+    
+    tzDelta1 = theDLSdelta(DLSrules, timeZoneString, remoteGMTOffset1)
+    
     Debug.Print ("%DST-I thisRule " & thisRule)
     Debug.Print ("%DST-I remoteGMTOffset1 " & remoteGMTOffset1)
     Debug.Print ("%DST-O tzDelta1 " & tzDelta1)
 
     On Error GoTo 0
-    Exit Function
+    Exit Sub
 
 updateDLS_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure updateDLS of Module modDaylightSavings"
-End Function
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function   updateDLS of Module modDaylightSavings"
+End Sub
 '---------------------------------------------------------------------------------------
-' Procedure : getRemoteOffset
+' Function   : getRemoteOffset
 ' Author    : beededea
 ' Date      : 10/10/2023
 ' Purpose   :
@@ -106,17 +112,17 @@ End Function
 '
  Private Function getRemoteOffset(ByVal entry As String) As Long
 
-    Dim found As Boolean
+    Dim found As Boolean: found = False
     Dim lookFor As Variant
-    Dim thisValue As Long
-    Dim foundGMT As Boolean
-    Dim foundNeg As Boolean
-    Dim foundString As Boolean
-    Dim foundHrs As Boolean
+    Dim thisValue As Long: thisValue = 0
+    Dim foundGMT As Boolean: foundGMT = False
+    Dim foundNeg As Boolean: foundNeg = False
+    Dim foundString As Boolean: foundString = False
+    Dim foundHrs As Boolean: foundHrs = False
     Dim foundMins As Boolean: foundMins = False
-    Dim subString As String
-    Dim hoursOffset As Integer
-    Dim minsOffset As Integer
+    Dim subString As String: subString = vbNullString
+    Dim hoursOffset As Integer: hoursOffset = 0
+    Dim minsOffset As Integer: minsOffset = 0
     
     On Error GoTo getRemoteOffset_Error
     
@@ -183,17 +189,18 @@ End Function
 
 getRemoteOffset_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure getRemoteOffset of Module modDaylightSavings"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function   getRemoteOffset of Module modDaylightSavings"
  End Function
 
 
 
 
 '---------------------------------------------------------------------------------------
-' Procedure : getDLSrules
+' Function  : getDLSrules
 ' Author    : beededea
 ' Date      : 06/10/2023
-' Purpose   : read the rule list from file
+' Purpose   : read the rule list from file into an intermediate variant via a split, then
+'             into a string array
 ' ["US", "Apr", "Sun>=1", "120", "60", "Oct", "lastSun", "60"]
 '---------------------------------------------------------------------------------------
 '
@@ -203,10 +210,10 @@ Public Function getDLSrules(ByVal path As String) As String()
     Dim rules() As String
     Dim iFile As Integer: iFile = 0
     Dim I As Variant
-    Dim lFileLen As Long
-    Dim sBuffer As String
+    Dim lFileLen As Long: lFileLen = 0
+    Dim sBuffer As String: sBuffer = vbNullString
     Dim useloop As Integer: useloop = 0
-    Dim arraySize As Integer
+    Dim arraySize As Integer: arraySize = 0
     
     On Error GoTo getDLSrules_Error
     
@@ -248,19 +255,19 @@ ErrorHandler:
     If iFile > 0 Then Close #iFile
     
     getDLSrules = rules ' return
-    Debug.Print "%DST-O getDLSrules " + rules(1)
+    Debug.Print "%DST-O getDLSrules(eg.) " & rules(1)
     
     On Error GoTo 0
     Exit Function
 
 getDLSrules_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure getDLSrules of Module modDaylightSavings"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function   getDLSrules of Module modDaylightSavings"
 End Function
 
 
 '---------------------------------------------------------------------------------------
-' Procedure : getNumberOfMonth
+' Function   : getNumberOfMonth
 ' Author    : beededea
 ' Date      : 07/10/2023
 ' Purpose   : get the number of the month given a month name
@@ -279,21 +286,23 @@ Public Function getNumberOfMonth(ByVal thisMonth As String) As Integer
     If getNumberOfMonth < 0 Or getNumberOfMonth > 11 Then
         MsgBox ("getNumberOfMonth: " & thisMonth & " is not a valid month name")
         getNumberOfMonth = 99 ' return invalid
+        
+        Debug.Print ("%DST-O abnormal getNumberOfMonth " & getNumberOfMonth)
     End If
     
-    Debug.Print "%DST-O getNumberOfMonth " + getNumberOfMonth
+    Debug.Print ("%DST-O getNumberOfMonth " & getNumberOfMonth)
     
     On Error GoTo 0
     Exit Function
 
 getNumberOfMonth_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure getNumberOfMonth of Module modDaylightSavings"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function   getNumberOfMonth of Module modDaylightSavings"
 
 End Function
 
 '---------------------------------------------------------------------------------------
-' Procedure : getNumberOfDay
+' Function   : getNumberOfDay
 ' Author    : beededea
 ' Date      : 07/10/2023
 ' Purpose   : get the number of the day given a day name
@@ -319,7 +328,7 @@ Public Function getNumberOfDay(ByVal thisDay As String) As Integer
         If InStr(days(useloop), thisDay) > 0 Then
             getNumberOfDay = Val(LTrim$(Mid$(days(useloop), 6, Len(days(useloop))))) ' return
             
-            Debug.Print "%DST-O getNumberOfDay " + getNumberOfDay
+            Debug.Print ("%DST-O getNumberOfDay " & getNumberOfDay)
             Exit Function
         End If
         useloop = useloop + 1
@@ -328,24 +337,24 @@ Public Function getNumberOfDay(ByVal thisDay As String) As Integer
     MsgBox ("getNumberOfDay: " & thisDay & " is not a valid day name")
     getNumberOfDay = 99 ' return invalid
     
-    Debug.Print "%DST-O Abnormal getNumberOfDay " + getNumberOfDay
+    Debug.Print ("%DST-O Abnormal getNumberOfDay " & getNumberOfDay)
 
     On Error GoTo 0
     Exit Function
 
 getNumberOfDay_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure getNumberOfDay of Module modDaylightSavings"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function   getNumberOfDay of Module modDaylightSavings"
 
 End Function
 
 
 
 '---------------------------------------------------------------------------------------
-' Procedure : getDaysInMonth
+' Function  : getDaysInMonth
 ' Author    : beededea
 ' Date      : 07/10/2023
-' Purpose   : get the number of days in a given month
+' Purpose   : get the number of natural full days in a given month
 '---------------------------------------------------------------------------------------
 '
 Public Function getDaysInMonth(ByVal thisMonth As Integer, ByVal thisYear As Integer) As Integer
@@ -363,7 +372,7 @@ Public Function getDaysInMonth(ByVal thisMonth As Integer, ByVal thisYear As Int
         MsgBox ("getDaysInMonth: " & thisMonth & " is not a valid month number")
         getDaysInMonth = 99 ' return invalid
         
-        Debug.Print "%DST-O Abnormal getDaysInMonth " + getDaysInMonth
+        Debug.Print "%DST-O Abnormal getDaysInMonth " & getDaysInMonth
         Exit Function
     End If
 
@@ -372,43 +381,43 @@ Public Function getDaysInMonth(ByVal thisMonth As Integer, ByVal thisYear As Int
     
     If thisMonth <> 1 Then ' all except Feb
         getDaysInMonth = Val(LTrim$(monthDaysArray(thisMonth))) ' return
-        Debug.Print "%DST-O getDaysInMonth " + getDaysInMonth
+        Debug.Print ("%DST-O getDaysInMonth " & getDaysInMonth)
         Exit Function
     End If
     
     If thisYear Mod 4 <> 0 Then
         getDaysInMonth = 28 ' return
-        Debug.Print "%DST-O getDaysInMonth " + getDaysInMonth
+        Debug.Print ("%DST-O getDaysInMonth " & getDaysInMonth)
         Exit Function
     End If
     
     If thisYear Mod 400 <> 0 Then
         getDaysInMonth = 29 ' return
-        Debug.Print "%DST-O getDaysInMonth " + getDaysInMonth
+        Debug.Print ("%DST-O getDaysInMonth " & getDaysInMonth)
         Exit Function
     End If
     
     If thisYear Mod 100 <> 0 Then
         getDaysInMonth = 28 ' return
-        Debug.Print "%DST-O getDaysInMonth " + getDaysInMonth
+        Debug.Print ("%DST-O getDaysInMonth " & getDaysInMonth)
         Exit Function
     End If
 
     getDaysInMonth = 29 ' return
-    Debug.Print "%DST-O getDaysInMonth " + getDaysInMonth
+    Debug.Print ("%DST-O getDaysInMonth " & getDaysInMonth)
 
     On Error GoTo 0
     Exit Function
 
 getmonthsIn_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure getmonthsIn of Module modmonthlightSavings"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function   getmonthsIn of Module modmonthlightSavings"
 
 End Function
     
 
 '---------------------------------------------------------------------------------------
-' Procedure : getDateOfFirst
+' Function  : getDateOfFirst
 ' Author    : beededea
 ' Date      : 07/10/2023
 ' Purpose   :  get Date (1..31) Of First dayName (Sun..Sat) after date (1..31) of monthName (Jan..Dec) of year (2004..)
@@ -417,12 +426,12 @@ End Function
 '---------------------------------------------------------------------------------------
 '
 Public Function getDateOfFirst(ByVal dayName As String, ByVal thisDayNumber As Integer, ByVal monthName As String, ByVal thisYear As Integer) As Integer
-'
+
     Dim tDay As Integer: tDay = 0
     Dim tMonth As Integer: tMonth = 0
     Dim last As Integer: last = 0
     Dim d As Date
-    Dim lastDay As Long
+    Dim lastDay As Long: lastDay = 0
 
     On Error GoTo getDateOfFirst_Error
     
@@ -437,7 +446,7 @@ Public Function getDateOfFirst(ByVal dayName As String, ByVal thisDayNumber As I
     
     If tDay = 99 Or tMonth = 99 Then
         getDateOfFirst = 99 ' return invalid
-        Debug.Print "%DST-O Abnormal getDateOfFirst " + getDateOfFirst
+        Debug.Print "%DST-O Abnormal getDateOfFirst " & getDateOfFirst
         Exit Function
     End If
     
@@ -449,19 +458,19 @@ Public Function getDateOfFirst(ByVal dayName As String, ByVal thisDayNumber As I
     lastDay = Weekday(d, vbSunday)
         
     getDateOfFirst = last - (lastDay - tDay + 7) Mod 7 'return
-    Debug.Print "%DST-O getDateOfFirst " + getDateOfFirst
+    Debug.Print ("%DST-O getDateOfFirst " & getDateOfFirst)
     
     On Error GoTo 0
     Exit Function
 
 getDateOfFirst_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure getDateOfFirst of Module modDaylightSavings"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function   getDateOfFirst of Module modDaylightSavings"
 End Function
 
 
 '---------------------------------------------------------------------------------------
-' Procedure : getDateOfLast
+' Function  : getDateOfLast
 ' Author    : beededea
 ' Date      : 07/10/2023
 ' Purpose   : get Date (1..31) Of Last dayName (Sun..Sat) of monthName (Jan..Dec) of year (2004..)
@@ -474,7 +483,7 @@ Public Function getDateOfLast(ByVal dayName As String, ByVal monthName As String
     Dim tMonth As Integer: tMonth = 0
     Dim last As Integer: last = 0
     Dim d As Date
-    Dim lastDay As Long
+    Dim lastDay As Long: lastDay = 0
     
     On Error GoTo getDateOfLast_Error
     
@@ -488,7 +497,7 @@ Public Function getDateOfLast(ByVal dayName As String, ByVal monthName As String
     
     If tDay = 99 Or tMonth = 99 Then
         getDateOfLast = 99 ' return invalid
-        Debug.Print "%DST-O Abnormal getDateOfLast " + getDateOfLast
+        Debug.Print "%DST-O Abnormal getDateOfLast " & getDateOfLast
         Exit Function
     End If
     
@@ -501,20 +510,20 @@ Public Function getDateOfLast(ByVal dayName As String, ByVal monthName As String
     lastDay = Weekday(d, vbSunday)
 
     getDateOfLast = last - (lastDay - tDay + 7) Mod 7 'return
-    Debug.Print "%DST-O getDateOfLast " + getDateOfLast
+    Debug.Print "%DST-O getDateOfLast " & getDateOfLast
     
     On Error GoTo 0
     Exit Function
 
 getDateOfLast_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure getDateOfLast of Module modDaylightSavings"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function   getDateOfLast of Module modDaylightSavings"
 
 End Function
 
 
 '---------------------------------------------------------------------------------------
-' Procedure : dayOfMonth
+' Function   : dayOfMonth
 ' Author    : beededea
 ' Date      : 09/10/2023
 ' Purpose   : get day of the month
@@ -557,23 +566,23 @@ Public Function dayOfMonth(ByVal monthName As String, ByVal dayRule As String, B
 
 dayOfMonth_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure dayOfMonth of Module modDaylightSavings"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function   dayOfMonth of Module modDaylightSavings"
 End Function
 
 
 
 '---------------------------------------------------------------------------------------
-' Procedure : theDLSdelta
+' Function  : theDLSdelta
 ' Author    : beededea
 ' Date      : 09/10/2023
 ' Purpose   :
-'// parameter 1 all the rules
-'// parameter 2 prefs selected rule eg. ["US","Apr","Sun>=1","120","60","Oct","lastSun","60"];
-'// parameter 3 remote GMT Offset
+' parameter 1 all the rules
+' parameter 2 prefs selected rule eg. ["US","Apr","Sun>=1","120","60","Oct","lastSun","60"];
+' parameter 3 remote GMT Offset
 '---------------------------------------------------------------------------------------
 '
 Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, ByVal cityTimeOffset As Long) As Long
-'
+
     On Error GoTo theDLSdelta_Error
     
 '   set up variables
@@ -617,7 +626,7 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
     monthName = ArrayString("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
     
     Debug.Print ("%DST func theDLSdelta")
-    Debug.Print ("%DST-I  DLSrules(0) " & DLSrules(0))
+    Debug.Print ("%DST-I  DLSrules(eg.) " & DLSrules(0))
     Debug.Print ("%DST-I  rule " & rule)
     Debug.Print ("%DST-I  cityTimeOffset " & cityTimeOffset)
 '
@@ -643,6 +652,8 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
         End If
     Next useloop
     
+    Debug.Print ("%DST   DLSrules(" & arrayNumber & ") " & DLSrules(arrayNumber))
+
     If arrayElementPresent = False Then
         Debug.Print ("%DST-O Abnormal DLSdelta: " & rule & " is not in the list of DLS rules.")
         theDLSdelta = 0 ' return abnormal
@@ -705,14 +716,14 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
     startDate = dayOfMonth(startMonth, startDay, startYear)
     If startDate = 0 Then
         theDLSdelta = 0 ' return abnormal
-        Debug.Print "theDLSdelta " + theDLSdelta
+        Debug.Print "theDLSdelta " & theDLSdelta
         Exit Function
     End If
     
     endDate = dayOfMonth(endMonth, endDay, endYear)
     If endDate = 0 Then
         theDLSdelta = 0 ' return abnormal
-        Debug.Print "theDLSdelta " + theDLSdelta
+        Debug.Print "theDLSdelta " & theDLSdelta
         Exit Function
     End If
     
@@ -783,11 +794,11 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
 '
     If (theStart <= stdTime) And (stdTime < theEnd) Then
         theDLSdelta = delta ' return
-        Debug.Print "%DST-O theDLSdelta o " + theDLSdelta
+        Debug.Print "%DST-O theDLSdelta o " & theDLSdelta
         Exit Function
     Else
         theDLSdelta = 0 ' return abnormal
-        Debug.Print "%DST-O Abnormal theDLSdelta abnormal o " + theDLSdelta
+        Debug.Print "%DST-O Abnormal theDLSdelta abnormal o " & theDLSdelta
         Exit Function
     End If
 
@@ -796,7 +807,7 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
 
 theDLSdelta_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure theDLSdelta of Module modDaylightSavings"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function   theDLSdelta of Module modDaylightSavings"
 End Function
 
 
