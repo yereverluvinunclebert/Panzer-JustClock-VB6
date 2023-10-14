@@ -60,7 +60,6 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     Dim extractCommand As String: extractCommand = vbNullString
     Dim thisPSDFullPath As String: thisPSDFullPath = vbNullString
 
-    
     On Error GoTo main_routine_Error
     
     widgetName = "Panzer Just Clock Gauge"
@@ -71,6 +70,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     
     prefsCurrentWidth = 9075
     prefsCurrentHeight = 16450
+    
+    tzDelta1 = 0
     
     extractCommand = Command$ ' capture any parameter passed, remove if a soft reload
     If restart = True Then extractCommand = vbNullString

@@ -161,8 +161,12 @@
 ' tested rules for need of variants in 'for each' and split(). Made and tested variable type changes - done
 ' time zone code - wip - look at YWE and replicate - done
 
-' daylight saving time code - implement and test - wip
-' date/day fields altered by DST and timezone changes as per YWE version - wip
+' daylight saving time code - implement and test - done
+' date/day fields altered by DST and timezone changes as per YWE version - done
+
+' transparency for WHOLE form using FCW method of gaining transparency.
+
+' about page ting on exit
 
 ' test usage of RC6 for monitor awareness - wip
 With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisplay
@@ -170,13 +174,13 @@ With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisp
   Debug.Print .WorkLeft , .WorkTop, (.WorkRight - .WorkLeft), (.WorkBottom - .WorkTop)
 End With
 
-' add second monitor - wip
+' add second monitor - wip cable
 
 ' adjustFormPositionToCorrectMonitor, make it work and observe the result as per FCW - wip
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
-' create a RC project to fade a widget in and out to demonstrate the RC fade out bug
+' create an independent RC project to fade a widget in and out to demonstrate the RC fade-out bug
 
 ' initialise a lot of public and private declared vars - wip
 
@@ -191,6 +195,8 @@ End With
 ' review code using mzTools
 
 ' setup2go
+
+
 
 ' RC BUGS & LIMITATIONS
 ' =====================

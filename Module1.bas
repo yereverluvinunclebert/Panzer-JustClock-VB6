@@ -439,6 +439,7 @@ Private Declare Function GetTimeZoneInformation Lib "kernel32" (uTZ As TimeZoneI
 ' Flag for debug mode '.06 DAEB 19/04/2021 common.bas moved to the common area so that it can be used by each of the utilities
 Private mbDebugMode As Boolean ' .30 DAEB 03/03/2021 frmMain.frm replaced the inIDE function that used a variant to one without
 
+Public tzDelta1 As Long
 
 '---------------------------------------------------------------------------------------
 ' Procedure : fFExists
@@ -2690,9 +2691,9 @@ Public Function ArrayString(ParamArray tokens()) As String()
     On Error GoTo ArrayString_Error
 
     ReDim Arr(UBound(tokens)) As String
-    Dim i As Long
-    For i = 0 To UBound(tokens)
-        Arr(i) = tokens(i)
+    Dim I As Long
+    For I = 0 To UBound(tokens)
+        Arr(I) = tokens(I)
     Next
     ArrayString = Arr
 

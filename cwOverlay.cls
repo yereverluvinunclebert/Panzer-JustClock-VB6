@@ -328,7 +328,7 @@ End Property
 '             For this Overlay-Widget alone, we make everything "fully click-through"
 '---------------------------------------------------------------------------------------------
 '
-Private Sub W_HitTest(ByVal X As Single, ByVal Y As Single, HitResultHit As Boolean) 'ensure ClickThrough-behaviour in ImagePixels which are "fully Alpha"
+Private Sub W_HitTest(ByVal x As Single, ByVal Y As Single, HitResultHit As Boolean) 'ensure ClickThrough-behaviour in ImagePixels which are "fully Alpha"
    On Error GoTo W_HitTest_Error
 
    HitResultHit = False
@@ -350,7 +350,7 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As Single, ByVal dx_Aligned As Single, ByVal dy_Aligned As Single, UserObj As Object)
-    Dim i As Long: i = 0
+    Dim I As Long: I = 0
     Dim Arr As Variant
     Dim Key As String: Key = vbNullString
     Dim Pat As cCairoPattern
@@ -375,9 +375,9 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
     txtDayNumber = Day(Now)
     txtMonthNumber = Month(Now)
 
-    For i = 0 To cCollOverlayImages.Count - 1 ' this is the ExcludedPaths collection populated in cfAlpha by duplicating collPSDNonUIElements.
-      Arr = cCollOverlayImages.ItemByIndex(i)
-      Key = cCollOverlayImages.KeyByIndex(i)
+    For I = 0 To cCollOverlayImages.Count - 1 ' this is the ExcludedPaths collection populated in cfAlpha by duplicating collPSDNonUIElements.
+      Arr = cCollOverlayImages.ItemByIndex(I)
+      Key = cCollOverlayImages.KeyByIndex(I)
       
       If IsArray(Arr) Then
              CC.Save
@@ -444,8 +444,10 @@ Private Sub tmrClock_Timer() 'update the private "Degree-Variables" for Hour-, M
     
     GetSystemTime currentLocaltime
 
-    HDeg = 30 * (Hour(T) Mod 12 + Minute(T) / 60)
-    MDeg = 6 * (Minute(T) + Second(T) / 60)
+    HDeg = 30 * (Hour(T) Mod 12 + (Minute(T) + tzDelta1) / 60)
+    MDeg = 6 * ((Minute(T) + tzDelta1) + (Second(T) / 60))
+
+
 
     If mSmoothSecondHand = True Then
         SDeg = 6 * Second(T)
