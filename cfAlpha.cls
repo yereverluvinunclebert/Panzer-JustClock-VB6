@@ -11,6 +11,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'@IgnoreModule IntegerDataType, ModuleWithoutFolder
 Option Explicit 'simple Alpha-Form (...to be filled with (mostly Img-) Content via .Widgets.Add)
 
 Public WithEvents gaugeForm As cWidgetForm
@@ -55,14 +56,14 @@ End Sub
 '                cwOverlay class puts it on the screen
 '---------------------------------------------------------------------------------------
 '
-Public Sub InitFromPSD(PSD_FileNameOrByteArray)
+Public Sub InitFromPSD(ByRef PSD_FileNameOrByteArray As Variant)
     
-    Const AlphaWithTaskbarEntry = 6
-    Const AlphaNoTaskbarEntry = 7
+    Const AlphaWithTaskbarEntry As Integer = 6
+    Const AlphaNoTaskbarEntry As Integer = 7
   
     Dim I As Long: I = 0
     Dim W As cWidgetBase
-    Dim excludeOpacity As Integer: excludeOpacity = 0
+    'Dim excludeOpacity As Integer: excludeOpacity = 0
     'Dim pngFolder As String: pngFolder = vbNullString
    
     On Error GoTo InitFromPSD_Error
@@ -474,7 +475,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Sub gaugeForm_DblClick()
+Private Sub gaugeForm_DblClick()
     Dim userprof As String: userprof = vbNullString
     Dim thisCommand As String: thisCommand = vbNullString
     

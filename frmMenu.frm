@@ -98,6 +98,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'@IgnoreModule ModuleWithoutFolder
 
 Option Explicit
 
@@ -168,7 +169,7 @@ Private Sub mnuAppFolder_Click()
     
    On Error GoTo mnuAppFolder_Click_Error
 
-    folderPath = App.Path
+    folderPath = App.path
     If fDirExists(folderPath) Then ' if it is a folder already
 
         execStatus = ShellExecute(Me.hwnd, "open", folderPath, vbNullString, vbNullString, 1)
@@ -194,17 +195,7 @@ End Sub
 
 
 
-Private Sub mnublank1_Click()
-    'Call mnuAbout_Click
-End Sub
 
-Private Sub mnuBlank2_Click()
-    'Call mnuIconSettings_Click_Event
-End Sub
-
-Private Sub mnublnk_Click()
-    'Call mnusettings_Click
-End Sub
 
 
 
@@ -256,8 +247,8 @@ End Sub
 Private Sub mnuHelpHTM_Click()
     On Error GoTo mnuHelpHTM_Click_Error
 
-        If fFExists(App.Path & "\help\Help.chm") Then
-            Call ShellExecute(Me.hwnd, "Open", App.Path & "\help\Help.chm", vbNullString, App.Path, 1)
+        If fFExists(App.path & "\help\Help.chm") Then
+            Call ShellExecute(Me.hwnd, "Open", App.path & "\help\Help.chm", vbNullString, App.path, 1)
         Else
             MsgBox ("The help file - Help.chm - is missing from the help folder.")
         End If
@@ -404,7 +395,8 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub mnuCoffee_Click(Index As Integer)
-
+    On Error GoTo mnuCoffee_Click_Error
+    
     Call mnuCoffee_ClickEvent
 
     On Error GoTo 0
@@ -436,7 +428,7 @@ Public Sub mnuFacebook_Click()
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Visit Facebook Request", True, "mnuFacebookClick")
     'answer = MsgBox("Visiting the Facebook chat page - this button opens a browser window and connects to our Facebook chat page. Proceed?", vbExclamation + vbYesNo)
     If answer = vbYes Then
-        Call ShellExecute(Me.hwnd, "Open", "http://www.facebook.com/profile.php?id=100012278951649", vbNullString, App.Path, 1)
+        Call ShellExecute(Me.hwnd, "Open", "http://www.facebook.com/profile.php?id=100012278951649", vbNullString, App.path, 1)
     End If
 
     On Error GoTo 0
@@ -469,7 +461,7 @@ Public Sub mnuLatest_Click()
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Upgrade", True, "mnuLatestClick")
 
     If answer = vbYes Then
-        Call ShellExecute(Me.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6", vbNullString, App.Path, 1)
+        Call ShellExecute(Me.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6", vbNullString, App.path, 1)
     End If
 
 
@@ -526,34 +518,34 @@ mnuSupport_Click_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure mnuSupport_Click of form menuForm"
 End Sub
 
-'---------------------------------------------------------------------------------------
-' Procedure : mnuSweets_Click
-' Author    : beededea
-' Date      : 13/02/2019
-' Purpose   :
-'---------------------------------------------------------------------------------------
+''---------------------------------------------------------------------------------------
+'' Procedure : mnuSweets_Click
+'' Author    : beededea
+'' Date      : 13/02/2019
+'' Purpose   :
+''---------------------------------------------------------------------------------------
+''
+'Private Sub mnuSweets_Click()
+'    Dim answer As VbMsgBoxResult: answer = vbNo
+'    Dim answerMsg As String: answerMsg = vbNullString
 '
-Private Sub mnuSweets_Click()
-    Dim answer As VbMsgBoxResult: answer = vbNo
-    Dim answerMsg As String: answerMsg = vbNullString
-
-    On Error GoTo mnuSweets_Click_Error
-    answer = vbYes
-    answerMsg = " Help support the creation of more widgets like this. Buy me a Kofi! This button opens a browser window and connects to Kofi donation page). Will you be kind and proceed?"
-    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Donate a Kofi", True, "mnuSweetsClick")
-    'answer = MsgBox(" Help support the creation of more widgets like this. Buy me a Kofi! This button opens a browser window and connects to Kofi donation page). Will you be kind and proceed?", vbExclamation + vbYesNo)
-
-    If answer = vbYes Then
-        Call ShellExecute(Me.hwnd, "Open", "https://www.ko-fi.com/yereverluvinunclebert", vbNullString, App.Path, 1)
-    End If
-    
-    On Error GoTo 0
-    Exit Sub
-
-mnuSweets_Click_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure mnuSweets_Click of form menuForm"
-End Sub
+'    On Error GoTo mnuSweets_Click_Error
+'    answer = vbYes
+'    answerMsg = " Help support the creation of more widgets like this. Buy me a Kofi! This button opens a browser window and connects to Kofi donation page). Will you be kind and proceed?"
+'    answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Donate a Kofi", True, "mnuSweetsClick")
+'    'answer = MsgBox(" Help support the creation of more widgets like this. Buy me a Kofi! This button opens a browser window and connects to Kofi donation page). Will you be kind and proceed?", vbExclamation + vbYesNo)
+'
+'    If answer = vbYes Then
+'        Call ShellExecute(Me.hwnd, "Open", "https://www.ko-fi.com/yereverluvinunclebert", vbNullString, App.path, 1)
+'    End If
+'
+'    On Error GoTo 0
+'    Exit Sub
+'
+'mnuSweets_Click_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure mnuSweets_Click of form menuForm"
+'End Sub
 
 '---------------------------------------------------------------------------------------
 ' Procedure : mnuSwitchOff_Click
@@ -619,7 +611,7 @@ Private Sub mnuWidgets_Click()
     'answer = MsgBox(" This button opens a browser window and connects to the Steampunk widgets page on my site. Do you wish to proceed?", vbExclamation + vbYesNo)
 
     If answer = vbYes Then
-        Call ShellExecute(Me.hwnd, "Open", "https://www.deviantart.com/yereverluvinuncleber/gallery/59981269/yahoo-widgets", vbNullString, App.Path, 1)
+        Call ShellExecute(Me.hwnd, "Open", "https://www.deviantart.com/yereverluvinuncleber/gallery/59981269/yahoo-widgets", vbNullString, App.path, 1)
     End If
 
     On Error GoTo 0
@@ -651,5 +643,4 @@ mnuAbout_Click_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure mnuAbout_Click of form menuForm"
 End Sub
-
 

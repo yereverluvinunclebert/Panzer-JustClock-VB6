@@ -11,6 +11,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'@IgnoreModule IntegerDataType, ModuleWithoutFolder
 '---------------------------------------------------------------------------------------
 ' Module    : cfMain
 ' Author    : beededea
@@ -29,7 +30,7 @@ Attribute licenceForm.VB_VarHelpID = -1
 
 Public licenceFormX As Long
 Public licenceFormY As Long
-Public licenceFormZ As Single
+' Public licenceFormZ As Single
 
 Private WithEvents btnAccept As cwButton
 Attribute btnAccept.VB_VarHelpID = -1
@@ -48,8 +49,8 @@ Attribute textBox.VB_VarHelpID = -1
 '
 Public Sub initAndShowStandardForms(ByVal x As Long, ByVal Y As Long, Optional ByVal dx As Long, Optional ByVal dy As Long, Optional ByVal Caption As String)
     
-    Dim aboutFormWidth As Long: aboutFormWidth = 0
-    Dim aboutFormHeight As Long: aboutFormHeight = 0
+'    Dim aboutFormWidth As Long: aboutFormWidth = 0
+'    Dim aboutFormHeight As Long: aboutFormHeight = 0
     Dim aboutWidgetWidth As Long: aboutWidgetWidth = 0
     Dim aboutWidgetHeight As Long: aboutWidgetHeight = 0
     
@@ -63,13 +64,13 @@ Public Sub initAndShowStandardForms(ByVal x As Long, ByVal Y As Long, Optional B
     On Error GoTo initAndShowStandardForms_Error
     
     If PzGDpiAwareness = "0" Then
-        aboutFormWidth = 800
-        aboutFormHeight = 600
+'        aboutFormWidth = 800
+'        aboutFormHeight = 600
         aboutWidgetWidth = 850
         aboutWidgetHeight = 750
     Else
-        aboutFormWidth = 1600
-        aboutFormHeight = 1200
+'        aboutFormWidth = 1600
+'        aboutFormHeight = 1200
         aboutWidgetWidth = 1700
         aboutWidgetHeight = 1500
     End If
@@ -167,7 +168,14 @@ End Sub
 '
 Private Sub btnAccept_Click()
     Dim answer As VbMsgBoxResult: answer = vbNo
+    Dim fileToPlay As String: fileToPlay = vbNullString
+    
     On Error GoTo btnAccept_Click_Error
+    
+    fileToPlay = "ting.wav"
+    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    End If
 
     answer = msgBoxA("User accepted licence, thankyou.", vbOKOnly, "Licence Acceptance", True, "btnAcceptClick")
     
@@ -195,7 +203,7 @@ End Sub
 Private Sub btnDecline_Click()
     
     Dim answer As VbMsgBoxResult: answer = vbNo
-    Dim answerMsg As String: answerMsg = vbNullString
+    'Dim answerMsg As String: answerMsg = vbNullString
         
     On Error GoTo btnDecline_Click_Error
 
@@ -245,3 +253,5 @@ licenceForm_MouseMove_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure licenceForm_MouseMove of Class Module cfAlpha"
 End Sub
+
+

@@ -3,17 +3,692 @@ Object = "{BCE37951-37DF-4D69-A8A3-2CFABEE7B3CC}#1.0#0"; "CCRSlider.ocx"
 Begin VB.Form panzerPrefs 
    AutoRedraw      =   -1  'True
    Caption         =   "Panzer JustClock Preferences"
-   ClientHeight    =   10635
+   ClientHeight    =   10470
    ClientLeft      =   60
-   ClientTop       =   345
+   ClientTop       =   510
    ClientWidth     =   8955
    Icon            =   "frmPrefs.frx":0000
    LinkTopic       =   "Form2"
-   ScaleHeight     =   10784.79
+   ScaleHeight     =   10617.47
    ScaleMode       =   0  'User
    ScaleWidth      =   8955
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
+   Begin VB.Frame fraDevelopment 
+      Caption         =   "Development"
+      Height          =   6210
+      Left            =   240
+      TabIndex        =   48
+      Top             =   1200
+      Visible         =   0   'False
+      Width           =   8520
+      Begin VB.Frame fraDevelopmentInner 
+         BorderStyle     =   0  'None
+         Height          =   5595
+         Left            =   870
+         TabIndex        =   49
+         Top             =   300
+         Width           =   7455
+         Begin VB.Frame fraDefaultEditor 
+            BorderStyle     =   0  'None
+            Height          =   2370
+            Left            =   75
+            TabIndex        =   135
+            Top             =   3165
+            Width           =   7290
+            Begin VB.CommandButton btnDefaultEditor 
+               Caption         =   "..."
+               Height          =   300
+               Left            =   5115
+               Style           =   1  'Graphical
+               TabIndex        =   137
+               ToolTipText     =   "Click to select the .vbp file to edit the program - You need to have access to the source!"
+               Top             =   210
+               Width           =   315
+            End
+            Begin VB.TextBox txtDefaultEditor 
+               Height          =   315
+               Left            =   1440
+               TabIndex        =   136
+               Text            =   " eg. E:\vb6\fire call\FireCallWin.vbp"
+               Top             =   195
+               Width           =   3660
+            End
+            Begin VB.Label lblGitHub 
+               Caption         =   $"frmPrefs.frx":1856A
+               ForeColor       =   &H8000000D&
+               Height          =   915
+               Left            =   1560
+               TabIndex        =   141
+               ToolTipText     =   "Double Click to visit github"
+               Top             =   1440
+               Width           =   4935
+            End
+            Begin VB.Label lblDebug 
+               Caption         =   $"frmPrefs.frx":18603
+               Height          =   930
+               Index           =   9
+               Left            =   1545
+               TabIndex        =   139
+               Top             =   690
+               Width           =   4785
+            End
+            Begin VB.Label lblDebug 
+               Caption         =   "Default Editor :"
+               Height          =   255
+               Index           =   7
+               Left            =   285
+               TabIndex        =   138
+               Tag             =   "lblSharedInputFile"
+               Top             =   225
+               Width           =   1350
+            End
+         End
+         Begin VB.TextBox txtDblClickCommand 
+            Height          =   315
+            Left            =   1515
+            TabIndex        =   61
+            ToolTipText     =   "Enter a Windows command for the gauge to operate when double-clicked."
+            Top             =   1095
+            Width           =   3660
+         End
+         Begin VB.CommandButton btnOpenFile 
+            Caption         =   "..."
+            Height          =   300
+            Left            =   5175
+            Style           =   1  'Graphical
+            TabIndex        =   58
+            ToolTipText     =   "Click to select a particular file for the gauge to run or open when double-clicked."
+            Top             =   2250
+            Width           =   315
+         End
+         Begin VB.TextBox txtOpenFile 
+            Height          =   315
+            Left            =   1515
+            TabIndex        =   57
+            ToolTipText     =   "Enter a particular file for the gauge to run or open when double-clicked."
+            Top             =   2235
+            Width           =   3660
+         End
+         Begin VB.ComboBox cmbDebug 
+            Height          =   315
+            ItemData        =   "frmPrefs.frx":186A7
+            Left            =   1530
+            List            =   "frmPrefs.frx":186A9
+            Style           =   2  'Dropdown List
+            TabIndex        =   54
+            ToolTipText     =   "Choose to set debug mode."
+            Top             =   -15
+            Width           =   2160
+         End
+         Begin VB.Label lblDebug 
+            Caption         =   "DblClick Command :"
+            Height          =   510
+            Index           =   1
+            Left            =   -15
+            TabIndex        =   63
+            Tag             =   "lblPrefixString"
+            Top             =   1155
+            Width           =   1545
+         End
+         Begin VB.Label lblConfigurationTab 
+            Caption         =   "Shift+double-clicking on the widget image will open this file. "
+            Height          =   375
+            Index           =   6
+            Left            =   1560
+            TabIndex        =   62
+            Top             =   2730
+            Width           =   3705
+         End
+         Begin VB.Label lblDebug 
+            Caption         =   "Default command to run when the gauge receives a double-click eg %SystemRoot%/system32/ncpa.cpl"
+            Height          =   570
+            Index           =   5
+            Left            =   1590
+            TabIndex        =   60
+            Tag             =   "lblSharedInputFileDesc"
+            Top             =   1605
+            Width           =   4410
+         End
+         Begin VB.Label lblDebug 
+            Caption         =   "Open File :"
+            Height          =   255
+            Index           =   4
+            Left            =   645
+            TabIndex        =   59
+            Tag             =   "lblSharedInputFile"
+            Top             =   2280
+            Width           =   1350
+         End
+         Begin VB.Label lblDebug 
+            Caption         =   "Turning on the debugging will provide extra information in the debug window.  *"
+            Height          =   495
+            Index           =   2
+            Left            =   1545
+            TabIndex        =   56
+            Tag             =   "lblAlarmSoundDesc"
+            Top             =   450
+            Width           =   4455
+         End
+         Begin VB.Label lblDebug 
+            Caption         =   "Debug :"
+            Height          =   375
+            Index           =   0
+            Left            =   855
+            TabIndex        =   55
+            Tag             =   "lblAlarmSound"
+            Top             =   45
+            Width           =   1740
+         End
+      End
+   End
+   Begin VB.Frame fraAbout 
+      Caption         =   "About"
+      Height          =   8580
+      Left            =   255
+      TabIndex        =   101
+      Top             =   1185
+      Visible         =   0   'False
+      Width           =   8520
+      Begin VB.Frame fraScrollbarCover 
+         BorderStyle     =   0  'None
+         Height          =   6435
+         Left            =   7950
+         TabIndex        =   115
+         Top             =   1995
+         Width           =   420
+      End
+      Begin VB.TextBox txtAboutText 
+         Appearance      =   0  'Flat
+         BackColor       =   &H8000000F&
+         BorderStyle     =   0  'None
+         Height          =   6135
+         Left            =   300
+         MultiLine       =   -1  'True
+         ScrollBars      =   2  'Vertical
+         TabIndex        =   114
+         Text            =   "frmPrefs.frx":186AB
+         Top             =   2205
+         Width           =   8010
+      End
+      Begin VB.CommandButton btnAboutDebugInfo 
+         Caption         =   "Debug &Info."
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   360
+         Left            =   6780
+         Style           =   1  'Graphical
+         TabIndex        =   105
+         ToolTipText     =   "This gives access to the debugging tool"
+         Top             =   1110
+         Width           =   1470
+      End
+      Begin VB.CommandButton btnFacebook 
+         Caption         =   "&Facebook"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   360
+         Left            =   6780
+         Style           =   1  'Graphical
+         TabIndex        =   104
+         ToolTipText     =   "This will link you to the Rocket/Steamy dock users Group"
+         Top             =   735
+         Width           =   1470
+      End
+      Begin VB.CommandButton btnUpdate 
+         Caption         =   "&Update"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   360
+         Left            =   6780
+         Style           =   1  'Graphical
+         TabIndex        =   103
+         ToolTipText     =   "Here you can visit the update location where you can download new versions of the programs."
+         Top             =   360
+         Width           =   1470
+      End
+      Begin VB.CommandButton btnDonate 
+         Caption         =   "&Donate"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   360
+         Left            =   6780
+         Style           =   1  'Graphical
+         TabIndex        =   102
+         ToolTipText     =   "Opens a browser window and sends you to our donate page on Amazon"
+         Top             =   1485
+         Width           =   1470
+      End
+      Begin VB.Label lblDotDot 
+         BackStyle       =   0  'Transparent
+         Caption         =   ".        ."
+         BeginProperty Font 
+            Name            =   "Centurion Light SF"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   225
+         Left            =   2940
+         TabIndex        =   119
+         Top             =   510
+         Width           =   495
+      End
+      Begin VB.Label lblRevisionNum 
+         BackStyle       =   0  'Transparent
+         Caption         =   "0"
+         BeginProperty Font 
+            Name            =   "Centurion Light SF"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   240
+         Left            =   3450
+         TabIndex        =   118
+         Top             =   510
+         Width           =   525
+      End
+      Begin VB.Label lblMajorVersion 
+         BackStyle       =   0  'Transparent
+         Caption         =   "0"
+         BeginProperty Font 
+            Name            =   "Centurion Light SF"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   240
+         Left            =   2730
+         TabIndex        =   117
+         Top             =   510
+         Width           =   225
+      End
+      Begin VB.Label lblMinorVersion 
+         BackStyle       =   0  'Transparent
+         Caption         =   "0"
+         BeginProperty Font 
+            Name            =   "Centurion Light SF"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   240
+         Left            =   3090
+         TabIndex        =   116
+         Top             =   510
+         Width           =   225
+      End
+      Begin VB.Label lblAbout 
+         Caption         =   "Dean Beedell © 2023"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   225
+         Index           =   8
+         Left            =   2715
+         TabIndex        =   113
+         Top             =   855
+         Width           =   2175
+      End
+      Begin VB.Label lblAbout 
+         Caption         =   "Originator"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   225
+         Index           =   7
+         Left            =   1050
+         TabIndex        =   112
+         Top             =   855
+         Width           =   795
+      End
+      Begin VB.Label lblAbout 
+         Caption         =   "Version"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   225
+         Index           =   6
+         Left            =   1065
+         TabIndex        =   111
+         Top             =   495
+         Width           =   795
+      End
+      Begin VB.Label lblAbout 
+         Caption         =   "Dean Beedell © 2023"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   225
+         Index           =   5
+         Left            =   2715
+         TabIndex        =   110
+         Top             =   1215
+         Width           =   2175
+      End
+      Begin VB.Label lblAbout 
+         Caption         =   "Current Developer"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   225
+         Index           =   4
+         Left            =   1050
+         TabIndex        =   109
+         Top             =   1215
+         Width           =   1470
+      End
+      Begin VB.Label lblAbout 
+         Caption         =   "Target"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   225
+         Index           =   3
+         Left            =   1050
+         TabIndex        =   108
+         Top             =   1560
+         Width           =   1470
+      End
+      Begin VB.Label lblAbout 
+         Caption         =   "Windows XP, Vista, 7, 8, 10  && 11 + ReactOS"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   225
+         Index           =   2
+         Left            =   2715
+         TabIndex        =   107
+         Top             =   1560
+         Width           =   3735
+      End
+      Begin VB.Label lblAbout 
+         Caption         =   "(32bit WoW64)"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   225
+         Index           =   1
+         Left            =   3900
+         TabIndex        =   106
+         Top             =   510
+         Width           =   1245
+      End
+   End
+   Begin VB.Frame fraConfig 
+      Caption         =   "Configuration"
+      Height          =   6540
+      Left            =   240
+      TabIndex        =   8
+      Top             =   1200
+      Width           =   7140
+      Begin VB.Frame fraConfigInner 
+         BorderStyle     =   0  'None
+         Height          =   5805
+         Left            =   435
+         TabIndex        =   34
+         Top             =   435
+         Width           =   6450
+         Begin VB.CheckBox chkEnablePrefsTooltips 
+            Caption         =   "Enable Preference Utility Tooltips *"
+            Height          =   225
+            Left            =   2010
+            TabIndex        =   153
+            ToolTipText     =   "Check the box to enable tooltips for all controls in the preferences utility"
+            Top             =   3720
+            Width           =   3345
+         End
+         Begin VB.CheckBox chkDpiAwareness 
+            Caption         =   "DPI Awareness Enable *"
+            Height          =   225
+            Left            =   2010
+            TabIndex        =   148
+            ToolTipText     =   "Check the box to make the program DPI aware. RESTART required."
+            Top             =   4500
+            Width           =   3405
+         End
+         Begin VB.CheckBox chkShowTaskbar 
+            Caption         =   "Show Widget in Taskbar"
+            Height          =   225
+            Left            =   2010
+            TabIndex        =   140
+            ToolTipText     =   "Check the box to show the widget in the taskbar"
+            Top             =   4110
+            Width           =   3405
+         End
+         Begin VB.ComboBox cmbScrollWheelDirection 
+            Height          =   315
+            Left            =   1995
+            Style           =   2  'Dropdown List
+            TabIndex        =   88
+            ToolTipText     =   "To change the direction of the mouse scroll wheel when resiziing the globe gauge."
+            Top             =   1695
+            Width           =   2490
+         End
+         Begin VB.CheckBox chkEnableBalloonTooltips 
+            Caption         =   "Enable Balloon Tooltips on all Controls *"
+            Height          =   225
+            Left            =   2010
+            TabIndex        =   39
+            ToolTipText     =   "Check the box to enable larger balloon tooltips for all controls on the main program"
+            Top             =   3345
+            Width           =   4035
+         End
+         Begin VB.CheckBox chkEnableTooltips 
+            Caption         =   "Enable Main Program Tooltips"
+            Height          =   225
+            Left            =   2010
+            TabIndex        =   35
+            ToolTipText     =   "Check the box to enable tooltips for all controls on the main program"
+            Top             =   2910
+            Width           =   3345
+         End
+         Begin vb6projectCCRSlider.Slider sliGaugeSize 
+            Height          =   390
+            Left            =   1920
+            TabIndex        =   96
+            ToolTipText     =   "Adjust to a percentage of the original size. You can also use Ctrl+Mousewheel."
+            Top             =   60
+            Width           =   3870
+            _ExtentX        =   6826
+            _ExtentY        =   688
+            Min             =   5
+            Max             =   100
+            Value           =   5
+            SelStart        =   5
+         End
+         Begin VB.Label lblConfiguration 
+            Caption         =   $"frmPrefs.frx":19662
+            Height          =   930
+            Index           =   0
+            Left            =   1980
+            TabIndex        =   149
+            Top             =   4830
+            Width           =   4335
+         End
+         Begin VB.Label lblConfiguration 
+            Caption         =   "The scroll-wheel resizing direction can be determined here. The direction chosen causes the gauge to grow. *"
+            Height          =   690
+            Index           =   6
+            Left            =   2025
+            TabIndex        =   120
+            Top             =   2115
+            Width           =   3930
+         End
+         Begin VB.Label lblGaugeSize 
+            Caption         =   "180"
+            Height          =   315
+            Index           =   4
+            Left            =   4770
+            TabIndex        =   92
+            Top             =   555
+            Width           =   345
+         End
+         Begin VB.Label lblGaugeSize 
+            Caption         =   "130"
+            Height          =   315
+            Index           =   3
+            Left            =   3990
+            TabIndex        =   91
+            Top             =   555
+            Width           =   345
+         End
+         Begin VB.Label lblGaugeSize 
+            Caption         =   "50"
+            Height          =   315
+            Index           =   1
+            Left            =   2730
+            TabIndex        =   90
+            Top             =   555
+            Width           =   345
+         End
+         Begin VB.Label lblConfiguration 
+            Caption         =   "Mouse Wheel Resize :"
+            Height          =   345
+            Index           =   3
+            Left            =   255
+            TabIndex        =   89
+            ToolTipText     =   "To change the direction of the mouse scroll wheel when resiziing the globe gauge."
+            Top             =   1740
+            Width           =   2055
+         End
+         Begin VB.Label lblConfiguration 
+            Caption         =   "Adjust to a percentage of the original size. You can also use Ctrl+Mousewheel. Immediate. *"
+            Height          =   555
+            Index           =   2
+            Left            =   2070
+            TabIndex        =   87
+            ToolTipText     =   "Adjust to a percentage of the original size. You can also use Ctrl+Mousewheel."
+            Top             =   870
+            Width           =   3810
+         End
+         Begin VB.Label lblConfiguration 
+            Caption         =   "Gauge Size :"
+            Height          =   315
+            Index           =   1
+            Left            =   885
+            TabIndex        =   86
+            Top             =   105
+            Width           =   975
+         End
+         Begin VB.Label lblGaugeSize 
+            Caption         =   "90"
+            Height          =   315
+            Index           =   2
+            Left            =   3345
+            TabIndex        =   85
+            Top             =   555
+            Width           =   840
+         End
+         Begin VB.Label lblGaugeSize 
+            Caption         =   "220 (%)"
+            Height          =   315
+            Index           =   5
+            Left            =   5385
+            TabIndex        =   84
+            Top             =   555
+            Width           =   735
+         End
+         Begin VB.Label lblGaugeSize 
+            Caption         =   "5"
+            Height          =   315
+            Index           =   0
+            Left            =   1980
+            TabIndex        =   83
+            Top             =   555
+            Width           =   345
+         End
+      End
+   End
    Begin VB.Frame fraWindow 
       Caption         =   "Window"
       Height          =   6300
@@ -61,7 +736,7 @@ Begin VB.Form panzerPrefs
                Width           =   720
             End
             Begin VB.Label lblWindowLevel 
-               Caption         =   $"frmPrefs.frx":1856A
+               Caption         =   $"frmPrefs.frx":19716
                Height          =   975
                Index           =   1
                Left            =   855
@@ -193,9 +868,9 @@ Begin VB.Form panzerPrefs
          Width           =   6750
          Begin VB.ComboBox cmbMainDLSPref 
             Height          =   315
-            ItemData        =   "frmPrefs.frx":1860D
+            ItemData        =   "frmPrefs.frx":197B9
             Left            =   1965
-            List            =   "frmPrefs.frx":18614
+            List            =   "frmPrefs.frx":197C0
             Style           =   2  'Dropdown List
             TabIndex        =   164
             Top             =   5370
@@ -213,9 +888,9 @@ Begin VB.Form panzerPrefs
          End
          Begin VB.ComboBox cmbTickSwitchPref 
             Height          =   315
-            ItemData        =   "frmPrefs.frx":18641
+            ItemData        =   "frmPrefs.frx":197ED
             Left            =   2010
-            List            =   "frmPrefs.frx":18643
+            List            =   "frmPrefs.frx":197EF
             Style           =   2  'Dropdown List
             TabIndex        =   154
             Top             =   4215
@@ -248,9 +923,9 @@ Begin VB.Form panzerPrefs
          End
          Begin VB.ComboBox cmbMainGaugeTimeZone 
             Height          =   315
-            ItemData        =   "frmPrefs.frx":18645
+            ItemData        =   "frmPrefs.frx":197F1
             Left            =   2010
-            List            =   "frmPrefs.frx":18647
+            List            =   "frmPrefs.frx":197F3
             Style           =   2  'Dropdown List
             TabIndex        =   142
             Top             =   1185
@@ -302,7 +977,7 @@ Begin VB.Form panzerPrefs
             Width           =   1365
          End
          Begin VB.Label lblGeneral 
-            Caption         =   $"frmPrefs.frx":18649
+            Caption         =   $"frmPrefs.frx":197F5
             Height          =   855
             Index           =   7
             Left            =   2025
@@ -356,191 +1031,6 @@ Begin VB.Form panzerPrefs
             Tag             =   "lblEnableSoundsDesc"
             Top             =   540
             Width           =   3615
-         End
-      End
-   End
-   Begin VB.Frame fraConfig 
-      Caption         =   "Configuration"
-      Height          =   6540
-      Left            =   240
-      TabIndex        =   8
-      Top             =   1200
-      Width           =   7140
-      Begin VB.Frame fraConfigInner 
-         BorderStyle     =   0  'None
-         Height          =   5805
-         Left            =   435
-         TabIndex        =   34
-         Top             =   435
-         Width           =   6450
-         Begin VB.CheckBox chkEnablePrefsTooltips 
-            Caption         =   "Enable Preference Utility Tooltips *"
-            Height          =   225
-            Left            =   2010
-            TabIndex        =   153
-            ToolTipText     =   "Check the box to enable tooltips for all controls in the preferences utility"
-            Top             =   3720
-            Width           =   3345
-         End
-         Begin VB.CheckBox chkDpiAwareness 
-            Caption         =   "DPI Awareness Enable *"
-            Height          =   225
-            Left            =   2010
-            TabIndex        =   148
-            ToolTipText     =   "Check the box to make the program DPI aware. RESTART required."
-            Top             =   4500
-            Width           =   3405
-         End
-         Begin VB.CheckBox chkShowTaskbar 
-            Caption         =   "Show Widget in Taskbar"
-            Height          =   225
-            Left            =   2010
-            TabIndex        =   140
-            ToolTipText     =   "Check the box to show the widget in the taskbar"
-            Top             =   4110
-            Width           =   3405
-         End
-         Begin VB.ComboBox cmbScrollWheelDirection 
-            Height          =   315
-            Left            =   1995
-            Style           =   2  'Dropdown List
-            TabIndex        =   88
-            ToolTipText     =   "To change the direction of the mouse scroll wheel when resiziing the globe gauge."
-            Top             =   1695
-            Width           =   2490
-         End
-         Begin VB.CheckBox chkEnableBalloonTooltips 
-            Caption         =   "Enable Balloon Tooltips on all Controls *"
-            Height          =   225
-            Left            =   2010
-            TabIndex        =   39
-            ToolTipText     =   "Check the box to enable larger balloon tooltips for all controls on the main program"
-            Top             =   3345
-            Width           =   4035
-         End
-         Begin VB.CheckBox chkEnableTooltips 
-            Caption         =   "Enable Main Program Tooltips"
-            Height          =   225
-            Left            =   2010
-            TabIndex        =   35
-            ToolTipText     =   "Check the box to enable tooltips for all controls on the main program"
-            Top             =   2910
-            Width           =   3345
-         End
-         Begin vb6projectCCRSlider.Slider sliGaugeSize 
-            Height          =   390
-            Left            =   1920
-            TabIndex        =   96
-            ToolTipText     =   "Adjust to a percentage of the original size. You can also use Ctrl+Mousewheel."
-            Top             =   60
-            Width           =   3870
-            _ExtentX        =   6826
-            _ExtentY        =   688
-            Min             =   5
-            Max             =   100
-            Value           =   5
-            SelStart        =   5
-         End
-         Begin VB.Label lblConfiguration 
-            Caption         =   $"frmPrefs.frx":186E0
-            Height          =   930
-            Index           =   0
-            Left            =   1980
-            TabIndex        =   149
-            Top             =   4830
-            Width           =   4335
-         End
-         Begin VB.Label lblConfiguration 
-            Caption         =   "The scroll-wheel resizing direction can be determined here. The direction chosen causes the gauge to grow. *"
-            Height          =   690
-            Index           =   6
-            Left            =   2025
-            TabIndex        =   120
-            Top             =   2115
-            Width           =   3930
-         End
-         Begin VB.Label lblGaugeSize 
-            Caption         =   "180"
-            Height          =   315
-            Index           =   4
-            Left            =   4770
-            TabIndex        =   92
-            Top             =   555
-            Width           =   345
-         End
-         Begin VB.Label lblGaugeSize 
-            Caption         =   "130"
-            Height          =   315
-            Index           =   3
-            Left            =   3990
-            TabIndex        =   91
-            Top             =   555
-            Width           =   345
-         End
-         Begin VB.Label lblGaugeSize 
-            Caption         =   "50"
-            Height          =   315
-            Index           =   1
-            Left            =   2730
-            TabIndex        =   90
-            Top             =   555
-            Width           =   345
-         End
-         Begin VB.Label lblConfiguration 
-            Caption         =   "Mouse Wheel Resize :"
-            Height          =   345
-            Index           =   3
-            Left            =   255
-            TabIndex        =   89
-            ToolTipText     =   "To change the direction of the mouse scroll wheel when resiziing the globe gauge."
-            Top             =   1740
-            Width           =   2055
-         End
-         Begin VB.Label lblConfiguration 
-            Caption         =   "Adjust to a percentage of the original size. You can also use Ctrl+Mousewheel. Immediate. *"
-            Height          =   555
-            Index           =   2
-            Left            =   2070
-            TabIndex        =   87
-            ToolTipText     =   "Adjust to a percentage of the original size. You can also use Ctrl+Mousewheel."
-            Top             =   870
-            Width           =   3810
-         End
-         Begin VB.Label lblConfiguration 
-            Caption         =   "Gauge Size :"
-            Height          =   315
-            Index           =   1
-            Left            =   885
-            TabIndex        =   86
-            Top             =   105
-            Width           =   975
-         End
-         Begin VB.Label lblGaugeSize 
-            Caption         =   "90"
-            Height          =   315
-            Index           =   2
-            Left            =   3345
-            TabIndex        =   85
-            Top             =   555
-            Width           =   840
-         End
-         Begin VB.Label lblGaugeSize 
-            Caption         =   "220 (%)"
-            Height          =   315
-            Index           =   5
-            Left            =   5385
-            TabIndex        =   84
-            Top             =   555
-            Width           =   735
-         End
-         Begin VB.Label lblGaugeSize 
-            Caption         =   "5"
-            Height          =   315
-            Index           =   0
-            Left            =   1980
-            TabIndex        =   83
-            Top             =   555
-            Width           =   345
          End
       End
    End
@@ -736,7 +1226,7 @@ Begin VB.Form panzerPrefs
             Width           =   2115
          End
          Begin VB.Label lblPosition 
-            Caption         =   $"frmPrefs.frx":18794
+            Caption         =   $"frmPrefs.frx":1988C
             Height          =   3435
             Index           =   12
             Left            =   5145
@@ -756,7 +1246,7 @@ Begin VB.Form panzerPrefs
             Width           =   2040
          End
          Begin VB.Label lblPosition 
-            Caption         =   $"frmPrefs.frx":18966
+            Caption         =   $"frmPrefs.frx":19A5E
             Height          =   705
             Index           =   10
             Left            =   2250
@@ -776,7 +1266,7 @@ Begin VB.Form panzerPrefs
             Width           =   2355
          End
          Begin VB.Label lblPosition 
-            Caption         =   $"frmPrefs.frx":18A05
+            Caption         =   $"frmPrefs.frx":19AFD
             Height          =   3045
             Index           =   6
             Left            =   2265
@@ -891,7 +1381,7 @@ Begin VB.Form panzerPrefs
             Width           =   2400
          End
          Begin VB.Label lblFontsTab 
-            Caption         =   $"frmPrefs.frx":18BAA
+            Caption         =   $"frmPrefs.frx":19CA2
             Height          =   1710
             Index           =   0
             Left            =   1725
@@ -968,6 +1458,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Label lblAbout 
          Caption         =   "About"
          Height          =   240
+         Index           =   0
          Left            =   255
          TabIndex        =   100
          Top             =   855
@@ -976,7 +1467,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgAbout 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":18CE8
+         Picture         =   "frmPrefs.frx":19DE0
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -984,7 +1475,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgAboutClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":19270
+         Picture         =   "frmPrefs.frx":1A368
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -1009,7 +1500,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgConfig 
          Height          =   600
          Left            =   165
-         Picture         =   "frmPrefs.frx":1975B
+         Picture         =   "frmPrefs.frx":1A853
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -1017,7 +1508,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgConfigClicked 
          Height          =   600
          Left            =   165
-         Picture         =   "frmPrefs.frx":19D3A
+         Picture         =   "frmPrefs.frx":1AE32
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -1041,7 +1532,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgDevelopment 
          Height          =   600
          Left            =   150
-         Picture         =   "frmPrefs.frx":1A23F
+         Picture         =   "frmPrefs.frx":1B337
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -1049,7 +1540,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgDevelopmentClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":1A7F7
+         Picture         =   "frmPrefs.frx":1B8EF
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -1074,7 +1565,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgPosition 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":1AB7D
+         Picture         =   "frmPrefs.frx":1BC75
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -1082,7 +1573,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgPositionClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":1B14E
+         Picture         =   "frmPrefs.frx":1C246
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -1127,7 +1618,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgSounds 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":1B4EC
+         Picture         =   "frmPrefs.frx":1C5E4
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -1135,7 +1626,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgSoundsClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":1BAAB
+         Picture         =   "frmPrefs.frx":1CBA3
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -1175,7 +1666,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgWindow 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":1BF7B
+         Picture         =   "frmPrefs.frx":1D073
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -1183,7 +1674,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgWindowClicked 
          Height          =   600
          Left            =   160
-         Picture         =   "frmPrefs.frx":1C445
+         Picture         =   "frmPrefs.frx":1D53D
          Stretch         =   -1  'True
          Top             =   225
          Width           =   600
@@ -1207,7 +1698,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgFonts 
          Height          =   600
          Left            =   180
-         Picture         =   "frmPrefs.frx":1C7F1
+         Picture         =   "frmPrefs.frx":1D8E9
          Stretch         =   -1  'True
          Top             =   195
          Width           =   600
@@ -1215,7 +1706,7 @@ Begin VB.Form panzerPrefs
       Begin VB.Image imgFontsClicked 
          Height          =   600
          Left            =   180
-         Picture         =   "frmPrefs.frx":1CD47
+         Picture         =   "frmPrefs.frx":1DE3F
          Stretch         =   -1  'True
          Top             =   195
          Width           =   600
@@ -1250,174 +1741,6 @@ Begin VB.Form panzerPrefs
          Stretch         =   -1  'True
          Top             =   240
          Width           =   600
-      End
-   End
-   Begin VB.Frame fraDevelopment 
-      Caption         =   "Development"
-      Height          =   6210
-      Left            =   240
-      TabIndex        =   48
-      Top             =   1200
-      Visible         =   0   'False
-      Width           =   8520
-      Begin VB.Frame fraDevelopmentInner 
-         BorderStyle     =   0  'None
-         Height          =   5595
-         Left            =   870
-         TabIndex        =   49
-         Top             =   300
-         Width           =   7455
-         Begin VB.Frame fraDefaultEditor 
-            BorderStyle     =   0  'None
-            Height          =   2370
-            Left            =   75
-            TabIndex        =   135
-            Top             =   3165
-            Width           =   7290
-            Begin VB.CommandButton btnDefaultEditor 
-               Caption         =   "..."
-               Height          =   300
-               Left            =   5115
-               Style           =   1  'Graphical
-               TabIndex        =   137
-               ToolTipText     =   "Click to select the .vbp file to edit the program - You need to have access to the source!"
-               Top             =   210
-               Width           =   315
-            End
-            Begin VB.TextBox txtDefaultEditor 
-               Height          =   315
-               Left            =   1440
-               TabIndex        =   136
-               Text            =   " eg. E:\vb6\fire call\FireCallWin.vbp"
-               Top             =   195
-               Width           =   3660
-            End
-            Begin VB.Label lblGitHub 
-               Caption         =   $"frmPrefs.frx":1D1E0
-               ForeColor       =   &H8000000D&
-               Height          =   915
-               Left            =   1560
-               TabIndex        =   141
-               ToolTipText     =   "Double Click to visit github"
-               Top             =   1440
-               Width           =   4935
-            End
-            Begin VB.Label lblDebug 
-               Caption         =   $"frmPrefs.frx":1D279
-               Height          =   930
-               Index           =   9
-               Left            =   1545
-               TabIndex        =   139
-               Top             =   690
-               Width           =   4785
-            End
-            Begin VB.Label lblDebug 
-               Caption         =   "Default Editor :"
-               Height          =   255
-               Index           =   7
-               Left            =   285
-               TabIndex        =   138
-               Tag             =   "lblSharedInputFile"
-               Top             =   225
-               Width           =   1350
-            End
-         End
-         Begin VB.TextBox txtDblClickCommand 
-            Height          =   315
-            Left            =   1515
-            TabIndex        =   61
-            ToolTipText     =   "Enter a Windows command for the gauge to operate when double-clicked."
-            Top             =   1095
-            Width           =   3660
-         End
-         Begin VB.CommandButton btnOpenFile 
-            Caption         =   "..."
-            Height          =   300
-            Left            =   5175
-            Style           =   1  'Graphical
-            TabIndex        =   58
-            ToolTipText     =   "Click to select a particular file for the gauge to run or open when double-clicked."
-            Top             =   2250
-            Width           =   315
-         End
-         Begin VB.TextBox txtOpenFile 
-            Height          =   315
-            Left            =   1515
-            TabIndex        =   57
-            ToolTipText     =   "Enter a particular file for the gauge to run or open when double-clicked."
-            Top             =   2235
-            Width           =   3660
-         End
-         Begin VB.ComboBox cmbDebug 
-            Height          =   315
-            ItemData        =   "frmPrefs.frx":1D31D
-            Left            =   1530
-            List            =   "frmPrefs.frx":1D31F
-            Style           =   2  'Dropdown List
-            TabIndex        =   54
-            ToolTipText     =   "Choose to set debug mode."
-            Top             =   -15
-            Width           =   2160
-         End
-         Begin VB.Label lblDebug 
-            Caption         =   "DblClick Command :"
-            Height          =   510
-            Index           =   1
-            Left            =   -15
-            TabIndex        =   63
-            Tag             =   "lblPrefixString"
-            Top             =   1155
-            Width           =   1545
-         End
-         Begin VB.Label lblConfigurationTab 
-            Caption         =   "Shift+double-clicking on the widget image will open this file. "
-            Height          =   375
-            Index           =   6
-            Left            =   1560
-            TabIndex        =   62
-            Top             =   2730
-            Width           =   3705
-         End
-         Begin VB.Label lblDebug 
-            Caption         =   "Default command to run when the gauge receives a double-click eg %SystemRoot%/system32/ncpa.cpl"
-            Height          =   570
-            Index           =   5
-            Left            =   1590
-            TabIndex        =   60
-            Tag             =   "lblSharedInputFileDesc"
-            Top             =   1605
-            Width           =   4410
-         End
-         Begin VB.Label lblDebug 
-            Caption         =   "Open File :"
-            Height          =   255
-            Index           =   4
-            Left            =   645
-            TabIndex        =   59
-            Tag             =   "lblSharedInputFile"
-            Top             =   2280
-            Width           =   1350
-         End
-         Begin VB.Label lblDebug 
-            Caption         =   "Turning on the debugging will provide extra information in the debug window.  *"
-            Height          =   495
-            Index           =   2
-            Left            =   1545
-            TabIndex        =   56
-            Tag             =   "lblAlarmSoundDesc"
-            Top             =   450
-            Width           =   4455
-         End
-         Begin VB.Label lblDebug 
-            Caption         =   "Debug :"
-            Height          =   375
-            Index           =   0
-            Left            =   855
-            TabIndex        =   55
-            Tag             =   "lblAlarmSound"
-            Top             =   45
-            Width           =   1740
-         End
       End
    End
    Begin VB.Frame fraSounds 
@@ -1464,320 +1787,6 @@ Begin VB.Form panzerPrefs
             Top             =   645
             Width           =   3705
          End
-      End
-   End
-   Begin VB.Frame fraAbout 
-      Caption         =   "About"
-      Height          =   8580
-      Left            =   255
-      TabIndex        =   101
-      Top             =   1185
-      Visible         =   0   'False
-      Width           =   8520
-      Begin VB.Frame fraScrollbarCover 
-         BorderStyle     =   0  'None
-         Height          =   6435
-         Left            =   7950
-         TabIndex        =   115
-         Top             =   1995
-         Width           =   420
-      End
-      Begin VB.TextBox txtAboutText 
-         Appearance      =   0  'Flat
-         BackColor       =   &H8000000F&
-         BorderStyle     =   0  'None
-         Height          =   6135
-         Left            =   300
-         MultiLine       =   -1  'True
-         ScrollBars      =   2  'Vertical
-         TabIndex        =   114
-         Text            =   "frmPrefs.frx":1D321
-         Top             =   2205
-         Width           =   8010
-      End
-      Begin VB.CommandButton btnAboutDebugInfo 
-         Caption         =   "Debug &Info."
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   360
-         Left            =   6780
-         Style           =   1  'Graphical
-         TabIndex        =   105
-         ToolTipText     =   "This gives access to the debugging tool"
-         Top             =   1110
-         Width           =   1470
-      End
-      Begin VB.CommandButton btnFacebook 
-         Caption         =   "&Facebook"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   360
-         Left            =   6780
-         Style           =   1  'Graphical
-         TabIndex        =   104
-         ToolTipText     =   "This will link you to the Rocket/Steamy dock users Group"
-         Top             =   735
-         Width           =   1470
-      End
-      Begin VB.CommandButton btnUpdate 
-         Caption         =   "&Update"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   360
-         Left            =   6780
-         Style           =   1  'Graphical
-         TabIndex        =   103
-         ToolTipText     =   "Here you can visit the update location where you can download new versions of the programs."
-         Top             =   360
-         Width           =   1470
-      End
-      Begin VB.CommandButton btnDonate 
-         Caption         =   "&Donate"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   360
-         Left            =   6780
-         Style           =   1  'Graphical
-         TabIndex        =   102
-         ToolTipText     =   "Opens a browser window and sends you to our donate page on Amazon"
-         Top             =   1485
-         Width           =   1470
-      End
-      Begin VB.Label lblDotDot 
-         BackStyle       =   0  'Transparent
-         Caption         =   ".        ."
-         BeginProperty Font 
-            Name            =   "Centurion Light SF"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   225
-         Left            =   2940
-         TabIndex        =   119
-         Top             =   510
-         Width           =   495
-      End
-      Begin VB.Label lblRevisionNum 
-         BackStyle       =   0  'Transparent
-         Caption         =   "0"
-         BeginProperty Font 
-            Name            =   "Centurion Light SF"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   240
-         Left            =   3450
-         TabIndex        =   118
-         Top             =   510
-         Width           =   525
-      End
-      Begin VB.Label lblMajorVersion 
-         BackStyle       =   0  'Transparent
-         Caption         =   "0"
-         BeginProperty Font 
-            Name            =   "Centurion Light SF"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   240
-         Left            =   2730
-         TabIndex        =   117
-         Top             =   510
-         Width           =   225
-      End
-      Begin VB.Label lblMinorVersion 
-         BackStyle       =   0  'Transparent
-         Caption         =   "0"
-         BeginProperty Font 
-            Name            =   "Centurion Light SF"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   240
-         Left            =   3090
-         TabIndex        =   116
-         Top             =   510
-         Width           =   225
-      End
-      Begin VB.Label Label61 
-         Caption         =   "Dean Beedell © 2023"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   225
-         Left            =   2715
-         TabIndex        =   113
-         Top             =   855
-         Width           =   2175
-      End
-      Begin VB.Label Label65 
-         Caption         =   "Originator"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   225
-         Left            =   1050
-         TabIndex        =   112
-         Top             =   855
-         Width           =   795
-      End
-      Begin VB.Label Label74 
-         Caption         =   "Version"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   225
-         Left            =   1065
-         TabIndex        =   111
-         Top             =   495
-         Width           =   795
-      End
-      Begin VB.Label Label60 
-         Caption         =   "Dean Beedell © 2023"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   225
-         Left            =   2715
-         TabIndex        =   110
-         Top             =   1215
-         Width           =   2175
-      End
-      Begin VB.Label Label63 
-         Caption         =   "Current Developer"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   225
-         Left            =   1050
-         TabIndex        =   109
-         Top             =   1215
-         Width           =   1470
-      End
-      Begin VB.Label Label10 
-         Caption         =   "Target"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   225
-         Left            =   1050
-         TabIndex        =   108
-         Top             =   1560
-         Width           =   1470
-      End
-      Begin VB.Label Label17 
-         Caption         =   "Windows XP, Vista, 7, 8, 10  && 11 + ReactOS"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   225
-         Left            =   2715
-         TabIndex        =   107
-         Top             =   1560
-         Width           =   3735
-      End
-      Begin VB.Label Label20 
-         Caption         =   "(32bit WoW64)"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   225
-         Left            =   3900
-         TabIndex        =   106
-         Top             =   510
-         Width           =   1245
       End
    End
    Begin VB.Label lblDragCorner 
@@ -1859,6 +1868,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'@IgnoreModule IntegerDataType, ModuleWithoutFolder
 
 ' gaugeForm_BubblingEvent ' leaving that here so I can copy/paste to find it
 
@@ -1899,154 +1909,154 @@ Private Declare Function IsThemeActive Lib "uxtheme" () As Boolean
 '------------------------------------------------------ STARTS
 ' Types for determining the timezone
 
-Private BiasAdjust As Boolean
-
-' results UDT
-Private Type TZ_LOOKUP_DATA
-   TimeZoneName As String
-   bias As Long
-   IsDST As Boolean
-End Type
-
-Private tzinfo() As TZ_LOOKUP_DATA
-
-'holds the correct key for the OS version
-Private sTzKey As String
+'Private BiasAdjust As Boolean
+'
+'' results UDT
+'Private Type TZ_LOOKUP_DATA
+'   TimeZoneName As String
+'   bias As Long
+'   IsDST As Boolean
+'End Type
+'
+'Private tzinfo() As TZ_LOOKUP_DATA
+'
+''holds the correct key for the OS version
+'Private sTzKey As String
 
 'windows constants and declares
-Private Const TIME_ZONE_ID_UNKNOWN As Long = 1
-Private Const TIME_ZONE_ID_STANDARD As Long = 1
-Private Const TIME_ZONE_ID_DAYLIGHT As Long = 2
-Private Const TIME_ZONE_ID_INVALID As Long = &HFFFFFFFF
-Private Const VER_PLATFORM_WIN32_NT = 2
-Private Const VER_PLATFORM_WIN32_WINDOWS = 1
+'Private Const TIME_ZONE_ID_UNKNOWN As Long = 1
+'Private Const TIME_ZONE_ID_STANDARD As Long = 1
+'Private Const TIME_ZONE_ID_DAYLIGHT As Long = 2
+'Private Const TIME_ZONE_ID_INVALID As Long = &HFFFFFFFF
+'Private Const VER_PLATFORM_WIN32_NT = 2
+'Private Const VER_PLATFORM_WIN32_WINDOWS = 1
 
 'registry constants
-Private Const SKEY_NT = "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones"
-Private Const SKEY_9X = "SOFTWARE\Microsoft\Windows\CurrentVersion\Time Zones"
-Private Const HKEY_LOCAL_MACHINE = &H80000002
-Private Const ERROR_SUCCESS = 0
-Private Const REG_SZ As Long = 1
-Private Const REG_BINARY = 3
-Private Const REG_DWORD As Long = 4
-Private Const STANDARD_RIGHTS_READ As Long = &H20000
-Private Const KEY_QUERY_VALUE As Long = &H1
-Private Const KEY_ENUMERATE_SUB_KEYS As Long = &H8
-Private Const KEY_NOTIFY As Long = &H10
-Private Const SYNCHRONIZE As Long = &H100000
-Private Const KEY_READ As Long = ((STANDARD_RIGHTS_READ Or _
-                                   KEY_QUERY_VALUE Or _
-                                   KEY_ENUMERATE_SUB_KEYS Or _
-                                   KEY_NOTIFY) And _
-                                   (Not SYNCHRONIZE))
+'Private Const SKEY_NT = "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones"
+'Private Const SKEY_9X = "SOFTWARE\Microsoft\Windows\CurrentVersion\Time Zones"
+'Private Const HKEY_LOCAL_MACHINE = &H80000002
+'Private Const ERROR_SUCCESS = 0
+''Private Const REG_SZ As Long = 1
+''Private Const REG_BINARY = 3
+''Private Const REG_DWORD As Long = 4
+'Private Const STANDARD_RIGHTS_READ As Long = &H20000
+'Private Const KEY_QUERY_VALUE As Long = &H1
+'Private Const KEY_ENUMERATE_SUB_KEYS As Long = &H8
+'Private Const KEY_NOTIFY As Long = &H10
+'Private Const SYNCHRONIZE As Long = &H100000
+'Private Const KEY_READ As Long = ((STANDARD_RIGHTS_READ Or _
+'                                   KEY_QUERY_VALUE Or _
+'                                   KEY_ENUMERATE_SUB_KEYS Or _
+'                                   KEY_NOTIFY) And _
+'                                   (Not SYNCHRONIZE))
 
-Private Type SYSTEMTIME
-   wYear As Integer
-   wMonth As Integer
-   wDayOfWeek As Integer
-   wDay As Integer
-   wHour As Integer
-   wMinute As Integer
-   wSecond As Integer
-   wMilliseconds As Integer
-End Type
+'Private Type SYSTEMTIME
+'   wYear As Integer
+'   wMonth As Integer
+'   wDayOfWeek As Integer
+'   wDay As Integer
+'   wHour As Integer
+'   wMinute As Integer
+'   wSecond As Integer
+'   wMilliseconds As Integer
+'End Type
+'
+'Private Type FILETIME
+'   dwLowDateTime As Long
+'   dwHighDateTime As Long
+'End Type
+'
+'Private Type REG_TIME_ZONE_INFORMATION
+'   bias As Long
+'   StandardBias As Long
+'   DaylightBias As Long
+'   StandardDate As SYSTEMTIME
+'   DaylightDate As SYSTEMTIME
+'End Type
 
-Private Type FILETIME
-   dwLowDateTime As Long
-   dwHighDateTime As Long
-End Type
 
-Private Type REG_TIME_ZONE_INFORMATION
-   bias As Long
-   StandardBias As Long
-   DaylightBias As Long
-   StandardDate As SYSTEMTIME
-   DaylightDate As SYSTEMTIME
-End Type
+'Private Type TIME_ZONE_INFORMATION
+'    bias                    As Long
+'    StandardName(0 To 63)   As Byte
+'    StandardDate            As SYSTEMTIME
+'    StandardBias            As Long
+'    DaylightName(0 To 63)   As Byte
+'    DaylightDate            As SYSTEMTIME
+'    DaylightBias            As Long
+'End Type
 
-
-Private Type TIME_ZONE_INFORMATION
-    bias                    As Long
-    StandardName(0 To 63)   As Byte
-    StandardDate            As SYSTEMTIME
-    StandardBias            As Long
-    DaylightName(0 To 63)   As Byte
-    DaylightDate            As SYSTEMTIME
-    DaylightBias            As Long
-End Type
-
-Private Type OSVERSIONINFO
-   OSVSize As Long
-   dwVerMajor As Long
-   dwVerMinor As Long
-   dwBuildNumber As Long
-   PlatformID As Long
-   szCSDVersion As String * 128
-End Type
+'Private Type OSVERSIONINFO
+'   OSVSize As Long
+'   dwVerMajor As Long
+'   dwVerMinor As Long
+'   dwBuildNumber As Long
+'   PlatformID As Long
+'   szCSDVersion As String * 128
+'End Type
 
 ' APIs for determining the timezone
 
-Private Declare Function GetVersionEx Lib "kernel32" _
-   Alias "GetVersionExA" _
-  (lpVersionInformation As OSVERSIONINFO) As Long
+'Private Declare Function GetVersionEx Lib "kernel32" _
+'   Alias "GetVersionExA" _
+'  (lpVersionInformation As OSVERSIONINFO) As Long
+'
+'Private Declare Function GetTimeZoneInformation Lib "kernel32" _
+'   (lpTimeZoneInformation As TIME_ZONE_INFORMATION) As Long
 
-Private Declare Function GetTimeZoneInformation Lib "kernel32" _
-   (lpTimeZoneInformation As TIME_ZONE_INFORMATION) As Long
-
-Private Declare Function RegOpenKeyEx Lib "advapi32.dll" _
-   Alias "RegOpenKeyExA" _
-  (ByVal hKey As Long, _
-   ByVal lpsSubKey As String, _
-   ByVal ulOptions As Long, _
-   ByVal samDesired As Long, _
-   phkResult As Long) As Long
-
-Private Declare Function RegQueryValueEx Lib "advapi32.dll" _
-   Alias "RegQueryValueExA" _
-  (ByVal hKey As Long, _
-   ByVal lpszValueName As String, _
-   ByVal lpdwReserved As Long, _
-   lpdwType As Long, _
-   lpData As Any, _
-   lpcbData As Long) As Long
-
-Private Declare Function RegQueryInfoKey Lib "advapi32.dll" _
-   Alias "RegQueryInfoKeyA" _
-  (ByVal hKey As Long, _
-   ByVal lpClass As String, _
-   lpcbClass As Long, _
-   ByVal lpReserved As Long, _
-   lpcsSubKeys As Long, _
-   lpcbMaxsSubKeyLen As Long, _
-   lpcbMaxClassLen As Long, _
-   lpcValues As Long, _
-   lpcbMaxValueNameLen As Long, _
-   lpcbMaxValueLen As Long, _
-   lpcbSecurityDescriptor As Long, _
-   lpftLastWriteTime As FILETIME) As Long
+'Private Declare Function RegOpenKeyEx Lib "advapi32.dll" _
+'   Alias "RegOpenKeyExA" _
+'  (ByVal hKey As Long, _
+'   ByVal lpsSubKey As String, _
+'   ByVal ulOptions As Long, _
+'   ByVal samDesired As Long, _
+'   phkResult As Long) As Long
+'
+'Private Declare Function RegQueryValueEx Lib "advapi32.dll" _
+'   Alias "RegQueryValueExA" _
+'  (ByVal hKey As Long, _
+'   ByVal lpszValueName As String, _
+'   ByVal lpdwReserved As Long, _
+'   lpdwType As Long, _
+'   lpData As Any, _
+'   lpcbData As Long) As Long
+'
+'Private Declare Function RegQueryInfoKey Lib "advapi32.dll" _
+'   Alias "RegQueryInfoKeyA" _
+'  (ByVal hKey As Long, _
+'   ByVal lpClass As String, _
+'   lpcbClass As Long, _
+'   ByVal lpReserved As Long, _
+'   lpcsSubKeys As Long, _
+'   lpcbMaxsSubKeyLen As Long, _
+'   lpcbMaxClassLen As Long, _
+'   lpcValues As Long, _
+'   lpcbMaxValueNameLen As Long, _
+'   lpcbMaxValueLen As Long, _
+'   lpcbSecurityDescriptor As Long, _
+'   lpftLastWriteTime As FILETIME) As Long
    
-Private Declare Function RegQueryValueExString Lib "advapi32.dll" _
-   Alias "RegQueryValueExA" _
-  (ByVal hKey As Long, _
-   ByVal lpValueName As String, _
-   ByVal lpReserved As Long, _
-   lpType As Long, _
-   ByVal lpData As String, _
-   lpcbData As Long) As Long
+'Private Declare Function RegQueryValueExString Lib "advapi32.dll" _
+'   Alias "RegQueryValueExA" _
+'  (ByVal hKey As Long, _
+'   ByVal lpValueName As String, _
+'   ByVal lpReserved As Long, _
+'   lpType As Long, _
+'   ByVal lpData As String, _
+'   lpcbData As Long) As Long
 
-Private Declare Function RegEnumKey Lib "advapi32.dll" _
-   Alias "RegEnumKeyA" _
-  (ByVal hKey As Long, _
-   ByVal dwIndex As Long, _
-   ByVal lpName As String, _
-   ByVal cbName As Long) As Long
+'Private Declare Function RegEnumKey Lib "advapi32.dll" _
+'   Alias "RegEnumKeyA" _
+'  (ByVal hKey As Long, _
+'   ByVal dwIndex As Long, _
+'   ByVal lpName As String, _
+'   ByVal cbName As Long) As Long
+'
+'Private Declare Function RegCloseKey Lib "advapi32.dll" _
+'  (ByVal hKey As Long) As Long
 
-Private Declare Function RegCloseKey Lib "advapi32.dll" _
-  (ByVal hKey As Long) As Long
-
-Private Declare Function lstrlenW Lib "kernel32" _
-  (ByVal lpString As Long) As Long
-  
+'Private Declare Function lstrlenW Lib "kernel32" _
+'  (ByVal lpString As Long) As Long
+'
 '------------------------------------------------------ ENDS
 
 '------------------------------------------------------ STARTS
@@ -2060,9 +2070,7 @@ Private Const cPrefsFormWidth  As Long = 9090
 
 Private prefsStartupFlg As Boolean
 
-Private Sub cmbMainDaylightSaving_Change()
-    'btnSave.Enabled = True ' enable the save button
-End Sub
+
 
 Private Sub cmbMainGaugeTimeZone_Click()
     btnSave.Enabled = True ' enable the save button
@@ -2207,7 +2215,7 @@ Private Sub positionPrefsMonitor()
     End If
     
     monitorCount = fGetMonitorCount
-    If monitorCount > 1 Then Call adjustFormPositionToCorrectMonitor(panzerPrefs.hwnd, formLeftPixels, formTopPixels)
+    If monitorCount > 1 Then Call adjustFormPositionToCorrectMonitor(Me.hwnd, formLeftPixels, formTopPixels)
     
     On Error GoTo 0
     Exit Sub
@@ -2835,10 +2843,7 @@ cmbDebug_Click_Error:
 
 End Sub
 
-Private Sub cmbScrollWheelDirection__Click()
-    btnSave.Enabled = True ' enable the save button
 
-End Sub
 
 Private Sub cmbHidingTime_Click()
     btnSave.Enabled = True ' enable the save button
@@ -2864,6 +2869,8 @@ cmbScrollWheelDirection_Click_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure cmbScrollWheelDirection_Click of Form panzerPrefs"
 End Sub
+
+
 
 Private Sub cmbWidgetLandscape_Click()
     btnSave.Enabled = True ' enable the save button
@@ -3013,7 +3020,7 @@ Private Sub positionPrefsFramesButtons()
     Dim frameTop As Integer: frameTop = 0
     Dim frameLeft As Integer: frameLeft = 0
     Dim buttonTop As Integer:    buttonTop = 0
-    Dim currentFrameHeight As Integer: currentFrameHeight = 0
+    'Dim currentFrameHeight As Integer: currentFrameHeight = 0
     Dim rightHandAlignment As Long: rightHandAlignment = 0
     Dim leftHandGutterWidth As Long: leftHandGutterWidth = 0
     
@@ -3025,7 +3032,7 @@ Private Sub positionPrefsFramesButtons()
     rightHandAlignment = fraAboutButton.Left + fraAboutButton.Width ' use final button rightmost as reference
     frameWidth = rightHandAlignment - frameLeft
     fraScrollbarCover.Left = rightHandAlignment - 690
-    panzerPrefs.Width = rightHandAlignment + leftHandGutterWidth + 75 ' (not quite sure why we need the 75 twips padding)
+    Me.Width = rightHandAlignment + leftHandGutterWidth + 75 ' (not quite sure why we need the 75 twips padding)
     
     ' align the top buttons
     fraGeneralButton.Top = buttonTop
@@ -3104,8 +3111,8 @@ Private Sub btnClose_Click()
    On Error GoTo btnClose_Click_Error
 
     btnSave.Enabled = False ' disable the save button
-    panzerPrefs.Hide
-    panzerPrefs.themeTimer.Enabled = False
+    Me.Hide
+    Me.themeTimer.Enabled = False
     
     Call writePrefsPosition
 
@@ -3308,7 +3315,7 @@ Private Sub btnSave_Click()
     ' sets the characteristics of the gauge and menus immediately after saving
     Call adjustMainControls
     
-    panzerPrefs.SetFocus
+    Me.SetFocus
     btnSave.Enabled = False ' disable the save button showing it has successfully saved
     
     ' reload here if the PzGWindowLevel Was Changed
@@ -3374,9 +3381,9 @@ Private Sub chkEnableSounds_Click()
     btnSave.Enabled = True ' enable the save button
 End Sub
 
-Private Sub cmbRefreshInterval_Click()
-    btnSave.Enabled = True ' enable the save button
-End Sub
+'Private Sub cmbRefreshInterval_Click()
+'    btnSave.Enabled = True ' enable the save button
+'End Sub
 
 Private Sub cmbWindowLevel_Click()
     btnSave.Enabled = True ' enable the save button
@@ -3475,7 +3482,7 @@ Private Sub adjustPrefsControls()
     Dim fntWeight As Integer: fntWeight = 0
     Dim fntStyle As Boolean: fntStyle = False
     Dim sliGaugeSizeOldValue As Long: sliGaugeSizeOldValue = 0
-    Dim testDST As Boolean: testDST = False
+    'Dim testDST As Boolean: testDST = False
     
     On Error GoTo adjustPrefsControls_Error
             
@@ -3594,13 +3601,13 @@ End Sub
 '---------------------------------------------------------------------------------------
 
 Private Sub populatePrefsComboBoxes()
-    Dim ret As Boolean: ret = False
+    'Dim ret As Boolean: ret = False
     
     On Error GoTo populatePrefsComboBoxes_Error
     
     ' obtain the daylight savings time data from the system
-    ret = fGetTimeZoneArray
-    If ret = False Then MsgBox "Problem getting the Daylight Savings Time data from the system."
+'    ret = fGetTimeZoneArray
+'    If ret = False Then MsgBox "Problem getting the Daylight Savings Time data from the system."
 
     cmbScrollWheelDirection.AddItem "up", 0
     cmbScrollWheelDirection.ItemData(0) = 0
@@ -3780,7 +3787,7 @@ Private Sub Form_Resize()
     
     On Error GoTo Form_Resize_Error
     
-    If WindowState = vbMinimized Then Exit Sub
+    If Me.WindowState = vbMinimized Then Exit Sub
     
     ' move the drag corner label along with the form's bottom right corner
     lblDragCorner.Move Me.ScaleLeft + Me.ScaleWidth - (lblDragCorner.Width + 40), _
@@ -3832,7 +3839,7 @@ End Sub
 ' Purpose   : final tweak the bottom frame top and left positions
 '---------------------------------------------------------------------------------------
 '
-Private Sub tweakPrefsControlPositions(ByVal thisForm As Form, ByVal m_FormWid As Single, ByVal m_FormHgt)
+Private Sub tweakPrefsControlPositions(ByVal thisForm As Form, ByVal m_FormWid As Single, ByVal m_FormHgt As Single)
 
     ' not sure why but the resizeControls routine can lead to incorrect positioning of frames and buttons
     Dim x_scale As Single: x_scale = 0
@@ -3899,7 +3906,7 @@ Private Sub Form_Unload(Cancel As Integer)
     
     Call writePrefsPosition
     
-    DestroyToolTip
+    Call DestroyToolTip
 
    On Error GoTo 0
    Exit Sub
@@ -4666,7 +4673,7 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
     thisFraButtonName.BorderStyle = 1
 
     ' Get the form's current scale factors.
-    y_scale = ScaleHeight / prefsCurrentHeight
+    y_scale = Me.ScaleHeight / prefsCurrentHeight
     
     If PzGDpiAwareness = "1" Then
         btnHelp.Top = fraGeneral.Top + fraGeneral.Height + (250 * y_scale)
@@ -4695,7 +4702,7 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
         padding = 200 ' add normal padding below the help button to position the bottom of the form
 
         lastFormHeight = btnHelp.Top + btnHelp.Height + captionHeight + borderWidth + padding
-        panzerPrefs.Height = lastFormHeight
+        Me.Height = lastFormHeight
     End If
     
     If PzGDpiAwareness = "0" Then
@@ -4825,7 +4832,8 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub mnuCoffee_Click()
-        
+    On Error GoTo mnuCoffee_Click_Error
+    
     Call mnuCoffee_ClickEvent
 
     On Error GoTo 0
@@ -4905,18 +4913,18 @@ Private Sub mnuAuto_Click()
     
    On Error GoTo mnuAuto_Click_Error
 
-    If panzerPrefs.themeTimer.Enabled = True Then
+    If themeTimer.Enabled = True Then
             MsgBox "Automatic Theme Selection is now Disabled"
-            panzerPrefs.mnuAuto.Caption = "Auto Theme Disabled - Click to Enable"
-            panzerPrefs.mnuAuto.Checked = False
+            mnuAuto.Caption = "Auto Theme Disabled - Click to Enable"
+            mnuAuto.Checked = False
             
-            panzerPrefs.themeTimer.Enabled = False
+            themeTimer.Enabled = False
     Else
             MsgBox "Auto Theme Selection Enabled. If the o/s theme changes the utility should automatically skin the utility to suit the theme."
-            panzerPrefs.mnuAuto.Caption = "Auto Theme Enabled - Click to Disable"
-            panzerPrefs.mnuAuto.Checked = True
+            mnuAuto.Caption = "Auto Theme Enabled - Click to Disable"
+            mnuAuto.Checked = True
             
-            panzerPrefs.themeTimer.Enabled = True
+            themeTimer.Enabled = True
             Call setThemeColour
     End If
 
@@ -4938,11 +4946,11 @@ End Sub
 Private Sub mnuDark_Click()
    On Error GoTo mnuDark_Click_Error
 
-    panzerPrefs.mnuAuto.Caption = "Auto Theme Disabled - Click to Enable"
-    panzerPrefs.mnuAuto.Checked = False
-    panzerPrefs.mnuDark.Caption = "Dark Theme Enabled"
-    panzerPrefs.mnuLight.Caption = "Light Theme Enable"
-    panzerPrefs.themeTimer.Enabled = False
+    mnuAuto.Caption = "Auto Theme Disabled - Click to Enable"
+    mnuAuto.Checked = False
+    mnuDark.Caption = "Dark Theme Enabled"
+    mnuLight.Caption = "Light Theme Enable"
+    themeTimer.Enabled = False
     
     PzGSkinTheme = "dark"
 
@@ -4967,11 +4975,11 @@ Private Sub mnuLight_Click()
     'MsgBox "Auto Theme Selection Manually Disabled"
    On Error GoTo mnuLight_Click_Error
     
-    panzerPrefs.mnuAuto.Caption = "Auto Theme Disabled - Click to Enable"
-    panzerPrefs.mnuAuto.Checked = False
-    panzerPrefs.mnuDark.Caption = "Dark Theme Enable"
-    panzerPrefs.mnuLight.Caption = "Light Theme Enabled"
-    panzerPrefs.themeTimer.Enabled = False
+    mnuAuto.Caption = "Auto Theme Disabled - Click to Enable"
+    mnuAuto.Checked = False
+    mnuDark.Caption = "Dark Theme Enable"
+    mnuLight.Caption = "Light Theme Enabled"
+    themeTimer.Enabled = False
     
     PzGSkinTheme = "light"
 
@@ -5004,10 +5012,10 @@ Private Sub setThemeShade(ByVal redC As Integer, ByVal greenC As Integer, ByVal 
 
     ' RGB(redC, greenC, blueC) is the background colour used by the lighter themes
     
-    panzerPrefs.BackColor = RGB(redC, greenC, blueC)
+    Me.BackColor = RGB(redC, greenC, blueC)
     
     ' all buttons must be set to graphical
-    For Each Ctrl In panzerPrefs.Controls
+    For Each Ctrl In Me.Controls
         If (TypeOf Ctrl Is CommandButton) Or (TypeOf Ctrl Is CheckBox) Or (TypeOf Ctrl Is Label) Or (TypeOf Ctrl Is OptionButton) Or (TypeOf Ctrl Is Frame) Then
           Ctrl.BackColor = RGB(redC, greenC, blueC)
         End If
@@ -5015,15 +5023,15 @@ Private Sub setThemeShade(ByVal redC As Integer, ByVal greenC As Integer, ByVal 
     
     If redC = 212 Then
         'classicTheme = True
-        panzerPrefs.mnuLight.Checked = False
-        panzerPrefs.mnuDark.Checked = True
+        mnuLight.Checked = False
+        mnuDark.Checked = True
         
         Call setPrefsIconImagesDark(determineIconWidth(Me, prefsDynamicSizingFlg))
         
     Else
         'classicTheme = False
-        panzerPrefs.mnuLight.Checked = True
-        panzerPrefs.mnuDark.Checked = False
+        mnuLight.Checked = True
+        mnuDark.Checked = False
         
         Call setPrefsIconImagesLight(determineIconWidth(Me, prefsDynamicSizingFlg))
                 
@@ -5032,11 +5040,11 @@ Private Sub setThemeShade(ByVal redC As Integer, ByVal greenC As Integer, ByVal 
     'now change the color of the sliders.
 '    panzerPrefs.sliAnimationInterval.BackColor = RGB(redC, greenC, blueC)
     'panzerPrefs.'sliWidgetSkew.BackColor = RGB(redC, greenC, blueC)
-    panzerPrefs.sliGaugeSize.BackColor = RGB(redC, greenC, blueC)
-    panzerPrefs.sliOpacity.BackColor = RGB(redC, greenC, blueC)
-    panzerPrefs.txtAboutText.BackColor = RGB(redC, greenC, blueC)
+    sliGaugeSize.BackColor = RGB(redC, greenC, blueC)
+    sliOpacity.BackColor = RGB(redC, greenC, blueC)
+    txtAboutText.BackColor = RGB(redC, greenC, blueC)
     
-    sPutINISetting "Software\PzJustClock", "skinTheme", PzGSkinTheme, PzGSettingsFile ' now saved to the toolsettingsfile
+    sPutINISetting "Software\PzJustClock", "skinTheme", PzGSkinTheme, PzGSettingsFile
 
     On Error GoTo 0
     Exit Sub
@@ -5076,13 +5084,13 @@ Private Sub setThemeColour()
         SysClr = GetSysColor(COLOR_BTNFACE)
         PzGSkinTheme = "dark"
         
-        panzerPrefs.mnuDark.Caption = "Dark Theme Enabled"
-        panzerPrefs.mnuLight.Caption = "Light Theme Enable"
+        mnuDark.Caption = "Dark Theme Enabled"
+        mnuLight.Caption = "Light Theme Enable"
 
     Else
         Call setModernThemeColours
-        panzerPrefs.mnuDark.Caption = "Dark Theme Enable"
-        panzerPrefs.mnuLight.Caption = "Light Theme Enabled"
+        mnuDark.Caption = "Dark Theme Enable"
+        mnuLight.Caption = "Light Theme Enabled"
     End If
 
     storeThemeColour = SysClr
@@ -5113,7 +5121,7 @@ Private Sub adjustPrefsTheme()
     Else
         If classicThemeCapable = True Then
             mnuAuto.Caption = "Auto Theme Enabled - Click to Disable"
-            panzerPrefs.themeTimer.Enabled = True
+            themeTimer.Enabled = True
         Else
             PzGSkinTheme = "light"
             Call setModernThemeColours
@@ -5174,9 +5182,9 @@ Private Sub loadHigherResPrefsImages()
     
     On Error GoTo loadHigherResPrefsImages_Error
       
-    If WindowState = vbMinimized Then Exit Sub
+    If Me.WindowState = vbMinimized Then Exit Sub
         
-    If panzerPrefs.mnuDark.Checked = True Then
+    If mnuDark.Checked = True Then
         Call setPrefsIconImagesDark(determineIconWidth(Me, prefsDynamicSizingFlg))
     Else
         Call setPrefsIconImagesLight(determineIconWidth(Me, prefsDynamicSizingFlg))
@@ -5237,7 +5245,7 @@ Private Sub chkEnableResizing_Click()
         txtPrefsFontCurrentSize.Visible = False
         lblCurrentFontsTab.Visible = False
         Unload panzerPrefs
-        panzerPrefs.show
+        Me.show
         Call readPrefsPosition
         chkEnableResizing.Caption = "Enable Corner Resizing"
     End If
@@ -5343,14 +5351,14 @@ Private Sub setPrefsIconImagesDark(ByVal thisIconWidth As Long)
     If fFExists(resourcePath & "\about-icon-dark-" & thisIconWidth & ".jpg") Then Set imgAbout.Picture = LoadPicture(resourcePath & "\about-icon-dark-" & thisIconWidth & ".jpg")
     
     ' I may yet create clicked versions of all the icons but not now!
-    If fFExists(resourcePath & "\config-icon-dark-600-clicked.jpg") Then Set panzerPrefs.imgConfigClicked.Picture = LoadPicture(resourcePath & "\config-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\general-icon-dark-600-clicked.jpg") Then Set panzerPrefs.imgGeneralClicked.Picture = LoadPicture(resourcePath & "\general-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\position-icon-dark-600-clicked.jpg") Then Set panzerPrefs.imgPositionClicked.Picture = LoadPicture(resourcePath & "\position-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\font-icon-dark-600-clicked.jpg") Then Set panzerPrefs.imgFontsClicked.Picture = LoadPicture(resourcePath & "\font-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\development-icon-dark-600-clicked.jpg") Then Set panzerPrefs.imgDevelopmentClicked.Picture = LoadPicture(resourcePath & "\development-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\sounds-icon-dark-600-clicked.jpg") Then Set panzerPrefs.imgSoundsClicked.Picture = LoadPicture(resourcePath & "\sounds-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\windows-icon-dark-600-clicked.jpg") Then Set panzerPrefs.imgWindowClicked.Picture = LoadPicture(resourcePath & "\windows-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\about-icon-dark-600-clicked.jpg") Then Set panzerPrefs.imgAboutClicked.Picture = LoadPicture(resourcePath & "\about-icon-dark-600-clicked.jpg")
+    If fFExists(resourcePath & "\config-icon-dark-600-clicked.jpg") Then Set imgConfigClicked.Picture = LoadPicture(resourcePath & "\config-icon-dark-600-clicked.jpg")
+    If fFExists(resourcePath & "\general-icon-dark-600-clicked.jpg") Then Set imgGeneralClicked.Picture = LoadPicture(resourcePath & "\general-icon-dark-600-clicked.jpg")
+    If fFExists(resourcePath & "\position-icon-dark-600-clicked.jpg") Then Set imgPositionClicked.Picture = LoadPicture(resourcePath & "\position-icon-dark-600-clicked.jpg")
+    If fFExists(resourcePath & "\font-icon-dark-600-clicked.jpg") Then Set imgFontsClicked.Picture = LoadPicture(resourcePath & "\font-icon-dark-600-clicked.jpg")
+    If fFExists(resourcePath & "\development-icon-dark-600-clicked.jpg") Then Set imgDevelopmentClicked.Picture = LoadPicture(resourcePath & "\development-icon-dark-600-clicked.jpg")
+    If fFExists(resourcePath & "\sounds-icon-dark-600-clicked.jpg") Then Set imgSoundsClicked.Picture = LoadPicture(resourcePath & "\sounds-icon-dark-600-clicked.jpg")
+    If fFExists(resourcePath & "\windows-icon-dark-600-clicked.jpg") Then Set imgWindowClicked.Picture = LoadPicture(resourcePath & "\windows-icon-dark-600-clicked.jpg")
+    If fFExists(resourcePath & "\about-icon-dark-600-clicked.jpg") Then Set imgAboutClicked.Picture = LoadPicture(resourcePath & "\about-icon-dark-600-clicked.jpg")
 
    On Error GoTo 0
    Exit Sub
@@ -5377,24 +5385,24 @@ Private Sub setPrefsIconImagesLight(ByVal thisIconWidth As Long)
     
     resourcePath = App.path & "\resources\images"
     
-    If fFExists(resourcePath & "\config-icon-light-" & thisIconWidth & ".jpg") Then panzerPrefs.imgConfig.Picture = LoadPicture(resourcePath & "\config-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\general-icon-light-" & thisIconWidth & ".jpg") Then panzerPrefs.imgGeneral.Picture = LoadPicture(resourcePath & "\general-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\position-icon-light-" & thisIconWidth & ".jpg") Then panzerPrefs.imgPosition.Picture = LoadPicture(resourcePath & "\position-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\font-icon-light-" & thisIconWidth & ".jpg") Then panzerPrefs.imgFonts.Picture = LoadPicture(resourcePath & "\font-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\development-icon-light-" & thisIconWidth & ".jpg") Then panzerPrefs.imgDevelopment.Picture = LoadPicture(resourcePath & "\development-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\sounds-icon-light-" & thisIconWidth & ".jpg") Then panzerPrefs.imgSounds.Picture = LoadPicture(resourcePath & "\sounds-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\windows-icon-light-" & thisIconWidth & ".jpg") Then panzerPrefs.imgWindow.Picture = LoadPicture(resourcePath & "\windows-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\about-icon-light-" & thisIconWidth & ".jpg") Then panzerPrefs.imgAbout.Picture = LoadPicture(resourcePath & "\about-icon-light-" & thisIconWidth & ".jpg")
+    If fFExists(resourcePath & "\config-icon-light-" & thisIconWidth & ".jpg") Then imgConfig.Picture = LoadPicture(resourcePath & "\config-icon-light-" & thisIconWidth & ".jpg")
+    If fFExists(resourcePath & "\general-icon-light-" & thisIconWidth & ".jpg") Then imgGeneral.Picture = LoadPicture(resourcePath & "\general-icon-light-" & thisIconWidth & ".jpg")
+    If fFExists(resourcePath & "\position-icon-light-" & thisIconWidth & ".jpg") Then imgPosition.Picture = LoadPicture(resourcePath & "\position-icon-light-" & thisIconWidth & ".jpg")
+    If fFExists(resourcePath & "\font-icon-light-" & thisIconWidth & ".jpg") Then imgFonts.Picture = LoadPicture(resourcePath & "\font-icon-light-" & thisIconWidth & ".jpg")
+    If fFExists(resourcePath & "\development-icon-light-" & thisIconWidth & ".jpg") Then imgDevelopment.Picture = LoadPicture(resourcePath & "\development-icon-light-" & thisIconWidth & ".jpg")
+    If fFExists(resourcePath & "\sounds-icon-light-" & thisIconWidth & ".jpg") Then imgSounds.Picture = LoadPicture(resourcePath & "\sounds-icon-light-" & thisIconWidth & ".jpg")
+    If fFExists(resourcePath & "\windows-icon-light-" & thisIconWidth & ".jpg") Then imgWindow.Picture = LoadPicture(resourcePath & "\windows-icon-light-" & thisIconWidth & ".jpg")
+    If fFExists(resourcePath & "\about-icon-light-" & thisIconWidth & ".jpg") Then imgAbout.Picture = LoadPicture(resourcePath & "\about-icon-light-" & thisIconWidth & ".jpg")
     
     ' I may yet create clicked versions of all the icons but not now!
-    If fFExists(resourcePath & "\config-icon-light-600-clicked.jpg") Then panzerPrefs.imgConfigClicked.Picture = LoadPicture(resourcePath & "\config-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\general-icon-light-600-clicked.jpg") Then panzerPrefs.imgGeneralClicked.Picture = LoadPicture(resourcePath & "\general-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\position-icon-light-600-clicked.jpg") Then panzerPrefs.imgPositionClicked.Picture = LoadPicture(resourcePath & "\position-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\font-icon-light-600-clicked.jpg") Then panzerPrefs.imgFontsClicked.Picture = LoadPicture(resourcePath & "\font-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\development-icon-light-600-clicked.jpg") Then panzerPrefs.imgDevelopmentClicked.Picture = LoadPicture(resourcePath & "\development-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\sounds-icon-light-600-clicked.jpg") Then panzerPrefs.imgSoundsClicked.Picture = LoadPicture(resourcePath & "\sounds-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\windows-icon-light-600-clicked.jpg") Then panzerPrefs.imgWindowClicked.Picture = LoadPicture(resourcePath & "\windows-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\about-icon-light-600-clicked.jpg") Then panzerPrefs.imgAboutClicked.Picture = LoadPicture(resourcePath & "\about-icon-light-600-clicked.jpg")
+    If fFExists(resourcePath & "\config-icon-light-600-clicked.jpg") Then imgConfigClicked.Picture = LoadPicture(resourcePath & "\config-icon-light-600-clicked.jpg")
+    If fFExists(resourcePath & "\general-icon-light-600-clicked.jpg") Then imgGeneralClicked.Picture = LoadPicture(resourcePath & "\general-icon-light-600-clicked.jpg")
+    If fFExists(resourcePath & "\position-icon-light-600-clicked.jpg") Then imgPositionClicked.Picture = LoadPicture(resourcePath & "\position-icon-light-600-clicked.jpg")
+    If fFExists(resourcePath & "\font-icon-light-600-clicked.jpg") Then imgFontsClicked.Picture = LoadPicture(resourcePath & "\font-icon-light-600-clicked.jpg")
+    If fFExists(resourcePath & "\development-icon-light-600-clicked.jpg") Then imgDevelopmentClicked.Picture = LoadPicture(resourcePath & "\development-icon-light-600-clicked.jpg")
+    If fFExists(resourcePath & "\sounds-icon-light-600-clicked.jpg") Then imgSoundsClicked.Picture = LoadPicture(resourcePath & "\sounds-icon-light-600-clicked.jpg")
+    If fFExists(resourcePath & "\windows-icon-light-600-clicked.jpg") Then imgWindowClicked.Picture = LoadPicture(resourcePath & "\windows-icon-light-600-clicked.jpg")
+    If fFExists(resourcePath & "\about-icon-light-600-clicked.jpg") Then imgAboutClicked.Picture = LoadPicture(resourcePath & "\about-icon-light-600-clicked.jpg")
 
    On Error GoTo 0
    Exit Sub
@@ -5421,7 +5429,7 @@ End Sub
 '
 Private Sub cmbMainDaylightSaving_Click()
 
-   Dim pos As Long
+'   Dim pos As Long
 
    On Error GoTo cmbMainDaylightSaving_Click_Error
 
@@ -5429,13 +5437,13 @@ Private Sub cmbMainDaylightSaving_Click()
    
   'on a list click, show the Bias in the
   'textbox to make lookups easier
-   If cmbMainDaylightSaving.ListIndex > -1 Then
-   
-        pos = InStr(cmbMainDaylightSaving.List(cmbMainDaylightSaving.ListIndex), vbTab)
-        'txtBias.Text = Left$(cmbMainDaylightSaving.List(cmbMainDaylightSaving.ListIndex), pos)
-        'textbox to make lookups easier
-        'If cmbMainDaylightSaving.ListIndex > 1 Then Call populateTimeZoneRegions
-   End If
+'   If cmbMainDaylightSaving.ListIndex > -1 Then
+'
+'        pos = InStr(cmbMainDaylightSaving.List(cmbMainDaylightSaving.ListIndex), vbTab)
+'        'txtBias.Text = Left$(cmbMainDaylightSaving.List(cmbMainDaylightSaving.ListIndex), pos)
+'        'textbox to make lookups easier
+'        'If cmbMainDaylightSaving.ListIndex > 1 Then Call populateTimeZoneRegions
+'   End If
 
 
    On Error GoTo 0
@@ -5454,36 +5462,36 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub populateTimeZoneRegions()
-
-   Dim cnt As Long: cnt = 0
-   
-  'do a lookup for the Bias entered
-   On Error GoTo populateTimeZoneRegions_Error
-
-   With lstTimezoneRegions
-      .Clear
-      
-      For cnt = LBound(tzinfo) To UBound(tzinfo)
-      
-         If tzinfo(cnt).bias = txtBias.Text Then
-            
-            .AddItem tzinfo(cnt).TimeZoneName
-            'Debug.Print tzinfo(cnt).TimeZoneName
-         End If
-         
-      Next
-      
-   End With
-
-   On Error GoTo 0
-   Exit Sub
-
-populateTimeZoneRegions_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure populateTimeZoneRegions of Form panzerPrefs"
-   
-End Sub
+'Private Sub populateTimeZoneRegions()
+'
+'   Dim cnt As Long: cnt = 0
+'
+'  'do a lookup for the Bias entered
+'   On Error GoTo populateTimeZoneRegions_Error
+'
+'   With lstTimezoneRegions
+'      .Clear
+'
+'      For cnt = LBound(tzinfo) To UBound(tzinfo)
+'
+'         If tzinfo(cnt).bias = txtBias.Text Then
+'
+'            .AddItem tzinfo(cnt).TimeZoneName
+'            'Debug.Print tzinfo(cnt).TimeZoneName
+'         End If
+'
+'      Next
+'
+'   End With
+'
+'   On Error GoTo 0
+'   Exit Sub
+'
+'populateTimeZoneRegions_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure populateTimeZoneRegions of Form panzerPrefs"
+'
+'End Sub
 
 ' Randy Birch for his timezone code - http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
 
@@ -5494,134 +5502,134 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Function fGetTimeZoneArray() As Boolean
-
-   Dim success As Long
-   Dim dwIndex As Long
-   Dim cbName As Long
-   Dim hKey As Long
-   Dim sName As String
-   Dim dwSubKeys As Long
-   Dim dwMaxSubKeyLen As Long
-   Dim ft As FILETIME
-
-  'Win9x and WinNT have a slightly
-  'different registry structure.
-  'Determine the operating system and
-  'set a module variable to the
-  'correct key.
-  
-  'assume OS is win9x
-   On Error GoTo fGetTimeZoneArray_Error
-
-   sTzKey = SKEY_9X
-   
-  'see if OS is NT, and if so,
-  'use assign the correct key
-   If IsWinNTPlus Then sTzKey = SKEY_NT
-   
-  'BiasAdjust is used when calculating the
-  'bias values retrieved from the registry.
-  'If True, the reg value retrieved represents
-  'the location's bias with the bias for
-  'daylight saving time added. If false, the
-  'location's bias is returned with the
-  'standard bias adjustment applied (this
-  'is usually 0). Doing this allows us to
-  'use the bias returned from a TIME_OF_DAY_INFO
-  'call as the correct lookup value dependant
-  'on whether the world is currently on
-  'daylight saving time or not. For those
-  'countries not recognizing daylight saving
-  'time, the registry daylight bias will be 0,
-  'therefore proper lookup will not be affected.
-  'Not considered (nor can such be coded) are those
-  'special areas within a given country that do
-  'not recognize daylight saving time, even
-  'when the rest of the country does (like
-  'Saskatchewan in Canada).
-   BiasAdjust = IsDaylightSavingTime()
-
-  'open the timezone registry key
-   hKey = OpenRegKey(HKEY_LOCAL_MACHINE, sTzKey)
-   
-   If hKey <> 0 Then
-   
-     'query registry for the number of
-     'entries under that key
-      If RegQueryInfoKey(hKey, _
-                         0&, _
-                         0&, _
-                         0, _
-                         dwSubKeys, _
-                         dwMaxSubKeyLen&, _
-                         0&, _
-                         0&, _
-                         0&, _
-                         0&, _
-                         0&, _
-                         ft) = ERROR_SUCCESS Then
-   
-   
-        'create a UDT array for the time zone info
-         ReDim tzinfo(0 To dwSubKeys - 1) As TZ_LOOKUP_DATA
-         
-         dwIndex = 0
-         cbName = 32
-   
-         Do
-         
-           'pad a string for the returned value
-            sName = Space$(cbName)
-            success = RegEnumKey(hKey, dwIndex, sName, cbName)
-            
-            If success = ERROR_SUCCESS Then
-            
-              'add the data to the appropriate
-              'tzinfo UDT array members
-               With tzinfo(dwIndex)
-               
-                  .TimeZoneName = TrimNull(sName)
-                  .bias = GetTZBiasByName(.TimeZoneName)
-                  .IsDST = BiasAdjust
-                  
-                 'is also added to a list
-                  'cmbMainDaylightSaving.AddItem .bias & vbTab & .TimeZoneName
-                  
-               End With
-               
-            End If
-   
-           'increment the loop...
-            dwIndex = dwIndex + 1
-            
-        '...and continue while the reg
-        'call returns success.
-         Loop While success = ERROR_SUCCESS
-
-        'clean up
-         RegCloseKey hKey
-         
-        'return success if, well, successful
-         fGetTimeZoneArray = dwIndex > 0
-
-      End If  'If RegQueryInfoKey
-   
-   Else
-      
-     'could not open reg key
-      fGetTimeZoneArray = False
-   
-   End If  'If hKey
-
-   On Error GoTo 0
-   Exit Function
-
-fGetTimeZoneArray_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fGetTimeZoneArray of Form panzerPrefs"
-
-End Function
+'Private Function fGetTimeZoneArray() As Boolean
+'
+'   Dim success As Long
+'   Dim dwIndex As Long
+'   Dim cbName As Long
+'   Dim hKey As Long
+'   Dim sName As String
+'   Dim dwSubKeys As Long
+'   Dim dwMaxSubKeyLen As Long
+'   Dim ft As FILETIME
+'
+'  'Win9x and WinNT have a slightly
+'  'different registry structure.
+'  'Determine the operating system and
+'  'set a module variable to the
+'  'correct key.
+'
+'  'assume OS is win9x
+'   On Error GoTo fGetTimeZoneArray_Error
+'
+'   sTzKey = SKEY_9X
+'
+'  'see if OS is NT, and if so,
+'  'use assign the correct key
+'   If IsWinNTPlus Then sTzKey = SKEY_NT
+'
+'  'BiasAdjust is used when calculating the
+'  'bias values retrieved from the registry.
+'  'If True, the reg value retrieved represents
+'  'the location's bias with the bias for
+'  'daylight saving time added. If false, the
+'  'location's bias is returned with the
+'  'standard bias adjustment applied (this
+'  'is usually 0). Doing this allows us to
+'  'use the bias returned from a TIME_OF_DAY_INFO
+'  'call as the correct lookup value dependant
+'  'on whether the world is currently on
+'  'daylight saving time or not. For those
+'  'countries not recognizing daylight saving
+'  'time, the registry daylight bias will be 0,
+'  'therefore proper lookup will not be affected.
+'  'Not considered (nor can such be coded) are those
+'  'special areas within a given country that do
+'  'not recognize daylight saving time, even
+'  'when the rest of the country does (like
+'  'Saskatchewan in Canada).
+'   BiasAdjust = IsDaylightSavingTime()
+'
+'  'open the timezone registry key
+'   hKey = OpenRegKey(HKEY_LOCAL_MACHINE, sTzKey)
+'
+'   If hKey <> 0 Then
+'
+'     'query registry for the number of
+'     'entries under that key
+'      If RegQueryInfoKey(hKey, _
+'                         0&, _
+'                         0&, _
+'                         0, _
+'                         dwSubKeys, _
+'                         dwMaxSubKeyLen&, _
+'                         0&, _
+'                         0&, _
+'                         0&, _
+'                         0&, _
+'                         0&, _
+'                         ft) = ERROR_SUCCESS Then
+'
+'
+'        'create a UDT array for the time zone info
+'         ReDim tzinfo(0 To dwSubKeys - 1) As TZ_LOOKUP_DATA
+'
+'         dwIndex = 0
+'         cbName = 32
+'
+'         Do
+'
+'           'pad a string for the returned value
+'            sName = Space$(cbName)
+'            success = RegEnumKey(hKey, dwIndex, sName, cbName)
+'
+'            If success = ERROR_SUCCESS Then
+'
+'              'add the data to the appropriate
+'              'tzinfo UDT array members
+'               With tzinfo(dwIndex)
+'
+'                  .TimeZoneName = TrimNull(sName)
+'                  .bias = GetTZBiasByName(.TimeZoneName)
+'                  .IsDST = BiasAdjust
+'
+'                 'is also added to a list
+'                  'cmbMainDaylightSaving.AddItem .bias & vbTab & .TimeZoneName
+'
+'               End With
+'
+'            End If
+'
+'           'increment the loop...
+'            dwIndex = dwIndex + 1
+'
+'        '...and continue while the reg
+'        'call returns success.
+'         Loop While success = ERROR_SUCCESS
+'
+'        'clean up
+'         RegCloseKey hKey
+'
+'        'return success if, well, successful
+'         fGetTimeZoneArray = dwIndex > 0
+'
+'      End If  'If RegQueryInfoKey
+'
+'   Else
+'
+'     'could not open reg key
+'      fGetTimeZoneArray = False
+'
+'   End If  'If hKey
+'
+'   On Error GoTo 0
+'   Exit Function
+'
+'fGetTimeZoneArray_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fGetTimeZoneArray of Form panzerPrefs"
+'
+'End Function
 
 
 '---------------------------------------------------------------------------------------
@@ -5631,22 +5639,22 @@ End Function
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Function IsDaylightSavingTime() As Boolean
-
-   Dim tzi As TIME_ZONE_INFORMATION
-
-   On Error GoTo IsDaylightSavingTime_Error
-
-   IsDaylightSavingTime = GetTimeZoneInformation(tzi) = TIME_ZONE_ID_DAYLIGHT
-
-   On Error GoTo 0
-   Exit Function
-
-IsDaylightSavingTime_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure IsDaylightSavingTime of Form panzerPrefs"
-
-End Function
+'Private Function IsDaylightSavingTime() As Boolean
+'
+'   Dim tzi As TIME_ZONE_INFORMATION
+'
+'   On Error GoTo IsDaylightSavingTime_Error
+'
+'   IsDaylightSavingTime = GetTimeZoneInformation(tzi) = TIME_ZONE_ID_DAYLIGHT
+'
+'   On Error GoTo 0
+'   Exit Function
+'
+'IsDaylightSavingTime_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure IsDaylightSavingTime of Form panzerPrefs"
+'
+'End Function
 
 
 '---------------------------------------------------------------------------------------
@@ -5656,47 +5664,47 @@ End Function
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Function GetTZBiasByName(sTimeZone As String) As Long
-
-   Dim rtzi As REG_TIME_ZONE_INFORMATION
-   Dim hKey As Long
-
-  'open the passed time zone key
-   On Error GoTo GetTZBiasByName_Error
-
-   hKey = OpenRegKey(HKEY_LOCAL_MACHINE, sTzKey & "\" & sTimeZone)
-   
-   If hKey <> 0 Then
-   
-     'obtain the data from the TZI member
-      If RegQueryValueEx(hKey, _
-                         "TZI", _
-                         0&, _
-                         ByVal 0&, _
-                         rtzi, _
-                         Len(rtzi)) = ERROR_SUCCESS Then
-
-        'tweak the Bias when in Daylight Saving time
-         If BiasAdjust Then
-            GetTZBiasByName = (rtzi.bias + rtzi.DaylightBias)
-         Else
-            GetTZBiasByName = (rtzi.bias + rtzi.StandardBias) 'StandardBias is usually 0
-         End If
-
-      End If
-
-      RegCloseKey hKey
-      
-   End If
-
-   On Error GoTo 0
-   Exit Function
-
-GetTZBiasByName_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure GetTZBiasByName of Form panzerPrefs"
-   
-End Function
+'Private Function GetTZBiasByName(sTimeZone As String) As Long
+'
+'   Dim rtzi As REG_TIME_ZONE_INFORMATION
+'   Dim hKey As Long
+'
+'  'open the passed time zone key
+'   On Error GoTo GetTZBiasByName_Error
+'
+'   hKey = OpenRegKey(HKEY_LOCAL_MACHINE, sTzKey & "\" & sTimeZone)
+'
+'   If hKey <> 0 Then
+'
+'     'obtain the data from the TZI member
+'      If RegQueryValueEx(hKey, _
+'                         "TZI", _
+'                         0&, _
+'                         ByVal 0&, _
+'                         rtzi, _
+'                         Len(rtzi)) = ERROR_SUCCESS Then
+'
+'        'tweak the Bias when in Daylight Saving time
+'         If BiasAdjust Then
+'            GetTZBiasByName = (rtzi.bias + rtzi.DaylightBias)
+'         Else
+'            GetTZBiasByName = (rtzi.bias + rtzi.StandardBias) 'StandardBias is usually 0
+'         End If
+'
+'      End If
+'
+'      RegCloseKey hKey
+'
+'   End If
+'
+'   On Error GoTo 0
+'   Exit Function
+'
+'GetTZBiasByName_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure GetTZBiasByName of Form panzerPrefs"
+'
+'End Function
 
 
 '---------------------------------------------------------------------------------------
@@ -5706,20 +5714,20 @@ End Function
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Function TrimNull(startstr As String) As String
-
-   On Error GoTo TrimNull_Error
-
-   TrimNull = Left$(startstr, lstrlenW(StrPtr(startstr)))
-
-   On Error GoTo 0
-   Exit Function
-
-TrimNull_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure TrimNull of Form panzerPrefs"
-   
-End Function
+'Private Function TrimNull(startstr As String) As String
+'
+'   On Error GoTo TrimNull_Error
+'
+'   TrimNull = Left$(startstr, lstrlenW(StrPtr(startstr)))
+'
+'   On Error GoTo 0
+'   Exit Function
+'
+'TrimNull_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure TrimNull of Form panzerPrefs"
+'
+'End Function
 
 
 '---------------------------------------------------------------------------------------
@@ -5729,31 +5737,31 @@ End Function
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Function OpenRegKey(ByVal hKey As Long, _
-                            ByVal lpSubKey As String) As Long
-
-  Dim hSubKey As Long
-
-   On Error GoTo OpenRegKey_Error
-
-  If RegOpenKeyEx(hKey, _
-                  lpSubKey, _
-                  0, _
-                  KEY_READ, _
-                  hSubKey) = ERROR_SUCCESS Then
-
-      OpenRegKey = hSubKey
-
-  End If
-
-   On Error GoTo 0
-   Exit Function
-
-OpenRegKey_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure OpenRegKey of Form panzerPrefs"
-
-End Function
+'Private Function OpenRegKey(ByVal hKey As Long, _
+'                            ByVal lpSubKey As String) As Long
+'
+'  Dim hSubKey As Long
+'
+'   On Error GoTo OpenRegKey_Error
+'
+'  If RegOpenKeyEx(hKey, _
+'                  lpSubKey, _
+'                  0, _
+'                  KEY_READ, _
+'                  hSubKey) = ERROR_SUCCESS Then
+'
+'      OpenRegKey = hSubKey
+'
+'  End If
+'
+'   On Error GoTo 0
+'   Exit Function
+'
+'OpenRegKey_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure OpenRegKey of Form panzerPrefs"
+'
+'End Function
 
 
 '---------------------------------------------------------------------------------------
@@ -5763,33 +5771,33 @@ End Function
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Function IsWinNTPlus() As Boolean
-
-   'returns True if running WinNT or better
-   On Error GoTo IsWinNTPlus_Error
-
-   #If Win32 Then
-  
-      Dim OSV As OSVERSIONINFO
-   
-      OSV.OSVSize = Len(OSV)
-   
-      If GetVersionEx(OSV) = 1 Then
-   
-         IsWinNTPlus = (OSV.PlatformID = VER_PLATFORM_WIN32_NT)
-         
-      End If
-
-   #End If
-
-   On Error GoTo 0
-   Exit Function
-
-IsWinNTPlus_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure IsWinNTPlus of Form panzerPrefs"
-
-End Function
+'Private Function IsWinNTPlus() As Boolean
+'
+'   'returns True if running WinNT or better
+'   On Error GoTo IsWinNTPlus_Error
+'
+'   #If Win32 Then
+'
+'      Dim OSV As OSVERSIONINFO
+'
+'      OSV.OSVSize = Len(OSV)
+'
+'      If GetVersionEx(OSV) = 1 Then
+'
+'         IsWinNTPlus = (OSV.PlatformID = VER_PLATFORM_WIN32_NT)
+'
+'      End If
+'
+'   #End If
+'
+'   On Error GoTo 0
+'   Exit Function
+'
+'IsWinNTPlus_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure IsWinNTPlus of Form panzerPrefs"
+'
+'End Function
 
 '---------------------------------------------------------------------------------------
 ' Procedure : lblDragCorner_MouseDown
@@ -5847,16 +5855,5 @@ End Sub
 '\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 '--- If you're Subclassing: Move the CODEFOLD STORAGE up as needed ---
 '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-
-
-
-
-
-
-
-
-
-
-
 
 

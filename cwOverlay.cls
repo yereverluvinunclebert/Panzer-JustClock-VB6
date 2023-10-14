@@ -11,6 +11,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'@IgnoreModule IntegerDataType, ModuleWithoutFolder
 '---------------------------------------------------------------------------------------
 ' Module    : cwOverlay
 ' Author    : beededea
@@ -160,17 +161,17 @@ End Property
 '---------------------------------------------------------------------------------------
 '
 Public Property Let Ticking(ByVal newValue As Boolean)
-    Dim intervalValue As Integer: intervalValue = 0
+    'Dim intervalValue As Integer: intervalValue = 0
     On Error GoTo TickingLet_Error
 
     If mTicking <> newValue Then mTicking = newValue Else Exit Property
     
     If mTicking Then
-        If mSmoothSecondHand Then
-            intervalValue = 100
-        Else
-            intervalValue = 500
-        End If
+'        If mSmoothSecondHand Then
+'            'intervalValue = 100
+'        Else
+'            'intervalValue = 500
+'        End If
 
         tmrClock.Enabled = True
     Else
@@ -359,7 +360,7 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
     Dim textDrawn As Boolean:   textDrawn = False
     Dim thisOpacity As Double: thisOpacity = 0
     
-    Const cream = &HFFF5F5F5
+    Const cream As String = "&HFFF5F5F5"
    
     On Error GoTo W_Paint_Error
     
@@ -436,7 +437,7 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub tmrClock_Timer() 'update the private "Degree-Variables" for Hour-, Minute- and Second-Hands + Refresh
-    Dim TimeZoneInfo As TIME_ZONE_INFORMATION
+    'Dim TimeZoneInfo As TIME_ZONE_INFORMATION
     Dim currentLocaltime As SYSTEMTIME
     Static T As Date: T = Time
     
@@ -446,8 +447,6 @@ Private Sub tmrClock_Timer() 'update the private "Degree-Variables" for Hour-, M
 
     HDeg = 30 * (Hour(T) Mod 12 + (Minute(T) + tzDelta1) / 60)
     MDeg = 6 * ((Minute(T) + tzDelta1) + (Second(T) / 60))
-
-
 
     If mSmoothSecondHand = True Then
         SDeg = 6 * Second(T)
@@ -476,5 +475,4 @@ tmrClock_Timer_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrClock_Timer of Class Module cwOverlay"
 End Sub
-
 

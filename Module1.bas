@@ -1,4 +1,5 @@
 Attribute VB_Name = "Module1"
+'@IgnoreModule IntegerDataType, ModuleWithoutFolder
 ' gaugeForm_BubblingEvent ' leaving that here so I can copy/paste to find it
 
 '---------------------------------------------------------------------------------------
@@ -246,10 +247,10 @@ Private x_OpenFilename As OPENFILENAME
 
 ' APIs declared for opening a common dialog box to select files without OCX dependencies
 Private Declare Function GetOpenFileName Lib "comdlg32" Alias "GetOpenFileNameA" (lpofn As OPENFILENAME) As Long
-Private Declare Function SHBrowseForFolderA Lib "Shell32.dll" (bInfo As BROWSEINFO) As Long
-Private Declare Function SHGetPathFromIDListA Lib "Shell32.dll" (ByVal pidl As Long, ByVal szPath As String) As Long
-Private Declare Function CoTaskMemFree Lib "ole32.dll" (lp As Any) As Long
-Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
+'Private Declare Function SHBrowseForFolderA Lib "Shell32.dll" (bInfo As BROWSEINFO) As Long
+'Private Declare Function SHGetPathFromIDListA Lib "Shell32.dll" (ByVal pidl As Long, ByVal szPath As String) As Long
+'Private Declare Function CoTaskMemFree Lib "ole32.dll" (lp As Any) As Long
+'Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
 '------------------------------------------------------ ENDS
 
 
@@ -277,9 +278,9 @@ Private Type OSVERSIONINFO
   szCSDVersion    As String * 128
 End Type
 
-Private Const VER_PLATFORM_WIN32s = 0
-Private Const VER_PLATFORM_WIN32_WINDOWS = 1
-Private Const VER_PLATFORM_WIN32_NT = 2
+Private Const VER_PLATFORM_WIN32s As Long = 0
+Private Const VER_PLATFORM_WIN32_WINDOWS As Long = 1
+Private Const VER_PLATFORM_WIN32_NT As Long = 2
 '------------------------------------------------------ ENDS
 
 '------------------------------------------------------ STARTS
@@ -371,7 +372,7 @@ Public PzGFormLowDpiYPosTwips As String
 
 '------------------------------------------------------ STARTS
 ' General variables declared
-Public toolSettingsFile  As String
+'Public toolSettingsFile  As String
 Public classicThemeCapable As Boolean
 Public storeThemeColour As Long
 Public windowsVer As String
@@ -422,18 +423,18 @@ Public PzGWindowLevelWasChanged As Boolean
                             
 
 '------------------------------------------------------ STARTS
-Private Type TimeZoneInfo
-    bias As Long
-    StandardName(63) As Byte
-    StandardDate(7) As Integer
-    StandardBias As Long
-    DaylightName(63) As Byte
-    DaylightDate(7) As Integer
-    DaylightBias As Long
-End Type
+'Private Type TimeZoneInfo
+'    bias As Long
+'    StandardName(63) As Byte
+'    StandardDate(7) As Integer
+'    StandardBias As Long
+'    DaylightName(63) As Byte
+'    DaylightDate(7) As Integer
+'    DaylightBias As Long
+'End Type
  
-Private Const TIME_ZONE_ID_DAYLIGHT = 2
-Private Declare Function GetTimeZoneInformation Lib "kernel32" (uTZ As TimeZoneInfo) As Long
+'Private Const TIME_ZONE_ID_DAYLIGHT = 2
+'Private Declare Function GetTimeZoneInformation Lib "kernel32" (uTZ As TimeZoneInfo) As Long
 '------------------------------------------------------ ENDS
 
 ' Flag for debug mode '.06 DAEB 19/04/2021 common.bas moved to the common area so that it can be used by each of the utilities
@@ -550,35 +551,35 @@ End Function
 ' Purpose   : extract the suffix from a filename
 '---------------------------------------------------------------------------------------
 '
-Public Function fExtractSuffix(ByVal strPath As String) As String
-
-    
-    Dim stringBits() As String ' string array
-    Dim upperBit As Integer: upperBit = 0
-    
-    On Error GoTo fExtractSuffix_Error
-    '''If debugflg = 1  Then DebugPrint "%" & "fnExtractSuffix"
-   
-    If strPath = vbNullString Then
-        fExtractSuffix = vbNullString
-        Exit Function
-    End If
-        
-    If InStr(strPath, ".") <> 0 Then
-        stringBits = Split(strPath, ".")
-        upperBit = UBound(stringBits)
-        fExtractSuffix = stringBits(upperBit)
-    Else
-        fExtractSuffix = strPath
-    End If
-
-   On Error GoTo 0
-   Exit Function
-
-fExtractSuffix_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fExtractSuffix of module module1"
-End Function
+'Public Function fExtractSuffix(ByVal strPath As String) As String
+'
+'
+'    Dim stringBits() As String ' string array
+'    Dim upperBit As Integer: upperBit = 0
+'
+'    On Error GoTo fExtractSuffix_Error
+'    '''If debugflg = 1  Then DebugPrint "%" & "fnExtractSuffix"
+'
+'    If strPath = vbNullString Then
+'        fExtractSuffix = vbNullString
+'        Exit Function
+'    End If
+'
+'    If InStr(strPath, ".") <> 0 Then
+'        stringBits = Split(strPath, ".")
+'        upperBit = UBound(stringBits)
+'        fExtractSuffix = stringBits(upperBit)
+'    Else
+'        fExtractSuffix = strPath
+'    End If
+'
+'   On Error GoTo 0
+'   Exit Function
+'
+'fExtractSuffix_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fExtractSuffix of module module1"
+'End Function
 '---------------------------------------------------------------------------------------
 ' Procedure : fExtractSuffixWithDot
 ' Author    : beededea
@@ -586,34 +587,34 @@ End Function
 ' Purpose   : extract the suffix from a filename
 '---------------------------------------------------------------------------------------
 '
-Public Function fExtractSuffixWithDot(ByVal strPath As String) As String
-    
-    Dim stringBits() As String ' string array
-    Dim upperBit As Integer:    upperBit = 0
-    
-    On Error GoTo fExtractSuffixWithDot_Error
-    '''If debugflg = 1  Then DebugPrint "%" & "fExtractSuffixWithDot"
-   
-    If strPath = vbNullString Then
-        fExtractSuffixWithDot = vbNullString
-        Exit Function
-    End If
-        
-    If InStr(strPath, ".") <> 0 Then
-        stringBits = Split(strPath, ".")
-        upperBit = UBound(stringBits)
-        fExtractSuffixWithDot = "." & stringBits(upperBit)
-    Else
-        fExtractSuffixWithDot = vbNullString
-    End If
-
-   On Error GoTo 0
-   Exit Function
-
-fExtractSuffixWithDot_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fExtractSuffixWithDot of module module1"
-End Function
+'Public Function fExtractSuffixWithDot(ByVal strPath As String) As String
+'
+'    Dim stringBits() As String ' string array
+'    Dim upperBit As Integer:    upperBit = 0
+'
+'    On Error GoTo fExtractSuffixWithDot_Error
+'    '''If debugflg = 1  Then DebugPrint "%" & "fExtractSuffixWithDot"
+'
+'    If strPath = vbNullString Then
+'        fExtractSuffixWithDot = vbNullString
+'        Exit Function
+'    End If
+'
+'    If InStr(strPath, ".") <> 0 Then
+'        stringBits = Split(strPath, ".")
+'        upperBit = UBound(stringBits)
+'        fExtractSuffixWithDot = "." & stringBits(upperBit)
+'    Else
+'        fExtractSuffixWithDot = vbNullString
+'    End If
+'
+'   On Error GoTo 0
+'   Exit Function
+'
+'fExtractSuffixWithDot_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fExtractSuffixWithDot of module module1"
+'End Function
 
 '---------------------------------------------------------------------------------------
 ' Procedure : fExtractFileNameNoSuffix
@@ -622,34 +623,34 @@ End Function
 ' Purpose   : extract the filename without a suffix
 '---------------------------------------------------------------------------------------
 '
-Public Function fExtractFileNameNoSuffix(ByVal strPath As String) As String
-    
-    Dim stringBits() As String ' string array
-    Dim lowerBit As Integer:    lowerBit = 0
-    
-    On Error GoTo fExtractFileNameNoSuffix_Error
-    '''If debugflg = 1  Then DebugPrint "%" & "fnExtractFileNameNoSuffix"
-   
-    If strPath = vbNullString Then
-        fExtractFileNameNoSuffix = vbNullString
-        Exit Function
-    End If
-        
-    If InStr(strPath, ".") <> 0 Then
-        stringBits = Split(strPath, ".")
-        lowerBit = LBound(stringBits)
-        fExtractFileNameNoSuffix = stringBits(lowerBit)
-    Else
-        fExtractFileNameNoSuffix = strPath
-    End If
-
-   On Error GoTo 0
-   Exit Function
-
-fExtractFileNameNoSuffix_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fExtractFileNameNoSuffix of module module1"
-End Function
+'Public Function fExtractFileNameNoSuffix(ByVal strPath As String) As String
+'
+'    Dim stringBits() As String ' string array
+'    Dim lowerBit As Integer:    lowerBit = 0
+'
+'    On Error GoTo fExtractFileNameNoSuffix_Error
+'    '''If debugflg = 1  Then DebugPrint "%" & "fnExtractFileNameNoSuffix"
+'
+'    If strPath = vbNullString Then
+'        fExtractFileNameNoSuffix = vbNullString
+'        Exit Function
+'    End If
+'
+'    If InStr(strPath, ".") <> 0 Then
+'        stringBits = Split(strPath, ".")
+'        lowerBit = LBound(stringBits)
+'        fExtractFileNameNoSuffix = stringBits(lowerBit)
+'    Else
+'        fExtractFileNameNoSuffix = strPath
+'    End If
+'
+'   On Error GoTo 0
+'   Exit Function
+'
+'fExtractFileNameNoSuffix_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fExtractFileNameNoSuffix of module module1"
+'End Function
 '
 '---------------------------------------------------------------------------------------
 ' Procedure : checkLicenceState
@@ -1480,7 +1481,7 @@ Public Sub aboutClickEvent()
     fMain.aboutForm.Top = (screenHeightPixels / 2) - (fMain.aboutForm.Height / 2)
     fMain.aboutForm.Left = (screenWidthPixels / 2) - (fMain.aboutForm.Width / 2)
      
-    aboutWidget.Opacity = 0
+    aboutWidget.opacity = 0
     aboutWidget.ShowMe = True
     'aboutWidget.Widget.Refresh
     
@@ -1520,7 +1521,7 @@ Public Sub helpSplash()
     fMain.helpForm.Top = (screenHeightPixels / 2) - (fMain.helpForm.Height / 2)
     fMain.helpForm.Left = (screenWidthPixels / 2) - (fMain.helpForm.Width / 2)
      
-    helpWidget.Opacity = 0
+    helpWidget.opacity = 0
     helpWidget.show = True
     'helpWidget.Widget.Refresh
     
@@ -1560,7 +1561,7 @@ Public Sub licenceSplash()
     fMain.licenceForm.Top = (screenHeightPixels / 2) - (fMain.licenceForm.Height / 2)
     fMain.licenceForm.Left = (screenWidthPixels / 2) - (fMain.licenceForm.Width / 2)
      
-    licenceWidget.Opacity = 0
+    licenceWidget.opacity = 0
     'opacityflag = 0
     licenceWidget.ShowMe = True
     'licenceWidget.Widget.Refresh
@@ -2643,9 +2644,9 @@ Public Function determineIconWidth(ByRef thisForm As Form, ByVal thisDynamicSizi
     
     On Error GoTo determineIconWidth_Error
     
-    If thisDynamicSizingFlg = False Then
-        'Exit Function
-    End If
+'    If thisDynamicSizingFlg = False Then
+'        'Exit Function
+'    End If
     
     If thisForm.Width < 10500 Then
         topIconWidth = 600 '40 pixels
@@ -2704,4 +2705,5 @@ ArrayString_Error:
 
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure ArrayString of Module Module1"
 End Function
+
 

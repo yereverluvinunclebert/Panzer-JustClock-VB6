@@ -162,11 +162,20 @@
 ' time zone code - wip - look at YWE and replicate - done
 
 ' daylight saving time code - implement and test - done
-' date/day fields altered by DST and timezone changes as per YWE version -
+' date/day fields altered by DST and timezone changes as per YWE version - done
 
 ' transparency for WHOLE form using API method of gaining transparency - done - this works but reveals the background form itself - removed
+' about page sound on exit - done
+' licence page sound on accept - done
+' review code using mzTools  - done
+' review code using rubberduck - done
 
-' about page ting on exit
+        If PzGAspectHidden = "2" Then
+            'Print "Hiding the widget for landscape mode"
+            'overlayWidget.opacity = 0
+        End If
+
+' setup2go
 
 ' test usage of RC6 for monitor awareness - wip
 With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisplay
@@ -174,7 +183,9 @@ With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisp
   Debug.Print .WorkLeft , .WorkTop, (.WorkRight - .WorkLeft), (.WorkBottom - .WorkTop)
 End With
 
-' add second monitor - wip cable
+'https://www.vbforums.com/showthread.php?900892-VB6-Simple-way-to-make-your-VB6-application-quot-Per-Monitor-DPI-Aware-quot
+
+' add second monitor - wip find cable!
 
 ' adjustFormPositionToCorrectMonitor, make it work and observe the result as per FCW - wip
 
@@ -182,19 +193,11 @@ End With
 
 ' create an independent RC project to fade a widget in and out to demonstrate the RC fade-out bug
 
-' initialise a lot of public and private declared vars - wip
-
-' check if all current public vars need to be public
-
 ' adjustFormPositionToCorrectMonitor - licence form
 ' adjustFormPositionToCorrectMonitor - about form
 ' adjustFormPositionToCorrectMonitor - help form
 
-' review code using rubberduck
 
-' review code using mzTools
-
-' setup2go
 
 
 

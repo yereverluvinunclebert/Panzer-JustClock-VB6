@@ -101,6 +101,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'@IgnoreModule IntegerDataType, ModuleWithoutFolder
 ' .74 DAEB 22/05/2022 rDIConConfig.frm Msgbox replacement that can be placed on top of the form instead as the middle of the screen STARTS
 Option Explicit
 Private mintLabelHeight As Integer
@@ -246,9 +247,9 @@ Public Property Let propTitle(ByVal strTitle As String)
    On Error GoTo propTitle_Error
 
     If strTitle = "" Then
-        frmMessage.Caption = "SteamyDock Icon Enhanced Settings"
+        Me.Caption = "SteamyDock Icon Enhanced Settings"
     Else
-        frmMessage.Caption = strTitle
+        Me.Caption = strTitle
     End If
 
    On Error GoTo 0
@@ -334,8 +335,8 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
         
         ' .86 DAEB 06/06/2022 rDIConConfig.frm Add a sound to the msgbox for critical and exclamations? ting and belltoll.wav files
         fileToPlay = "ting.wav"
-        If fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-            PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+        If fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+            PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
         End If
     ElseIf buttonVal >= 32 Then '    vbQuestion
         buttonVal = buttonVal - 32
@@ -346,8 +347,8 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
         
         ' .86 DAEB 06/06/2022 rDIConConfig.frm Add a sound to the msgbox for critical and exclamations? ting and belltoll.wav files
         fileToPlay = "belltoll01.wav"
-        If fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-            PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+        If fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+            PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
         End If
     End If
 
@@ -476,7 +477,7 @@ Private Sub Form_Load()
         
     ' .TBD DAEB 05/05/2021 frmMessage.frm Added the font mod. here instead of within the changeFont tool
     '                       as each instance of the form is new, the font modification must be here.
-    For Each Ctrl In Controls
+    For Each Ctrl In Me.Controls
          If (TypeOf Ctrl Is CommandButton) Or (TypeOf Ctrl Is textBox) Or (TypeOf Ctrl Is FileListBox) Or (TypeOf Ctrl Is Label) Or (TypeOf Ctrl Is ComboBox) Or (TypeOf Ctrl Is CheckBox) Or (TypeOf Ctrl Is OptionButton) Or (TypeOf Ctrl Is Frame) Or (TypeOf Ctrl Is ListBox) Then
             If PzGPrefsFont <> "" Then Ctrl.Font.Name = PzGPrefsFont
            
@@ -514,7 +515,7 @@ Private Sub Form_Resize()
     
     On Error GoTo Form_Resize_Error
     
-    If WindowState = vbMinimized Then Exit Sub
+    If Me.WindowState = vbMinimized Then Exit Sub
 
     ratio = cMsgBoxAFormHeight / cMsgBoxAFormWidth
     If PzGDpiAwareness = "1" Then
@@ -552,7 +553,7 @@ Private Sub loadHigherResMessageImages()
 
     On Error GoTo loadHigherResMessageImages_Error
 
-    If WindowState = vbMinimized Then Exit Sub
+    If Me.WindowState = vbMinimized Then Exit Sub
 
 '    If panzerPrefs.mnuDark.Checked = True Then
 '        Call setMessageIconImagesDark(determineIconWidth(Me, msgBoxADynamicSizingFlg))
@@ -582,7 +583,7 @@ Private Sub setMessageIconImagesLight(ByVal thisIconWidth As Long)
     
     On Error GoTo setMessageIconImagesLight_Error
     
-    resourcePath = App.Path & "\resources\images"
+    resourcePath = App.path & "\resources\images"
     
     If fFExists(resourcePath & "\windowsInformation" & thisIconWidth & ".jpg") Then Set picVBInformation.Picture = LoadPicture(resourcePath & "\windowsInformation" & thisIconWidth & ".jpg")
     If fFExists(resourcePath & "\windowsOrangeExclamation" & thisIconWidth & ".jpg") Then Set picVBExclamation.Picture = LoadPicture(resourcePath & "\windowsOrangeExclamation" & thisIconWidth & ".jpg")

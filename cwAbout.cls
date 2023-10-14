@@ -11,6 +11,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'@IgnoreModule IntegerDataType, ModuleWithoutFolder
 '---------------------------------------------------------------------------------------
 ' Class Module      : cwAbout
 ' Author            : beededea
@@ -108,8 +109,8 @@ End Property
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub W_MouseDown(Button As Integer, Shift As Integer, ByVal X As Single, ByVal Y As Single)
-   On Error GoTo W_MouseDown_Error
+Private Sub W_MouseDown(Button As Integer, Shift As Integer, ByVal x As Single, ByVal Y As Single)
+    On Error GoTo W_MouseDown_Error
 
     opacity = 1
     ShowMe = False
@@ -248,8 +249,9 @@ End Sub
 ' Purpose   : timer to make the about form or about image fade out in opacity
 '---------------------------------------------------------------------------------------
 Private Sub tmrAboutFadeOut_Timer()
+    Dim fileToPlay As String: fileToPlay = vbNullString
       
-   On Error GoTo tmrAboutFadeOut_Timer_Error
+    On Error GoTo tmrAboutFadeOut_Timer_Error
 
     opacity = opacity - 0.05
     
@@ -258,6 +260,12 @@ Private Sub tmrAboutFadeOut_Timer()
         
         tmrAboutFadeOut.Enabled = False
         fMain.aboutForm.Hide
+        
+    
+        fileToPlay = "till.wav"
+        If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+            PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+        End If
         
         Exit Sub
     End If
@@ -350,16 +358,4 @@ End Sub
 '\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 '--- If you're Subclassing: Move the CODEFOLD STORAGE up as needed ---
 '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-
-
-
-
-
-
-
-
-
-
-
-
 

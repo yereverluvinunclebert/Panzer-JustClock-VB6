@@ -11,6 +11,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'@IgnoreModule IntegerDataType, ModuleWithoutFolder
 '---------------------------------------------------------------------------------------
 ' Class Module      : cwhelp
 ' Author            : beededea
@@ -76,13 +77,6 @@ Public Property Get Widgets() As cWidgets:  Set Widgets = W.Widgets: End Propert
 '
 Private Sub W_MouseDown(Button As Integer, Shift As Integer, ByVal x As Single, ByVal Y As Single)
    On Error GoTo W_MouseDown_Error
-   
-    Dim fileToPlay As String: fileToPlay = vbNullString
-    
-    fileToPlay = "ting.wav"
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
-    End If
 
     tmrHelpFadeOut.Enabled = True ' this is not currently making the opacity reduce
 
@@ -211,8 +205,8 @@ End Sub
 '---------------------------------------------------------------------------------------
 ' < - this timer is not causing the opacity to fade out
 Private Sub tmrHelpFadeOut_Timer()
-      
-   On Error GoTo tmrHelpFadeOut_Timer_Error
+    Dim fileToPlay As String: fileToPlay = vbNullString
+    On Error GoTo tmrHelpFadeOut_Timer_Error
 
     opacity = opacity - 0.05
     
@@ -221,6 +215,11 @@ Private Sub tmrHelpFadeOut_Timer()
         
         tmrHelpFadeOut.Enabled = False
         fMain.helpForm.Hide
+    
+        fileToPlay = "till.wav"
+        If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+            PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+        End If
         
         Exit Sub
     End If
@@ -284,5 +283,4 @@ Draw_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Draw of Class Module cwhelp"
 
 End Sub
-
 

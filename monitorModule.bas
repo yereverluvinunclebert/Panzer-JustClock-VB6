@@ -1,4 +1,5 @@
 Attribute VB_Name = "Module2"
+'@IgnoreModule IntegerDataType, ModuleWithoutFolder
     ' 23/01/2021 .01 monitorModule.bas DAEB added if then else if you can't get device context
 
 Option Explicit
@@ -49,11 +50,11 @@ Private Type tagMONITORINFO
 End Type
 
 Private Declare Function EnumDisplayMonitors Lib "user32" (ByVal hdc As Long, lprcClip As Any, ByVal lpfnEnum As Long, dwData As Long) As Long
-Private Declare Function GetSystemMetrics Lib "user32" (ByVal nIndex As Long) As Long
+'Private Declare Function GetSystemMetrics Lib "user32" (ByVal nIndex As Long) As Long
 Public Declare Function GetDC Lib "user32" (ByVal hwnd As Long) As Long
 Public Declare Function ReleaseDC Lib "user32" (ByVal hwnd As Long, ByVal hdc As Long) As Long
 Public Declare Function GetDeviceCaps Lib "gdi32" (ByVal hdc As Long, ByVal nIndex As Long) As Long
-Private Declare Function CreateDC Lib "gdi32" Alias "CreateDCA" (ByVal lpDriverName As String, ByVal lpDeviceName As String, ByVal lpOutput As String, ByVal lpInitData As Long) As Long
+'Private Declare Function CreateDC Lib "gdi32" Alias "CreateDCA" (ByVal lpDriverName As String, ByVal lpDeviceName As String, ByVal lpOutput As String, ByVal lpInitData As Long) As Long
 Private Declare Function UnionRect Lib "user32" (lprcDst As RECT, lprcSrc1 As RECT, lprcSrc2 As RECT) As Long
 Private Declare Function OffsetRect Lib "user32" (lpRect As RECT, ByVal x As Long, ByVal Y As Long) As Long
 Private Declare Function MoveWindow Lib "user32" (ByVal hwnd As Long, ByVal x As Long, ByVal Y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal bRepaint As Long) As Long
@@ -323,7 +324,7 @@ Public Function monitorProperties(ByVal frm As cWidgetForm) As UDTMonitor
     ' reads the size and position of the window
     On Error GoTo monitorProperties_Error
    
-    If debugflg = 1 Then MsgBox "%" & " func monitorProperties"
+    If debugFlg = 1 Then MsgBox "%" & " func monitorProperties"
 
     GetWindowRect frm.hwnd, Frect
     hMonitor = MonitorFromRect(Frect, MONITOR_DEFAULTTOPRIMARY) ' get handle for monitor containing most of Frm
@@ -370,7 +371,5 @@ monitorProperties_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure monitorProperties of Module common"
 End Function
-
-
 
 

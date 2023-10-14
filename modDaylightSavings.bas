@@ -1,4 +1,5 @@
 Attribute VB_Name = "modDaylightSavings"
+'@IgnoreModule IntegerDataType, ModuleWithoutFolder
 '---------------------------------------------------------------------------------------
 ' Module    : modDaylightSavings
 ' Author    : beededea
@@ -361,7 +362,7 @@ End Function
 Public Function getDaysInMonth(ByVal thisMonth As Integer, ByVal thisYear As Integer) As Integer
     Dim monthDaysString As String: monthDaysString = vbNullString
     Dim monthDaysArray() As String
-    Dim useloop As Integer: useloop = 0
+    'Dim useloop As Integer: useloop = 0
     
     On Error GoTo getmonthsIn_Error
     
@@ -841,9 +842,5 @@ theDLSdelta_Error:
 
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function theDLSdelta of Module modDaylightSavings"
 End Function
-
-
-
-
 
 

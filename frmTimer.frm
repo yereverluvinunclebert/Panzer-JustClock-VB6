@@ -68,6 +68,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'@IgnoreModule ModuleWithoutFolder
 Option Explicit
 
 
@@ -184,5 +185,4 @@ settingsTimer_Timer_Error:
           End If
     End With
 End Sub
-
 
