@@ -60,7 +60,7 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray)
     Const AlphaWithTaskbarEntry = 6
     Const AlphaNoTaskbarEntry = 7
   
-    Dim i As Long: i = 0
+    Dim I As Long: I = 0
     Dim W As cWidgetBase
     Dim excludeOpacity As Integer: excludeOpacity = 0
     'Dim pngFolder As String: pngFolder = vbNullString
@@ -78,21 +78,21 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray)
         PSDHeight = .Height       'store the original Psd-Pixel-Width/Height in Private vars (as the base from which we calculate the zoomed Form-Width/Height)
         'DragWidgetKey = LCase$(WidgetKeyForDragging) 'store the passed WidgetKey (for the Widget, which allows Form-Dragging on MouseDown)
     
-        For i = 0 To .LayersCount - 1 ' loop through each of the Layers in the PSD
-            If .LayerByteSize(i) Then  ' this is a true Alpha-Surface-Layer and not just a PSD layer 'group'
+        For I = 0 To .LayersCount - 1 ' loop through each of the Layers in the PSD
+            If .LayerByteSize(I) Then  ' this is a true Alpha-Surface-Layer and not just a PSD layer 'group'
                 '.LayerSurface(i).WriteContentToPngFile pngFolder & Replace(.LayerPath(i), "/", "_") & ".png"
-                If .LayerAlphaPercent(i) > 0 Then ' only handles layers that have an opacity greater than 0 - need to note this for the future, this will cause a problem!
+                If .LayerAlphaPercent(I) > 0 Then ' only handles layers that have an opacity greater than 0 - need to note this for the future, this will cause a problem!
                     'add each current Layer path and surface object into the global ImageList collection (using LayerPath as the ImageKey)
-                    Cairo.ImageList.AddSurface .LayerPath(i), .LayerSurface(i)
+                    Cairo.ImageList.AddSurface .LayerPath(I), .LayerSurface(I)
                     
-                    If collPSDNonUIElements.Exists(.LayerPath(i)) Then ' we do not create Widgets for those in this exclude list.
+                    If collPSDNonUIElements.Exists(.LayerPath(I)) Then ' we do not create Widgets for those in this exclude list.
                         
                         'we add layer info. (used in cwOverlay) to the "excluded paths" previously defined in Sub Main,
-                        collPSDNonUIElements(.LayerPath(i)) = Array(.LayerX(i), .LayerY(i), Val(PzGOpacity) / 100)  'here we update the so far empty slots with the PSD-offsets
+                        collPSDNonUIElements(.LayerPath(I)) = Array(.LayerX(I), .LayerY(I), Val(PzGOpacity) / 100)  'here we update the so far empty slots with the PSD-offsets
                 
                     Else 'everything not in the exclude-list will get its own Widget-instance
                        
-                        Set W = gaugeForm.Widgets.Add(New_W("cwAlphaImg"), LCase$(.LayerPath(i)), .LayerX(i), .LayerY(i), .LayerWidth(i), .LayerHeight(i)).Widget
+                        Set W = gaugeForm.Widgets.Add(New_W("cwAlphaImg"), LCase$(.LayerPath(I)), .LayerX(I), .LayerY(I), .LayerWidth(I), .LayerHeight(I)).Widget
                             W.ImageKey = W.Key 'W.Key equals ImageList-Key, set above - and LayerPath(i) at this point ... set it also as the ImageKey of our new created Widget
                         If PzGOpacity < 1 Then
                             W.Alpha = Val(PzGOpacity) / 100
@@ -111,7 +111,7 @@ Public Sub InitFromPSD(PSD_FileNameOrByteArray)
                     End If
                 End If
             End If
-        Next i
+        Next I
     End With '<-- the Parser-instance will be destroyed here (freeing the Memory, the internal PSD-Layers have occupied)
     
     Set overlayWidget = gaugeForm.Widgets.Add(New cwOverlay, "Overlay", 0, 0, PSDWidth, PSDHeight)
@@ -255,8 +255,8 @@ Private Sub startbutton_click()
     Call TurnFunctionsOn
 
     fileToPlay = "ting.wav"
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
    On Error GoTo 0
@@ -286,8 +286,8 @@ Private Sub stopbutton_mouseUp(ByRef Sender As Object)
     Call SwitchOff
     
     fileToPlay = "stop.wav"
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
    On Error GoTo 0
@@ -356,8 +356,8 @@ Private Sub switchfacesbutton_mouseUp(ByRef Sender As Object)
     Sender.Widget.Refresh
         
     fileToPlay = "till.wav"
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
    On Error GoTo 0
    Exit Sub
@@ -409,8 +409,8 @@ Private Sub prefsbutton_mouseDown(ByRef Sender As Object)
     'Sender.Widget.Visible = False
     Sender.Widget.Refresh ' this removes the delay in the Button depressing
     fileToPlay = "winding.wav"
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
    'MsgBox "prefsbutton_mouseDown"
    Call makeProgramPreferencesAvailable
@@ -448,8 +448,8 @@ Private Sub tickbutton_mouseDown(ByRef Sender As Object)
     Sender.Widget.Refresh ' this removes the delay in the Button depressing
     
     fileToPlay = "lock.wav"
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
     sPutINISetting "Software\PzJustClock", "smoothSecondHand", PzGSmoothSecondHand, PzGSettingsFile
@@ -499,9 +499,9 @@ Public Sub gaugeForm_DblClick()
     
     If SHIFT_1 = True Then
         SHIFT_1 = False
-        Call ShellExecute(fAlpha.gaugeForm.hwnd, "Open", PzGOpenFile, vbNullString, App.Path, 1)
+        Call ShellExecute(fAlpha.gaugeForm.hwnd, "Open", PzGOpenFile, vbNullString, App.path, 1)
     Else
-        Call ShellExecute(fAlpha.gaugeForm.hwnd, "runas", thisCommand, vbNullString, App.Path, 1)
+        Call ShellExecute(fAlpha.gaugeForm.hwnd, "runas", thisCommand, vbNullString, App.path, 1)
     End If
 
     On Error GoTo 0
@@ -703,4 +703,5 @@ W_MouseDown_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_MouseDown of Class Module cwOverlay"
 End Sub
+
 

@@ -162,9 +162,9 @@
 ' time zone code - wip - look at YWE and replicate - done
 
 ' daylight saving time code - implement and test - done
-' date/day fields altered by DST and timezone changes as per YWE version - done
+' date/day fields altered by DST and timezone changes as per YWE version -
 
-' transparency for WHOLE form using FCW method of gaining transparency.
+' transparency for WHOLE form using API method of gaining transparency - done - this works but reveals the background form itself - removed
 
 ' about page ting on exit
 

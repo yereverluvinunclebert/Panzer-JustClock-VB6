@@ -1480,7 +1480,7 @@ Public Sub aboutClickEvent()
     fMain.aboutForm.Top = (screenHeightPixels / 2) - (fMain.aboutForm.Height / 2)
     fMain.aboutForm.Left = (screenWidthPixels / 2) - (fMain.aboutForm.Width / 2)
      
-    aboutWidget.opacity = 0
+    aboutWidget.Opacity = 0
     aboutWidget.ShowMe = True
     'aboutWidget.Widget.Refresh
     
@@ -1520,7 +1520,7 @@ Public Sub helpSplash()
     fMain.helpForm.Top = (screenHeightPixels / 2) - (fMain.helpForm.Height / 2)
     fMain.helpForm.Left = (screenWidthPixels / 2) - (fMain.helpForm.Width / 2)
      
-    helpWidget.opacity = 0
+    helpWidget.Opacity = 0
     helpWidget.show = True
     'helpWidget.Widget.Refresh
     
@@ -1560,7 +1560,7 @@ Public Sub licenceSplash()
     fMain.licenceForm.Top = (screenHeightPixels / 2) - (fMain.licenceForm.Height / 2)
     fMain.licenceForm.Left = (screenWidthPixels / 2) - (fMain.licenceForm.Width / 2)
      
-    licenceWidget.opacity = 0
+    licenceWidget.Opacity = 0
     'opacityflag = 0
     licenceWidget.ShowMe = True
     'licenceWidget.Widget.Refresh
@@ -2704,3 +2704,4 @@ ArrayString_Error:
 
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure ArrayString of Module Module1"
 End Function
+

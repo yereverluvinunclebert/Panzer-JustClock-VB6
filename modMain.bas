@@ -15,6 +15,19 @@ Private Const SWP_NOSIZE  As Long = &H1
 Private Const OnTopFlags  As Long = SWP_NOMOVE Or SWP_NOSIZE
 '------------------------------------------------------ ENDS
 
+
+'------------------------------------------------------ STARTS
+' to set the full window Opacity
+Private Declare Function SetLayeredWindowAttributes Lib "user32" (ByVal hwnd As Long, ByVal crKey As Long, ByVal bAlpha As Byte, ByVal dwFlags As Long) As Long
+Private Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long) As Long
+Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
+'------------------------------------------------------ ENDS
+
+Private Const WS_EX_LAYERED  As Long = &H80000
+Private Const GWL_EXSTYLE  As Long = (-20)
+Private Const LWA_COLORKEY  As Long = &H1       'to trans'
+Private Const LWA_ALPHA  As Long = &H2          'to semi trans'
+
 Public fMain As New cfMain
 Public aboutWidget As cwAbout
 Public helpWidget As cwHelp
@@ -976,3 +989,27 @@ msgBoxA_Error:
 End Function
 
 
+
+ '
+'---------------------------------------------------------------------------------------
+' Procedure : setOpacity
+' Author    : beededea
+' Date      : 14/10/2023
+' Purpose   : opacity at form level achieved using APIs
+'---------------------------------------------------------------------------------------
+'
+ Public Sub setOpacity(ByVal Opacity As Long)
+    Dim currentOpacity As Integer: currentOpacity = 0
+    On Error GoTo setOpacity_Error
+
+    currentOpacity = Opacity * 2.55
+    Call SetWindowLong(fAlpha.gaugeForm.hwnd, GWL_EXSTYLE, GetWindowLong(fAlpha.gaugeForm.hwnd, GWL_EXSTYLE) Or WS_EX_LAYERED)
+    Call SetLayeredWindowAttributes(fAlpha.gaugeForm.hwnd, RGB(255, 0, 255), currentOpacity, LWA_ALPHA Or LWA_COLORKEY)
+
+    On Error GoTo 0
+    Exit Sub
+
+setOpacity_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure setOpacity of Module modMain"
+End Sub
