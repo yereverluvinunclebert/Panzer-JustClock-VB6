@@ -10,6 +10,127 @@ Attribute VB_Name = "modDaylightSavings"
 
 Option Explicit
 
+
+'Private BiasAdjust As Boolean
+'
+'' results UDT
+'Private Type TZ_LOOKUP_DATA
+'   TimeZoneName As String
+'   bias As Long
+'   IsDST As Boolean
+'End Type
+'
+'Private tzinfo() As TZ_LOOKUP_DATA
+'
+''holds the correct key for the OS version
+'Private sTzKey As String
+'
+''windows Constants And declares
+'Private Const TIME_ZONE_ID_UNKNOWN As Long = 1
+'Private Const TIME_ZONE_ID_STANDARD As Long = 1
+'Private Const TIME_ZONE_ID_DAYLIGHT As Long = 2
+'Private Const TIME_ZONE_ID_INVALID As Long = &HFFFFFFFF
+'Private Const VER_PLATFORM_WIN32_NT = 2
+'Private Const VER_PLATFORM_WIN32_WINDOWS = 1
+'
+''registry Constants
+'Private Const SKEY_NT = "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones"
+'Private Const SKEY_9X = "SOFTWARE\Microsoft\Windows\CurrentVersion\Time Zones"
+'Private Const HKEY_LOCAL_MACHINE = &H80000002
+'Private Const ERROR_SUCCESS = 0
+''Private Const REG_SZ As Long = 1
+''Private Const REG_BINARY = 3
+''Private Const REG_DWORD As Long = 4
+'Private Const STANDARD_RIGHTS_READ As Long = &H20000
+'Private Const KEY_QUERY_VALUE As Long = &H1
+'Private Const KEY_ENUMERATE_SUB_KEYS As Long = &H8
+'Private Const KEY_NOTIFY As Long = &H10
+'Private Const SYNCHRONIZE As Long = &H100000
+'Private Const KEY_READ As Long = ((STANDARD_RIGHTS_READ Or _
+'                                   KEY_QUERY_VALUE Or _
+'                                   KEY_ENUMERATE_SUB_KEYS Or _
+'                                   KEY_NOTIFY) And _
+'                                   (Not SYNCHRONIZE))
+'
+Private Type SYSTEMTIME
+   wYear As Integer
+   wMonth As Integer
+   wDayOfWeek As Integer
+   wDay As Integer
+   wHour As Integer
+   wMinute As Integer
+   wSecond As Integer
+   wMilliseconds As Integer
+End Type
+'
+'Private Type FILETIME
+'   dwLowDateTime As Long
+'   dwHighDateTime As Long
+'End Type
+'
+'Private Type REG_TIME_ZONE_INFORMATION
+'   bias As Long
+'   StandardBias As Long
+'   DaylightBias As Long
+'   StandardDate As SYSTEMTIME
+'   DaylightDate As SYSTEMTIME
+'End Type
+'
+'
+Private Type TIME_ZONE_INFORMATION
+    bias                    As Long
+    StandardName(0 To 63)   As Byte
+    StandardDate            As SYSTEMTIME
+    StandardBias            As Long
+    DaylightName(0 To 63)   As Byte
+    DaylightDate            As SYSTEMTIME
+    DaylightBias            As Long
+End Type
+'
+'Private Type OSVERSIONINFO
+'   OSVSize As Long
+'   dwVerMajor As Long
+'   dwVerMinor As Long
+'   dwBuildNumber As Long
+'   PlatformID As Long
+'   szCSDVersion As String * 128
+'End Type
+'
+'' APIs for determining the timezone
+'
+'Private Declare Function GetVersionEx Lib "kernel32" _
+'() '   Alias "GetVersionExA" _
+'  (lpVersionInformation As OSVERSIONINFO) As Long
+
+Private Const TIME_ZONE_ID_DAYLIGHT As Long = 2
+'
+Private Declare Function GetTimeZoneInformation Lib "kernel32" _
+(lpTimeZoneInformation As TIME_ZONE_INFORMATION) As Long
+ 
+'------------------------------------------------------ ENDS
+
+
+Private Function GetCurrentGMTDate() As Date
+
+   Dim tzi As TIME_ZONE_INFORMATION
+   Dim gmt As Date
+   Dim dwBias As Long
+   Dim tmp As String
+
+   Select Case GetTimeZoneInformation(tzi)
+   Case TIME_ZONE_ID_DAYLIGHT
+      dwBias = tzi.bias + tzi.DaylightBias
+   Case Else
+      dwBias = tzi.bias + tzi.StandardBias
+   End Select
+
+   gmt = DateAdd("n", dwBias, Now)
+   tmp = Format$(gmt, "dd mmm yyyy hh:mm:ss")
+
+   GetCurrentGMTDate = CDate(tmp)
+
+End Function
+
 '---------------------------------------------------------------------------------------
 ' Procedure : obtainDaylightSavings
 ' Author    : beededea
@@ -743,7 +864,7 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
         Exit Function
     End If
     
-    If endTime < 0 Then ' transition on previous day in standard time
+    If Val(endTime) < 0 Then ' transition on previous day in standard time
         endTime = 0 - endTime
         endDate = endDate - 1
         endTime = 1440 - endTime
@@ -761,8 +882,14 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
 
     theGMTOffset = 60000 * cityTimeOffset    '// was preferences.cityTimeOffset.value
     
+    Debug.Print ("%DST   cityTimeOffset:    " & cityTimeOffset)
+    Debug.Print ("%DST   theGMTOffset:    " & theGMTOffset)
+ 
     theDate = Now()
     stdTime = Now()
+    Dim gmtTime As String
+    'gmtTime = GetCurrentGMTDate
+    stdTime = GetCurrentGMTDate
 
     startHour = Int(startTime / 60)
     startMin = startTime Mod 60
@@ -842,5 +969,4 @@ theDLSdelta_Error:
 
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function theDLSdelta of Module modDaylightSavings"
 End Function
-
 

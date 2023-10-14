@@ -437,7 +437,6 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub tmrClock_Timer() 'update the private "Degree-Variables" for Hour-, Minute- and Second-Hands + Refresh
-    'Dim TimeZoneInfo As TIME_ZONE_INFORMATION
     Dim currentLocaltime As SYSTEMTIME
     Static T As Date: T = Time
     

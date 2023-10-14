@@ -422,20 +422,7 @@ Public PzGWindowLevelWasChanged As Boolean
 '------------------------------------------------------ ENDS
                             
 
-'------------------------------------------------------ STARTS
-'Private Type TimeZoneInfo
-'    bias As Long
-'    StandardName(63) As Byte
-'    StandardDate(7) As Integer
-'    StandardBias As Long
-'    DaylightName(63) As Byte
-'    DaylightDate(7) As Integer
-'    DaylightBias As Long
-'End Type
- 
-'Private Const TIME_ZONE_ID_DAYLIGHT = 2
-'Private Declare Function GetTimeZoneInformation Lib "kernel32" (uTZ As TimeZoneInfo) As Long
-'------------------------------------------------------ ENDS
+
 
 ' Flag for debug mode '.06 DAEB 19/04/2021 common.bas moved to the common area so that it can be used by each of the utilities
 Private mbDebugMode As Boolean ' .30 DAEB 03/03/2021 frmMain.frm replaced the inIDE function that used a variant to one without
@@ -2478,13 +2465,13 @@ TurnFunctionsOn_Error:
 End Sub
 
 
-''---------------------------------------------------------------------------------------
-'' Procedure : IsDLSavings
-'' Author    : beededea
-'' Date      : 13/08/2023
-'' Purpose   :
-''---------------------------------------------------------------------------------------
-''
+'''---------------------------------------------------------------------------------------
+''' Procedure : IsDLSavings
+''' Author    : beededea
+''' Date      : 13/08/2023
+''' Purpose   :
+'''---------------------------------------------------------------------------------------
+'''
 'Public Function IsDLSavings() As Boolean
 '
 '    Dim uInfo As TimeZoneInfo, lReturn As Long

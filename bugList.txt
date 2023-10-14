@@ -175,6 +175,10 @@
             'overlayWidget.opacity = 0
         End If
 
+' changing timezone or DST causes a reload or a change in time calcs.
+
+' restore the small icon for the help
+' recreate help CHM
 ' setup2go
 
 ' test usage of RC6 for monitor awareness - wip
@@ -196,9 +200,6 @@ End With
 ' adjustFormPositionToCorrectMonitor - licence form
 ' adjustFormPositionToCorrectMonitor - about form
 ' adjustFormPositionToCorrectMonitor - help form
-
-
-
 
 
 ' RC BUGS & LIMITATIONS
