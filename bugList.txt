@@ -217,6 +217,28 @@ End With
 ' adjustFormPositionToCorrectMonitor - about form
 ' adjustFormPositionToCorrectMonitor - help form
 
+' prefs WM_ENTERSIZEMOVE & WM_EXITSIZEMOVE to allow the prefs to resize without flickering and controls jumping about, moving the recalculation
+'       from form_resize to the new subclassed form.
+
+' https://classicvb.net/samples/HookXP/  CHookMouseWheel.cls
+'    Provides MouseWheel events, both vertical and horizontal, for any window that doesn't handle it natively. As Windows has evolved, the base classes
+'    that VB controls inherit from have slowly added scrollwheel support. But Windows passes the WM_MOUSEWHEEL message on up the parent chain when this 
+'    isn't the case. So, one class can now monitor for any mousewheel activity that isn't already being responded to. This could help allow scrollbars in VB6
+'    to react to mousescrollwheel events. Especially iconSettings and the native scrollbar controls.
+
+' https://classicvb.net/samples/HookXP/   CHookMinMax.cls
+'    Used to monitor WM_GETMINMAX messages, and restrict the ability of your user to resize your window at will. May be used to set either minimum 
+'    or maximum dimensions for a window. Raises GetMinMax event to client, which may then set any legitimate values, which are then passed back to 
+'    Windows. Maximum will be enforced even if user punches the Maximize button on your form's toolbar. This could help FCW and the minimum drag that
+'    causes tearing.
+
+' https://classicvb.net/samples/HookXP/   CHookMouseEvents.cls
+'    This class provides the mysterious MouseEnter, MouseHover, and MouseLeave events, as well as a few bonus features like when the user clicks the
+'    4th or 5th buttons on a 5 button mouse. It also provides a collection based scheme whereby you can add and remove windows to monitor just as 
+'    you would to an ordinary collection. All events are raised with the associated hWnd so you can determine which control is under the mouse. This 
+'    could help the prefs in Pz J. Clock and other tools enabling balloon tooltips on comboBoxes.
+
+' NOTE: hookXP already downloaded.
 
 ' RC BUGS & LIMITATIONS
 ' =====================
