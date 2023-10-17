@@ -162,23 +162,39 @@
 ' time zone code - wip - look at YWE and replicate - done
 
 ' daylight saving time code - implement and test - done
-' date/day fields altered by DST and timezone changes as per YWE version - done
+' time values altered by DST and timezone changes as per YWE version - done
 
 ' transparency for WHOLE form using API method of gaining transparency - done - this works but reveals the background form itself - removed
 ' about page sound on exit - done
 ' licence page sound on accept - done
 ' review code using mzTools  - done
 ' review code using rubberduck - done
+' restore the small icon for the help  - done
+' recreate help CHM - done
+
+' fix GMT for stdtime in DLS calcs - done
+' changing timezone or DST causes a reload or a change in time calcs - done
+' shift+r to hardRestart - done
+' update HTML new images and shift+r - done
+' recreate help CHM - done
+' convert several strings in the DLScalcs to long vars to ensure calcs correct - done
+' handling of Sun>1 rule in dayOfMonth func. - done
+' fix gmtOffset calculations to use mins - done
 
         If PzGAspectHidden = "2" Then
             'Print "Hiding the widget for landscape mode"
             'overlayWidget.opacity = 0
         End If
 
-' changing timezone or DST causes a reload or a change in time calcs.
+' numeric date/day fields altered by DST and timezone changes as per YWE version - wip
 
-' restore the small icon for the help
-' recreate help CHM
+'update things learnt
+dateAdd "s"
+dateDiff
+getkeypress on a form does not capture shift or ctrl on its own
+
+' push CHM manually
+
 ' setup2go
 
 ' test usage of RC6 for monitor awareness - wip

@@ -106,30 +106,18 @@ Private Const TIME_ZONE_ID_DAYLIGHT As Long = 2
 '
 Private Declare Function GetTimeZoneInformation Lib "kernel32" _
 (lpTimeZoneInformation As TIME_ZONE_INFORMATION) As Long
- 
+
+Private Declare Sub GetLocalTime Lib "kernel32" (lpSystemTime As SYSTEMTIME)
+Private Declare Function GetTimeFormat& Lib "kernel32" Alias "GetTimeFormatA" _
+(ByVal Locale As Long, ByVal dwFlags As Long, lpTime As SYSTEMTIME, _
+ByVal lpFormat As Long, ByVal lpTimeStr As String, ByVal cchTime As Long)
+
+Private Declare Sub GetSystemTime Lib "kernel32" (lpSystemTime As SYSTEMTIME)
+
 '------------------------------------------------------ ENDS
 
 
-Private Function GetCurrentGMTDate() As Date
 
-   Dim tzi As TIME_ZONE_INFORMATION
-   Dim gmt As Date
-   Dim dwBias As Long
-   Dim tmp As String
-
-   Select Case GetTimeZoneInformation(tzi)
-   Case TIME_ZONE_ID_DAYLIGHT
-      dwBias = tzi.bias + tzi.DaylightBias
-   Case Else
-      dwBias = tzi.bias + tzi.StandardBias
-   End Select
-
-   gmt = DateAdd("n", dwBias, Now)
-   tmp = Format$(gmt, "dd mmm yyyy hh:mm:ss")
-
-   GetCurrentGMTDate = CDate(tmp)
-
-End Function
 
 '---------------------------------------------------------------------------------------
 ' Procedure : obtainDaylightSavings
@@ -154,6 +142,8 @@ Public Sub obtainDaylightSavings()
     DLSrules = getDLSrules(App.path & "\Resources\txt\DLSRules.txt")
     
     tzDelta1 = updateDLS(DLSrules)
+    
+    panzerPrefs.txtBias = tzDelta1
     
 '    tests
 '
@@ -194,6 +184,7 @@ Private Function updateDLS(DLSrules() As String) As Long
     Dim thisTimeZone As String: thisTimeZone = vbNullString
     Dim dlsRule() As String
     Dim separator As String: separator = vbNullString
+    Dim localTimeOffset As Date
     
     separator = (" - ")
     
@@ -205,6 +196,7 @@ Private Function updateDLS(DLSrules() As String) As Long
     panzerPrefs.cmbMainGaugeTimeZone.ListIndex = Val(PzGMainGaugeTimeZone)
     thisTimeZone = panzerPrefs.cmbMainGaugeTimeZone.List(panzerPrefs.cmbMainGaugeTimeZone.ListIndex)
     If thisTimeZone = "System Time" Then Exit Function
+    
     remoteGMTOffset1 = getRemoteOffset(thisTimeZone)
 
     ' From DSLcodesWin.txt, extract the current rule from the selected rule in the prefs
@@ -220,6 +212,8 @@ Private Function updateDLS(DLSrules() As String) As Long
     ''Debug.Print ("%DST-I remoteGMTOffset1 " & remoteGMTOffset1)
     ''Debug.Print ("%DST-O tzDelta1 " & tzDelta1)
 
+    localTimeOffset = GetTimeZoneOffset
+    
     On Error GoTo 0
     Exit Function
 
@@ -280,7 +274,7 @@ End Function
     End If
     
     ' check all tests have passed
-    If foundGMT = True And foundNeg = True And foundString = True And _
+    If foundGMT = True And foundString = True And _
         foundHrs = True And _
         foundMins = True Then
         found = True
@@ -685,8 +679,8 @@ Public Function dayOfMonth(ByVal monthName As String, ByVal dayRule As String, B
     End If
     
 '    // dayRule of form Sun>=15
-    dayName = Mid$(dayRule, 3)
-    thisDate = Val(Mid$(dayRule, 4))
+    dayName = Left$(dayRule, 3)
+    thisDate = Val(Mid$(dayRule, 6))
     dayOfMonth = getDateOfFirst(dayName, thisDate, monthName, thisYear)
     
     ''Debug.Print ("%DST-O dayOfMonth " & dayOfMonth)
@@ -719,12 +713,11 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
     Dim monthName() As String
     Dim startMonth As String: startMonth = vbNullString
     Dim startDay As String: startDay = vbNullString
-    Dim startTime As String: startTime = vbNullString
-    Dim delta As String: delta = vbNullString
+    Dim startTimeDeviationInMins As Integer: startTimeDeviationInMins = 0
+    Dim delta As Long: delta = 0
     Dim endMonth  As String: endMonth = vbNullString
     Dim endDay As String:  endDay = vbNullString
-    Dim endTime As String: endTime = vbNullString
-    
+    Dim endTimeDeviationInMins As Integer: endTimeDeviationInMins = 0
     Dim useUTC As Boolean: useUTC = False
     Dim theDate As Date
     Dim startYear As Integer: startYear = 0
@@ -750,6 +743,8 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
     Dim buildDate As String: buildDate = vbNullString
     Dim numberOfMonth As Integer: numberOfMonth = 0
     Dim separator As String: separator = vbNullString
+    Dim dateDiff1 As Long: dateDiff1 = 0
+    Dim dateDiff2 As Long: dateDiff2 = 0
     
     separator = (""",""")
     monthName = ArrayString("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
@@ -782,7 +777,7 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
         End If
     Next useloop
     
-    'Debug.Print ("%DST   DLSrules(" & arrayNumber & ") " & DLSrules(arrayNumber))
+    Debug.Print ("%DST   DLSrules(" & arrayNumber & ") " & DLSrules(arrayNumber))
 
     If arrayElementPresent = False Then
         Debug.Print ("%DST-O Abnormal DLSdelta: " & rule & " is not in the list of DLS rules.")
@@ -795,35 +790,34 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
     dlsRule = Split(DLSrules(arrayNumber), separator)
 '
 '    // read the various components of the split rule
+'    ["AR","Oct","Sun>=15","0","60","Mar","Sun>=15","-60"]
+'    ["US", "Apr", "Sun>=1", "120", "60", "Oct", "lastSun", "60"]
 '
     startMonth = dlsRule(1)
     startDay = dlsRule(2)
-    startTime = dlsRule(3)
-    delta = dlsRule(4)
+    startTimeDeviationInMins = Val(dlsRule(3))
+    delta = Val(dlsRule(4))
     endMonth = dlsRule(5)
     endDay = dlsRule(6)
-    endTime = Left$(dlsRule(7), Len(dlsRule(7)) - 2)
-
-'["AR","Oct","Sun>=15","0","60","Mar","Sun>=15","-60"]
-'["US", "Apr", "Sun>=1", "120", "60", "Oct", "lastSun", "60"]
+    endTimeDeviationInMins = Val(Left$(dlsRule(7), Len(dlsRule(7)) - 2))
 
 '    negative times for UTC transitions (GMT starts a mid-day)
 '
-    useUTC = (startTime < 0) And (endTime < 0)
+    useUTC = (Val(startTimeDeviationInMins) < 0) And (Val(endTimeDeviationInMins) < 0)
 '
     If (useUTC) Then
-        startTime = 0 - startTime
-        endTime = 0 - endTime
+        startTimeDeviationInMins = 0 - startTimeDeviationInMins
+        endTimeDeviationInMins = 0 - endTimeDeviationInMins
     End If
     
     Debug.Print ("%DST   Rule:       " & rule)
     Debug.Print ("%DST   startMonth: " & startMonth)
     Debug.Print ("%DST   startDay:   " & startDay)
-    Debug.Print ("%DST   startTime:  " & startTime)
+    Debug.Print ("%DST   startTimeDeviationInMins:  " & startTimeDeviationInMins)
     Debug.Print ("%DST   delta:      " & delta)
     Debug.Print ("%DST   endMonth:   " & endMonth)
     Debug.Print ("%DST   endDay:     " & endDay)
-    Debug.Print ("%DST   endTime:    " & endTime)
+    Debug.Print ("%DST   endTimeDeviationInMins:    " & endTimeDeviationInMins)
     Debug.Print ("%DST   useUTC:     " & useUTC)
 
     Debug.Print ("*****************************")
@@ -846,8 +840,8 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
         End If
     End If
 
-    If startTime < 0 Then
-        startTime = 0 - startTime
+    If startTimeDeviationInMins < 0 Then
+        startTimeDeviationInMins = 0 - startTimeDeviationInMins
     End If  ' ignore invalid sign
 
     startDate = dayOfMonth(startMonth, startDay, startYear)
@@ -864,10 +858,10 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
         Exit Function
     End If
     
-    If Val(endTime) < 0 Then ' transition on previous day in standard time
-        endTime = 0 - endTime
+    If Val(endTimeDeviationInMins) < 0 Then ' transition on previous day in standard time
+        endTimeDeviationInMins = 0 - endTimeDeviationInMins
         endDate = endDate - 1
-        endTime = 1440 - endTime
+        endTimeDeviationInMins = 1440 - endTimeDeviationInMins
         If (endDate = 0) Then
             newMonthNumber = getNumberOfMonth(endMonth, False)  ' dean
             endMonth = monthName(newMonthNumber)
@@ -876,23 +870,20 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
     End If
     
     Debug.Print ("%DST   startDate:  " & startMonth & " " & startDate & "," & startYear)
-    Debug.Print ("%DST   startTime:  " & (startTime - startTime Mod 60) / 60 & ":" & startTime Mod 60)
+    Debug.Print ("%DST   startTimeDeviationInMins:  " & (startTimeDeviationInMins - startTimeDeviationInMins Mod 60) / 60 & ":" & startTimeDeviationInMins Mod 60)
     Debug.Print ("%DST   endDate:    " & endMonth & " " & endDate & "," & endYear)
-    Debug.Print ("%DST   endTime:    " & (endTime - endTime Mod 60) / 60 & ":" & endTime Mod 60)
+    Debug.Print ("%DST   endTimeDeviationInMins:    " & (endTimeDeviationInMins - endTimeDeviationInMins Mod 60) / 60 & ":" & endTimeDeviationInMins Mod 60)
 
-    theGMTOffset = 60000 * cityTimeOffset    '// was preferences.cityTimeOffset.value
+    theGMTOffset = 60 * cityTimeOffset
     
     Debug.Print ("%DST   cityTimeOffset:    " & cityTimeOffset)
     Debug.Print ("%DST   theGMTOffset:    " & theGMTOffset)
  
     theDate = Now()
-    stdTime = Now()
-    Dim gmtTime As String
-    'gmtTime = GetCurrentGMTDate
     stdTime = GetCurrentGMTDate
 
-    startHour = Int(startTime / 60)
-    startMin = startTime Mod 60
+    startHour = Int(startTimeDeviationInMins / 60)
+    startMin = startTimeDeviationInMins Mod 60
     
     numberOfMonth = getNumberOfMonth(startMonth, False) '<<<
     
@@ -907,13 +898,13 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
     theStart = CDate(buildDate)
     
     If useUTC = False Then
-        theStart = theStart - theGMTOffset
+        theStart = DateAdd("s", -theGMTOffset, theStart)
     End If
 
     Debug.Print ("%DST   theStart= " & theStart)
 
-    endHour = Int(endTime / 60)
-    endMin = endTime Mod 60
+    endHour = Int(endTimeDeviationInMins / 60)
+    endMin = endTimeDeviationInMins Mod 60
     
     numberOfMonth = getNumberOfMonth(endMonth, False)
 
@@ -938,15 +929,13 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
 '    If stdTime < theStart Then Debug.Print ("Standard time is less than the Start time")
 '    If stdTime < theEnd Then Debug.Print ("Standard time is less than the Start time")
     
-    Dim diff As Long
-    Dim diff2 As Long
-    diff = DateDiff("s", stdTime, theStart)
-    diff2 = DateDiff("s", stdTime, theEnd)
+    dateDiff1 = DateDiff("s", stdTime, theStart)
+    dateDiff2 = DateDiff("s", stdTime, theEnd)
 
     If (stdTime < theStart) Then
-        Debug.Print ("%DST   DLS starts in " & Int(diff / 60) & " minutes.")
+        Debug.Print ("%DST   DLS starts in " & Int(dateDiff1 / 60) & " minutes.")
     ElseIf (stdTime < theEnd) Then
-        Debug.Print ("%DST   DLS ends in   " & Int(diff2 / 60) & " minutes.")
+        Debug.Print ("%DST   DLS ends in   " & Int(dateDiff2 / 60) & " minutes.")
     End If
 '
 '    If theStart <= stdTime Then Debug.Print ("the Start time is less than Standard ")
@@ -970,3 +959,54 @@ theDLSdelta_Error:
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function theDLSdelta of Module modDaylightSavings"
 End Function
 
+Public Function GetTimeZoneOffset()
+    Dim myTime As SYSTEMTIME, s$, dl&, LT As Date, ST As Date, X
+    GetLocalTime myTime
+    s$ = String$(255, Chr$(0))
+    dl& = GetTimeFormat&(LOCALE_SYSTEM_DEFAULT, 0, myTime, 0, s$, 254)
+    X = InStr(1, s$, Chr(0))
+    ST = Mid(s$, 1, X - 1)
+    GetSystemTime myTime
+    s$ = String$(255, Chr$(0))
+    dl& = GetTimeFormat&(LOCALE_SYSTEM_DEFAULT, 0, myTime, 0, s$, 254)
+    X = InStr(1, s$, Chr(0))
+    LT = Mid(s$, 1, X - 1)
+    GetTimeZoneOffset = ST - LT
+End Function
+
+'---------------------------------------------------------------------------------------
+' Procedure : GetCurrentGMTDate
+' Author    :
+' Date      : 15/10/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Function GetCurrentGMTDate() As Date
+
+   Dim tzi As TIME_ZONE_INFORMATION
+   Dim gmt As Date
+   Dim dwBias As Long
+   Dim tmp As String
+
+    On Error GoTo GetCurrentGMTDate_Error
+
+   Select Case GetTimeZoneInformation(tzi)
+   Case TIME_ZONE_ID_DAYLIGHT
+      dwBias = tzi.bias + tzi.DaylightBias
+   Case Else
+      dwBias = tzi.bias + tzi.StandardBias
+   End Select
+
+   gmt = DateAdd("n", dwBias, Now)
+   tmp = Format$(gmt, "dd mmm yyyy hh:mm:ss")
+
+   GetCurrentGMTDate = CDate(tmp)
+
+    On Error GoTo 0
+    Exit Function
+
+GetCurrentGMTDate_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure GetCurrentGMTDate of Module modDaylightSavings"
+
+End Function

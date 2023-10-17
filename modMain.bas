@@ -6,7 +6,7 @@ Option Explicit
 
 '------------------------------------------------------ STARTS
 ' for SetWindowPos z-ordering
-Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
+Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 
 Private Const HWND_TOP As Long = 0 ' for SetWindowPos z-ordering
 Private Const HWND_TOPMOST As Long = -1
@@ -154,7 +154,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     Call checkFirstTime
 
     ' obtain daylight saving times data
-    Call obtainDaylightSavings
+    'Call obtainDaylightSavings
     
     ' configure any global timers here
     Call configureTimers
@@ -465,6 +465,7 @@ Public Sub adjustMainControls()
         fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = 0
     End If
 
+    Call obtainDaylightSavings
     
     'Dim W As cWidgetBase
     'Set W = fAlpha.gaugeForm.Widgets("housing/surround").Widget
@@ -676,10 +677,9 @@ Public Sub validateInputs()
                 
         ' development
         If PzGDebug = vbNullString Then PzGDebug = "0"
-        If PzGDblClickCommand = vbNullString Then PzGDblClickCommand = vbNullString
+        If PzGDblClickCommand = vbNullString Then PzGDblClickCommand = "%systemroot%\system32\timedate.cpl"
         If PzGOpenFile = vbNullString Then PzGOpenFile = vbNullString
         If PzGDefaultEditor = vbNullString Then PzGDefaultEditor = vbNullString
-        If PzGPreventDragging = vbNullString Then PzGPreventDragging = "0"
         
         ' window
         If PzGWindowLevel = vbNullString Then PzGWindowLevel = "1" 'WindowLevel", PzGSettingsFile)
@@ -687,6 +687,7 @@ Public Sub validateInputs()
         If PzGWidgetHidden = vbNullString Then PzGWidgetHidden = "0"
         If PzGHidingTime = vbNullString Then PzGHidingTime = "0"
         If PzGIgnoreMouse = vbNullString Then PzGIgnoreMouse = "0"
+        If PzGPreventDragging = vbNullString Then PzGPreventDragging = "0"
         
         ' other
         If PzGFirstTimeRun = vbNullString Then PzGFirstTimeRun = "true"

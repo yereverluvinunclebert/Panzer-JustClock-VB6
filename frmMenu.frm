@@ -142,7 +142,12 @@ Private Sub menuReload_Click()
 
     On Error GoTo menuReload_Click_Error
     
-    Call reloadWidget
+    If CTRL_1 = True Then
+        CTRL_1 = False
+        Call hardRestart
+    Else
+        Call reloadWidget
+    End If
 
     On Error GoTo 0
     Exit Sub

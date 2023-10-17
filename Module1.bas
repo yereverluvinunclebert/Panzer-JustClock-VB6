@@ -1890,6 +1890,8 @@ Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal Shift As Integer)
             CTRL_1 = True
         Case vbKeyShift
             SHIFT_1 = True
+        Case 82 ' R
+            If Shift = 1 Then Call hardRestart
         Case 116
             Call reloadWidget 'f5 refresh button as per all browsers
     End Select

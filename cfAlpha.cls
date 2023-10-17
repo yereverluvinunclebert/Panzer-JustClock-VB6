@@ -529,7 +529,7 @@ End Sub
 Private Sub gaugeForm_KeyDown(ByRef KeyCode As Integer, ByRef Shift As Integer)
     On Error GoTo gaugeForm_KeyDown_Error
 
-    Call getKeyPress(KeyCode, Shift)
+    Call getKeyPress(KeyCode, Shift) ' will not catch Shift or CTRL keypresses on their own, must be combination with another key.
 
     On Error GoTo 0
     Exit Sub
