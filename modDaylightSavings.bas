@@ -181,10 +181,11 @@ Private Function updateDLS(DLSrules() As String) As Long
     Dim remoteGMTOffset1 As Long: remoteGMTOffset1 = 0
     Dim thisRule As String: thisRule = vbNullString
     
-    Dim thisTimeZone As String: thisTimeZone = vbNullString
+    Dim chosenTimeZone As String: chosenTimeZone = vbNullString
     Dim dlsRule() As String
     Dim separator As String: separator = vbNullString
-    Dim localTimeOffset As Date
+    Dim localGMTOffset As Date
+    Dim tzDelta As Long: tzDelta = 0
     
     separator = (" - ")
     
@@ -194,10 +195,10 @@ Private Function updateDLS(DLSrules() As String) As Long
         
     ' From timezones.txt take the offset from the selected timezone in the prefs
     panzerPrefs.cmbMainGaugeTimeZone.ListIndex = Val(PzGMainGaugeTimeZone)
-    thisTimeZone = panzerPrefs.cmbMainGaugeTimeZone.List(panzerPrefs.cmbMainGaugeTimeZone.ListIndex)
-    If thisTimeZone = "System Time" Then Exit Function
+    chosenTimeZone = panzerPrefs.cmbMainGaugeTimeZone.List(panzerPrefs.cmbMainGaugeTimeZone.ListIndex)
+    If chosenTimeZone = "System Time" Then Exit Function
     
-    remoteGMTOffset1 = getRemoteOffset(thisTimeZone)
+    remoteGMTOffset1 = getRemoteOffset(chosenTimeZone)
 
     ' From DSLcodesWin.txt, extract the current rule from the selected rule in the prefs
     panzerPrefs.cmbMainDaylightSaving.ListIndex = Val(PzGMainDaylightSaving)
@@ -212,7 +213,18 @@ Private Function updateDLS(DLSrules() As String) As Long
     ''Debug.Print ("%DST-I remoteGMTOffset1 " & remoteGMTOffset1)
     ''Debug.Print ("%DST-O tzDelta1 " & tzDelta1)
 
-    localTimeOffset = fGetTimeZoneOffset
+    localGMTOffset = fGetTimeZoneOffset ' // -60 // for UK this would be 0, for India it would be -330
+    Debug.Print ("%updateTime-I localGMTOffset " & localGMTOffset)    ' //-60
+    Debug.Print ("%updateTime-I remoteGMTOffset1 " & remoteGMTOffset1) ' //0
+
+    If remoteGMTOffset1 <> 0 Then
+        Debug.Print ("%updateTime-I localGMTOffset + remoteGMTOffset1 " & localGMTOffset & remoteGMTOffset1) ' // -600
+        tzDelta = localGMTOffset + remoteGMTOffset1
+        tzDelta = tzDelta + tzDelta1
+        Debug.Print ("%updateTime-I tzDelta " & tzDelta)
+        Debug.Print ("%updateTime-I tzDelta1 " & tzDelta1)
+        'theDate.SetTime (theDate.getTime() + 60000 * tzDelta)
+    End If
     
     On Error GoTo 0
     Exit Function
@@ -220,6 +232,48 @@ Private Function updateDLS(DLSrules() As String) As Long
 updateDLS_Error:
 
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function   updateDLS of Module modDaylightSavings"
+End Function
+
+'---------------------------------------------------------------------------------------
+' Procedure : fGetTimeZoneOffset
+' Author    :
+' Date      : 17/10/2023
+' Purpose   : obtain the difference between local time and system time
+'---------------------------------------------------------------------------------------
+'
+Public Function fGetTimeZoneOffset() As Date
+    Dim myTime As SYSTEMTIME
+    Dim stringBuffer As String
+    Dim retVal As Long
+    Dim localTime As Date
+    Dim standardTime As Date
+    Dim paddingLocation As Integer
+    
+    On Error GoTo fGetTimeZoneOffset_Error
+
+    GetLocalTime myTime
+    stringBuffer = String$(255, Chr$(0))
+    
+    ' GetTimeFormat function formats a time as a time string for a specified locale
+    retVal = GetTimeFormat&(LOCALE_SYSTEM_DEFAULT, 0, myTime, 0, stringBuffer, 254) ' fills first 8 chars in stringBuffer with system time
+    paddingLocation = InStr(1, stringBuffer, Chr(0)) ' find the first bit of padding
+    standardTime = Mid(stringBuffer, 1, paddingLocation - 1)
+    
+    GetSystemTime myTime
+    stringBuffer = String$(255, Chr$(0))
+    
+    retVal = GetTimeFormat&(LOCALE_SYSTEM_DEFAULT, 0, myTime, 0, stringBuffer, 254) ' fills first 8 chars in stringBuffer with local time
+    paddingLocation = InStr(1, stringBuffer, Chr(0))
+    localTime = Mid(stringBuffer, 1, paddingLocation - 1)
+    
+    fGetTimeZoneOffset = standardTime - localTime
+
+    On Error GoTo 0
+    Exit Function
+
+fGetTimeZoneOffset_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fGetTimeZoneOffset of Module modDaylightSavings"
 End Function
 '---------------------------------------------------------------------------------------
 ' Function   : getRemoteOffset
@@ -941,6 +995,7 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
 '    If theStart <= stdTime Then Debug.Print ("the Start time is less than Standard ")
 '    If stdTime < theEnd Then Debug.Print ("Standard time is less than the end time")
 
+
     If (theStart <= stdTime) And (stdTime < theEnd) Then
         theDLSdelta = delta ' return
         Debug.Print ("%DST-O theDLSdelta " & theDLSdelta)
@@ -959,47 +1014,7 @@ theDLSdelta_Error:
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function theDLSdelta of Module modDaylightSavings"
 End Function
 
-'---------------------------------------------------------------------------------------
-' Procedure : fGetTimeZoneOffset
-' Author    :
-' Date      : 17/10/2023
-' Purpose   : obtain the difference between local time and system time
-'---------------------------------------------------------------------------------------
-'
-Public Function fGetTimeZoneOffset() As Date
-    Dim myTime As SYSTEMTIME
-    Dim stringBuffer As String
-    Dim retVal As Long
-    Dim localTime As Date
-    Dim standardTime As Date
-    Dim paddingLocation As Integer
-    
-    On Error GoTo fGetTimeZoneOffset_Error
 
-    GetLocalTime myTime
-    stringBuffer = String$(255, Chr$(0))
-    
-    ' GetTimeFormat function formats a time as a time string for a specified locale
-    retVal = GetTimeFormat&(LOCALE_SYSTEM_DEFAULT, 0, myTime, 0, stringBuffer, 254) ' fills first 8 chars in stringBuffer with system time
-    paddingLocation = InStr(1, stringBuffer, Chr(0)) ' find the first bit of padding
-    standardTime = Mid(stringBuffer, 1, paddingLocation - 1)
-    
-    GetSystemTime myTime
-    stringBuffer = String$(255, Chr$(0))
-    
-    retVal = GetTimeFormat&(LOCALE_SYSTEM_DEFAULT, 0, myTime, 0, stringBuffer, 254) ' fills first 8 chars in stringBuffer with local time
-    paddingLocation = InStr(1, stringBuffer, Chr(0))
-    localTime = Mid(stringBuffer, 1, paddingLocation - 1)
-    
-    fGetTimeZoneOffset = standardTime - localTime
-
-    On Error GoTo 0
-    Exit Function
-
-fGetTimeZoneOffset_Error:
-
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fGetTimeZoneOffset of Module modDaylightSavings"
-End Function
 
 '---------------------------------------------------------------------------------------
 ' Procedure : GetCurrentGMTDate

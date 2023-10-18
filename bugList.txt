@@ -181,6 +181,10 @@
 ' handling of Sun>1 rule in dayOfMonth func. - done
 ' fix gmtOffset calculations to use mins - done
 
+' added function to obtain system/local time offset, vars declared and comments added - done
+' Added default timedate.cpl to settings validation - done
+' setup2go reinstalled after drive loss - done
+
         If PzGAspectHidden = "2" Then
             'Print "Hiding the widget for landscape mode"
             'overlayWidget.opacity = 0
@@ -188,14 +192,14 @@
 
 ' numeric date/day fields altered by DST and timezone changes as per YWE version - wip
 
+' setup2go - re-licence
+
 'update things learnt
 dateAdd "s"
 dateDiff
 getkeypress on a form does not capture shift or ctrl on its own
 
 ' push CHM manually
-
-' setup2go
 
 ' test usage of RC6 for monitor awareness - wip
 With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisplay
