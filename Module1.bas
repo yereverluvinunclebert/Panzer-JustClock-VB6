@@ -1969,8 +1969,8 @@ Public Sub mainScreen()
             End If
         End If
         If PzGAspectHidden = "2" Then
-            'Print "Hiding the widget for landscape mode"
-            'overlayWidget.opacity = 0
+            Debug.Print "Hiding the widget for landscape mode"
+            fAlpha.gaugeForm.Visible = False
         End If
     End If
     
@@ -1981,8 +1981,8 @@ Public Sub mainScreen()
             fAlpha.gaugeForm.Top = Val(PzGPortraitYoffset)
         End If
         If PzGAspectHidden = "1" Then
-            'Print "Hiding the widget for portrait mode"
-            'overlayWidget.opacity = 0
+            Debug.Print "Hiding the widget for portrait mode"
+            fAlpha.gaugeForm.Visible = False
         End If
     End If
 
