@@ -185,6 +185,9 @@
 ' Added default timedate.cpl to settings validation - done
 ' setup2go reinstalled after drive loss - done
 
+' project reference to RC6.DLL incorrect after synching to e6410 laptop
+' calling licenceForm prior to initialisation causes 'with' error, move licence check after form init
+
         If PzGAspectHidden = "2" Then
             'Print "Hiding the widget for landscape mode"
             'overlayWidget.opacity = 0

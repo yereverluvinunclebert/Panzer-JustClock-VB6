@@ -1544,7 +1544,9 @@ Public Sub licenceSplash()
     If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
         PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
-
+    
+    'fMain.licenceForm.Load
+    
     fMain.licenceForm.Top = (screenHeightPixels / 2) - (fMain.licenceForm.Height / 2)
     fMain.licenceForm.Left = (screenWidthPixels / 2) - (fMain.licenceForm.Width / 2)
      
@@ -1553,7 +1555,6 @@ Public Sub licenceSplash()
     licenceWidget.ShowMe = True
     'licenceWidget.Widget.Refresh
     
-    'fMain.licenceForm.Load
     fMain.licenceForm.show
 
     ' the btnDecline_Click and btnAccept_Click are in modmain.bas

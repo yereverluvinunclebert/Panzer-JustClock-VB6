@@ -6,7 +6,7 @@ Option Explicit
 
 '------------------------------------------------------ STARTS
 ' for SetWindowPos z-ordering
-Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
+Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 
 Private Const HWND_TOP As Long = 0 ' for SetWindowPos z-ordering
 Private Const HWND_TOPMOST As Long = -1
@@ -118,12 +118,12 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     
     ' start the load of the PSD file using the RC6 PSD-Parser.instance
     Call fAlpha.InitFromPSD(thisPSDFullPath)  ' no optional close layer as 3rd param
-            
-    ' check first usage and display licence screen
-    Call checkLicenceState
 
     ' initialise and create the main forms on the current display
     Call createStandardFormsOnCurrentDisplay
+            
+    ' check first usage and display licence screen
+    Call checkLicenceState
     
     ' resolve VB6 sizing width bug
     Call determineScreenDimensions
