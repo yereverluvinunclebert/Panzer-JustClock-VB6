@@ -2190,26 +2190,12 @@ Public Sub makeProgramPreferencesAvailable()
 
         If panzerPrefs.WindowState = vbMinimized Then
             panzerPrefs.WindowState = vbNormal
-            Call readPrefsPosition
         End If
 
         ' set the current position of the utility according to previously stored positions
-
-        If panzerPrefs.WindowState = vbNormal Then
-
-            Call readPrefsPosition
-
-            If panzerPrefs.Left = 0 Then
-                If ((fAlpha.gaugeForm.Left + fAlpha.gaugeForm.Width) * screenTwipsPerPixelX) + 200 + panzerPrefs.Width > screenWidthTwips Then
-                    panzerPrefs.Left = (fAlpha.gaugeForm.Left * screenTwipsPerPixelX) - (panzerPrefs.Width + 200)
-                End If
-            End If
-
-            If panzerPrefs.Left < 0 Then panzerPrefs.Left = 0
-            If panzerPrefs.Top < 0 Then panzerPrefs.Top = 0
-
-
-        End If
+        
+        Call readPrefsPosition
+        Call panzerPrefs.positionPrefsMonitor
     End If
     
 
@@ -2237,34 +2223,34 @@ Public Sub readPrefsPosition()
         PzGFormHighDpiXPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiXPosTwips", PzGSettingsFile)
         PzGFormHighDpiYPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiYPosTwips", PzGSettingsFile)
         
-        ' if a current location not stored then position to the middle of the screen
-        If PzGFormHighDpiXPosTwips <> "" Then
-            panzerPrefs.Left = Val(PzGFormHighDpiXPosTwips)
-        Else
-            panzerPrefs.Left = screenWidthTwips / 2 - panzerPrefs.Width / 2
-        End If
-        
-        If PzGFormHighDpiYPosTwips <> "" Then
-            panzerPrefs.Top = Val(PzGFormHighDpiYPosTwips)
-        Else
-            panzerPrefs.Top = Screen.Height / 2 - panzerPrefs.Height / 2
-        End If
+'        ' if a current location not stored then position to the middle of the screen
+'        If PzGFormHighDpiXPosTwips <> "" Then
+'            panzerPrefs.Left = Val(PzGFormHighDpiXPosTwips)
+'        Else
+'            panzerPrefs.Left = screenWidthTwips / 2 - panzerPrefs.Width / 2
+'        End If
+'
+'        If PzGFormHighDpiYPosTwips <> "" Then
+'            panzerPrefs.Top = Val(PzGFormHighDpiYPosTwips)
+'        Else
+'            panzerPrefs.Top = Screen.Height / 2 - panzerPrefs.Height / 2
+'        End If
     Else
         PzGFormLowDpiXPosTwips = fGetINISetting("Software\PzJustClock", "formLowDpiXPosTwips", PzGSettingsFile)
         PzGFormLowDpiYPosTwips = fGetINISetting("Software\PzJustClock", "formLowDpiYPosTwips", PzGSettingsFile)
         
-        ' if a current location not stored then position to the middle of the screen
-        If PzGFormLowDpiXPosTwips <> "" Then
-            panzerPrefs.Left = Val(PzGFormLowDpiXPosTwips)
-        Else
-            panzerPrefs.Left = screenWidthTwips / 2 - panzerPrefs.Width / 2
-        End If
-        
-        If PzGFormLowDpiYPosTwips <> "" Then
-            panzerPrefs.Top = Val(PzGFormLowDpiYPosTwips)
-        Else
-            panzerPrefs.Top = Screen.Height / 2 - panzerPrefs.Height / 2
-        End If
+'        ' if a current location not stored then position to the middle of the screen
+'        If PzGFormLowDpiXPosTwips <> "" Then
+'            panzerPrefs.Left = Val(PzGFormLowDpiXPosTwips)
+'        Else
+'            panzerPrefs.Left = screenWidthTwips / 2 - panzerPrefs.Width / 2
+'        End If
+'
+'        If PzGFormLowDpiYPosTwips <> "" Then
+'            panzerPrefs.Top = Val(PzGFormLowDpiYPosTwips)
+'        Else
+'            panzerPrefs.Top = Screen.Height / 2 - panzerPrefs.Height / 2
+'        End If
     End If
    
    On Error GoTo 0

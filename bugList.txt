@@ -185,22 +185,17 @@
 ' Added default timedate.cpl to settings validation - done
 ' setup2go reinstalled after drive loss - done
 
-' project reference to RC6.DLL incorrect after synching to e6410 laptop
-' calling licenceForm prior to initialisation causes 'with' error, move licence check after form init
-
-        If PzGAspectHidden = "2" Then
+' project reference to RC6.DLL incorrect after synching to e6410 laptop - done
+' calling licenceForm prior to initialisation causes 'with' error, move licence check after form init - done
 ' mainScreen modified to hide the widget in either portrait or landscape mode - done
+
+' setup2go - re-licence - done
 
 ' numeric date/day fields altered by DST and timezone changes as per YWE version - wip
 
-' setup2go - re-licence
-
-'update things learnt
-dateAdd "s"
-dateDiff
-getkeypress on a form does not capture shift or ctrl on its own
-
 ' push CHM manually
+
+' prefs screen check on screen
 
 ' test usage of RC6 for monitor awareness - wip
 With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisplay
@@ -208,7 +203,7 @@ With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisp
   Debug.Print .WorkLeft , .WorkTop, (.WorkRight - .WorkLeft), (.WorkBottom - .WorkTop)
 End With
 
-'https://www.vbforums.com/showthread.php?900892-VB6-Simple-way-to-make-your-VB6-application-quot-Per-Monitor-DPI-Aware-quot
+ 'https://www.vbforums.com/showthread.php?900892-VB6-Simple-way-to-make-your-VB6-application-quot-Per-Monitor-DPI-Aware-quot
 
 ' add second monitor - wip find cable!
 
@@ -223,7 +218,7 @@ End With
 ' adjustFormPositionToCorrectMonitor - help form
 
 ' prefs WM_ENTERSIZEMOVE & WM_EXITSIZEMOVE to allow the prefs to resize without flickering and controls jumping about, moving the recalculation
-'       from form_resize to the new subclassed form.
+'       from form_resize to the new subclassed form - wip
 
 ' https://classicvb.net/samples/HookXP/   CHookMouseEvents.cls
 '    This class provides the mysterious MouseEnter, MouseHover, and MouseLeave events, as well as a few bonus features like when the user clicks the

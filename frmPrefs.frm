@@ -2175,6 +2175,8 @@ Private Sub Form_Load()
     ' position the prefs on the current monitor
     Call positionPrefsMonitor
     
+    Call setPrefsFormZordering
+    
     ' start the timer that records the prefs position every 10 seconds
     positionTimer.Enabled = True
     
@@ -2198,24 +2200,57 @@ End Sub
 ' Purpose   : position the prefs on the curent monitor
 '---------------------------------------------------------------------------------------
 '
-Private Sub positionPrefsMonitor()
+Public Sub positionPrefsMonitor()
 
-    Dim formLeftPixels As Long: formLeftPixels = 0
-    Dim formTopPixels As Long: formTopPixels = 0
+    Dim formLeftTwips As Long: formLeftTwips = 0
+    Dim formTopTwips As Long: formTopTwips = 0
     Dim monitorCount As Long: monitorCount = 0
     
     On Error GoTo positionPrefsMonitor_Error
     
     If PzGDpiAwareness = "1" Then
-        formLeftPixels = Val(PzGFormHighDpiXPosTwips)
-        formTopPixels = Val(PzGFormHighDpiYPosTwips)
+        formLeftTwips = Val(PzGFormHighDpiXPosTwips)
+        formTopTwips = Val(PzGFormHighDpiYPosTwips)
     Else
-        formLeftPixels = Val(PzGFormLowDpiXPosTwips)
-        formTopPixels = Val(PzGFormLowDpiYPosTwips)
+        formLeftTwips = Val(PzGFormLowDpiXPosTwips)
+        formTopTwips = Val(PzGFormLowDpiYPosTwips)
+    End If
+    
+    If formLeftTwips = 0 Then
+        If ((fAlpha.gaugeForm.Left + fAlpha.gaugeForm.Width) * screenTwipsPerPixelX) + 200 + panzerPrefs.Width > screenWidthTwips Then
+            panzerPrefs.Left = (fAlpha.gaugeForm.Left * screenTwipsPerPixelX) - (panzerPrefs.Width + 200)
+        End If
+    End If
+
+    ' if a current location not stored then position to the middle of the screen
+    If formLeftTwips <> 0 Then
+        Me.Left = formLeftTwips
+    Else
+        Me.Left = screenWidthTwips / 2 - Me.Width / 2
+    End If
+    
+    If formTopTwips <> 0 Then
+        Me.Top = formTopTwips
+    Else
+        Me.Top = Screen.Height / 2 - Me.Height / 2
     End If
     
     monitorCount = fGetMonitorCount
-    If monitorCount > 1 Then Call adjustFormPositionToCorrectMonitor(Me.hwnd, formLeftPixels, formTopPixels)
+    If monitorCount > 1 Then Call adjustFormPositionToCorrectMonitor(Me.hwnd, formLeftTwips, formTopTwips)
+    
+    ' calculate the on-screen widget position
+    If Me.Left < 0 Then
+        Me.Left = 10
+    End If
+    If Me.Top < 0 Then
+        Me.Top = 0
+    End If
+    If Me.Left > screenWidthTwips - 2500 Then
+        Me.Left = screenWidthTwips - 2500
+    End If
+    If Me.Top > screenHeightTwips - 2500 Then
+        Me.Top = screenHeightTwips - 2500
+    End If
     
     On Error GoTo 0
     Exit Sub
@@ -5844,6 +5879,34 @@ lblDragCorner_MouseMove_Error:
 
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure lblDragCorner_MouseMove of Form panzerPrefs"
    
+End Sub
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : setPrefsFormZordering
+' Author    : beededea
+' Date      : 02/05/2023
+' Purpose   : set the z-ordering of the window
+'---------------------------------------------------------------------------------------
+'
+Public Sub setPrefsFormZordering()
+
+   On Error GoTo setPrefsFormZordering_Error
+
+    If Val(PzGWindowLevel) = 0 Then
+        Call SetWindowPos(Me.hwnd, HWND_BOTTOM, 0&, 0&, 0&, 0&, OnTopFlags)
+    ElseIf Val(PzGWindowLevel) = 1 Then
+        Call SetWindowPos(Me.hwnd, HWND_TOP, 0&, 0&, 0&, 0&, OnTopFlags)
+    ElseIf Val(PzGWindowLevel) = 2 Then
+        Call SetWindowPos(Me.hwnd, HWND_TOPMOST, 0&, 0&, 0&, 0&, OnTopFlags)
+    End If
+
+   On Error GoTo 0
+   Exit Sub
+
+setPrefsFormZordering_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure setPrefsFormZordering of Module modMain"
 End Sub
 
 

@@ -8,12 +8,12 @@ Option Explicit
 ' for SetWindowPos z-ordering
 Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 
-Private Const HWND_TOP As Long = 0 ' for SetWindowPos z-ordering
-Private Const HWND_TOPMOST As Long = -1
-Private Const HWND_BOTTOM As Long = 1
+Public Const HWND_TOP As Long = 0 ' for SetWindowPos z-ordering
+Public Const HWND_TOPMOST As Long = -1
+Public Const HWND_BOTTOM As Long = 1
 Private Const SWP_NOMOVE  As Long = &H2
 Private Const SWP_NOSIZE  As Long = &H1
-Private Const OnTopFlags  As Long = SWP_NOMOVE Or SWP_NOSIZE
+Public Const OnTopFlags  As Long = SWP_NOMOVE Or SWP_NOSIZE
 '------------------------------------------------------ ENDS
 
 
@@ -109,8 +109,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     Call validateInputs
     
     If PzGDpiAwareness = "1" Then
-        If Not InIDE Then Cairo.SetDPIAwareness ' avoids the VB6 IDE shrinking
-        'Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
+        'If Not InIDE Then Cairo.SetDPIAwareness ' avoids the VB6 IDE shrinking
+        Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
     End If
         
     'load the collection for storing the overlay surfaces with its relevant keys direct from the PSD
@@ -145,17 +145,13 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     
     ' if the parameter states re-open prefs then shows the prefs
     If extractCommand = "prefs" Then
-        'MsgBox "mainroutine"
         Call makeProgramPreferencesAvailable
         extractCommand = vbNullString
     End If
     
     ' check and handle first time running
     Call checkFirstTime
-
-    ' obtain daylight saving times data
-    'Call obtainDaylightSavings
-    
+ 
     ' configure any global timers here
     Call configureTimers
     
@@ -473,7 +469,7 @@ Public Sub adjustMainControls()
     'W.MousePointer = IDC_SIZEALL
                  
     ' set the z-ordering of the window
-    Call setWindowZordering
+    Call setAlphaFormZordering
     
     ' set the tooltips on the main screen
     Call setMainTooltips
@@ -493,15 +489,15 @@ adjustMainControls_Error:
 End Sub
 
 '---------------------------------------------------------------------------------------
-' Procedure : setWindowZordering
+' Procedure : setAlphaFormZordering
 ' Author    : beededea
 ' Date      : 02/05/2023
 ' Purpose   : set the z-ordering of the window
 '---------------------------------------------------------------------------------------
 '
-Public Sub setWindowZordering()
+Public Sub setAlphaFormZordering()
 
-   On Error GoTo setWindowZordering_Error
+   On Error GoTo setAlphaFormZordering_Error
 
     If Val(PzGWindowLevel) = 0 Then
         Call SetWindowPos(fAlpha.gaugeForm.hwnd, HWND_BOTTOM, 0&, 0&, 0&, 0&, OnTopFlags)
@@ -514,9 +510,9 @@ Public Sub setWindowZordering()
    On Error GoTo 0
    Exit Sub
 
-setWindowZordering_Error:
+setAlphaFormZordering_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure setWindowZordering of Module modMain"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure setAlphaFormZordering of Module modMain"
 End Sub
 
 '---------------------------------------------------------------------------------------

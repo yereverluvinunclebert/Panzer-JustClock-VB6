@@ -129,37 +129,16 @@ Private Declare Sub GetSystemTime Lib "kernel32" (lpSystemTime As SYSTEMTIME)
 Public Sub obtainDaylightSavings()
 
     Dim DLSrules() As String
-'    Dim numberOfMonth As String: numberOfMonth = vbNullString
-'    Dim numberOfDay As String: numberOfDay = vbNullString
-'    Dim getDaysIn As Integer: getDaysIn = 0
-'    Dim dateOfFirst As Integer: dateOfFirst = 0
     
     On Error GoTo obtainDaylightSavings_Error
             
-    ''Debug.Print ("%DST func obtainDaylightSavings")
-
-    ' From DLSRules.txt - assign all to an array
-    DLSrules = getDLSrules(App.path & "\Resources\txt\DLSRules.txt")
+    'Debug.Print ("%DST func obtainDaylightSavings")
     
+    DLSrules = getDLSrules(App.path & "\Resources\txt\DLSRules.txt")
+    ' From DLSRules.txt - assign all to an array
     tzDelta1 = updateDLS(DLSrules)
     
     panzerPrefs.txtBias = tzDelta1
-    
-'    tests
-'
-'    ' get the number of the month given a month name
-'    numberOfMonth = getNumberOfMonth("Feb")
-'
-'    ' get the number of the day given a day name
-'    numberOfDay = getNumberOfDay("Sat")
-'
-'    ' get the number of days in a given month
-'    getDaysIn = getDaysInMonth(numberOfMonth, 1961)
-'
-'    ' get Date (1..31) Of First dayName (Sun..Sat) after date (1..31) of monthName (Jan..Dec) of year (2004..)
-'    dateOfFirst = getDateOfFirst("Sun", 1, "Sep", 1961)
-'
-'    tzDelta1 = theDLSdelta(DLSrules(), "EU", 0)
 
     On Error GoTo 0
     Exit Sub
@@ -184,7 +163,7 @@ Private Function updateDLS(DLSrules() As String) As Long
     Dim chosenTimeZone As String: chosenTimeZone = vbNullString
     Dim dlsRule() As String
     Dim separator As String: separator = vbNullString
-    Dim localGMTOffset As Date
+    Dim localGMTOffset As Long
     Dim tzDelta As Long: tzDelta = 0
     
     separator = (" - ")
@@ -198,9 +177,9 @@ Private Function updateDLS(DLSrules() As String) As Long
     chosenTimeZone = panzerPrefs.cmbMainGaugeTimeZone.List(panzerPrefs.cmbMainGaugeTimeZone.ListIndex)
     If chosenTimeZone = "System Time" Then Exit Function
     
-    remoteGMTOffset1 = getRemoteOffset(chosenTimeZone)
+    remoteGMTOffset1 = getRemoteOffset(chosenTimeZone) ' returns a long containing number of minutes
 
-    ' From DSLcodesWin.txt, extract the current rule from the selected rule in the prefs
+    ' From DSLcodesWin.txt, extract the current rule contents from the selected rule in the prefs
     panzerPrefs.cmbMainDaylightSaving.ListIndex = Val(PzGMainDaylightSaving)
     thisRule = panzerPrefs.cmbMainDaylightSaving.List(panzerPrefs.cmbMainDaylightSaving.ListIndex)
     dlsRule = Split(thisRule, separator)
@@ -209,22 +188,23 @@ Private Function updateDLS(DLSrules() As String) As Long
     
     updateDLS = theDLSdelta(DLSrules, thisRule, remoteGMTOffset1) ' return
     
-    ''Debug.Print ("%DST-I thisRule " & thisRule)
-    ''Debug.Print ("%DST-I remoteGMTOffset1 " & remoteGMTOffset1)
-    ''Debug.Print ("%DST-O tzDelta1 " & tzDelta1)
+    'Debug.Print ("%DST-I thisRule " & thisRule)
+    'Debug.Print ("%DST-I remoteGMTOffset1 " & remoteGMTOffset1)
+    'Debug.Print ("%DST-O tzDelta1 " & tzDelta1)
 
-    localGMTOffset = fGetTimeZoneOffset ' // -60 // for UK this would be 0, for India it would be -330
+    localGMTOffset = fGetTimeZoneOffset ' returns a long in minutes // for UK this would be 0, for India it would be -330
+    
     Debug.Print ("%updateTime-I localGMTOffset " & localGMTOffset)    ' //-60
     Debug.Print ("%updateTime-I remoteGMTOffset1 " & remoteGMTOffset1) ' //0
 
-    If remoteGMTOffset1 <> 0 Then
+    'If remoteGMTOffset1 <> 0 Then
         Debug.Print ("%updateTime-I localGMTOffset + remoteGMTOffset1 " & localGMTOffset & remoteGMTOffset1) ' // -600
         tzDelta = localGMTOffset + remoteGMTOffset1
         tzDelta = tzDelta + tzDelta1
         Debug.Print ("%updateTime-I tzDelta " & tzDelta)
         Debug.Print ("%updateTime-I tzDelta1 " & tzDelta1)
         'theDate.SetTime (theDate.getTime() + 60000 * tzDelta)
-    End If
+    'End If
     
     On Error GoTo 0
     Exit Function
@@ -238,16 +218,17 @@ End Function
 ' Procedure : fGetTimeZoneOffset
 ' Author    :
 ' Date      : 17/10/2023
-' Purpose   : obtain the difference between local time and system time
+' Purpose   : obtain the difference in mins between local time and system time
 '---------------------------------------------------------------------------------------
 '
-Public Function fGetTimeZoneOffset() As Date
+Public Function fGetTimeZoneOffset() As Long
     Dim myTime As SYSTEMTIME
-    Dim stringBuffer As String
-    Dim retVal As Long
+    Dim stringBuffer As String: stringBuffer = vbNullString
+    Dim retVal As Long: retVal = 0
     Dim localTime As Date
     Dim standardTime As Date
-    Dim paddingLocation As Integer
+    Dim paddingLocation As Integer: paddingLocation = 0
+    Dim thisTimeDeviation As Long: thisTimeDeviation = 0
     
     On Error GoTo fGetTimeZoneOffset_Error
 
@@ -266,7 +247,9 @@ Public Function fGetTimeZoneOffset() As Date
     paddingLocation = InStr(1, stringBuffer, Chr(0))
     localTime = Mid(stringBuffer, 1, paddingLocation - 1)
     
-    fGetTimeZoneOffset = standardTime - localTime
+    thisTimeDeviation = DateDiff("s", standardTime, localTime) / 60
+    
+    fGetTimeZoneOffset = thisTimeDeviation
 
     On Error GoTo 0
     Exit Function
@@ -276,10 +259,10 @@ fGetTimeZoneOffset_Error:
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fGetTimeZoneOffset of Module modDaylightSavings"
 End Function
 '---------------------------------------------------------------------------------------
-' Function   : getRemoteOffset
+' Function  : getRemoteOffset
 ' Author    : beededea
 ' Date      : 10/10/2023
-' Purpose   :
+' Purpose   : returns number of minutes
 '---------------------------------------------------------------------------------------
 '
  Private Function getRemoteOffset(ByVal entry As String) As Long
@@ -362,8 +345,6 @@ getRemoteOffset_Error:
 
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Function   getRemoteOffset of Module modDaylightSavings"
  End Function
-
-
 
 
 '---------------------------------------------------------------------------------------
