@@ -199,8 +199,27 @@
 ' bugfix to dateDiff using a LONG caused overflow errors, fixed with a DOUBLE - done
 
 ' numeric date/day fields altered by DST and timezone changes as per YWE version - wip
+' ensure the changes to DLS and timezone are reflected as soon as a SAVE is applied
+
+' populate the bias field
+' check the monitor for high DPI     
+' determine which mode to set the program according to DPI settings
+
+' test on E6410 low DPI - wip
+
+' https://classicvb.net/samples/HookXP/   CHookMouseEvents.cls
+'    This class provides the mysterious MouseEnter, MouseHover, and MouseLeave events, as well as a few bonus features like when the user clicks the
+'    4th or 5th buttons on a 5 button mouse. It also provides a collection based scheme whereby you can add and remove windows to monitor just as 
+'    you would to an ordinary collection. All events are raised with the associated hWnd so you can determine which control is under the mouse. This
+'    could help the prefs in Pz J. Clock and other tools enabling balloon tooltips on comboBoxes.
+
+' NOTE: hookXP already downloaded.
 
 ' push CHM manually
+
+' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
+
+' create an independent RC project to fade a widget in and out to demonstrate the RC fade-out bug
 
 ' test usage of RC6 for monitor awareness - wip
 With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisplay
@@ -214,24 +233,13 @@ End With
 
 ' adjustFormPositionToCorrectMonitor, make it work and observe the result as per FCW - wip
 
-' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
-' create an independent RC project to fade a widget in and out to demonstrate the RC fade-out bug
 
 ' adjustFormPositionToCorrectMonitor - licence form
 ' adjustFormPositionToCorrectMonitor - about form
 ' adjustFormPositionToCorrectMonitor - help form
 
-' prefs WM_ENTERSIZEMOVE & WM_EXITSIZEMOVE to allow the prefs to resize without flickering and controls jumping about, moving the recalculation
-'       from form_resize to the new subclassed form - wip
 
-' https://classicvb.net/samples/HookXP/   CHookMouseEvents.cls
-'    This class provides the mysterious MouseEnter, MouseHover, and MouseLeave events, as well as a few bonus features like when the user clicks the
-'    4th or 5th buttons on a 5 button mouse. It also provides a collection based scheme whereby you can add and remove windows to monitor just as 
-'    you would to an ordinary collection. All events are raised with the associated hWnd so you can determine which control is under the mouse. This
-'    could help the prefs in Pz J. Clock and other tools enabling balloon tooltips on comboBoxes.
-
-' NOTE: hookXP already downloaded.
 
 ' RC BUGS & LIMITATIONS
 ' =====================
