@@ -199,7 +199,12 @@
 ' bugfix to dateDiff using a LONG caused overflow errors, fixed with a DOUBLE - done
 
 ' numeric date/day fields altered by DST and timezone changes as per YWE version - wip
+
 ' ensure the changes to DLS and timezone are reflected as soon as a SAVE is applied
+
+' messages put/get
+' missing images in low DPI
+' switching between high low DPI
 
 ' populate the bias field
 ' check the monitor for high DPI     
@@ -217,6 +222,7 @@
 
 ' push CHM manually
 
+
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
 ' create an independent RC project to fade a widget in and out to demonstrate the RC fade-out bug
@@ -232,8 +238,6 @@ End With
 ' add second monitor - wip find cable!
 
 ' adjustFormPositionToCorrectMonitor, make it work and observe the result as per FCW - wip
-
-
 
 ' adjustFormPositionToCorrectMonitor - licence form
 ' adjustFormPositionToCorrectMonitor - about form
