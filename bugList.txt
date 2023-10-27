@@ -195,6 +195,9 @@
 ' prefs window set the Z order as per the gaugeForm - done
 ' fGetTimeZoneOffset return the difference in mins between local time and system time in minutes - done
 
+' bugfixes to ensure GMT functioning, using tzDelta rather than tzDelta1 - done
+' bugfix to dateDiff using a LONG caused overflow errors, fixed with a DOUBLE - done
+
 ' numeric date/day fields altered by DST and timezone changes as per YWE version - wip
 
 ' push CHM manually

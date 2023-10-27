@@ -186,11 +186,11 @@ Private Function updateDLS(DLSrules() As String) As Long
     ' read the first component of the split rule
     thisRule = dlsRule(0)
     
-    updateDLS = theDLSdelta(DLSrules, thisRule, remoteGMTOffset1) ' return
+    tzDelta1 = theDLSdelta(DLSrules, thisRule, remoteGMTOffset1) ' return
     
     'Debug.Print ("%DST-I thisRule " & thisRule)
     'Debug.Print ("%DST-I remoteGMTOffset1 " & remoteGMTOffset1)
-    'Debug.Print ("%DST-O tzDelta1 " & tzDelta1)
+    Debug.Print ("%DST-O tzDelta1 " & tzDelta1)
 
     localGMTOffset = fGetTimeZoneOffset ' returns a long in minutes // for UK this would be 0, for India it would be -330
     
@@ -203,7 +203,7 @@ Private Function updateDLS(DLSrules() As String) As Long
     tzDelta = tzDelta + tzDelta1
     
     Debug.Print ("%updateTime-I tzDelta " & tzDelta)
-    'Debug.Print ("%updateTime-I tzDelta1 " & tzDelta1)
+    Debug.Print ("%updateTime-I tzDelta1 " & tzDelta1)
     
     On Error GoTo 0
     Exit Function
@@ -777,8 +777,8 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
     Dim buildDate As String: buildDate = vbNullString
     Dim numberOfMonth As Integer: numberOfMonth = 0
     Dim separator As String: separator = vbNullString
-    Dim dateDiff1 As Long: dateDiff1 = 0
-    Dim dateDiff2 As Long: dateDiff2 = 0
+    Dim dateDiff1 As Double: dateDiff1 = 0
+    Dim dateDiff2 As Double: dateDiff2 = 0
     
     separator = (""",""")
     monthName = ArrayString("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
@@ -978,11 +978,11 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
 
     If (theStart <= stdTime) And (stdTime < theEnd) Then
         theDLSdelta = delta ' return
-        Debug.Print ("%DST-O theDLSdelta " & theDLSdelta)
+        Debug.Print ("%DST-O theDLSdelta 1 " & theDLSdelta)
         Exit Function
     Else
         theDLSdelta = 0 ' return
-        Debug.Print ("%DST-O  theDLSdelta " & theDLSdelta)
+        Debug.Print ("%DST-O  theDLSdelta 2 " & theDLSdelta)
         Exit Function
     End If
 
