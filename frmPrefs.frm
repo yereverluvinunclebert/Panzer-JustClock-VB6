@@ -3531,7 +3531,7 @@ Private Sub adjustPrefsControls()
     cmbMainGaugeTimeZone.ListIndex = Val(PzGMainGaugeTimeZone)
     cmbMainDaylightSaving.ListIndex = Val(PzGMainDaylightSaving)
     
-    txtBias.Text = tzDelta1
+    txtBias.Text = tzDelta
 
     cmbTickSwitchPref.ListIndex = Val(PzGSmoothSecondHand)
     

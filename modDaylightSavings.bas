@@ -164,7 +164,7 @@ Private Function updateDLS(DLSrules() As String) As Long
     Dim dlsRule() As String
     Dim separator As String: separator = vbNullString
     Dim localGMTOffset As Long
-    Dim tzDelta As Long: tzDelta = 0
+    'Dim tzDelta As Long: tzDelta = 0
     
     separator = (" - ")
     
@@ -194,17 +194,16 @@ Private Function updateDLS(DLSrules() As String) As Long
 
     localGMTOffset = fGetTimeZoneOffset ' returns a long in minutes // for UK this would be 0, for India it would be -330
     
-    Debug.Print ("%updateTime-I localGMTOffset " & localGMTOffset)    ' //-60
-    Debug.Print ("%updateTime-I remoteGMTOffset1 " & remoteGMTOffset1) ' //0
+    'Debug.Print ("%updateTime-I localGMTOffset " & localGMTOffset)    ' //-60
+    'Debug.Print ("%updateTime-I remoteGMTOffset1 " & remoteGMTOffset1) ' //0
 
-    'If remoteGMTOffset1 <> 0 Then
-        Debug.Print ("%updateTime-I localGMTOffset + remoteGMTOffset1 " & localGMTOffset & remoteGMTOffset1) ' // -600
-        tzDelta = localGMTOffset + remoteGMTOffset1
-        tzDelta = tzDelta + tzDelta1
-        Debug.Print ("%updateTime-I tzDelta " & tzDelta)
-        Debug.Print ("%updateTime-I tzDelta1 " & tzDelta1)
-        'theDate.SetTime (theDate.getTime() + 60000 * tzDelta)
-    'End If
+    'Debug.Print ("%updateTime-I localGMTOffset + remoteGMTOffset1 " & localGMTOffset + remoteGMTOffset1) ' // -600
+    
+    tzDelta = localGMTOffset + remoteGMTOffset1
+    tzDelta = tzDelta + tzDelta1
+    
+    Debug.Print ("%updateTime-I tzDelta " & tzDelta)
+    'Debug.Print ("%updateTime-I tzDelta1 " & tzDelta1)
     
     On Error GoTo 0
     Exit Function

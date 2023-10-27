@@ -191,11 +191,13 @@
 
 ' setup2go - re-licence - done
 
+' prefs window check position on screen to ensure it is within the display bounds - done
+' prefs window set the Z order as per the gaugeForm - done
+' fGetTimeZoneOffset return the difference in mins between local time and system time in minutes - done
+
 ' numeric date/day fields altered by DST and timezone changes as per YWE version - wip
 
 ' push CHM manually
-
-' prefs screen check on screen
 
 ' test usage of RC6 for monitor awareness - wip
 With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisplay

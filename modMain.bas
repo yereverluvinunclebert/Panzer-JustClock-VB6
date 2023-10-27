@@ -85,6 +85,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     prefsCurrentWidth = 9075
     prefsCurrentHeight = 16450
     
+    tzDelta = 0
     tzDelta1 = 0
     
     extractCommand = Command$ ' capture any parameter passed, remove if a soft reload

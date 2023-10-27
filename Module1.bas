@@ -427,6 +427,7 @@ Public PzGWindowLevelWasChanged As Boolean
 ' Flag for debug mode '.06 DAEB 19/04/2021 common.bas moved to the common area so that it can be used by each of the utilities
 Private mbDebugMode As Boolean ' .30 DAEB 03/03/2021 frmMain.frm replaced the inIDE function that used a variant to one without
 
+Public tzDelta As Long
 Public tzDelta1 As Long
 
 '---------------------------------------------------------------------------------------
