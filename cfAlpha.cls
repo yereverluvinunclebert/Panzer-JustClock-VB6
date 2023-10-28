@@ -378,7 +378,7 @@ End Sub
 Private Sub lockbutton_mouseDown(ByRef Sender As Object)
    On Error GoTo lockbutton_mouseDown_Error
     
-    If overlayWidget.Locked = 0 Then
+    If overlayWidget.Locked = False Then
         Sender.Widget.Alpha = 0
     Else
         Sender.Widget.Alpha = Val(PzGOpacity) / 100

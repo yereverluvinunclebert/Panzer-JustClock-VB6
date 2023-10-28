@@ -203,12 +203,14 @@
 ' populate the bias field - done
 ' fix the MX rule, additional space char. preventing splitting of the rule array - done
 
+' revert to normal bias after selecting system time - done
+' tweak the bottom button positions in the prefs - done
+' menu - fix lock widget does not cause a button depression - done
+
 ' -oOo-
 '
 ' check numeric date/day fields altered by DST and timezone changes as per YWE version - wip
-' revert to normal bias after selecting system time
-' menu - lock widget does not cause a button depression
-
+'
 ' messages put/get
 ' missing images in low DPI
 ' switching between high low DPI - remaining issues?

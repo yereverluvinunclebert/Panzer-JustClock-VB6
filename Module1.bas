@@ -2365,23 +2365,28 @@ Public Sub lockWidget()
     On Error GoTo lockWidget_Error
 
     fileToPlay = "lock.wav"
-    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
-    End If
     
     If PzGPreventDragging = "1" Then
         menuForm.mnuLockWidget.Checked = False
         PzGPreventDragging = "0"
         overlayWidget.Locked = False
+        fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = Val(PzGOpacity) / 100
     Else
         menuForm.mnuLockWidget.Checked = True
-        overlayWidget.Locked = 1
+        overlayWidget.Locked = True
         PzGPreventDragging = "1"
+        fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = 0
     End If
-
+    
+    fAlpha.gaugeForm.Refresh
+    
     sPutINISetting "Software\PzJustClock", "preventDragging", PzGPreventDragging, PzGSettingsFile
-
-   On Error GoTo 0
+   
+    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    End If
+    
+    On Error GoTo 0
    Exit Sub
 
 lockWidget_Error:
