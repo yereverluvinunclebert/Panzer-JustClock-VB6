@@ -200,14 +200,15 @@
 
 ' numeric date/day fields altered by DST and timezone changes as per YWE version - wip
 
-' ensure the changes to DLS and timezone are reflected as soon as a SAVE is applied
+' ensure the changes to DLS and timezone are reflected prior to a SAVE being applied - done
+' removed two lines in obtainDaylightSavings that unnecessarily set the values of the two DLS comboBoxes - done
 
 ' messages put/get
 ' missing images in low DPI
 ' switching between high low DPI
 
 ' populate the bias field
-' check the monitor for high DPI     
+' check the monitor for high DPI
 ' determine which mode to set the program according to DPI settings
 
 ' test on E6410 low DPI - wip
