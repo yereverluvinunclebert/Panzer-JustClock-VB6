@@ -26,7 +26,7 @@
 ["LB","Mar","lastSun","0","60","Oct","lastSun","-60"]
 ["MN","Mar","lastSat","120","60","Sep","lastSat","60"]
 ["MU","Oct","lastSun","120","60","Mar","lastSun","120"]
-["MX","Apr","Sun>=1","120","60","Oct", "lastSun","60"]
+["MX","Apr","Sun>=1","120","60","Oct","lastSun","60"]
 ["NA","Sep","Sun>=1","120","60","Apr","Sun>=1","60"]
 ["NZ-CI","Sep","lastSun","165","60","Apr","Sun>=1","165"]
 ["NZ","Sep","lastSun","120","60","Apr","Sun>=1","120"]

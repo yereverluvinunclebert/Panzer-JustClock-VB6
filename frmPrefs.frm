@@ -4386,7 +4386,7 @@ End Sub
 
 
 Private Sub txtBias_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    If PzGEnableBalloonTooltips = "1" Then CreateToolTip txtBias.hwnd, "This field displays the current total bias that will be applied to the current time based upon the timezone and daylight savings selection made. ", _
+    If PzGEnableBalloonTooltips = "1" Then CreateToolTip txtBias.hwnd, "This field displays the current total bias that will be applied to the current time based upon the timezone and daylight savings selection made, (read only). ", _
                   TTIconInfo, "Help on the bias field.", , , , True
 End Sub
 

@@ -173,14 +173,12 @@ Private Function updateDLS(DLSrules() As String) As Long
     ''Debug.Print ("%DST func updateDLS")
         
     ' From timezones.txt take the offset from the selected timezone in the prefs
-   ' panzerPrefs.cmbMainGaugeTimeZone.ListIndex = Val(PzGMainGaugeTimeZone)
     chosenTimeZone = panzerPrefs.cmbMainGaugeTimeZone.List(panzerPrefs.cmbMainGaugeTimeZone.ListIndex)
     If chosenTimeZone = "System Time" Then Exit Function
     
     remoteGMTOffset1 = getRemoteOffset(chosenTimeZone) ' returns a long containing number of minutes
 
     ' From DSLcodesWin.txt, extract the current rule contents from the selected rule in the prefs
-    ' panzerPrefs.cmbMainDaylightSaving.ListIndex = Val(PzGMainDaylightSaving)
     thisRule = panzerPrefs.cmbMainDaylightSaving.List(panzerPrefs.cmbMainDaylightSaving.ListIndex)
     dlsRule = Split(thisRule, separator)
     ' read the first component of the split rule
@@ -827,7 +825,7 @@ Public Function theDLSdelta(ByRef DLSrules() As String, ByVal rule As String, By
 '
 '    // read the various components of the split rule
 '    ["AR","Oct","Sun>=15","0","60","Mar","Sun>=15","-60"]
-'    ["US", "Apr", "Sun>=1", "120", "60", "Oct", "lastSun", "60"]
+'    ["US", "Apr", "Sun>=1", "120", "60","Oct", "lastSun", "60"]
 '
     startMonth = dlsRule(1)
     startDay = dlsRule(2)
