@@ -469,7 +469,6 @@ Public Sub adjustMainControls()
 
     End With
     
-    
     If PzGSmoothSecondHand = "0" Then
         overlayWidget.SmoothSecondHand = False
         fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = Val(PzGOpacity) / 100
@@ -488,13 +487,9 @@ Public Sub adjustMainControls()
         fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = 0
     End If
 
+    ' determine the time bias
     Call obtainDaylightSavings
-    
-    'Dim W As cWidgetBase
-    'Set W = fAlpha.gaugeForm.Widgets("housing/surround").Widget
-    'W.HoverColor = 0
-    'W.MousePointer = IDC_SIZEALL
-                 
+               
     ' set the z-ordering of the window
     Call setAlphaFormZordering
     

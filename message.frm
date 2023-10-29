@@ -116,6 +116,8 @@ Private Const cMsgBoxAFormHeight As Long = 2565
 Private Const cMsgBoxAFormWidth  As Long = 11055
 
 Private mPropMessage As String
+Private mPropTitle As String
+
 
 '---------------------------------------------------------------------------------------
 ' Property : btnButtonTwo_Click
@@ -208,15 +210,15 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Property Let propMessage(ByVal strMessage As String)
+Public Property Let propMessage(ByVal newValue As String)
 
     Dim intDiff As Integer
     
     On Error GoTo propMessage_Error
     
-    If mPropMessage <> strMessage Then mPropMessage = strMessage Else Exit Property
+    If mPropMessage <> newValue Then mPropMessage = newValue Else Exit Property
 
-    lblMessage.Caption = strMessage
+    lblMessage.Caption = newValue
     
     ' Expand the form and move the other controls if the message is too long to show.
       
@@ -271,13 +273,15 @@ End Property
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Property Let propTitle(ByVal strTitle As String)
+Public Property Let propTitle(ByVal newValue As String)
    On Error GoTo propTitle_Error
+   
+    If mPropTitle <> newValue Then mPropTitle = newValue Else Exit Property
 
-    If strTitle = "" Then
+    If newValue = "" Then
         Me.Caption = "SteamyDock Icon Enhanced Settings"
     Else
-        Me.Caption = strTitle
+        Me.Caption = newValue
     End If
 
    On Error GoTo 0
@@ -286,6 +290,25 @@ Public Property Let propTitle(ByVal strTitle As String)
 propTitle_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property propTitle of Form frmMessage"
+End Property
+'---------------------------------------------------------------------------------------
+' Procedure : propTitle
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get propTitle() As String
+   On Error GoTo propTitleGet_Error
+
+   propTitle = mPropTitle
+
+   On Error GoTo 0
+   Exit Property
+
+propTitleGet_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure propTitle of Class Module cwhelp"
 End Property
 
 '---------------------------------------------------------------------------------------
@@ -298,7 +321,7 @@ End Property
 Public Property Let propMsgContext(ByVal thisContext As String)
    On Error GoTo propMsgContext_Error
 
-    formMsgContext = thisContext
+   formMsgContext = thisContext
 
    On Error GoTo 0
    Exit Property

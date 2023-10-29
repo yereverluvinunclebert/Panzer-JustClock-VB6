@@ -373,8 +373,8 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
     W.Refresh
     thisOpacity = (Val(PzGOpacity) / 100) * 0.75
     
-    txtDayNumber = Day(Now)
-    txtMonthNumber = Month(Now)
+    txtDayNumber = Day(DateAdd("m", tzDelta, Now))
+    txtMonthNumber = Month(DateAdd("m", tzDelta, Now))
 
     For I = 0 To cCollOverlayImages.Count - 1 ' this is the ExcludedPaths collection populated in cfAlpha by duplicating collPSDNonUIElements.
       Arr = cCollOverlayImages.ItemByIndex(I)
@@ -447,7 +447,7 @@ Private Sub tmrClock_Timer() 'update the private "Degree-Variables" for Hour-, M
     
     GetSystemTime currentLocaltime
     
-    ' every 15 mins approx. update DaylightSavings
+    ' every 15 mins approx. update DaylightSavings and determine the time bias
     If (Minute(T) Mod 15 = 0) And (Second(T) = 0) And (currentLocaltime.wMilliseconds < 100) Then
         Call obtainDaylightSavings
     End If

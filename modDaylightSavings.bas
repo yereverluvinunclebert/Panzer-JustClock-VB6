@@ -133,9 +133,10 @@ Public Sub obtainDaylightSavings()
             
     'Debug.Print ("%DST func obtainDaylightSavings")
     
-    DLSrules = getDLSrules(App.path & "\Resources\txt\DLSRules.txt")
-    
     ' From DLSRules.txt - assign all rules in this file to an array
+    DLSrules = getDLSrules(App.path & "\Resources\txt\DLSRules.txt")
+
+    'calculate the timezone bias
     panzerPrefs.txtBias = updateDLS(DLSrules)
     
     On Error GoTo 0
@@ -147,10 +148,10 @@ obtainDaylightSavings_Error:
     
 End Sub
 '---------------------------------------------------------------------------------------
-' Function   : updateDLS
+' Function  : updateDLS
 ' Author    : beededea
 ' Date      : 10/10/2023
-' Purpose   :
+' Purpose   : calculate the timezone bias
 '---------------------------------------------------------------------------------------
 '
 Private Function updateDLS(ByRef DLSrules() As String) As Long

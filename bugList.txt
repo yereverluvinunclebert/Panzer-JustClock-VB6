@@ -211,18 +211,21 @@
 ' determine which mode to set the program according to monitor DPI probe - done
 
 ' tmrClock_Timer calls updateDLS regularly every 15 mins as per .js version - done
+' check numeric date/day fields altered by DST bias - done
 
 ' -oOo-
-'
-' check numeric date/day fields altered by DST and timezone changes as per YWE version - wip ?  Check.
 '
 ' add property GETS to property LETS in frmMessages - wip
 '
 ' missing images in pop-ups when in low DPI mode
 ' switching between high low DPI - remaining issues?
 
-' synch. to E6410 and compile
+' synch. to E6410 and compile - wip
 ' test on E6410 low DPI - wip
+' test on E6410 low DPI with licence = 0
+
+' very big messageboxes when high DPI on low DPI monitors
+' the prefs are very big when  high DPI on low DPI monitors
 
 ' https://classicvb.net/samples/HookXP/   CHookMouseEvents.cls
 '    This class provides the mysterious MouseEnter, MouseHover, and MouseLeave events, as well as a few bonus features like when the user clicks the
