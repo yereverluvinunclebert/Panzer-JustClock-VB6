@@ -329,7 +329,7 @@ End Property
 '             For this Overlay-Widget alone, we make everything "fully click-through"
 '---------------------------------------------------------------------------------------------
 '
-Private Sub W_HitTest(ByVal X As Single, ByVal Y As Single, HitResultHit As Boolean) 'ensure ClickThrough-behaviour in ImagePixels which are "fully Alpha"
+Private Sub W_HitTest(ByVal x As Single, ByVal Y As Single, HitResultHit As Boolean) 'ensure ClickThrough-behaviour in ImagePixels which are "fully Alpha"
    On Error GoTo W_HitTest_Error
 
    HitResultHit = False
@@ -429,6 +429,9 @@ W_Paint_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_Paint of Class Module cwOverlay"
 End Sub
  
+ 
+
+    
 '---------------------------------------------------------------------------------------
 ' Procedure : tmrClock_Timer
 ' Author    : olaf schmidt
@@ -444,6 +447,11 @@ Private Sub tmrClock_Timer() 'update the private "Degree-Variables" for Hour-, M
     
     GetSystemTime currentLocaltime
     
+    ' every 15 mins approx. update DaylightSavings
+    If (Minute(T) Mod 15 = 0) And (Second(T) = 0) And (currentLocaltime.wMilliseconds < 100) Then
+        Call obtainDaylightSavings
+    End If
+        
     ' Debug.Print ("%updateTime-I tzDelta " & tzDelta)
 
     HDeg = 30 * (Hour(T) Mod 12 + (Minute(T) + tzDelta) / 60)

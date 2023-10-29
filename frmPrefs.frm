@@ -2074,11 +2074,27 @@ Private prefsStartupFlg As Boolean
 
 
 
+'---------------------------------------------------------------------------------------
+' Procedure : cmbMainGaugeTimeZone_Click
+' Author    : beededea
+' Date      : 29/10/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
 Private Sub cmbMainGaugeTimeZone_Click()
+    On Error GoTo cmbMainGaugeTimeZone_Click_Error
+
     If prefsStartupFlg = False Then ' don't run this on startup
         btnSave.Enabled = True ' enable the save button
         Call obtainDaylightSavings
     End If
+
+    On Error GoTo 0
+    Exit Sub
+
+cmbMainGaugeTimeZone_Click_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure cmbMainGaugeTimeZone_Click of Form panzerPrefs"
 End Sub
 
 
@@ -5481,8 +5497,6 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub cmbMainDaylightSaving_Click()
-
-'   Dim pos As Long
 
    On Error GoTo cmbMainDaylightSaving_Click_Error
 

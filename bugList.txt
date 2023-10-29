@@ -210,9 +210,11 @@
 ' check the monitor for high/low DPI - done
 ' determine which mode to set the program according to monitor DPI probe - done
 
+' tmrClock_Timer calls updateDLS regularly every 15 mins as per .js version - done
+
 ' -oOo-
 '
-' check numeric date/day fields altered by DST and timezone changes as per YWE version - wip - .js calls update DLS regularly?  Check.
+' check numeric date/day fields altered by DST and timezone changes as per YWE version - wip ?  Check.
 '
 ' add property GETS to property LETS in frmMessages - wip
 '
@@ -224,7 +226,7 @@
 
 ' https://classicvb.net/samples/HookXP/   CHookMouseEvents.cls
 '    This class provides the mysterious MouseEnter, MouseHover, and MouseLeave events, as well as a few bonus features like when the user clicks the
-'    4th or 5th buttons on a 5 button mouse. It also provides a collection based scheme whereby you can add and remove windows to monitor just as 
+'    4th or 5th buttons on a 5 button mouse. It also provides a collection based scheme whereby you can add and remove windows to monitor just as
 '    you would to an ordinary collection. All events are raised with the associated hWnd so you can determine which control is under the mouse. This
 '    could help the prefs in Pz J. Clock and other tools enabling balloon tooltips on comboBoxes.
 
