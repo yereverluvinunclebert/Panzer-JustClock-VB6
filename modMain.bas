@@ -73,6 +73,7 @@ End Sub
 Public Sub mainRoutine(ByVal restart As Boolean)
     Dim extractCommand As String: extractCommand = vbNullString
     Dim thisPSDFullPath As String: thisPSDFullPath = vbNullString
+    Dim licenceState As Integer: licenceState = 0
 
     On Error GoTo main_routine_Error
     
@@ -109,11 +110,14 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' validate the inputs of any data from the input settings file
     Call validateInputs
     
-    If PzGDpiAwareness = "1" Then
-        'If Not InIDE Then Cairo.SetDPIAwareness ' avoids the VB6 IDE shrinking
-        Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
+    ' check first usage via licence acceptance value and then set initial DPI awareness
+    licenceState = fLicenceState()
+    If licenceState = 0 Then
+        Call setInitialDPIAwareness ' determine High DPI awareness or not by default
+    Else
+        Call setDPIaware ' enable high DPI awareness for this program and all its forms
     End If
-        
+
     'load the collection for storing the overlay surfaces with its relevant keys direct from the PSD
     If restart = False Then Call loadExcludePathCollection ' no need to reload the collPSDNonUIElements layer name keys
     
@@ -123,8 +127,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' initialise and create the main forms on the current display
     Call createStandardFormsOnCurrentDisplay
             
-    ' check first usage and display licence screen
-    Call checkLicenceState
+    ' display licence screen on first usage
+    Call showLicence(fLicenceState)
     
     ' resolve VB6 sizing width bug
     Call determineScreenDimensions
@@ -150,15 +154,15 @@ Public Sub mainRoutine(ByVal restart As Boolean)
         extractCommand = vbNullString
     End If
     
-    ' check and handle first time running
+    'load the preferences form but don't yet show it, speeds up access to the prefs via the menu
+    Load panzerPrefs
+    
+    ' make the prefs appear on the first time running
     Call checkFirstTime
  
     ' configure any global timers here
     Call configureTimers
-    
-    'load the preferences form but don't yet show it, speeds up access to the prefs when required
-    Load panzerPrefs
-    
+        
     ' RC message pump will auto-exit when Cairo Forms > 0 so we run it only when 0, this prevents message interruption
     ' when running twice on reload.
     If Cairo.WidgetForms.Count = 0 Then Cairo.WidgetForms.EnterMessageLoop
@@ -172,6 +176,26 @@ main_routine_Error:
     
 End Sub
  
+'---------------------------------------------------------------------------------------
+' Procedure : setDPIaware
+' Author    : beededea
+' Date      : 29/10/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Sub setDPIaware()
+    On Error GoTo setDPIaware_Error
+
+    If Not InIDE Then Cairo.SetDPIAwareness ' this way avoids the VB6 IDE shrinking (sadly, VB6 has a high DPI unaware IDE)
+    'Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
+
+    On Error GoTo 0
+    Exit Sub
+
+setDPIaware_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure setDPIaware of Module modMain"
+End Sub
 '---------------------------------------------------------------------------------------
 ' Procedure : checkFirstTime
 ' Author    : beededea

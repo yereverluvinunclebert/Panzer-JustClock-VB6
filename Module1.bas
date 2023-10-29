@@ -641,37 +641,82 @@ End Function
 'End Function
 '
 '---------------------------------------------------------------------------------------
-' Procedure : checkLicenceState
+' Procedure : fLicenceState
 ' Author    : beededea
 ' Date      : 20/06/2019
 ' Purpose   : check the state of the licence
 '---------------------------------------------------------------------------------------
 '
-Public Sub checkLicenceState()
+Public Function fLicenceState() As Integer
     Dim slicence As String: slicence = "0"
-    On Error GoTo checkLicenceState_Error
-    ''If debugflg = 1  Then DebugPrint "%" & "checkLicenceState"
     
+    On Error GoTo fLicenceState_Error
+    ''If debugflg = 1  Then DebugPrint "%" & "fLicenceState"
+    
+    fLicenceState = 0
     ' read the tool's own settings file
     If fFExists(PzGSettingsFile) Then ' does the tool's own settings.ini exist?
         slicence = fGetINISetting("Software\PzJustClock", "Licence", PzGSettingsFile)
         ' if the licence state is not already accepted then display the licence form
-        If slicence = "0" Or slicence = "" Then
-            'Call LoadFileToTB(frmLicence.txtLicenceTextBox, App.Path & "\Resources\txt\licence.txt", False)
-            
-            Call licenceSplash
-            'frmLicence.show vbModal ' show the licence screen in VB modal mode (ie. on its own)
-            ' on the licence box change the state fo the licence acceptance
-        End If
+        If slicence = "1" Then fLicenceState = 1
+    End If
+
+   On Error GoTo 0
+   Exit Function
+
+fLicenceState_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fLicenceState of Form common"
+
+End Function
+'---------------------------------------------------------------------------------------
+' Procedure : showLicence
+' Author    : beededea
+' Date      : 20/06/2019
+' Purpose   : check the state of the licence
+'---------------------------------------------------------------------------------------
+'
+Public Sub showLicence(ByVal licenceState As Integer)
+    Dim slicence As String: slicence = "0"
+    On Error GoTo showLicence_Error
+    ''If debugflg = 1  Then DebugPrint "%" & "showLicence"
+    
+    ' if the licence state is not already accepted then display the licence form
+    If licenceState = 0 Then
+        'Call LoadFileToTB(frmLicence.txtLicenceTextBox, App.Path & "\Resources\txt\licence.txt", False)
+        Call licenceSplash
     End If
 
    On Error GoTo 0
    Exit Sub
 
-checkLicenceState_Error:
+showLicence_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure checkLicenceState of Form common"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure showLicence of Form common"
 
+End Sub
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : setInitialDPIAwareness
+' Author    : beededea
+' Date      : 29/10/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Sub setInitialDPIAwareness()
+    On Error GoTo setInitialDPIAwareness_Error
+
+    If fPixelsPerInchX() > 96 Then ' only DPI aware by default when greater than 'standard'
+        Call setDPIaware
+    End If
+
+    On Error GoTo 0
+    Exit Sub
+
+setInitialDPIAwareness_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure setInitialDPIAwareness of Module Module1"
 End Sub
 
 '---------------------------------------------------------------------------------------

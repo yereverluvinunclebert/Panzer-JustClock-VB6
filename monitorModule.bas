@@ -151,6 +151,33 @@ Public screenTwipsPerPixelY As Long ' .07 DAEB 26/04/2021 common.bas changed to 
 '    End If
 'End Function
 
+'---------------------------------------------------------------------------------------
+' Procedure : fPixelsPerInchX
+' Author    : Elroy from Vbforums
+' Date      : 23/01/2021
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Function fPixelsPerInchX() As Long
+    Dim hdc As Long: hdc = 0
+    
+    Const LOGPIXELSX As Integer = 88       '  Logical pixels/inch in X
+
+    On Error GoTo fPixelsPerInchX_Error
+    
+    hdc = GetDC(0)
+    If hdc <> 0 Then
+        fPixelsPerInchX = GetDeviceCaps(hdc, LOGPIXELSX)
+        ReleaseDC 0, hdc
+    End If
+
+   On Error GoTo 0
+   Exit Function
+
+fPixelsPerInchX_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure fPixelsPerInchX of Module Module1"
+End Function
 
 
 '---------------------------------------------------------------------------------------

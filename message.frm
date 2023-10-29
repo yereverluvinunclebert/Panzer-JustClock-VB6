@@ -115,6 +115,8 @@ Private msgBoxADynamicSizingFlg As Boolean
 Private Const cMsgBoxAFormHeight As Long = 2565
 Private Const cMsgBoxAFormWidth  As Long = 11055
 
+Private mPropMessage As String
+
 '---------------------------------------------------------------------------------------
 ' Property : btnButtonTwo_Click
 ' Author    : beededea
@@ -194,6 +196,10 @@ Display_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Display of Form frmMessage"
 
 End Sub
+
+
+
+
 ' property to allow a message to be passed to the form
 '---------------------------------------------------------------------------------------
 ' Property  : propMessage
@@ -207,6 +213,8 @@ Public Property Let propMessage(ByVal strMessage As String)
     Dim intDiff As Integer
     
     On Error GoTo propMessage_Error
+    
+    If mPropMessage <> strMessage Then mPropMessage = strMessage Else Exit Property
 
     lblMessage.Caption = strMessage
     
@@ -234,6 +242,26 @@ propMessage_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property propMessage of Form frmMessage"
 
+End Property
+
+'---------------------------------------------------------------------------------------
+' Procedure : propMessage
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get propMessage() As String
+   On Error GoTo propMessageGet_Error
+
+   propMessage = mPropMessage
+
+   On Error GoTo 0
+   Exit Property
+
+propMessageGet_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure propMessage of Class Module cwhelp"
 End Property
 
 '---------------------------------------------------------------------------------------

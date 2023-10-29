@@ -202,22 +202,24 @@
 ' removed two lines in obtainDaylightSavings that unnecessarily set the values of the two DLS comboBoxes - done
 ' populate the bias field - done
 ' fix the MX rule, additional space char. preventing splitting of the rule array - done
-
 ' revert to normal bias after selecting system time - done
 ' tweak the bottom button positions in the prefs - done
 ' menu - fix lock widget does not cause a button depression - done
+' modify HTML help to reflect latest changes re: DLS and timezones - done
+
+' check the monitor for high/low DPI  fTwipsPerPixelX does pixels per inch and twips per pixel  144 and 10 - done
+' determine which mode to set the program according to monitor DPI probe - done
 
 ' -oOo-
 '
-' check numeric date/day fields altered by DST and timezone changes as per YWE version - wip
+' check numeric date/day fields altered by DST and timezone changes as per YWE version - wip - .js calls update DLS regularly?  Check.
 '
-' messages put/get
-' missing images in low DPI
+' add property GETS to property LETS in frmMessages - wip
+'
+' missing images in pop-ups when in low DPI mode
 ' switching between high low DPI - remaining issues?
 
-' check the monitor for high/low DPI
-' determine which mode to set the program according to monitor DPI probe
-
+' synch. to E6410 and compile
 ' test on E6410 low DPI - wip
 
 ' https://classicvb.net/samples/HookXP/   CHookMouseEvents.cls
@@ -228,7 +230,7 @@
 
 ' NOTE: hookXP already downloaded.
 
-' push CHM manually
+' push CHM manually, document the process.
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
