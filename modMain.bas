@@ -186,8 +186,10 @@ End Sub
 Public Sub setDPIaware()
     On Error GoTo setDPIaware_Error
 
-    If Not InIDE Then Cairo.SetDPIAwareness ' this way avoids the VB6 IDE shrinking (sadly, VB6 has a high DPI unaware IDE)
-    'Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
+    If PzGDpiAwareness = "1" Then
+        If Not InIDE Then Cairo.SetDPIAwareness ' this way avoids the VB6 IDE shrinking (sadly, VB6 has a high DPI unaware IDE)
+        'Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
+    End If
 
     On Error GoTo 0
     Exit Sub

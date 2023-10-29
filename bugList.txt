@@ -207,7 +207,7 @@
 ' menu - fix lock widget does not cause a button depression - done
 ' modify HTML help to reflect latest changes re: DLS and timezones - done
 
-' check the monitor for high/low DPI  fTwipsPerPixelX does pixels per inch and twips per pixel  144 and 10 - done
+' check the monitor for high/low DPI - done
 ' determine which mode to set the program according to monitor DPI probe - done
 
 ' -oOo-
