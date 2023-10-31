@@ -117,6 +117,11 @@ Private Const cMsgBoxAFormWidth  As Long = 11055
 
 Private mPropMessage As String
 Private mPropTitle As String
+Private mPropMsgContext As String
+Private mPropShowAgainChkBox As Boolean
+Private mPropButtonVal As Integer
+Private mPropReturnedValue As Integer
+
 
 
 '---------------------------------------------------------------------------------------
@@ -218,7 +223,7 @@ Public Property Let propMessage(ByVal newValue As String)
     
     If mPropMessage <> newValue Then mPropMessage = newValue Else Exit Property
 
-    lblMessage.Caption = newValue
+    lblMessage.Caption = mPropMessage
     
     ' Expand the form and move the other controls if the message is too long to show.
       
@@ -278,10 +283,10 @@ Public Property Let propTitle(ByVal newValue As String)
    
     If mPropTitle <> newValue Then mPropTitle = newValue Else Exit Property
 
-    If newValue = "" Then
+    If mPropTitle = "" Then
         Me.Caption = "SteamyDock Icon Enhanced Settings"
     Else
-        Me.Caption = newValue
+        Me.Caption = mPropTitle
     End If
 
    On Error GoTo 0
@@ -318,10 +323,12 @@ End Property
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Property Let propMsgContext(ByVal thisContext As String)
+Public Property Let propMsgContext(ByVal newValue As String)
    On Error GoTo propMsgContext_Error
+   
+   If mPropMsgContext <> newValue Then mPropMsgContext = newValue Else Exit Property
 
-   formMsgContext = thisContext
+   formMsgContext = mPropMsgContext
 
    On Error GoTo 0
    Exit Property
@@ -329,6 +336,67 @@ Public Property Let propMsgContext(ByVal thisContext As String)
 propMsgContext_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property propMsgContext of Form frmMessage"
+End Property
+'---------------------------------------------------------------------------------------
+' Procedure : propMsgContext
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get propMsgContext() As String
+   On Error GoTo propMsgContextGet_Error
+
+   propMsgContext = mPropMsgContext
+
+   On Error GoTo 0
+   Exit Property
+
+propMsgContextGet_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure propMsgContext of Class Module cwhelp"
+End Property
+'---------------------------------------------------------------------------------------
+' Procedure : propReturnedValue
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get propReturnedValue() As Integer
+   On Error GoTo propReturnedValue_Error
+   
+    propReturnedValue = mPropReturnedValue 'yesNoReturnValue
+
+   On Error GoTo 0
+   Exit Property
+
+propReturnedValue_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure propReturnedValue of Form frmMessage"
+    
+End Property
+
+'---------------------------------------------------------------------------------------
+' Property  : propReturnedValue
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Let propReturnedValue(ByVal newValue As Integer)
+   On Error GoTo propReturnedValue_Error
+   
+    If mPropReturnedValue <> newValue Then mPropReturnedValue = newValue Else Exit Property
+
+    formShowAgainChkBox = mPropReturnedValue
+
+   On Error GoTo 0
+   Exit Property
+
+propReturnedValue_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property propReturnedValue of Form frmMessage"
 End Property
 
 '---------------------------------------------------------------------------------------
@@ -338,10 +406,12 @@ End Property
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Property Let propShowAgainChkBox(ByVal showAgainVis As Boolean)
+Public Property Let propShowAgainChkBox(ByVal newValue As Boolean)
    On Error GoTo propShowAgainChkBox_Error
+   
+    If mPropShowAgainChkBox <> newValue Then mPropShowAgainChkBox = newValue Else Exit Property
 
-    formShowAgainChkBox = showAgainVis
+    formShowAgainChkBox = mPropShowAgainChkBox
 
    On Error GoTo 0
    Exit Property
@@ -350,7 +420,25 @@ propShowAgainChkBox_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property propShowAgainChkBox of Form frmMessage"
 End Property
+'---------------------------------------------------------------------------------------
+' Procedure : propShowAgainChkBox
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get propShowAgainChkBox() As Boolean
+   On Error GoTo propShowAgainChkBoxGet_Error
 
+   propShowAgainChkBox = mPropShowAgainChkBox
+
+   On Error GoTo 0
+   Exit Property
+
+propShowAgainChkBoxGet_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure propShowAgainChkBox of Class Module cwhelp"
+End Property
 '---------------------------------------------------------------------------------------
 ' Property  : propButtonVal
 ' Author    : beededea
@@ -358,12 +446,14 @@ End Property
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Property Let propButtonVal(ByVal buttonVal As Integer)
+Public Property Let propButtonVal(ByVal newValue As Integer)
     
     Dim fileToPlay As String: fileToPlay = vbNullString
-
+    
     On Error GoTo propButtonVal_Error
 
+    If mPropButtonVal <> newValue Then mPropButtonVal = newValue Else Exit Property
+    
     btnButtonOne.Visible = False
     btnButtonTwo.Visible = False
     'btnButtonThree.Visible = false
@@ -375,13 +465,13 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
 
     btnButtonOne.Left = 3885
     
-    If buttonVal = 0 Then ' vbInformation
+    If mPropButtonVal = 0 Then ' vbInformation
        picVBInformation.Visible = True
-    ElseIf buttonVal >= 64 Then ' vbInformation
-       buttonVal = buttonVal - 64
+    ElseIf mPropButtonVal >= 64 Then ' vbInformation
+       mPropButtonVal = mPropButtonVal - 64
        picVBInformation.Visible = True
-    ElseIf buttonVal >= 48 Then '    vbExclamation
-        buttonVal = buttonVal - 48
+    ElseIf mPropButtonVal >= 48 Then '    vbExclamation
+        mPropButtonVal = mPropButtonVal - 48
         picVBExclamation.Visible = True
         
         ' .86 DAEB 06/06/2022 rDIConConfig.frm Add a sound to the msgbox for critical and exclamations? ting and belltoll.wav files
@@ -389,11 +479,11 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
         If fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
             PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
         End If
-    ElseIf buttonVal >= 32 Then '    vbQuestion
-        buttonVal = buttonVal - 32
+    ElseIf mPropButtonVal >= 32 Then '    vbQuestion
+        mPropButtonVal = mPropButtonVal - 32
         picVBQuestion.Visible = True
-    ElseIf buttonVal >= 20 Then '    vbCritical
-        buttonVal = buttonVal - 20
+    ElseIf mPropButtonVal >= 20 Then '    vbCritical
+        mPropButtonVal = mPropButtonVal - 20
         picVBCritical.Visible = True
         
         ' .86 DAEB 06/06/2022 rDIConConfig.frm Add a sound to the msgbox for critical and exclamations? ting and belltoll.wav files
@@ -404,21 +494,21 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
     End If
 
 
-    If buttonVal = 0 Then '    vbOKOnly 0
+    If mPropButtonVal = 0 Then '    vbOKOnly 0
         picVBInformation.Visible = True
         btnButtonOne.Visible = False
         btnButtonTwo.Visible = True
         btnButtonTwo.Caption = "OK"
         'btnButtonOne.Left = 4620
     End If
-    If buttonVal = 1 Then '    vbOKCancel 1
+    If mPropButtonVal = 1 Then '    vbOKCancel 1
         btnButtonOne.Visible = True
         btnButtonTwo.Visible = True
         btnButtonOne.Caption = "OK"
         btnButtonTwo.Caption = "Cancel"
         picVBQuestion.Visible = True
     End If
-    If buttonVal = 2 Then 'vbAbortRetryIgnore 2
+    If mPropButtonVal = 2 Then 'vbAbortRetryIgnore 2
         btnButtonOne.Visible = True
         btnButtonTwo.Visible = True
         'btnButtonThree.Visible = True
@@ -427,7 +517,7 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
         'btnButtonThree.Caption = "Ignore"
         picVBQuestion.Visible = True
     End If
-    If buttonVal = 3 Then '    vbYesNoCancel 3
+    If mPropButtonVal = 3 Then '    vbYesNoCancel 3
         btnButtonOne.Visible = True
         btnButtonTwo.Visible = True
         'btnButtonThree.Visible = True
@@ -436,28 +526,28 @@ Public Property Let propButtonVal(ByVal buttonVal As Integer)
         'btnButtonThree.Caption = "Cancel"
         picVBQuestion.Visible = True
     End If
-    If buttonVal = 4 Then '    vbYesNo 4
+    If mPropButtonVal = 4 Then '    vbYesNo 4
         btnButtonOne.Visible = True
         btnButtonTwo.Visible = True
         btnButtonOne.Caption = "Yes"
         btnButtonTwo.Caption = "No"
         picVBQuestion.Visible = True
     End If
-    If buttonVal = 5 Then '    vbRetryCancel 5
+    If mPropButtonVal = 5 Then '    vbRetryCancel 5
         btnButtonOne.Visible = True
         btnButtonTwo.Visible = True
         btnButtonOne.Caption = "Retry"
         btnButtonTwo.Caption = "Cancel"
         picVBQuestion.Visible = True
     End If
-'    If buttonVal = 6 Then '    vbYes 6
+'    If mPropButtonVal = 6 Then '    vbYes 6
 '        'btnButtonOne.Visible = True
 '        btnButtonTwo.Visible = True
 '        btnButtonOne.Caption = ""
 '        btnButtonTwo.Caption = "Yes"
 '        picVBQuestion.Visible = True
 '    End If
-'    If buttonVal = 7 Then '    vbNo 7
+'    If mPropButtonVal = 7 Then '    vbNo 7
 '        'btnButtonOne.Visible = True
 '        btnButtonTwo.Visible = True
 '        btnButtonOne.Caption = ""
@@ -472,28 +562,6 @@ propButtonVal_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property propButtonVal of Form frmMessage"
         
-End Property
-
-'---------------------------------------------------------------------------------------
-' Procedure : propReturnedValue
-' Author    : beededea
-' Date      : 23/09/2023
-' Purpose   :
-'---------------------------------------------------------------------------------------
-'
-Public Property Get propReturnedValue()
-
-   On Error GoTo propReturnedValue_Error
-
-    propReturnedValue = yesNoReturnValue
-
-   On Error GoTo 0
-   Exit Property
-
-propReturnedValue_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure propReturnedValue of Form frmMessage"
-    
 End Property
 
 
