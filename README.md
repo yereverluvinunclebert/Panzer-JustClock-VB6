@@ -39,7 +39,7 @@
  This version was developed on Windows 7 using 32 bit VisualBasic 6 as a FOSS 
  project creating a WoW64 widget for the desktop. 
  
-![licenceForm001](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/83301647-0e30-494f-b724-47aa57c1a03b)
+![Licence002](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/b4f647b5-fffc-4c5c-8bdf-86353cd007e7)
 
  It is open source to allow easy configuration, bug-fixing, enhancement and 
  community contribution towards free-and-useful VB6 utilities that can be created
@@ -47,6 +47,9 @@
  basis for the conversion of other desktop utilities or widgets. A future step 
  is new VB6 widgets with more functionality and then hopefully, conversion of 
  each to RADBasic/TwinBasic for future-proofing and 64bit-ness. 
+
+ ![menu01](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/4f91507e-4d74-4486-b4d0-7138737fbd57)
+
  
  This utility is one of a set of steampunk and dieselpunk widgets. That you can 
  find here on Deviantart: https://www.deviantart.com/yereverluvinuncleber/gallery
@@ -171,8 +174,9 @@
  
  In the VB6 IDE - project - references - browse - select the OLEGuids.tlb
  
- 
- 
+ ![prefs-window](https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/assets/2788342/dd59d504-7a31-4e23-aff0-d528e92ec123)
+
+
  * SETUP.EXE - The program is currently distributed using setup2go, a very useful 
  and comprehensive installer program that builds a .exe installer. Youll have to 
  find a copy of setup2go on the web as it is now abandonware. Contact me
