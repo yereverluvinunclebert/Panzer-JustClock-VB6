@@ -213,19 +213,24 @@
 ' tmrClock_Timer calls updateDLS regularly every 15 mins as per .js version - done
 ' check numeric date/day fields altered by DST bias - done
 
+' add property GETS to property LETS in frmMessages - done
+' synch the .js YWE version of this program - functionality only - done
+
+
+
 ' -oOo-
-'
-' add property GETS to property LETS in frmMessages - wip
-'
-' missing images in pop-ups when in low DPI mode
+
+' missing icon images in pop-ups when in low DPI mode
+' very big messageboxes when high DPI on low DPI monitors
+' the prefs are very big when high DPI selected on low DPI monitors
+
 ' switching between high low DPI - remaining issues?
 
 ' synch. to E6410 and compile - wip
-' test on E6410 low DPI - wip
-' test on E6410 low DPI with licence = 0
-
-' very big messageboxes when high DPI on low DPI monitors
-' the prefs are very big when  high DPI on low DPI monitors
+' test on E6410 win 7 low DPI - wip
+' test on E6410 win 7 low DPI with licence = 0
+' test on E6410 win 7 low DPI with no user settings
+' test on Dell win 11 high DPI with licence = 0
 
 ' https://classicvb.net/samples/HookXP/   CHookMouseEvents.cls
 '    This class provides the mysterious MouseEnter, MouseHover, and MouseLeave events, as well as a few bonus features like when the user clicks the
@@ -236,6 +241,7 @@
 ' NOTE: hookXP already downloaded.
 
 ' push CHM manually, document the process.
+' create new CHM
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
@@ -257,6 +263,9 @@ End With
 ' adjustFormPositionToCorrectMonitor - about form
 ' adjustFormPositionToCorrectMonitor - help form
 
+' setup2go create setup.exe
+
+' automatic resizing of the prefs icons using RC6 or GDI+
 
 
 ' RC BUGS & LIMITATIONS
@@ -271,6 +280,4 @@ End With
 ' However, when placing widgets on top of other widgets the opacity cumulates and they become significantly more opaque.
 ' on circular elements, the surrounding transparent areas become opaque
 
-tickButton.opacity = 0;
-fAlpha.gaugeForm.Widgets("housing/tickbutton").Widget.Alpha = 0 
 

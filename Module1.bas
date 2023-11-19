@@ -2413,11 +2413,13 @@ Public Sub lockWidget()
     
     If PzGPreventDragging = "1" Then
         menuForm.mnuLockWidget.Checked = False
+        panzerPrefs.chkPreventDragging.Value = 0
         PzGPreventDragging = "0"
         overlayWidget.Locked = False
         fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = Val(PzGOpacity) / 100
     Else
         menuForm.mnuLockWidget.Checked = True
+        panzerPrefs.chkPreventDragging.Value = 1
         overlayWidget.Locked = True
         PzGPreventDragging = "1"
         fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = 0
