@@ -2192,7 +2192,11 @@ Private Sub Form_Load()
     
     ' now cause a form_resize event and set the height of the whole form
     If PzGDpiAwareness = "1" Then
-        Me.Height = prefsFormHeight
+        If prefsFormHeight < screenHeightTwips Then
+            Me.Height = prefsFormHeight
+        Else
+            Me.Height = screenHeightTwips - 500
+        End If
     End If
     
     ' position the prefs on the current monitor

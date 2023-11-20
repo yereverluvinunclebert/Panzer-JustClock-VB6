@@ -221,6 +221,9 @@
 
 ' very big messageboxes when high DPI on low DPI monitors
 ' the prefs are very big when high DPI selected on low DPI monitors
+' licence form appears on the left and off screen on low DPI monitors
+' in high DPI mode, the prefs should be no bigger than the maximum height of the screen
+
 
 ' switching between high low DPI - remaining issues?
 
