@@ -101,6 +101,13 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'---------------------------------------------------------------------------------------
+' Module    : frmMessage
+' Author    : beededea
+' Date      : 20/11/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+
 '@IgnoreModule IntegerDataType, ModuleWithoutFolder
 ' .74 DAEB 22/05/2022 rDIConConfig.frm Msgbox replacement that can be placed on top of the form instead as the middle of the screen STARTS
 Option Explicit
@@ -111,7 +118,6 @@ Private formShowAgainChkBox As Boolean
 
 'Private lastFormHeight As Long
 
-Private msgBoxADynamicSizingFlg As Boolean
 Private Const cMsgBoxAFormHeight As Long = 2565
 Private Const cMsgBoxAFormWidth  As Long = 11055
 
@@ -122,7 +128,99 @@ Private mPropShowAgainChkBox As Boolean
 Private mPropButtonVal As Integer
 Private mPropReturnedValue As Integer
 
+'---------------------------------------------------------------------------------------
+' Procedure : Form_Load
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Sub Form_Load()
+    Dim Ctrl As Control
 
+    On Error GoTo Form_Load_Error
+
+    mintLabelHeight = lblMessage.Height
+    
+
+    msgBoxACurrentWidth = cMsgBoxAFormWidth
+    msgBoxACurrentHeight = cMsgBoxAFormHeight
+    
+    'If PzGDpiAwareness = "1" Then
+        ' save the initial positions of ALL the controls on the msgbox form
+        Call SaveSizes(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight)
+    'End If
+        
+    ' .TBD DAEB 05/05/2021 frmMessage.frm Added the font mod. here instead of within the changeFont tool
+    '                       as each instance of the form is new, the font modification must be here.
+    For Each Ctrl In Me.Controls
+         If (TypeOf Ctrl Is CommandButton) Or (TypeOf Ctrl Is textBox) Or (TypeOf Ctrl Is FileListBox) Or (TypeOf Ctrl Is Label) Or (TypeOf Ctrl Is ComboBox) Or (TypeOf Ctrl Is CheckBox) Or (TypeOf Ctrl Is OptionButton) Or (TypeOf Ctrl Is Frame) Or (TypeOf Ctrl Is ListBox) Then
+            If PzGPrefsFont <> "" Then Ctrl.Font.Name = PzGPrefsFont
+           
+            If PzGDpiAwareness = "1" Then
+                If Val(Abs(PzGPrefsFontSizeHighDPI)) > 0 Then Ctrl.Font.Size = Val(Abs(PzGPrefsFontSizeHighDPI))
+            Else
+                If Val(Abs(PzGPrefsFontSizeLowDPI)) > 0 Then Ctrl.Font.Size = Val(Abs(PzGPrefsFontSizeLowDPI))
+            End If
+            'Ctrl.Font.Italic = CBool(SDSuppliedFontItalics) TBD
+           'If suppliedStyle <> "" Then Ctrl.Font.Style = suppliedStyle
+        End If
+    Next
+
+    chkShowAgain.Visible = False
+
+   On Error GoTo 0
+   Exit Sub
+
+Form_Load_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Form_Load of Form frmMessage"
+    
+End Sub
+
+'---------------------------------------------------------------------------------------
+' Property : Form_Resize
+' Author    : beededea
+' Date      : 23/09/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Sub Form_Resize()
+    Dim currentFont As Long: currentFont = 0
+    Dim ratio As Double: ratio = 0
+    
+    On Error GoTo Form_Resize_Error
+    
+    If Me.WindowState = vbMinimized Then Exit Sub
+
+    ratio = cMsgBoxAFormHeight / cMsgBoxAFormWidth
+    If PzGDpiAwareness = "1" Then
+        currentFont = Val(PzGPrefsFontSizeHighDPI)
+    Else
+        currentFont = Val(PzGPrefsFontSizeLowDPI)
+    End If
+    
+    If msgBoxADynamicSizingFlg = True Then
+        Call setMessageIconImagesLight(1920)
+        Call resizeControls(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight, currentFont)
+        Me.Width = Me.Height / ratio ' maintain the aspect ratio
+    Else
+        Call setMessageIconImagesLight(600)
+    End If
+
+''    If panzerPrefs.mnuDark.Checked = True Then
+''        Call setMessageIconImagesDark(determineIconWidth(Me, msgBoxADynamicSizingFlg))
+''    Else
+'        Call setMessageIconImagesLight(1920)
+''    End If
+    
+   On Error GoTo 0
+   Exit Sub
+
+Form_Resize_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Form_Resize of Form frmMessage"
+End Sub
 
 '---------------------------------------------------------------------------------------
 ' Property : btnButtonTwo_Click
@@ -209,12 +307,12 @@ End Sub
 
 
 
-' property to allow a message to be passed to the form
+'
 '---------------------------------------------------------------------------------------
 ' Property  : propMessage
 ' Author    : beededea
 ' Date      : 23/09/2023
-' Purpose   :
+' Purpose   : property to allow a message to be passed to the form
 '---------------------------------------------------------------------------------------
 '
 Public Property Let propMessage(ByVal newValue As String)
@@ -231,18 +329,22 @@ Public Property Let propMessage(ByVal newValue As String)
       
     intDiff = lblMessage.Height - mintLabelHeight
     
-    If PzGDpiAwareness = "1" Then
+    If msgBoxADynamicSizingFlg = True Then
         Me.Height = 4000
         Me.Height = Me.Height + intDiff
+        fraPicVB.Top = fraPicVB.Top - 100 '+ (intDiff / 2)
+        chkShowAgain.Top = chkShowAgain.Top + intDiff
+        btnButtonOne.Top = btnButtonOne.Top + intDiff
+        btnButtonTwo.Top = btnButtonTwo.Top + intDiff
     Else
-        Me.Height = Me.Height + intDiff
+        'Me.Height = 1565
+        'Me.Width = cMsgBoxAFormWidth
+        'Me.Height = Me.Height + intDiff
     End If
 
-    fraPicVB.Top = fraPicVB.Top - 100 '+ (intDiff / 2)
+    
         
-    chkShowAgain.Top = chkShowAgain.Top + intDiff
-    btnButtonOne.Top = btnButtonOne.Top + intDiff
-    btnButtonTwo.Top = btnButtonTwo.Top + intDiff
+
 
    On Error GoTo 0
    Exit Property
@@ -286,7 +388,7 @@ Public Property Let propTitle(ByVal newValue As String)
     If mPropTitle <> newValue Then mPropTitle = newValue Else Exit Property
 
     If mPropTitle = "" Then
-        Me.Caption = "Generic Title"
+        Me.Caption = "Panzer Clock Message."
     Else
         Me.Caption = mPropTitle
     End If
@@ -458,14 +560,11 @@ Public Property Let propButtonVal(ByVal newValue As Integer)
     
     btnButtonOne.Visible = False
     btnButtonTwo.Visible = False
-    'btnButtonThree.Visible = false
 
     picVBInformation.Visible = False
     picVBCritical.Visible = False
     picVBExclamation.Visible = False
     picVBQuestion.Visible = False
-
-    'btnButtonOne.Left = 3885
     
     If mPropButtonVal = 0 Then ' vbInformation
        picVBInformation.Visible = True
@@ -494,7 +593,6 @@ Public Property Let propButtonVal(ByVal newValue As Integer)
             PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
         End If
     End If
-
 
     If mPropButtonVal = 0 Then '    vbOKOnly 0
         picVBInformation.Visible = True
@@ -542,20 +640,7 @@ Public Property Let propButtonVal(ByVal newValue As Integer)
         btnButtonTwo.Caption = "Cancel"
         picVBQuestion.Visible = True
     End If
-'    If mPropButtonVal = 6 Then '    vbYes 6
-'        'btnButtonOne.Visible = True
-'        btnButtonTwo.Visible = True
-'        btnButtonOne.Caption = ""
-'        btnButtonTwo.Caption = "Yes"
-'        picVBQuestion.Visible = True
-'    End If
-'    If mPropButtonVal = 7 Then '    vbNo 7
-'        'btnButtonOne.Visible = True
-'        btnButtonTwo.Visible = True
-'        btnButtonOne.Caption = ""
-'        btnButtonTwo.Caption = "No"
-'        picVBQuestion.Visible = True
-'    End If
+
 
    On Error GoTo 0
    Exit Property
@@ -568,99 +653,6 @@ End Property
 
 
 
-
-'---------------------------------------------------------------------------------------
-' Procedure : Form_Load
-' Author    : beededea
-' Date      : 23/09/2023
-' Purpose   :
-'---------------------------------------------------------------------------------------
-'
-Private Sub Form_Load()
-
-    Dim Ctrl As Control
-
-    On Error GoTo Form_Load_Error
-
-    mintLabelHeight = lblMessage.Height
-    
-    If PzGDpiAwareness = "1" Then
-        msgBoxADynamicSizingFlg = True
-    End If
-    
-    msgBoxACurrentWidth = cMsgBoxAFormWidth
-    msgBoxACurrentHeight = cMsgBoxAFormHeight
-    
-    'If PzGDpiAwareness = "1" Then
-        ' save the initial positions of ALL the controls on the msgbox form
-        Call SaveSizes(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight)
-    'End If
-        
-    ' .TBD DAEB 05/05/2021 frmMessage.frm Added the font mod. here instead of within the changeFont tool
-    '                       as each instance of the form is new, the font modification must be here.
-    For Each Ctrl In Me.Controls
-         If (TypeOf Ctrl Is CommandButton) Or (TypeOf Ctrl Is textBox) Or (TypeOf Ctrl Is FileListBox) Or (TypeOf Ctrl Is Label) Or (TypeOf Ctrl Is ComboBox) Or (TypeOf Ctrl Is CheckBox) Or (TypeOf Ctrl Is OptionButton) Or (TypeOf Ctrl Is Frame) Or (TypeOf Ctrl Is ListBox) Then
-            If PzGPrefsFont <> "" Then Ctrl.Font.Name = PzGPrefsFont
-           
-            If PzGDpiAwareness = "1" Then
-                If Val(Abs(PzGPrefsFontSizeHighDPI)) > 0 Then Ctrl.Font.Size = Val(Abs(PzGPrefsFontSizeHighDPI))
-            Else
-                If Val(Abs(PzGPrefsFontSizeLowDPI)) > 0 Then Ctrl.Font.Size = Val(Abs(PzGPrefsFontSizeLowDPI))
-            End If
-            'Ctrl.Font.Italic = CBool(SDSuppliedFontItalics) TBD
-           'If suppliedStyle <> "" Then Ctrl.Font.Style = suppliedStyle
-        End If
-    Next
-
-    chkShowAgain.Visible = False
-
-   On Error GoTo 0
-   Exit Sub
-
-Form_Load_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Form_Load of Form frmMessage"
-    
-End Sub
-
-'---------------------------------------------------------------------------------------
-' Property : Form_Resize
-' Author    : beededea
-' Date      : 23/09/2023
-' Purpose   :
-'---------------------------------------------------------------------------------------
-'
-Private Sub Form_Resize()
-    Dim currentFont As Long: currentFont = 0
-    Dim ratio As Double: ratio = 0
-    
-    On Error GoTo Form_Resize_Error
-    
-    If Me.WindowState = vbMinimized Then Exit Sub
-
-    ratio = cMsgBoxAFormHeight / cMsgBoxAFormWidth
-    If PzGDpiAwareness = "1" Then
-        currentFont = Val(PzGPrefsFontSizeHighDPI)
-    Else
-        currentFont = Val(PzGPrefsFontSizeLowDPI)
-    End If
-    
-    If msgBoxADynamicSizingFlg = True Then
-
-        Call resizeControls(Me, msgBoxAControlPositions(), msgBoxACurrentWidth, msgBoxACurrentHeight, currentFont)
-        Call loadHigherResMessageImages
-        
-        Me.Width = Me.Height / ratio ' maintain the aspect ratio
-
-    End If
-    
-   On Error GoTo 0
-   Exit Sub
-
-Form_Resize_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Form_Resize of Form frmMessage"
-End Sub
 
 
 '---------------------------------------------------------------------------------------

@@ -113,9 +113,9 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' check first usage via licence acceptance value and then set initial DPI awareness
     licenceState = fLicenceState()
     If licenceState = 0 Then
-        Call setInitialDPIAwareness ' determine High DPI awareness or not by default
+        Call testDPIAndSetInitialAwareness ' determine High DPI awareness or not by default on first run
     Else
-        Call setDPIaware ' enable high DPI awareness for this program and all its forms
+        Call setDPIaware ' determine the user settings for DPI awareness, for this program and all its forms.
     End If
 
     'load the collection for storing the overlay surfaces with its relevant keys direct from the PSD
@@ -179,28 +179,6 @@ main_routine_Error:
     
 End Sub
  
-'---------------------------------------------------------------------------------------
-' Procedure : setDPIaware
-' Author    : beededea
-' Date      : 29/10/2023
-' Purpose   :
-'---------------------------------------------------------------------------------------
-'
-Public Sub setDPIaware()
-    On Error GoTo setDPIaware_Error
-
-    If PzGDpiAwareness = "1" Then
-        If Not InIDE Then Cairo.SetDPIAwareness ' this way avoids the VB6 IDE shrinking (sadly, VB6 has a high DPI unaware IDE)
-        'Cairo.SetDPIAwareness ' this sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
-    End If
-
-    On Error GoTo 0
-    Exit Sub
-
-setDPIaware_Error:
-
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure setDPIaware of Module modMain"
-End Sub
 '---------------------------------------------------------------------------------------
 ' Procedure : checkFirstTime
 ' Author    : beededea
@@ -993,7 +971,7 @@ Public Function msgBoxA(ByVal msgBoxPrompt As String, Optional ByVal msgButton A
     frmMessage.propShowAgainChkBox = msgShowAgainChkBox
     frmMessage.propButtonVal = msgButton
     frmMessage.propMsgContext = msgContext
-    frmMessage.Display ' run a subroutine in the form that displays the form
+    Call frmMessage.Display ' run a subroutine in the form that displays the form
 
     msgBoxA = frmMessage.propReturnedValue
 

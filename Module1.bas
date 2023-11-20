@@ -430,6 +430,9 @@ Private mbDebugMode As Boolean ' .30 DAEB 03/03/2021 frmMain.frm replaced the in
 Public tzDelta As Long
 Public tzDelta1 As Long
 
+Public msgBoxADynamicSizingFlg As Boolean
+
+
 '---------------------------------------------------------------------------------------
 ' Procedure : fFExists
 ' Author    : RobDog888 https://www.vbforums.com/member.php?17511-RobDog888
@@ -695,28 +698,57 @@ showLicence_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure showLicence of Form common"
 
 End Sub
+    
+    
+    
+
+'---------------------------------------------------------------------------------------
+' Procedure : setDPIaware
+' Author    : beededea
+' Date      : 29/10/2023
+' Purpose   : This sets DPI awareness for the whole program incl. native VB6 forms, requires a program hard restart.
+'---------------------------------------------------------------------------------------
+'
+Public Sub setDPIaware()
+    On Error GoTo setDPIaware_Error
+
+    If PzGDpiAwareness = "1" Then
+        If Not InIDE Then
+            Cairo.SetDPIAwareness ' this way avoids the VB6 IDE shrinking (sadly, VB6 has a high DPI unaware IDE)
+            msgBoxADynamicSizingFlg = True
+        End If
+    End If
+
+    On Error GoTo 0
+    Exit Sub
+
+setDPIaware_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure setDPIaware of Module modMain"
+End Sub
 
 
 '---------------------------------------------------------------------------------------
-' Procedure : setInitialDPIAwareness
+' Procedure : testDPIAndSetInitialAwareness
 ' Author    : beededea
 ' Date      : 29/10/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Sub setInitialDPIAwareness()
-    On Error GoTo setInitialDPIAwareness_Error
+Public Sub testDPIAndSetInitialAwareness()
+    On Error GoTo testDPIAndSetInitialAwareness_Error
 
     If fPixelsPerInchX() > 96 Then ' only DPI aware by default when greater than 'standard'
+        PzGDpiAwareness = "1"
         Call setDPIaware
     End If
 
     On Error GoTo 0
     Exit Sub
 
-setInitialDPIAwareness_Error:
+testDPIAndSetInitialAwareness_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure setInitialDPIAwareness of Module Module1"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure testDPIAndSetInitialAwareness of Module Module1"
 End Sub
 
 '---------------------------------------------------------------------------------------
