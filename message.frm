@@ -22,10 +22,10 @@ Begin VB.Form frmMessage
       Begin VB.Frame fraPicVB 
          BackColor       =   &H00FFFFFF&
          BorderStyle     =   0  'None
-         Height          =   1410
+         Height          =   1440
          Left            =   195
          TabIndex        =   4
-         Top             =   30
+         Top             =   75
          Width           =   735
          Begin VB.Image picVBInformation 
             Appearance      =   0  'Flat
@@ -332,20 +332,13 @@ Public Property Let propMessage(ByVal newValue As String)
     If msgBoxADynamicSizingFlg = True Then
         Me.Height = 4000
         Me.Height = Me.Height + intDiff
-        fraPicVB.Top = fraPicVB.Top - 100 '+ (intDiff / 2)
         chkShowAgain.Top = chkShowAgain.Top + intDiff
         btnButtonOne.Top = btnButtonOne.Top + intDiff
         btnButtonTwo.Top = btnButtonTwo.Top + intDiff
     Else
-        'Me.Height = 1565
-        'Me.Width = cMsgBoxAFormWidth
-        'Me.Height = Me.Height + intDiff
+        fraPicVB.Top = 285
     End If
-
-    
-        
-
-
+   
    On Error GoTo 0
    Exit Property
 
