@@ -2195,7 +2195,7 @@ Private Sub Form_Load()
         If prefsFormHeight < screenHeightTwips Then
             Me.Height = prefsFormHeight
         Else
-            Me.Height = screenHeightTwips - 500
+            Me.Height = screenHeightTwips - 1000
         End If
     End If
     
