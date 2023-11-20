@@ -169,6 +169,7 @@ End Sub
 Private Sub btnAccept_Click()
     Dim answer As VbMsgBoxResult: answer = vbNo
     Dim fileToPlay As String: fileToPlay = vbNullString
+    Dim slicence As String: slicence = "0"
     
     On Error GoTo btnAccept_Click_Error
     
@@ -178,6 +179,9 @@ Private Sub btnAccept_Click()
     End If
 
     answer = msgBoxA("User accepted licence, thankyou.", vbOKOnly, "Licence Acceptance", True, "btnAcceptClick")
+    
+    slicence = "1"
+    sPutINISetting "Software\PzJustClock", "licence", slicence, PzGSettingsFile
     
     licenceWidget.ShowMe = False
     licenceWidget.opacity = 0
@@ -203,12 +207,15 @@ End Sub
 Private Sub btnDecline_Click()
     
     Dim answer As VbMsgBoxResult: answer = vbNo
-    'Dim answerMsg As String: answerMsg = vbNullString
+    Dim slicence As String: slicence = "0"
         
     On Error GoTo btnDecline_Click_Error
 
     'answer = MsgBox("Licence declined, please destroy your copy of this widget and its documentation.", vbYes)
     answer = msgBoxA("Licence declined, please destroy your copy of this widget and its documentation. This widget will now unload.", vbOKOnly, "Licence Declined", False)
+    
+    slicence = "0"
+    sPutINISetting "Software\PzJustClock", "licence", slicence, PzGSettingsFile
 
     Call thisForm_Unload
 

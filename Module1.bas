@@ -659,7 +659,7 @@ Public Function fLicenceState() As Integer
     fLicenceState = 0
     ' read the tool's own settings file
     If fFExists(PzGSettingsFile) Then ' does the tool's own settings.ini exist?
-        slicence = fGetINISetting("Software\PzJustClock", "Licence", PzGSettingsFile)
+        slicence = fGetINISetting("Software\PzJustClock", "licence", PzGSettingsFile)
         ' if the licence state is not already accepted then display the licence form
         If slicence = "1" Then fLicenceState = 1
     End If

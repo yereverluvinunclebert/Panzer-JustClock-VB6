@@ -215,12 +215,10 @@
 
 ' add property GETS to property LETS in frmMessages - done
 ' synch the .js YWE version of this program - functionality only - done
-
-
+' missing icon images in pop-ups when in low DPI mode - done
 
 ' -oOo-
 
-' missing icon images in pop-ups when in low DPI mode
 ' very big messageboxes when high DPI on low DPI monitors
 ' the prefs are very big when high DPI selected on low DPI monitors
 
