@@ -136,7 +136,8 @@ Private Sub btnButtonTwo_Click()
 
     If formShowAgainChkBox = True Then SaveSetting App.EXEName, "Options", "Show message" & formMsgContext, chkShowAgain.Value
     yesNoReturnValue = 7
-    Unload Me
+    Me.Hide
+    'Unload Me
 
    On Error GoTo 0
    Exit Sub
@@ -159,7 +160,8 @@ Private Sub btnButtonOne_Click()
     Me.Visible = False
     If formShowAgainChkBox = True Then SaveSetting App.EXEName, "Options", "Show message" & formMsgContext, chkShowAgain.Value
     yesNoReturnValue = 6
-    Unload Me
+    Me.Hide
+    'Unload Me
 
    On Error GoTo 0
    Exit Sub
@@ -231,11 +233,11 @@ Public Property Let propMessage(ByVal newValue As String)
     
     If PzGDpiAwareness = "1" Then
         Me.Height = 4000
+        Me.Height = Me.Height + intDiff
     Else
         Me.Height = Me.Height + intDiff
     End If
 
-    fraMessage.Height = fraMessage.Height + intDiff
     fraPicVB.Top = fraPicVB.Top - 100 '+ (intDiff / 2)
         
     chkShowAgain.Top = chkShowAgain.Top + intDiff
@@ -284,7 +286,7 @@ Public Property Let propTitle(ByVal newValue As String)
     If mPropTitle <> newValue Then mPropTitle = newValue Else Exit Property
 
     If mPropTitle = "" Then
-        Me.Caption = "SteamyDock Icon Enhanced Settings"
+        Me.Caption = "Generic Title"
     Else
         Me.Caption = mPropTitle
     End If
@@ -463,7 +465,7 @@ Public Property Let propButtonVal(ByVal newValue As Integer)
     picVBExclamation.Visible = False
     picVBQuestion.Visible = False
 
-    btnButtonOne.Left = 3885
+    'btnButtonOne.Left = 3885
     
     If mPropButtonVal = 0 Then ' vbInformation
        picVBInformation.Visible = True

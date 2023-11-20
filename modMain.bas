@@ -157,6 +157,9 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     'load the preferences form but don't yet show it, speeds up access to the prefs via the menu
     Load panzerPrefs
     
+    'load the preferences form but don't yet show it, speeds up access to the prefs via the menu
+    Load frmMessage
+    
     ' make the prefs appear on the first time running
     Call checkFirstTime
  
