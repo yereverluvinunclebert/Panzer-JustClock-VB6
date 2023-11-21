@@ -330,7 +330,9 @@ Public Property Let propMessage(ByVal newValue As String)
     intDiff = lblMessage.Height - mintLabelHeight
     
     If msgBoxADynamicSizingFlg = True Then
-        Me.Height = 3000
+
+        Me.Height = screenHeightTwips / 7
+        
         Me.Height = Me.Height + intDiff
         chkShowAgain.Top = chkShowAgain.Top + intDiff
         btnButtonOne.Top = btnButtonOne.Top + intDiff
