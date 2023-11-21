@@ -3,15 +3,15 @@ Object = "{BCE37951-37DF-4D69-A8A3-2CFABEE7B3CC}#1.0#0"; "CCRSlider.ocx"
 Begin VB.Form panzerPrefs 
    AutoRedraw      =   -1  'True
    Caption         =   "Panzer JustClock Preferences"
-   ClientHeight    =   10470
+   ClientHeight    =   10545
    ClientLeft      =   60
    ClientTop       =   510
-   ClientWidth     =   8955
+   ClientWidth     =   8880
    Icon            =   "frmPrefs.frx":0000
    LinkTopic       =   "Form2"
-   ScaleHeight     =   10617.47
+   ScaleHeight     =   10693.53
    ScaleMode       =   0  'User
-   ScaleWidth      =   8955
+   ScaleWidth      =   8880
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
    Begin VB.Frame fraPosition 
@@ -1801,10 +1801,10 @@ Begin VB.Form panzerPrefs
          Strikethrough   =   0   'False
       EndProperty
       Height          =   165
-      Left            =   8745
+      Left            =   8670
       TabIndex        =   163
       ToolTipText     =   "drag me"
-      Top             =   10410
+      Top             =   10335
       Visible         =   0   'False
       Width           =   345
    End

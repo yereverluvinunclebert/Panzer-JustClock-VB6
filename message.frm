@@ -331,7 +331,7 @@ Public Property Let propMessage(ByVal newValue As String)
     
     If msgBoxADynamicSizingFlg = True Then
 
-        Me.Height = screenHeightTwips / 7
+        Me.Height = screenHeightTwips / 6.5
         
         Me.Height = Me.Height + intDiff
         chkShowAgain.Top = chkShowAgain.Top + intDiff

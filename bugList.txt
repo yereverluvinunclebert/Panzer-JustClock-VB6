@@ -216,22 +216,26 @@
 ' add property GETS to property LETS in frmMessages - done
 ' synch the .js YWE version of this program - functionality only - done
 ' missing icon images in pop-ups when in low DPI mode - done
+' very big messageboxes when high DPI on low DPI monitors - done
+' the prefs are very big when high DPI selected on low DPI monitors - done
+' in high DPI mode, the prefs should be no bigger than the maximum height of the screen - done
+' locking dock from the menu is linked to the prefs check box and vice versa - done
+' edit VBP option msgbox, extra params remove to stop mismatch error - done
 
 ' -oOo-
 
-' very big messageboxes when high DPI on low DPI monitors
-' the prefs are very big when high DPI selected on low DPI monitors
+' test with slicence = 0, compiled DPI and otherwise
 ' licence form appears on the left and off screen on low DPI monitors
-' in high DPI mode, the prefs should be no bigger than the maximum height of the screen
-
-
 ' switching between high low DPI - remaining issues?
 
-' synch. to E6410 and compile - wip
-' test on E6410 win 7 low DPI - wip
-' test on E6410 win 7 low DPI with licence = 0
+' push CHM manually.
+' create new CHM
+
+' synch. to E6410 and compile - done
+' test on E6410 win 7 low DPI - done
+' test on E6410 win 7 low DPI with slicence = 0
 ' test on E6410 win 7 low DPI with no user settings
-' test on Dell win 11 high DPI with licence = 0
+' test on Dell win 11 high DPI with slicence = 0
 
 ' https://classicvb.net/samples/HookXP/   CHookMouseEvents.cls
 '    This class provides the mysterious MouseEnter, MouseHover, and MouseLeave events, as well as a few bonus features like when the user clicks the
@@ -241,8 +245,7 @@
 
 ' NOTE: hookXP already downloaded.
 
-' push CHM manually, document the process.
-' create new CHM
+
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
