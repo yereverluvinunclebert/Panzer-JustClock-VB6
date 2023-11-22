@@ -126,12 +126,12 @@ Public Sub mainRoutine(ByVal restart As Boolean)
 
     ' initialise and create the main forms on the current display
     Call createStandardFormsOnCurrentDisplay
-            
-    ' display licence screen on first usage
-    Call showLicence(fLicenceState)
     
     ' resolve VB6 sizing width bug
     Call determineScreenDimensions
+            
+    ' display licence screen on first usage
+    Call showLicence(fLicenceState)
     
     ' check the selected monitor properties
     Call monitorProperties(fAlpha.gaugeForm)  ' might use RC6 for this?
