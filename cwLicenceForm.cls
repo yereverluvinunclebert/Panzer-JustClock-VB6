@@ -343,13 +343,34 @@ End Sub
 '
 Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Single)
    
-    'Dim scaleValue As Double: scaleValue = 0.8
     Dim currentOpacity As Double: currentOpacity = 0
     
     On Error GoTo Draw_Error
 
-    'If PzGDpiAwareness = "1" Then scaleValue = 1.5
-
+    'set some Font- and ForeColor-Properties and draw some Text on the Widget
+    W.FontItalic = False
+    W.FontName = "Arial"
+    W.ForeColor = &H8000000F
+    W.FontSize = 10
+    W.SelectFontSettingsInto CC
+   
+    CC.DrawText 48, -235, dx, dy, "Licence Agreement " & widgetName, , , 2, True, , 1
+    'CC.DrawText 30, -200, dx, dy, "Licence Agreement " & widgetName, , , 2, True, , 1
+    
+'    W.FontSize = 9
+'    W.SelectFontSettingsInto CC
+''
+'    CC.DrawText 48, 83, dx, dy, "If you do not agree with the terms set forth above, please click the ", , , 2, True, , 1
+'    CC.DrawText 48, 93, dx, dy, "Decline button below and destroy this widget and its documentation ", , , 2, True, , 1
+'    CC.DrawText 38, 13, dx, dy, "If you do not agree with the terms set forth above, please click the ", , , 2, True, , 1
+'    CC.DrawText 38, 23, dx, dy, "Decline button below and destroy this widget and its documentation ", , , 2, True, , 1
+    
+'    W.FontSize = 8
+'    W.SelectFontSettingsInto CC
+'
+'    CC.DrawText 240, 50, dx, dy, "Decline", , , 2, True, , 1
+'    CC.DrawText 290, 50, dx, dy, "Accept", , , 2, True, , 1
+'
     CC.ScaleDrawings mZoom, mZoom
     
     If opacityflag = 0 Then
@@ -359,29 +380,14 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
     End If
     
     CC.RenderSurfaceContent "licence", licencexo, licenceyo, , , , currentOpacity
-        
-    'set some Font- and ForeColor-Properties and draw some Text on the Widget
-    W.FontItalic = False
-    W.FontName = "Arial"
-    W.ForeColor = &H8000000F
-    W.FontSize = 8
-    W.SelectFontSettingsInto CC
+
    
-    CC.DrawText 30, -200, dx, dy, "Licence Agreement " & widgetName, , , 2, True, , 1
-    
-    W.FontSize = 7
-    W.SelectFontSettingsInto CC
+'    If PzGDpiAwareness = "0" Then
 '
-    CC.DrawText 38, 13, dx, dy, "If you do not agree with the terms set forth above, please click the ", , , 2, True, , 1
-    CC.DrawText 38, 23, dx, dy, "Decline button below and destroy this widget and its documentation ", , , 2, True, , 1
+'    Else
+'
+'    End If
     
-    W.FontSize = 8
-
-    W.SelectFontSettingsInto CC
-
-    CC.DrawText 240, 50, dx, dy, "Decline", , , 2, True, , 1
-    CC.DrawText 290, 50, dx, dy, "Accept", , , 2, True, , 1
-   
     W.Refresh
     
    On Error GoTo 0

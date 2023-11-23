@@ -38,6 +38,10 @@ Private WithEvents btnDecline As cwButton
 Attribute btnDecline.VB_VarHelpID = -1
 Private WithEvents textBox As cwTextBox
 Attribute textBox.VB_VarHelpID = -1
+Private WithEvents lblDeclineOrNot As cwButton
+Attribute lblDeclineOrNot.VB_VarHelpID = -1
+ 
+
 
 
 
@@ -170,50 +174,6 @@ Public Sub initAndShowHelpForm(ByVal x As Long, ByVal Y As Long, Optional ByVal 
         helpWidget.Zoom = helpWidgetZoomValue
     End If
 
-
-' -oOo-
-    
-'    ' create an invisible form using a Cairo Widget Form with the predefined caption and sizing
-'    Set licenceForm = Cairo.WidgetForms.Create(WFFStyleTool, Caption, True, 580, 490)
-'
-'    ' make the licence form transparent
-'    licenceForm.WidgetRoot.BackColor = -1
-'
-'    ' create a new licence class widget with a name, position and size
-'    Set licenceWidget = licenceForm.Widgets.Add(New cwLicence, "licence", 0, 0, 550, 450)
-'
-'    ' add two RC predefined button controls to the licence form
-'    If PzGDpiAwareness = "1" Then
-'        Set btnDecline = licenceForm.Widgets.Add(New_W("cwButton"), "btnDecline", 352, 397, 70, 29)
-'        Set btnAccept = licenceForm.Widgets.Add(New_W("cwButton"), "btnAccept", 428, 397, 70, 29)
-'        Set textBox = licenceForm.Widgets.Add(New_W("cwTextBox"), "textBox", 50, 60, 440, 280)
-'        textBox.Widget.FontSize = 11
-'    Else
-'        Set btnDecline = licenceForm.Widgets.Add(New_W("cwButton"), "btnDecline", 189, 210, 40, 18)
-'        Set btnAccept = licenceForm.Widgets.Add(New_W("cwButton"), "btnAccept", 228, 210, 40, 18)
-'        Set textBox = licenceForm.Widgets.Add(New_W("cwTextBox"), "textBox", 25, 30, 240, 155)
-'        textBox.Widget.FontSize = 8
-'    End If
-'
-'    btnDecline.Caption = ""
-'    btnDecline.Widget.Alpha = 0.05
-'
-'    btnAccept.Caption = ""
-'    btnAccept.Widget.Alpha = 0.05
-'
-'    textBox.MultiLine = True
-'    textBox.ScrollBars = vbVertical
-'    textBox.Widget.BackColor = &H4000&
-'
-'    textBox.Widget.ForeColor = vbWhite
-'    textBox.Text = widgetName & vbCrLf & vbCrLf & _
-'    "Copyright © 1992-2023 Dean Beedell" & vbCrLf & vbCrLf & _
-'    "This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public Licence as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version." & vbCrLf & vbCrLf & _
-'        "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details." & vbCrLf & vbCrLf & _
-'        "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA" & vbCrLf & vbCrLf & _
-'        "If you use this software in any way whatsoever then that implies acceptance of the licence. If you do not wish to comply with the licence terms then please remove the download, binary and source code from your systems immediately." & vbCrLf & vbCrLf & _
-'        "You may use any of my own imagery in your own creations but commercially only with my permission. In all other non-commercial cases I require a credit to the original artist using my name or one of my pseudonyms and a link to my site. With regard to the commercial use of incorporated images, permission and a licence would need to be obtained from the original owner and creator, ie. me."
-
    On Error GoTo 0
    Exit Sub
 
@@ -247,6 +207,7 @@ Public Sub initAndShowLicenceForm(ByVal x As Long, ByVal Y As Long, Optional ByV
         licenceFormHeight = 550
         If licenceFormWidth > screenWidthPixels Then licenceFormWidth = screenWidthPixels
         If licenceFormHeight > screenHeightPixels Then licenceFormHeight = screenHeightPixels
+        licenceWidgetZoomValue = 0.8
     Else
         licenceFormWidth = 750
         licenceFormHeight = 650
@@ -288,24 +249,35 @@ Public Sub initAndShowLicenceForm(ByVal x As Long, ByVal Y As Long, Optional ByV
         Set btnDecline = licenceForm.Widgets.Add(New_W("cwButton"), "btnDecline", 352, 397, 70, 29)
         Set btnAccept = licenceForm.Widgets.Add(New_W("cwButton"), "btnAccept", 428, 397, 70, 29)
         Set textBox = licenceForm.Widgets.Add(New_W("cwTextBox"), "textBox", 50, 60, 440, 280)
+        Set lblDeclineOrNot = licenceForm.Widgets.Add(New_W("cwButton"), "lblDeclineOrNot", 50, 345, 440, 35)
         textBox.Widget.FontSize = 11
+        btnDecline.Widget.FontSize = 10
+        btnAccept.Widget.FontSize = 10
+        lblDeclineOrNot.Widget.FontSize = 10
     Else
         Set btnDecline = licenceForm.Widgets.Add(New_W("cwButton"), "btnDecline", 189, 210, 40, 18)
         Set btnAccept = licenceForm.Widgets.Add(New_W("cwButton"), "btnAccept", 228, 210, 40, 18)
         Set textBox = licenceForm.Widgets.Add(New_W("cwTextBox"), "textBox", 25, 30, 240, 155)
+        Set lblDeclineOrNot = licenceForm.Widgets.Add(New_W("cwButton"), "lblDeclineOrNot", 25, 188, 240, 20)
         textBox.Widget.FontSize = 8
+        btnDecline.Widget.FontSize = 7
+        btnAccept.Widget.FontSize = 7
+        lblDeclineOrNot.Widget.FontSize = 6
     End If
     
-    btnDecline.Caption = ""
+    btnDecline.Caption = "Decline"
+    btnDecline.Widget.ForeColor = vbWhite
     btnDecline.Widget.Alpha = 0.05
-
-    btnAccept.Caption = ""
+    btnDecline.Widget.ToolTip = "Press this button to decline the terms of the GPL licence."
+    
+    btnAccept.Caption = "Accept"
+    btnAccept.Widget.ForeColor = vbWhite
     btnAccept.Widget.Alpha = 0.05
+    btnAccept.Widget.ToolTip = "Press this button to accept the terms of the GPL licence."
     
     textBox.MultiLine = True
     textBox.ScrollBars = vbVertical
     textBox.Widget.BackColor = &H4000&
-    
     textBox.Widget.ForeColor = vbWhite
     textBox.Text = widgetName & vbCrLf & vbCrLf & _
     "Copyright © 1992-2023 Dean Beedell" & vbCrLf & vbCrLf & _
@@ -315,6 +287,10 @@ Public Sub initAndShowLicenceForm(ByVal x As Long, ByVal Y As Long, Optional ByV
         "If you use this software in any way whatsoever then that implies acceptance of the licence. If you do not wish to comply with the licence terms then please remove the download, binary and source code from your systems immediately." & vbCrLf & vbCrLf & _
         "You may use any of my own imagery in your own creations but commercially only with my permission. In all other non-commercial cases I require a credit to the original artist using my name or one of my pseudonyms and a link to my site. With regard to the commercial use of incorporated images, permission and a licence would need to be obtained from the original owner and creator, ie. me."
 
+    lblDeclineOrNot.BorderRadius = 0
+    lblDeclineOrNot.Caption = "If you do not agree with the terms set forth above, please click the " & _
+        "Decline button below and destroy this widget and its documentation"
+        
    On Error GoTo 0
    Exit Sub
 

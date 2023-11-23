@@ -165,6 +165,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
  
     ' configure any global timers here
     Call configureTimers
+    
+    Call mnuLicence_ClickEvent
         
     ' RC message pump will auto-exit when Cairo Forms > 0 so we run it only when 0, this prevents message interruption
     ' when running twice on reload.
