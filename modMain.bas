@@ -817,8 +817,17 @@ Private Sub createStandardFormsOnCurrentDisplay()
     On Error GoTo createStandardFormsOnCurrentDisplay_Error
 
     With New_c.Displays(1) 'get the current Display
-      fMain.initAndShowStandardForms .WorkLeft, .WorkTop, 1000, 1000, widgetName
+      Call fMain.initAndShowAboutForm(.WorkLeft, .WorkTop, 1000, 1000, widgetName)
     End With
+    
+    With New_c.Displays(1) 'get the current Display
+      Call fMain.initAndShowHelpForm(.WorkLeft, .WorkTop, 1000, 1000, widgetName)
+    End With
+
+    With New_c.Displays(1) 'get the current Display
+      Call fMain.initAndShowLicenceForm(.WorkLeft, .WorkTop, 1000, 1000, widgetName)
+    End With
+    
 
     On Error GoTo 0
     Exit Sub

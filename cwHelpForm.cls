@@ -33,9 +33,12 @@ Private helpyo As Integer
 
 Private mOpacity As Double
 Private mShow As Boolean
+Private mZoom As Double
+
 
 'property opacity is a property that populates mOpacity used by RenderSurfaceContent
 'property show is a property that populates mShow that triggers a fade in timer
+'property mZoom
 
 '---------------------------------------------------------------------------------------
 ' Procedure : Class_Initialize
@@ -68,6 +71,46 @@ End Sub
 
 Public Property Get Widget() As cWidgetBase: Set Widget = W: End Property
 Public Property Get Widgets() As cWidgets:  Set Widgets = W.Widgets: End Property ' does this really need to be exposed?
+'---------------------------------------------------------------------------------------
+' Procedure : Zoom
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get Zoom() As Double
+   On Error GoTo ZoomGet_Error
+
+    Zoom = mZoom
+
+   On Error GoTo 0
+   Exit Property
+
+ZoomGet_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Zoom of Class Module cwhelp"
+End Property
+'---------------------------------------------------------------------------------------
+' Procedure : Zoom
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Let Zoom(ByVal newValue As Double)
+   On Error GoTo ZoomLet_Error
+
+  If mZoom <> newValue Then mZoom = newValue Else Exit Property
+  If mZoom > 3 Then mZoom = 3 Else If mZoom < 0.05 Then mZoom = 0.05
+  W.Refresh
+
+   On Error GoTo 0
+   Exit Property
+
+ZoomLet_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Zoom of Class Module cwhelp"
+End Property
 '---------------------------------------------------------------------------------------
 ' Procedure : W_MouseDown
 ' Author    : beededea
@@ -262,13 +305,13 @@ End Sub
 '
 Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Single, ByVal mOpacity As Double)
    
-    Dim scaleValue As Double: scaleValue = 0.8
+   ' Dim scaleValue As Double: scaleValue = 0.8
     
     On Error GoTo Draw_Error
 
-    If PzGDpiAwareness = "1" Then scaleValue = 1.4
+    'If PzGDpiAwareness = "1" Then scaleValue = 1.4
 
-    CC.ScaleDrawings scaleValue, scaleValue
+    CC.ScaleDrawings mZoom, mZoom
 
     CC.RenderSurfaceContent "help", helpxo, helpyo, , , , mOpacity
         

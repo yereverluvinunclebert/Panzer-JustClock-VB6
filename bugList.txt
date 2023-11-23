@@ -229,18 +229,21 @@
 
 ' -oOo-
 
+' msgbox not accepting yes or no.
 ' test with slicence = 0, compiled DPI and otherwise - wip
 ' switching between high low DPI - remaining issues? - wip
 ' check the other msgboxA to see which others have problems at low/high DPI - wip
 ' user licence accepted in low DPI
-' about screen is massive in high DPI mode on low DPI screen
+' about screen is massive in high DPI mode on low DPI screen, add widget.zoom - wip
 ' one-page help screen is massive in high DPI mode on low DPI screen
-' widget.zoom
 
+' widget gauge sizing incorrect after DPI change and restore
 
 ' test on E6410 win 7 low DPI with slicence = 0
 ' test on E6410 win 7 low DPI with no user settings
 ' test on Dell win 11 high DPI with slicence = 0
+
+' licence text loaded from file
 
 ' https://classicvb.net/samples/HookXP/   CHookMouseEvents.cls
 '    This class provides the mysterious MouseEnter, MouseHover, and MouseLeave events, as well as a few bonus features like when the user clicks the

@@ -33,8 +33,8 @@ Private licenceyo As Integer
 
 Private mOpacity As Double
 Private mShowMe As Boolean
-
 Private opacityflag As Integer ' needs this var as it appears there is a bug in RC that causes the widget to lose opacity
+Private mZoom As Double
 
 
 
@@ -106,6 +106,47 @@ Widgets_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Widgets of Class Module cwOverlay"
 End Property
+'---------------------------------------------------------------------------------------
+' Procedure : Zoom
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get Zoom() As Double
+   On Error GoTo ZoomGet_Error
+
+    Zoom = mZoom
+
+   On Error GoTo 0
+   Exit Property
+
+ZoomGet_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Zoom of Class Module cwhelp"
+End Property
+'---------------------------------------------------------------------------------------
+' Procedure : Zoom
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Let Zoom(ByVal newValue As Double)
+   On Error GoTo ZoomLet_Error
+
+  If mZoom <> newValue Then mZoom = newValue Else Exit Property
+  If mZoom > 3 Then mZoom = 3 Else If mZoom < 0.05 Then mZoom = 0.05
+  W.Refresh
+
+   On Error GoTo 0
+   Exit Property
+
+ZoomLet_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Zoom of Class Module cwhelp"
+End Property
+
 '---------------------------------------------------------------------------------------
 ' Procedure : W_MouseMove
 ' Author    : beededea
@@ -302,15 +343,15 @@ End Sub
 '
 Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Single)
    
-    Dim scaleValue As Double: scaleValue = 0.8
+    'Dim scaleValue As Double: scaleValue = 0.8
     Dim currentOpacity As Double: currentOpacity = 0
     
     On Error GoTo Draw_Error
 
-    If PzGDpiAwareness = "1" Then scaleValue = 1.5
+    'If PzGDpiAwareness = "1" Then scaleValue = 1.5
 
-    CC.ScaleDrawings scaleValue, scaleValue
-
+    CC.ScaleDrawings mZoom, mZoom
+    
     If opacityflag = 0 Then
         currentOpacity = mOpacity
     Else
