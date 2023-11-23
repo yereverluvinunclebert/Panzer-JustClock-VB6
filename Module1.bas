@@ -711,13 +711,17 @@ End Sub
 '
 Public Sub setDPIaware()
     On Error GoTo setDPIaware_Error
-
+    
+'    Cairo.SetDPIAwareness ' for debugging
+'    msgBoxADynamicSizingFlg = True
+    
     If PzGDpiAwareness = "1" Then
         If Not InIDE Then
             Cairo.SetDPIAwareness ' this way avoids the VB6 IDE shrinking (sadly, VB6 has a high DPI unaware IDE)
             msgBoxADynamicSizingFlg = True
         End If
     End If
+
 
     On Error GoTo 0
     Exit Sub
@@ -1541,7 +1545,7 @@ Public Sub aboutClickEvent()
         PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
-    ' The RC forms are measured in pixels so the positioning needs to turn the twips into pixels
+    ' The RC forms are measured in pixels so the positioning needs to pre-convert the twips into pixels
    
     fMain.aboutForm.Top = (screenHeightPixels / 2) - (fMain.aboutForm.Height / 2)
     fMain.aboutForm.Left = (screenWidthPixels / 2) - (fMain.aboutForm.Width / 2)

@@ -111,7 +111,6 @@ Attribute VB_Exposed = False
 '@IgnoreModule IntegerDataType, ModuleWithoutFolder
 ' .74 DAEB 22/05/2022 rDIConConfig.frm Msgbox replacement that can be placed on top of the form instead as the middle of the screen STARTS
 Option Explicit
-Private mintLabelHeight As Integer
 Private yesNoReturnValue As Integer
 Private formMsgContext As String
 Private formShowAgainChkBox As Boolean
@@ -128,6 +127,8 @@ Private mPropShowAgainChkBox As Boolean
 Private mPropButtonVal As Integer
 Private mPropReturnedValue As Integer
 
+
+
 '---------------------------------------------------------------------------------------
 ' Procedure : Form_Load
 ' Author    : beededea
@@ -139,10 +140,7 @@ Private Sub Form_Load()
     Dim Ctrl As Control
 
     On Error GoTo Form_Load_Error
-
-    mintLabelHeight = lblMessage.Height
     
-
     msgBoxACurrentWidth = cMsgBoxAFormWidth
     msgBoxACurrentHeight = cMsgBoxAFormHeight
     
@@ -235,7 +233,6 @@ Private Sub btnButtonTwo_Click()
     If formShowAgainChkBox = True Then SaveSetting App.EXEName, "Options", "Show message" & formMsgContext, chkShowAgain.Value
     yesNoReturnValue = 7
     Me.Hide
-    'Unload Me
 
    On Error GoTo 0
    Exit Sub
@@ -259,7 +256,6 @@ Private Sub btnButtonOne_Click()
     If formShowAgainChkBox = True Then SaveSetting App.EXEName, "Options", "Show message" & formMsgContext, chkShowAgain.Value
     yesNoReturnValue = 6
     Me.Hide
-    'Unload Me
 
    On Error GoTo 0
    Exit Sub
@@ -316,8 +312,6 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Public Property Let propMessage(ByVal newValue As String)
-
-    Dim intDiff As Integer
     
     On Error GoTo propMessage_Error
     
@@ -326,17 +320,10 @@ Public Property Let propMessage(ByVal newValue As String)
     lblMessage.Caption = mPropMessage
     
     ' Expand the form and move the other controls if the message is too long to show.
-      
-    intDiff = lblMessage.Height - mintLabelHeight
-    
+          
     If msgBoxADynamicSizingFlg = True Then
-
-        Me.Height = screenHeightTwips / 6.5
-        
-        Me.Height = Me.Height + intDiff
-        chkShowAgain.Top = chkShowAgain.Top + intDiff
-        btnButtonOne.Top = btnButtonOne.Top + intDiff
-        btnButtonTwo.Top = btnButtonTwo.Top + intDiff
+        ' this causes a resize event
+        Me.Height = (screenHeightTwips / 5.5) '+ intDiff
     Else
         fraPicVB.Top = 285
     End If

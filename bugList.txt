@@ -222,17 +222,22 @@
 ' locking dock from the menu is linked to the prefs check box and vice versa - done
 ' edit VBP option msgbox, extra params remove to stop mismatch error - done
 
-' -oOo-
-
-' test with slicence = 0, compiled DPI and otherwise
-' licence form appears on the left and off screen on low DPI monitors
-' switching between high low DPI - remaining issues?
-
-' push CHM manually.
-' create new CHM
-
+' create new CHM - done
 ' synch. to E6410 and compile - done
 ' test on E6410 win 7 low DPI - done
+' licence form appears on the left and off screen on restart with sLicence = 0 - done
+
+' -oOo-
+
+' test with slicence = 0, compiled DPI and otherwise - wip
+' switching between high low DPI - remaining issues? - wip
+' check the other msgboxA to see which others have problems at low/high DPI - wip
+' user licence accepted in low DPI
+' about screen is massive in high DPI mode on low DPI screen
+' one-page help screen is massive in high DPI mode on low DPI screen
+' widget.zoom
+
+
 ' test on E6410 win 7 low DPI with slicence = 0
 ' test on E6410 win 7 low DPI with no user settings
 ' test on Dell win 11 high DPI with slicence = 0

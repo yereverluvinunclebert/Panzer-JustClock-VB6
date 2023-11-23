@@ -33,9 +33,12 @@ Private aboutyo As Integer
 
 Private mOpacity As Double
 Private mShowMe As Boolean
+Private mZoom As Double
+
 
 'property opacity is a property that populates mOpacity used by RenderSurfaceContent
 'property ShowMe is a property that populates mShowMe that triggers a fade in timer
+'property mZoom
 
 '---------------------------------------------------------------------------------------
 ' Procedure : Class_Initialize
@@ -53,6 +56,8 @@ Private Sub Class_Initialize()
 
     Set W = Cairo.WidgetBase '<- this is required in each cwImplementation...
    
+    'mZoom = 1 ' the about pane size initial size
+    
     Set tmrAboutFadeIn = New_c.Timer(20, False)
     Set tmrAboutFadeOut = New_c.Timer(20, False)
 
@@ -81,7 +86,7 @@ Public Property Get Widget() As cWidgetBase
 
 Widget_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Widget of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Widget of Class Module cwAbout"
 End Property
 '---------------------------------------------------------------------------------------
 ' Procedure : Widgets
@@ -100,8 +105,49 @@ Public Property Get Widgets() As cWidgets
 
 Widgets_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Widgets of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Widgets of Class Module cwAbout"
 End Property
+'---------------------------------------------------------------------------------------
+' Procedure : Zoom
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get Zoom() As Double
+   On Error GoTo ZoomGet_Error
+
+    Zoom = mZoom
+
+   On Error GoTo 0
+   Exit Property
+
+ZoomGet_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Zoom of Class Module cwAbout"
+End Property
+'---------------------------------------------------------------------------------------
+' Procedure : Zoom
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Let Zoom(ByVal newValue As Double)
+   On Error GoTo ZoomLet_Error
+
+  If mZoom <> newValue Then mZoom = newValue Else Exit Property
+  If mZoom > 3 Then mZoom = 3 Else If mZoom < 0.05 Then mZoom = 0.05
+  W.Refresh
+
+   On Error GoTo 0
+   Exit Property
+
+ZoomLet_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Zoom of Class Module cwAbout"
+End Property
+
 '---------------------------------------------------------------------------------------
 ' Procedure : W_MouseDown
 ' Author    : beededea
@@ -307,13 +353,15 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Single, ByVal mOpacity As Double)
-    Dim scaleValue As Long: scaleValue = 1
     
     On Error GoTo Draw_Error
 
-    If PzGDpiAwareness = "1" Then scaleValue = 1.5
+
+'    If PzGDpiAwareness = "1" Then
+'        mZoom = 1.7
+'    End If
     
-    CC.ScaleDrawings scaleValue, scaleValue
+    CC.ScaleDrawings mZoom, mZoom
 
     CC.RenderSurfaceContent "about", aboutxo, aboutyo, , , , mOpacity
         

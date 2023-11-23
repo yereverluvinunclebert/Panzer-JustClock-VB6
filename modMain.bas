@@ -124,12 +124,12 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' start the load of the PSD file using the RC6 PSD-Parser.instance
     Call fAlpha.InitFromPSD(thisPSDFullPath)  ' no optional close layer as 3rd param
 
-    ' initialise and create the main forms on the current display
-    Call createStandardFormsOnCurrentDisplay
-    
     ' resolve VB6 sizing width bug
     Call determineScreenDimensions
             
+    ' initialise and create the main forms on the current display
+    Call createStandardFormsOnCurrentDisplay
+
     ' display licence screen on first usage
     Call showLicence(fLicenceState)
     
@@ -157,7 +157,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     'load the preferences form but don't yet show it, speeds up access to the prefs via the menu
     Load panzerPrefs
     
-    'load the preferences form but don't yet show it, speeds up access to the prefs via the menu
+    'load the message form but don't yet show it, speeds up access to the message form when needed.
     Load frmMessage
     
     ' make the prefs appear on the first time running

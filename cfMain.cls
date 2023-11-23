@@ -49,8 +49,8 @@ Attribute textBox.VB_VarHelpID = -1
 '
 Public Sub initAndShowStandardForms(ByVal x As Long, ByVal Y As Long, Optional ByVal dx As Long, Optional ByVal dy As Long, Optional ByVal Caption As String)
     
-'    Dim aboutFormWidth As Long: aboutFormWidth = 0
-'    Dim aboutFormHeight As Long: aboutFormHeight = 0
+    Dim aboutFormWidth As Long: aboutFormWidth = 0
+    Dim aboutFormHeight As Long: aboutFormHeight = 0
     Dim aboutWidgetWidth As Long: aboutWidgetWidth = 0
     Dim aboutWidgetHeight As Long: aboutWidgetHeight = 0
     
@@ -59,31 +59,57 @@ Public Sub initAndShowStandardForms(ByVal x As Long, ByVal Y As Long, Optional B
     Dim helpWidgetWidth As Long: helpWidgetWidth = 0
     Dim helpWidgetHeight As Long: helpWidgetHeight = 0
     
+    Dim aboutWidgetZoomValue As Double: aboutWidgetZoomValue = 1
+    
     Const WFFStyleTool As Integer = 7 ' additional styles above the normal five  WFFStyleTool = 7 makes the taskbar button go away
     
     On Error GoTo initAndShowStandardForms_Error
     
     If PzGDpiAwareness = "0" Then
-'        aboutFormWidth = 800
-'        aboutFormHeight = 600
+        aboutFormWidth = 900
+        If aboutFormWidth > screenWidthPixels Then aboutFormWidth = screenWidthPixels
+        
+        aboutFormHeight = aboutFormWidth - 100
+        If aboutFormHeight > screenHeightPixels Then aboutFormHeight = screenHeightPixels
+        
         aboutWidgetWidth = 850
-        aboutWidgetHeight = 750
+        aboutWidgetHeight = aboutWidgetWidth - 100
     Else
-'        aboutFormWidth = 1600
-'        aboutFormHeight = 1200
-        aboutWidgetWidth = 1700
-        aboutWidgetHeight = 1500
+        aboutFormWidth = 1800
+        If aboutFormWidth > screenWidthPixels Then
+            aboutFormWidth = screenWidthPixels
+            aboutWidgetZoomValue = 1
+       Else
+            aboutWidgetZoomValue = 2
+        End If
+        
+        aboutFormHeight = 1600
+        If aboutFormHeight > screenHeightPixels Then
+            aboutFormHeight = screenHeightPixels
+            aboutWidgetZoomValue = 1
+        Else
+            aboutWidgetZoomValue = 2
+        End If
+        
+        aboutWidgetWidth = aboutFormWidth - 100
+        aboutWidgetHeight = aboutFormHeight - 100
     End If
     
     ' create an invisible form using a Cairo Widget Form with the predefined caption and sizing
-    Set aboutForm = Cairo.WidgetForms.Create(WFFStyleTool, "About the " & Caption & " Widget", True, aboutWidgetWidth, aboutWidgetHeight)
+    Set aboutForm = Cairo.WidgetForms.Create(WFFStyleTool, "About the " & Caption & " Widget", True, aboutFormWidth, aboutFormHeight)
     
     ' make the about form transparent
     aboutForm.WidgetRoot.BackColor = -1
     
     ' create a new about widget with a name, position and size, first step of that is to run Class_Initialize
-    Set aboutWidget = aboutForm.Widgets.Add(New cwAbout, "about", 100, 100, aboutWidgetWidth, aboutWidgetHeight)
-       
+    Set aboutWidget = aboutForm.Widgets.Add(New cwAbout, "about", 1, 1, aboutWidgetWidth, aboutWidgetHeight)
+    
+    If PzGDpiAwareness = "0" Then
+        aboutWidget.Zoom = aboutWidgetZoomValue
+    Else
+        aboutWidget.Zoom = aboutWidgetZoomValue
+    End If
+    
     ' -oOo-
     
     If PzGDpiAwareness = "0" Then
