@@ -241,14 +241,17 @@
 ' switching between high/low DPI - remaining issues? - done
 ' switching DPI pops up a msgbox that is yes/no, do both options work on low DPI screens? - done
 ' check the other msgboxA to see which others have problems at low/high DPI - done
+' test with slicence = 0, compiled DPI and otherwise on low DPI screen - done
+' test on E6410 win 7 low DPI with slicence = 0
+' test on E6410 win 7 low DPI with no user settings - done
+' validateInputs     DST should be none - done
+' validateInputs     main gauge should be system time - done
+' validateInputs     DPI awareness - on when low DPI screen - done
 
 ' -oOo-
 
-' test with slicence = 0, compiled DPI and otherwise on low DPI screen
 ' widget gauge sizing incorrect after DPI change and prefs/save/restore
 
-' test on E6410 win 7 low DPI with slicence = 0
-' test on E6410 win 7 low DPI with no user settings
 ' test on Dell win 11 high DPI with slicence = 0
 
 ' licence text to be loaded from file

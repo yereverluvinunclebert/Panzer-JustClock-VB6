@@ -637,8 +637,9 @@ Public Sub validateInputs()
         If PzGSmoothSecondHand = vbNullString Then PzGSmoothSecondHand = "0"
         
         'If PzGClockFaceSwitchPref = vbNullString Then PzGClockFaceSwitchPref = "0"
-        If PzGMainGaugeTimeZone = vbNullString Then PzGMainGaugeTimeZone = "1"
-        If PzGMainDaylightSaving = vbNullString Then PzGMainDaylightSaving = "1"
+        If PzGMainGaugeTimeZone = vbNullString Then PzGMainGaugeTimeZone = "0"
+        If PzGMainDaylightSaving = vbNullString Then PzGMainDaylightSaving = "0"
+
         'If PzGSecondaryGaugeTimeZone = vbNullString Then PzGSecondaryGaugeTimeZone = "1"
         'If PzGSecondaryDaylightSaving = vbNullString Then PzGSecondaryDaylightSaving = "1"
 
@@ -647,7 +648,7 @@ Public Sub validateInputs()
         If PzGEnablePrefsTooltips = vbNullString Then PzGEnablePrefsTooltips = "1"
         If PzGEnableBalloonTooltips = vbNullString Then PzGEnableBalloonTooltips = "1"
         If PzGShowTaskbar = vbNullString Then PzGShowTaskbar = "0"
-        If PzGDpiAwareness = vbNullString Then PzGDpiAwareness = "1"
+        If PzGDpiAwareness = vbNullString Then PzGDpiAwareness = "0"
         If PzGGaugeSize = vbNullString Then PzGGaugeSize = "25"
         If PzGScrollWheelDirection = vbNullString Then PzGScrollWheelDirection = "1"
                
