@@ -1,6 +1,6 @@
 # Panzer-JustClock-VB6
  
-  A FOSS Simple Clock VB6 Widget for Reactos, XP, Win7, 8 and 10+.
+  A FOSS Clock VB6 WoW64 Widget for Reactos, XP, Win7, 8 and 10/11+.
  
  My current VB6/RC6 PSD program being worked upon now, in progress, you can download but it is only partially complete. I am working on integrating my own native VB6 forms and code with the the RC6 Cairo code.
  This based upon the Yahoo widget of the same design.
