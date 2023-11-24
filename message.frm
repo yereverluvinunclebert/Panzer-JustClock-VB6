@@ -452,7 +452,7 @@ End Property
 Public Property Get propReturnedValue() As Integer
    On Error GoTo propReturnedValue_Error
    
-    propReturnedValue = mPropReturnedValue 'yesNoReturnValue
+    propReturnedValue = yesNoReturnValue
 
    On Error GoTo 0
    Exit Property

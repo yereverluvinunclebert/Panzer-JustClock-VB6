@@ -1653,6 +1653,8 @@ licenceSplash_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure licenceSplash of Form menuForm"
      
 End Sub
+
+
 '---------------------------------------------------------------------------------------
 ' Procedure : mnuCoffee_ClickEvent
 ' Author    : beededea

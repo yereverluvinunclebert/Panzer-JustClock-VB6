@@ -318,7 +318,7 @@ Private Sub btnAccept_Click()
         PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
-    answer = msgBoxA("User accepted licence, thankyou.", vbOKOnly, "Licence Acceptance", True, "btnAcceptClick")
+    answer = msgBoxA("User accepted licence, thankyou.", vbOKOnly + vbExclamation, "Licence Acceptance", True, "btnAcceptClick")
     
     slicence = "1"
     sPutINISetting "Software\PzJustClock", "licence", slicence, PzGSettingsFile
@@ -352,8 +352,7 @@ Private Sub btnDecline_Click()
     On Error GoTo btnDecline_Click_Error
 
     'answer = MsgBox("Licence declined, please destroy your copy of this widget and its documentation.", vbYes)
-    answer = msgBoxA("Licence declined, please destroy your copy of this widget and its documentation. This widget will now unload.", vbOKOnly, "Licence Declined", False)
-    
+    answer = msgBoxA("Licence declined, please destroy your copy of this widget and its documentation. This widget will now unload.", vbOKOnly + vbExclamation, "Licence Declined", False)
     slicence = "0"
     sPutINISetting "Software\PzJustClock", "licence", slicence, PzGSettingsFile
 

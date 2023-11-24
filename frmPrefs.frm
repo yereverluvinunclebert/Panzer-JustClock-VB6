@@ -2340,7 +2340,7 @@ Private Sub chkDpiAwareness_Click()
         If answer = vbNo Then
             answer = vbYes
             answerMsg = "OK, the widget is still DPI aware until you restart. Some forms may show abnormally."
-            answer = msgBoxA(answerMsg, vbYesNo, "DpiAwareness Notification", True, "chkDpiAwarenessAbnormal")
+            answer = msgBoxA(answerMsg, vbOKOnly, "DpiAwareness Notification", True, "chkDpiAwarenessAbnormal")
         
             Exit Sub
         Else

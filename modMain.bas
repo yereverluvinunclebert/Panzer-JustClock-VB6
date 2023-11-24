@@ -25,8 +25,8 @@ Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVa
 
 Private Const WS_EX_LAYERED  As Long = &H80000
 Private Const GWL_EXSTYLE  As Long = (-20)
-Private Const LWA_COLORKEY  As Long = &H1       'to trans'
-Private Const LWA_ALPHA  As Long = &H2          'to semi trans'
+Private Const LWA_COLORKEY  As Long = &H1       'to transparent
+Private Const LWA_ALPHA  As Long = &H2          'to semi transparent
 '------------------------------------------------------ ENDS
 
 Public fMain As New cfMain
@@ -119,7 +119,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     End If
 
     'load the collection for storing the overlay surfaces with its relevant keys direct from the PSD
-    If restart = False Then Call loadExcludePathCollection ' no need to reload the collPSDNonUIElements layer name keys
+    If restart = False Then Call loadExcludePathCollection ' no need to reload the collPSDNonUIElements layer name keys on a reload
     
     ' start the load of the PSD file using the RC6 PSD-Parser.instance
     Call fAlpha.InitFromPSD(thisPSDFullPath)  ' no optional close layer as 3rd param
@@ -127,11 +127,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' resolve VB6 sizing width bug
     Call determineScreenDimensions
             
-    ' initialise and create the main forms on the current display
-    Call createStandardFormsOnCurrentDisplay
-
-    ' display licence screen on first usage
-    Call showLicence(fLicenceState)
+    ' initialise and create the three main RC forms on the current display
+    Call createRCFormsOnCurrentDisplay
     
     ' check the selected monitor properties
     Call monitorProperties(fAlpha.gaugeForm)  ' might use RC6 for this?
@@ -160,13 +157,14 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     'load the message form but don't yet show it, speeds up access to the message form when needed.
     Load frmMessage
     
+    ' display licence screen on first usage
+    Call showLicence(fLicenceState)
+    
     ' make the prefs appear on the first time running
     Call checkFirstTime
  
     ' configure any global timers here
     Call configureTimers
-    
-    Call mnuLicence_ClickEvent
         
     ' RC message pump will auto-exit when Cairo Forms > 0 so we run it only when 0, this prevents message interruption
     ' when running twice on reload.
@@ -809,14 +807,14 @@ setHidingTime_Error:
 End Sub
 
 '---------------------------------------------------------------------------------------
-' Procedure : createStandardFormsOnCurrentDisplay
+' Procedure : createRCFormsOnCurrentDisplay
 ' Author    : beededea
 ' Date      : 07/05/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub createStandardFormsOnCurrentDisplay()
-    On Error GoTo createStandardFormsOnCurrentDisplay_Error
+Private Sub createRCFormsOnCurrentDisplay()
+    On Error GoTo createRCFormsOnCurrentDisplay_Error
 
     With New_c.Displays(1) 'get the current Display
       Call fMain.initAndShowAboutForm(.WorkLeft, .WorkTop, 1000, 1000, widgetName)
@@ -830,15 +828,14 @@ Private Sub createStandardFormsOnCurrentDisplay()
       Call fMain.initAndShowLicenceForm(.WorkLeft, .WorkTop, 1000, 1000, widgetName)
     End With
     
-
-    On Error GoTo 0
+        On Error GoTo 0
     Exit Sub
 
-createStandardFormsOnCurrentDisplay_Error:
+createRCFormsOnCurrentDisplay_Error:
 
     With Err
          If .Number <> 0 Then
-            MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure createStandardFormsOnCurrentDisplay of Module modMain"
+            MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure createRCFormsOnCurrentDisplay of Module modMain"
             Resume Next
           End If
     End With

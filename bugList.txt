@@ -227,23 +227,31 @@
 ' test on E6410 win 7 low DPI - done
 ' licence form appears on the left and off screen on restart with sLicence = 0 - done
 
+' about screen is massive in high DPI mode on low DPI screen, add widget.zoom - done
+' one-page help screen is massive in high DPI mode on low DPI - done
+' licence screen is sized correctly in high DPI mode on low DPI - done
+' separate the help, licence and about form initialisation routines - done
+' take into account max. screen size when creating the help, licence and about forms - done
+
+' Kofi msgbox not accepting yes or no - test & fix - done
+' user licence accepted in low DPI - missing icons - done
+' user licence accepted in low DPI - no need for yes and no - done
+' switching DPI pops up a msgbox that is yes/no, do both options work on high DPI screens? - done
+' test with slicence = 0, compiled DPI and otherwise on high DPI screen - done
+' switching between high/low DPI - remaining issues? - done
+' switching DPI pops up a msgbox that is yes/no, do both options work on low DPI screens? - done
+' check the other msgboxA to see which others have problems at low/high DPI - done
+
 ' -oOo-
 
-' msgbox not accepting yes or no.
-' test with slicence = 0, compiled DPI and otherwise - wip
-' switching between high low DPI - remaining issues? - wip
-' check the other msgboxA to see which others have problems at low/high DPI - wip
-' user licence accepted in low DPI
-' about screen is massive in high DPI mode on low DPI screen, add widget.zoom - wip
-' one-page help screen is massive in high DPI mode on low DPI screen
-
-' widget gauge sizing incorrect after DPI change and restore
+' test with slicence = 0, compiled DPI and otherwise on low DPI screen
+' widget gauge sizing incorrect after DPI change and prefs/save/restore
 
 ' test on E6410 win 7 low DPI with slicence = 0
 ' test on E6410 win 7 low DPI with no user settings
 ' test on Dell win 11 high DPI with slicence = 0
 
-' licence text loaded from file
+' licence text to be loaded from file
 
 ' https://classicvb.net/samples/HookXP/   CHookMouseEvents.cls
 '    This class provides the mysterious MouseEnter, MouseHover, and MouseLeave events, as well as a few bonus features like when the user clicks the
