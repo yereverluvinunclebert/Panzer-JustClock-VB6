@@ -247,6 +247,7 @@
 ' validateInputs     DST should be none - done
 ' validateInputs     main gauge should be system time - done
 ' validateInputs     DPI awareness - on when low DPI screen - done
+' licence text to be loaded from file - done
 
 ' -oOo-
 
@@ -254,7 +255,11 @@
 
 ' test on Dell win 11 high DPI with slicence = 0
 
-' licence text to be loaded from file
+32x32 (24 bit)
+16x16 (24 bit)
+48x48 (32 bit)
+32x32 (32 bit)
+16x16 (32 bit)
 
 ' https://classicvb.net/samples/HookXP/   CHookMouseEvents.cls
 '    This class provides the mysterious MouseEnter, MouseHover, and MouseLeave events, as well as a few bonus features like when the user clicks the
@@ -263,8 +268,6 @@
 '    could help the prefs in Pz J. Clock and other tools enabling balloon tooltips on comboBoxes.
 
 ' NOTE: hookXP already downloaded.
-
-
 
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
 
@@ -276,7 +279,7 @@ With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisp
   Debug.Print .WorkLeft , .WorkTop, (.WorkRight - .WorkLeft), (.WorkBottom - .WorkTop)
 End With
 
- 'https://www.vbforums.com/showthread.php?900892-VB6-Simple-way-to-make-your-VB6-application-quot-Per-Monitor-DPI-Aware-quot
+' https://www.vbforums.com/showthread.php?900892-VB6-Simple-way-to-make-your-VB6-application-quot-Per-Monitor-DPI-Aware-quot
 
 ' add second monitor - wip find cable!
 
@@ -291,8 +294,14 @@ End With
 ' automatic resizing of the prefs icons using RC6 or GDI+
 
 
+
+256 bit icon
+https://www.vbforums.com/showthread.php?858347-RESOLVED-How-to-create-and-connect-quality-icon-group-to-your-VB6-app
+
 ' RC BUGS & LIMITATIONS
 ' =====================
+
+' Q. for Olaf use of cwLabel - error message?
 
 ' aboutForm is not fading back-in but instantly hiding in DPI aware mode, opacity is acting strangely on second fade in. Confirmed.
 

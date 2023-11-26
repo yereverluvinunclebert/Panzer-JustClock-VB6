@@ -279,6 +279,9 @@ Public Sub initAndShowLicenceForm(ByVal x As Long, ByVal Y As Long, Optional ByV
     textBox.ScrollBars = vbVertical
     textBox.Widget.BackColor = &H4000&
     textBox.Widget.ForeColor = vbWhite
+    
+    Call LoadFileToTB(textBox, App.path & "\resources\txt\licence.txt", False)
+
     textBox.Text = widgetName & vbCrLf & vbCrLf & _
     "Copyright © 1992-2023 Dean Beedell" & vbCrLf & vbCrLf & _
     "This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public Licence as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version." & vbCrLf & vbCrLf & _

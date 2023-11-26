@@ -672,6 +672,8 @@ Public Sub AdjustZoom(ByVal NewZoom As Single)
 
   ' when resized from the gauge scroll up/down it needs to write it back so the size is correct when prefs opened.
   PzGGaugeSize = LTrim$(Str$(NewZoom * 100))
+  If panzerPrefs.IsVisible = True Then panzerPrefs.sliGaugeSize = Val(PzGGaugeSize)
+
     
    On Error GoTo 0
    Exit Sub
