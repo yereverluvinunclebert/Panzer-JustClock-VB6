@@ -249,6 +249,8 @@
 ' validateInputs     DPI awareness - on when low DPI screen - done
 ' licence text to be loaded from file - done
 
+' prefs slider synch. with manual resize using mousewheel - done
+
 ' -oOo-
 
 ' widget gauge sizing incorrect after DPI change and prefs/save/restore
