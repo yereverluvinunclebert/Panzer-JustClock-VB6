@@ -552,10 +552,9 @@ Private Sub gaugeForm_MouseUp(ByRef Button As Integer, ByRef Shift As Integer, B
     'If overlayWidget.Locked = True Then Exit Sub
     '    If PzGIgnoreMouse = "1" Then Exit Sub
     
-    ' no point in saving when prefs are visible.
-    If panzerPrefs.IsVisible = False Then ' checks without activating the form - important!.
+    'If panzerPrefs.IsVisible = False Then ' checks without activating the form - important!.
         Call savePosition
-    End If
+    'End If
 
     'Static x0, y0: If Button Then gaugeForm.Move gaugeForm.Left + X - x0, gaugeForm.Top + Y - y0 Else x0 = X: y0 = Y
 

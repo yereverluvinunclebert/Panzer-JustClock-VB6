@@ -248,12 +248,11 @@
 ' validateInputs     main gauge should be system time - done
 ' validateInputs     DPI awareness - on when low DPI screen - done
 ' licence text to be loaded from file - done
+' widget gauge location incorrect after DPI change and prefs visible
 
 ' prefs slider synch. with manual resize using mousewheel - done
 
 ' -oOo-
-
-' widget gauge sizing incorrect after DPI change and prefs/save/restore
 
 ' test on Dell win 11 high DPI with slicence = 0
 
