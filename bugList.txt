@@ -248,31 +248,33 @@
 ' validateInputs     main gauge should be system time - done
 ' validateInputs     DPI awareness - on when low DPI screen - done
 ' licence text to be loaded from file - done
-' widget gauge location incorrect after DPI change and prefs visible
 
 ' prefs slider synch. with manual resize using mousewheel - done
 
+' widget gauge location incorrect after DPI change and prefs visible - done
+' update help to include GUI interaction with the buttons - done
+' create an independent RC project to fade a widget in and out to demonstrate the RC fade-out bug in RC6 - done
+
 ' -oOo-
 
+' licence and help forms should have the same functionality re: the fade timers, copy from about form
+
+' aboutForm is not fading back-in but instantly hiding in RC6, opacity is acting strangely on second fade in. Confirmed - raise a bug with Olaf on VBforums.
+' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25% - raise a request with Olaf on VBforums.
+' Q. for Olaf use of cwLabel - error message, how to add a simple label to a form?
+
+' add second monitor - wip find cable!
+' sync. E6410 win 7
+' sync. Fast Dell laptop
+
+' automatic resizing of the prefs icons using RC6 or GDI+
+
+' E:\vb6\rc5 demos\14 Thumbnailing per ImageList
+' E:\vb6\rc5 demos\12 (A) ImageSurfaces Rotate+Scale
+' E:\vb6\rc5 demos\15 ImageList and IconResources
+
+
 ' test on Dell win 11 high DPI with slicence = 0
-
-32x32 (24 bit)
-16x16 (24 bit)
-48x48 (32 bit)
-32x32 (32 bit)
-16x16 (32 bit)
-
-' https://classicvb.net/samples/HookXP/   CHookMouseEvents.cls
-'    This class provides the mysterious MouseEnter, MouseHover, and MouseLeave events, as well as a few bonus features like when the user clicks the
-'    4th or 5th buttons on a 5 button mouse. It also provides a collection based scheme whereby you can add and remove windows to monitor just as
-'    you would to an ordinary collection. All events are raised with the associated hWnd so you can determine which control is under the mouse. This
-'    could help the prefs in Pz J. Clock and other tools enabling balloon tooltips on comboBoxes.
-
-' NOTE: hookXP already downloaded.
-
-' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25%
-
-' create an independent RC project to fade a widget in and out to demonstrate the RC fade-out bug
 
 ' test usage of RC6 for monitor awareness - wip
 With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisplay
@@ -282,8 +284,6 @@ End With
 
 ' https://www.vbforums.com/showthread.php?900892-VB6-Simple-way-to-make-your-VB6-application-quot-Per-Monitor-DPI-Aware-quot
 
-' add second monitor - wip find cable!
-
 ' adjustFormPositionToCorrectMonitor, make it work and observe the result as per FCW - wip
 
 ' adjustFormPositionToCorrectMonitor - licence form
@@ -292,19 +292,26 @@ End With
 
 ' setup2go create setup.exe
 
-' automatic resizing of the prefs icons using RC6 or GDI+
 
 
+' -oOo-
 
-256 bit icon
-https://www.vbforums.com/showthread.php?858347-RESOLVED-How-to-create-and-connect-quality-icon-group-to-your-VB6-app
+' Later tasks after testing
+
+' test the icon sizes on 32bit Win7, XP and ReactOS, find out if 48x48 causes a crash
+' 32x32 (24 bit)
+' 16x16 (24 bit)
+' 48x48 (32 bit)
+' 32x32 (32 bit)
+' 16x16 (32 bit)
+
+' patch a 256 bit icon into the VB6 binary
+' https://www.vbforums.com/showthread.php?858347-RESOLVED-How-to-create-and-connect-quality-icon-group-to-your-VB6-app
 
 ' RC BUGS & LIMITATIONS
 ' =====================
 
-' Q. for Olaf use of cwLabel - error message?
 
-' aboutForm is not fading back-in but instantly hiding in DPI aware mode, opacity is acting strangely on second fade in. Confirmed.
 
 ' tooltips also resize when the whole thing is resized, code received from Olaf tested - resizing results in missing text and blank tooltips, using non-standard font centurion light
 ' RC6 needs a static tooltip option.

@@ -300,7 +300,7 @@ Private Sub tmrLicenceFadeOut_Timer()
         opacity = 0
         
         tmrLicenceFadeOut.Enabled = False
-        fMain.licenceForm.Hide
+        'fMain.licenceForm.Hide
         
         Exit Sub
     End If

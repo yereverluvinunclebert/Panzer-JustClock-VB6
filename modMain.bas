@@ -78,7 +78,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     On Error GoTo main_routine_Error
     
     widgetName = "Panzer Just Clock Gauge"
-    thisPSDFullPath = App.path & "\Res\justClockVB6.psd"
+    thisPSDFullPath = App.Path & "\Res\justClockVB6.psd"
     fAlpha.FX = 222 'init position- and zoom-values (directly set on Public-Props of the Form-hosting Class)
     fAlpha.FY = 111
     fAlpha.FZ = 0.4
@@ -340,10 +340,10 @@ Private Sub addImagesToImageList()
 
 '    add Resources to the global ImageList that are not being pulled from the PSD directly
     
-    Cairo.ImageList.AddImage "about", App.path & "\Resources\images\about.png"
-    Cairo.ImageList.AddImage "help", App.path & "\Resources\images\panzergauge-help.png"
-    Cairo.ImageList.AddImage "licence", App.path & "\Resources\images\frame.png"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\Icon.png"
+    Cairo.ImageList.AddImage "about", App.Path & "\Resources\images\about.png"
+    Cairo.ImageList.AddImage "help", App.Path & "\Resources\images\panzergauge-help.png"
+    Cairo.ImageList.AddImage "licence", App.Path & "\Resources\images\frame.png"
+    Cairo.ImageList.AddImage "frmIcon", App.Path & "\Resources\images\Icon.png"
 
    On Error GoTo 0
    Exit Sub

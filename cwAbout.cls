@@ -31,10 +31,9 @@ Attribute tmrAboutFadeOut.VB_VarHelpID = -1
 Private aboutxo As Integer
 Private aboutyo As Integer
 
-Private mOpacity As Double
+Private mMyOpacity As Double
 Private mShowMe As Boolean
 Private mZoom As Double
-
 
 'property opacity is a property that populates mOpacity used by RenderSurfaceContent
 'property ShowMe is a property that populates mShowMe that triggers a fade in timer
@@ -53,11 +52,11 @@ Private Sub Class_Initialize()
 
     aboutxo = 0
     aboutyo = 0
-
-    Set W = Cairo.WidgetBase '<- this is required in each cwImplementation...
-   
-    'mZoom = 1 ' the about pane size initial size
+    MyOpacity = 0
+    ShowMe = False
     
+    Set W = Cairo.WidgetBase '<- this is required in each cwImplementation...
+       
     Set tmrAboutFadeIn = New_c.Timer(20, False)
     Set tmrAboutFadeOut = New_c.Timer(20, False)
 
@@ -158,8 +157,9 @@ End Property
 Private Sub W_MouseDown(Button As Integer, Shift As Integer, ByVal x As Single, ByVal Y As Single)
     On Error GoTo W_MouseDown_Error
 
-    opacity = 1
-    ShowMe = False
+'    MyOpacity = 1
+'    ShowMe = False
+    tmrAboutFadeOut.Enabled = True
 
    On Error GoTo 0
    Exit Sub
@@ -169,42 +169,42 @@ W_MouseDown_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_MouseDown of Class Module cwAbout"
 End Sub
 '---------------------------------------------------------------------------------------
-' Procedure : opacity
+' Procedure : MyOpacity
 ' Author    : beededea
 ' Date      : 17/05/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Property Let opacity(ByVal newValue As Double)
-   On Error GoTo opacityLet_Error
+Public Property Let MyOpacity(ByVal newValue As Double)
+   On Error GoTo MyOpacityLet_Error
 
-   If mOpacity <> newValue Then mOpacity = newValue Else Exit Property
+   If mMyOpacity <> newValue Then mMyOpacity = newValue Else Exit Property
 
    On Error GoTo 0
    Exit Property
 
-opacityLet_Error:
+MyOpacityLet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure opacity of Class Module cwAbout"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure MyOpacity of Class Module cwAbout"
 End Property
 '---------------------------------------------------------------------------------------
-' Procedure : opacity
+' Procedure : MyOpacity
 ' Author    : beededea
 ' Date      : 17/05/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Property Get opacity() As Double
-   On Error GoTo opacityGet_Error
+Public Property Get MyOpacity() As Double
+   On Error GoTo MyOpacityGet_Error
 
-   opacity = mOpacity
+   MyOpacity = mMyOpacity
 
    On Error GoTo 0
    Exit Property
 
-opacityGet_Error:
+MyOpacityGet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure opacity of Class Module cwAbout"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure MyOpacity of Class Module cwAbout"
 End Property
 
 '---------------------------------------------------------------------------------------
@@ -220,14 +220,14 @@ Public Property Let ShowMe(ByVal newValue As Boolean)
     mShowMe = newValue
     
     If mShowMe = True Then
-        mOpacity = 0
-        tmrAboutFadeOut.Enabled = False
+        'mMyOpacity = 0
+        'tmrAboutFadeOut.Enabled = False
         tmrAboutFadeIn.Enabled = True
-    Else
-    
-        mOpacity = 1
-        tmrAboutFadeIn.Enabled = False
-        tmrAboutFadeOut.Enabled = True
+'    Else
+'
+'        mMyOpacity = 1
+'        tmrAboutFadeIn.Enabled = False
+'        tmrAboutFadeOut.Enabled = True
 
     End If
     
@@ -269,10 +269,10 @@ End Property
 Private Sub tmrAboutFadeIn_Timer()
       
    On Error GoTo tmrAboutFadeIn_Timer_Error
-    
-    opacity = opacity + 0.05
-    If opacity >= 1 Then
-        opacity = 1
+    fMain.aboutForm.show
+    MyOpacity = MyOpacity + 0.05
+    If MyOpacity >= 1 Then
+        MyOpacity = 1
 
         tmrAboutFadeIn.Enabled = False
 
@@ -299,10 +299,10 @@ Private Sub tmrAboutFadeOut_Timer()
       
     On Error GoTo tmrAboutFadeOut_Timer_Error
 
-    opacity = opacity - 0.05
+    MyOpacity = MyOpacity - 0.05
     
-    If opacity < 0 Then
-        opacity = 0
+    If MyOpacity < 0 Then
+        MyOpacity = 0
         
         tmrAboutFadeOut.Enabled = False
         fMain.aboutForm.Hide
@@ -335,7 +335,7 @@ End Sub
 Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As Single, ByVal dx_Aligned As Single, ByVal dy_Aligned As Single, UserObj As Object)
    On Error GoTo W_Paint_Error
 
-    Draw CC, dx_Aligned, dy_Aligned, mOpacity
+    Draw CC, dx_Aligned, dy_Aligned, mMyOpacity
 
    On Error GoTo 0
    Exit Sub
@@ -352,18 +352,12 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Single, ByVal mOpacity As Double)
-    
+Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Single, ByVal mMyOpacity As Double)
     On Error GoTo Draw_Error
-
-
-'    If PzGDpiAwareness = "1" Then
-'        mZoom = 1.7
-'    End If
-    
+  
     CC.ScaleDrawings mZoom, mZoom
 
-    CC.RenderSurfaceContent "about", aboutxo, aboutyo, , , , mOpacity
+    CC.RenderSurfaceContent "about", aboutxo, aboutyo, , , , mMyOpacity
         
     'set some Font- and ForeColor-Properties and draw some Text on the Widget
     W.FontItalic = True
@@ -372,11 +366,11 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
     W.SelectFontSettingsInto CC
    
     If PzGDpiAwareness = "0" Then
-        CC.DrawText 350, 0, dx, dy - 275, "version " & App.Major & "." & App.Minor & "." & App.Revision & " Alpha", , , 2, True, , mOpacity
+        CC.DrawText 350, 0, dx, dy - 275, "version " & App.Major & "." & App.Minor & "." & App.Revision & " Alpha", , , 2, True, , mMyOpacity
     Else
-        CC.DrawText 350, 0, dx, dy - 1020, "version " & App.Major & "." & App.Minor & "." & App.Revision & " Alpha", , , 2, True, , mOpacity
+        CC.DrawText 350, 0, dx, dy - 1020, "version " & App.Major & "." & App.Minor & "." & App.Revision & " Alpha", , , 2, True, , mMyOpacity
     End If
-    W.Refresh
+    'W.Refresh
 
    On Error GoTo 0
    Exit Sub

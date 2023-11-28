@@ -433,6 +433,8 @@ Public tzDelta1 As Long
 Public msgBoxADynamicSizingFlg As Boolean
 
 
+
+
 '---------------------------------------------------------------------------------------
 ' Procedure : fFExists
 ' Author    : RobDog888 https://www.vbforums.com/member.php?17511-RobDog888
@@ -938,7 +940,7 @@ Public Sub addTargetFile(ByVal fieldValue As String, ByRef retFileName As String
             ' set the default folder to the existing reference
             dialogInitDir = fieldValue 'start dir, might be "C:\" or so also
         Else
-            dialogInitDir = App.path 'start dir, might be "C:\" or so also
+            dialogInitDir = App.Path 'start dir, might be "C:\" or so also
         End If
     End If
     
@@ -977,16 +979,16 @@ End Sub
 ' Purpose   : get the folder or directory path as a string not including the last backslash
 '---------------------------------------------------------------------------------------
 '
-Public Function fGetDirectory(ByRef path As String) As String
+Public Function fGetDirectory(ByRef Path As String) As String
 
    On Error GoTo fGetDirectory_Error
    ''If debugflg = 1  Then DebugPrint "%" & "fnGetDirectory"
 
-    If InStrRev(path, "\") = 0 Then
+    If InStrRev(Path, "\") = 0 Then
         fGetDirectory = vbNullString
         Exit Function
     End If
-    fGetDirectory = Left$(path, InStrRev(path, "\") - 1)
+    fGetDirectory = Left$(Path, InStrRev(Path, "\") - 1)
 
    On Error GoTo 0
    Exit Function
@@ -1541,8 +1543,8 @@ Public Sub aboutClickEvent()
     On Error GoTo aboutClickEvent_Error
     
     fileToPlay = "till.wav"
-    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
     ' The RC forms are measured in pixels so the positioning needs to pre-convert the twips into pixels
@@ -1550,12 +1552,15 @@ Public Sub aboutClickEvent()
     fMain.aboutForm.Top = (screenHeightPixels / 2) - (fMain.aboutForm.Height / 2)
     fMain.aboutForm.Left = (screenWidthPixels / 2) - (fMain.aboutForm.Width / 2)
      
-    aboutWidget.opacity = 0
+    fMain.aboutForm.Load
+    fMain.aboutForm.show
+    
+    'aboutWidget.opacity = 0
     aboutWidget.ShowMe = True
-    'aboutWidget.Widget.Refresh
+    aboutWidget.Widget.Refresh
     
     'fMain.aboutForm.Load
-    fMain.aboutForm.show
+    'fMain.aboutForm.show
       
     If (fMain.aboutForm.WindowState = 1) Then
         fMain.aboutForm.WindowState = 0
@@ -1582,8 +1587,8 @@ Public Sub helpSplash()
     On Error GoTo helpSplash_Error
 
     fileToPlay = "till.wav"
-    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
 
@@ -1623,8 +1628,8 @@ Public Sub licenceSplash()
     On Error GoTo licenceSplash_Error
 
     fileToPlay = "till.wav"
-    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
     'fMain.licenceForm.Load
@@ -1672,7 +1677,7 @@ Public Sub mnuCoffee_ClickEvent()
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Donate a Kofi", True, "mnuCoffeeClickEvent")
 
     If answer = vbYes Then
-        Call ShellExecute(menuForm.hwnd, "Open", "https://www.ko-fi.com/yereverluvinunclebert", vbNullString, App.path, 1)
+        Call ShellExecute(menuForm.hwnd, "Open", "https://www.ko-fi.com/yereverluvinunclebert", vbNullString, App.Path, 1)
     End If
 
    On Error GoTo 0
@@ -1702,7 +1707,7 @@ Public Sub mnuSupport_ClickEvent()
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Contact Support", True, "mnuSupportClickEvent")
 
     If answer = vbYes Then
-        Call ShellExecute(menuForm.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/issues", vbNullString, App.path, 1)
+        Call ShellExecute(menuForm.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/issues", vbNullString, App.Path, 1)
     End If
 
    On Error GoTo 0
@@ -2467,8 +2472,8 @@ Public Sub lockWidget()
     
     sPutINISetting "Software\PzJustClock", "preventDragging", PzGPreventDragging, PzGSettingsFile
    
-    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
     On Error GoTo 0
@@ -2525,8 +2530,8 @@ Public Sub TurnFunctionsOn()
    On Error GoTo TurnFunctionsOn_Error
 
     fileToPlay = "ting.wav"
-    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
     overlayWidget.Ticking = True
@@ -2590,7 +2595,7 @@ Public Sub hardRestart()
     
     On Error GoTo hardRestart_Error
 
-    thisCommand = App.path & "\restart.exe"
+    thisCommand = App.Path & "\restart.exe"
     
     If fFExists(thisCommand) Then
         
@@ -2772,5 +2777,4 @@ ArrayString_Error:
 
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure ArrayString of Module Module1"
 End Function
-
 

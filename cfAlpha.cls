@@ -548,15 +548,8 @@ End Sub
 '
 Private Sub gaugeForm_MouseUp(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef Y As Single)
     On Error GoTo gaugeForm_MouseUp_Error
-
-    'If overlayWidget.Locked = True Then Exit Sub
-    '    If PzGIgnoreMouse = "1" Then Exit Sub
     
-    'If panzerPrefs.IsVisible = False Then ' checks without activating the form - important!.
-        Call savePosition
-    'End If
-
-    'Static x0, y0: If Button Then gaugeForm.Move gaugeForm.Left + X - x0, gaugeForm.Top + Y - y0 Else x0 = X: y0 = Y
+    Call savePosition
 
     On Error GoTo 0
     Exit Sub
