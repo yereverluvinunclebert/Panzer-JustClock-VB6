@@ -3884,6 +3884,10 @@ Private Sub Form_Resize()
         End If
     End If
     
+    
+
+
+    
     'lblSize.Caption = "topIconWidth = " & topIconWidth & " imgGeneral width = " & imgGeneral.Width
     
     On Error GoTo 0

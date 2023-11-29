@@ -345,22 +345,22 @@ Private Sub addImagesToImageList()
     Cairo.ImageList.AddImage "licence", App.path & "\Resources\images\frame.png"
     Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\Icon.png"
     
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\about-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\about-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\config-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\config-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\development-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\development-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\general-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\general-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\sounds-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\sounds-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\windows-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\windows-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\font-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\font-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\position-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\position-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "about-icon-dark", App.path & "\Resources\images\about-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "about-icon-light", App.path & "\Resources\images\about-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "config-icon-dark", App.path & "\Resources\images\config-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "config-icon-light", App.path & "\Resources\images\config-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "development-icon-light", App.path & "\Resources\images\development-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "development-icon-dark", App.path & "\Resources\images\development-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "general-icon-dark", App.path & "\Resources\images\general-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "general-icon-light", App.path & "\Resources\images\general-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "sounds-icon-light", App.path & "\Resources\images\sounds-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "sounds-icon-dark", App.path & "\Resources\images\sounds-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "windows-icon-light", App.path & "\Resources\images\windows-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "windows-icon-dark", App.path & "\Resources\images\windows-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "font-icon-dark", App.path & "\Resources\images\font-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "font-icon-light", App.path & "\Resources\images\font-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "position-icon-light", App.path & "\Resources\images\position-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "position-icon-dark", App.path & "\Resources\images\position-icon-dark-1010.jpg"
     
    On Error GoTo 0
    Exit Sub
@@ -1015,33 +1015,7 @@ msgBoxA_Error:
 
 End Function
 
-'If you want to adapt to a PictureBox (instead of the Form), then just replace all the Me.refs with your PicBox-Identifier.
 
-
-
-'Private Sub Form_Load()
-'  Caption = "Resize Me"
-'  B = New_c.FSO.ReadByteContent("c:\temp\large.jpg")
-'End Sub
-
-Private Sub IconResize()
-'  Dim W: W = Me.ScaleX(Me.ScaleWidth, Me.ScaleMode, vbPixels)
-'  Dim H: H = Me.ScaleY(Me.ScaleHeight, Me.ScaleMode, vbPixels)
-'  Set Me.Picture = Cairo.ImageList.AddImage("", B, W, H, True).Picture
-  
-  
-  
-'    B = New_c.FSO.ReadByteContent(FileName)
-'    Set pic1.Picture = Cairo.ImageList.AddImage("", B, W, H, True).Picture
-'    pic1.AutoRedraw = True
-'    Cairo.ImageList.AddImage "myImage", B 'Load image to Bytes with no Resize
-'    With Cairo.CreateSurface(W, H)
-'        .CreateContext.RenderSurfaceContent "myImage", 0, 0, W, H, CAIRO_FILTER_BEST
-'        .DrawToDC pic1.hdc
-'    End With
-    
-    '  Set Me.Picture = Cairo.ImageList.AddImage("", B, W, H, True).Picture
-End Sub
 
 
 
