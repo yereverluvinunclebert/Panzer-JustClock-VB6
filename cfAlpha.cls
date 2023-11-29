@@ -21,8 +21,6 @@ Public collPSDNonUIElements As cCollection, FX As Long, FY As Long, FZ As Single
 
 Private PSDWidth As Long
 Private PSDHeight As Long
-'Private DragWidgetKey As String
-
 Private mGlowing As Boolean
 
 '---------------------------------------------------------------------------------------
@@ -63,13 +61,9 @@ Public Sub InitFromPSD(ByRef PSD_FileNameOrByteArray As Variant)
   
     Dim I As Long: I = 0
     Dim W As cWidgetBase
-    'Dim excludeOpacity As Integer: excludeOpacity = 0
-    'Dim pngFolder As String: pngFolder = vbNullString
    
     On Error GoTo InitFromPSD_Error
 
-    'pngFolder = App.Path & "\Resources\images\PngExport\"
-    
     'create the Alpha-capable Top-Level-Form
     Set gaugeForm = Cairo.WidgetForms.Create(IIf(App.LogMode, AlphaNoTaskbarEntry, AlphaWithTaskbarEntry), widgetName, True, 1, 1)
         gaugeForm.WidgetRoot.BackColor = -1
@@ -77,11 +71,9 @@ Public Sub InitFromPSD(ByRef PSD_FileNameOrByteArray As Variant)
     With New_c.SimplePSD(PSD_FileNameOrByteArray)  'create a new PSD-Parser.instance (and load the passed content)
         PSDWidth = .Width
         PSDHeight = .Height       'store the original Psd-Pixel-Width/Height in Private vars (as the base from which we calculate the zoomed Form-Width/Height)
-        'DragWidgetKey = LCase$(WidgetKeyForDragging) 'store the passed WidgetKey (for the Widget, which allows Form-Dragging on MouseDown)
     
         For I = 0 To .LayersCount - 1 ' loop through each of the Layers in the PSD
             If .LayerByteSize(I) Then  ' this is a true Alpha-Surface-Layer and not just a PSD layer 'group'
-                '.LayerSurface(i).WriteContentToPngFile pngFolder & Replace(.LayerPath(i), "/", "_") & ".png"
                 If .LayerAlphaPercent(I) > 0 Then ' only handles layers that have an opacity greater than 0 - need to note this for the future, this will cause a problem!
                     'add each current Layer path and surface object into the global ImageList collection (using LayerPath as the ImageKey)
                     Cairo.ImageList.AddSurface .LayerPath(I), .LayerSurface(I)

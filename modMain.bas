@@ -78,7 +78,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     On Error GoTo main_routine_Error
     
     widgetName = "Panzer Just Clock Gauge"
-    thisPSDFullPath = App.Path & "\Res\justClockVB6.psd"
+    thisPSDFullPath = App.path & "\Res\justClockVB6.psd"
     fAlpha.FX = 222 'init position- and zoom-values (directly set on Public-Props of the Form-hosting Class)
     fAlpha.FY = 111
     fAlpha.FZ = 0.4
@@ -340,11 +340,28 @@ Private Sub addImagesToImageList()
 
 '    add Resources to the global ImageList that are not being pulled from the PSD directly
     
-    Cairo.ImageList.AddImage "about", App.Path & "\Resources\images\about.png"
-    Cairo.ImageList.AddImage "help", App.Path & "\Resources\images\panzergauge-help.png"
-    Cairo.ImageList.AddImage "licence", App.Path & "\Resources\images\frame.png"
-    Cairo.ImageList.AddImage "frmIcon", App.Path & "\Resources\images\Icon.png"
-
+    Cairo.ImageList.AddImage "about", App.path & "\Resources\images\about.png"
+    Cairo.ImageList.AddImage "help", App.path & "\Resources\images\panzergauge-help.png"
+    Cairo.ImageList.AddImage "licence", App.path & "\Resources\images\frame.png"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\Icon.png"
+    
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\about-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\about-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\config-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\config-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\development-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\development-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\general-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\general-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\sounds-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\sounds-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\windows-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\windows-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\font-icon-dark-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\font-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\position-icon-light-1010.jpg"
+    Cairo.ImageList.AddImage "frmIcon", App.path & "\Resources\images\position-icon-dark-1010.jpg"
+    
    On Error GoTo 0
    Exit Sub
 
