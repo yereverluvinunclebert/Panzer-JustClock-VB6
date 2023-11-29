@@ -39,7 +39,7 @@ Public revealWidgetTimerCount As Integer
 Public fAlpha As New cfAlpha
 Public overlayWidget As cwOverlay
 Public widgetName As String
-
+Private B() As Byte
 
 '---------------------------------------------------------------------------------------
 ' Procedure : Main
@@ -1015,28 +1015,34 @@ msgBoxA_Error:
 
 End Function
 
+'If you want to adapt to a PictureBox (instead of the Form), then just replace all the Me.refs with your PicBox-Identifier.
 
 
- '
-'---------------------------------------------------------------------------------------
-' Procedure : setOpacity
-' Author    : beededea
-' Date      : 14/10/2023
-' Purpose   : opacity at form level achieved using APIs
-'---------------------------------------------------------------------------------------
-'
-' Public Sub setOpacity(ByVal opacity As Long)
-'    Dim currentOpacity As Integer: currentOpacity = 0
-'    On Error GoTo setOpacity_Error
-'
-'    currentOpacity = opacity * 2.55
-'    Call SetWindowLong(fAlpha.gaugeForm.hwnd, GWL_EXSTYLE, GetWindowLong(fAlpha.gaugeForm.hwnd, GWL_EXSTYLE) Or WS_EX_LAYERED)
-'    Call SetLayeredWindowAttributes(fAlpha.gaugeForm.hwnd, RGB(255, 0, 255), currentOpacity, LWA_ALPHA Or LWA_COLORKEY)
-'
-'    On Error GoTo 0
-'    Exit Sub
-'
-'setOpacity_Error:
-'
-'     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure setOpacity of Module modMain"
+
+'Private Sub Form_Load()
+'  Caption = "Resize Me"
+'  B = New_c.FSO.ReadByteContent("c:\temp\large.jpg")
 'End Sub
+
+Private Sub IconResize()
+'  Dim W: W = Me.ScaleX(Me.ScaleWidth, Me.ScaleMode, vbPixels)
+'  Dim H: H = Me.ScaleY(Me.ScaleHeight, Me.ScaleMode, vbPixels)
+'  Set Me.Picture = Cairo.ImageList.AddImage("", B, W, H, True).Picture
+  
+  
+  
+'    B = New_c.FSO.ReadByteContent(FileName)
+'    Set pic1.Picture = Cairo.ImageList.AddImage("", B, W, H, True).Picture
+'    pic1.AutoRedraw = True
+'    Cairo.ImageList.AddImage "myImage", B 'Load image to Bytes with no Resize
+'    With Cairo.CreateSurface(W, H)
+'        .CreateContext.RenderSurfaceContent "myImage", 0, 0, W, H, CAIRO_FILTER_BEST
+'        .DrawToDC pic1.hdc
+'    End With
+    
+    '  Set Me.Picture = Cairo.ImageList.AddImage("", B, W, H, True).Picture
+End Sub
+
+
+
+
