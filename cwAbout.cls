@@ -155,10 +155,15 @@ End Property
 '---------------------------------------------------------------------------------------
 '
 Private Sub W_MouseDown(Button As Integer, Shift As Integer, ByVal x As Single, ByVal Y As Single)
-    On Error GoTo W_MouseDown_Error
-
-'    MyOpacity = 1
-'    ShowMe = False
+   Dim fileToPlay As String: fileToPlay = vbNullString
+   On Error GoTo W_MouseDown_Error
+    
+    ' works better here
+    fileToPlay = "till.wav"
+    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    End If
+    
     tmrAboutFadeOut.Enabled = True
 
    On Error GoTo 0
@@ -219,17 +224,7 @@ Public Property Let ShowMe(ByVal newValue As Boolean)
 
     mShowMe = newValue
     
-    If mShowMe = True Then
-        'mMyOpacity = 0
-        'tmrAboutFadeOut.Enabled = False
-        tmrAboutFadeIn.Enabled = True
-'    Else
-'
-'        mMyOpacity = 1
-'        tmrAboutFadeIn.Enabled = False
-'        tmrAboutFadeOut.Enabled = True
-
-    End If
+    If mShowMe = True Then tmrAboutFadeIn.Enabled = True
     
     On Error GoTo 0
     Exit Property
@@ -295,10 +290,8 @@ End Sub
 ' Purpose   : timer to make the about form or about image fade out in opacity
 '---------------------------------------------------------------------------------------
 Private Sub tmrAboutFadeOut_Timer()
-    Dim fileToPlay As String: fileToPlay = vbNullString
-      
     On Error GoTo tmrAboutFadeOut_Timer_Error
-
+    
     MyOpacity = MyOpacity - 0.05
     
     If MyOpacity < 0 Then
@@ -306,13 +299,6 @@ Private Sub tmrAboutFadeOut_Timer()
         
         tmrAboutFadeOut.Enabled = False
         fMain.aboutForm.Hide
-        
-    
-        fileToPlay = "till.wav"
-        If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
-            PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
-        End If
-        
         Exit Sub
     End If
     
@@ -357,6 +343,14 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
   
     CC.ScaleDrawings mZoom, mZoom
 
+    
+    ' Widgets are refreshed "from the ground up" in RC5 and not so in RC6
+    ' extra code NOT needed when using RC5 but now required in RC6 - starts
+    CC.Operator = CAIRO_OPERATOR_CLEAR
+     CC.Paint 'clear the whole background of this Widgets underlying Surface via Clear-Operator
+    CC.Operator = CAIRO_OPERATOR_OVER 'switch back to the default-Operator
+    ' extra code not needed when using RC5 but now required in RC6 - ends
+    
     CC.RenderSurfaceContent "about", aboutxo, aboutyo, , , , mMyOpacity
         
     'set some Font- and ForeColor-Properties and draw some Text on the Widget

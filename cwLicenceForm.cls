@@ -31,14 +31,14 @@ Attribute tmrLicenceFadeOut.VB_VarHelpID = -1
 Private licencexo As Integer
 Private licenceyo As Integer
 
-Private mOpacity As Double
+Private mMyOpacity As Double
 Private mShowMe As Boolean
-Private opacityflag As Integer ' needs this var as it appears there is a bug in RC that causes the widget to lose opacity
+'Private opacityflag As Integer ' needs this var as it appears there is a bug in RC that causes the widget to lose opacity
 Private mZoom As Double
 
 
 
-'property opacity is a property that populates mOpacity used by RenderSurfaceContent
+'property MyOpacity is a property that populates mMyOpacity used by RenderSurfaceContent
 'property ShowMe is a property that populates mShowMe that triggers a fade in timer
 
 '---------------------------------------------------------------------------------------
@@ -54,7 +54,9 @@ Private Sub Class_Initialize()
 
     licencexo = 0
     licenceyo = 0
-
+    MyOpacity = 0
+    ShowMe = False
+    
     Set W = Cairo.WidgetBase '<- this is required in each cwImplementation...
    
     Set tmrLicenceFadeIn = New_c.Timer(20, False)
@@ -154,10 +156,10 @@ End Property
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub W_MouseMove(Button As Integer, Shift As Integer, ByVal x As Single, ByVal Y As Single)
+Private Sub W_MouseDown(Button As Integer, Shift As Integer, ByVal x As Single, ByVal Y As Single)
    On Error GoTo W_MouseDown_Error
 
-    opacityflag = 1
+    tmrLicenceFadeOut.Enabled = True
 
    On Error GoTo 0
    Exit Sub
@@ -167,42 +169,42 @@ W_MouseDown_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_MouseDown of Class Module cwAbout"
 End Sub
 '---------------------------------------------------------------------------------------
-' Procedure : opacity
+' Procedure : MyOpacity
 ' Author    : beededea
 ' Date      : 17/05/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Property Let opacity(ByVal newValue As Double)
-   On Error GoTo opacityLet_Error
+Public Property Let MyOpacity(ByVal newValue As Double)
+   On Error GoTo MyOpacityLet_Error
 
-   If mOpacity <> newValue Then mOpacity = newValue Else Exit Property
+   If mMyOpacity <> newValue Then mMyOpacity = newValue Else Exit Property
 
    On Error GoTo 0
    Exit Property
 
-opacityLet_Error:
+MyOpacityLet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure opacity of Class Module cwLicence"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure MyOpacity of Class Module cwLicence"
 End Property
 '---------------------------------------------------------------------------------------
-' Procedure : opacity
+' Procedure : MyOpacity
 ' Author    : beededea
 ' Date      : 17/05/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Property Get opacity() As Double
-   On Error GoTo opacityGet_Error
+Public Property Get MyOpacity() As Double
+   On Error GoTo MyOpacityGet_Error
 
-   opacity = mOpacity
+   MyOpacity = mMyOpacity
 
    On Error GoTo 0
    Exit Property
 
-opacityGet_Error:
+MyOpacityGet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure opacity of Class Module cwLicence"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure MyOpacity of Class Module cwLicence"
 End Property
 
 '---------------------------------------------------------------------------------------
@@ -216,16 +218,8 @@ Public Property Let ShowMe(ByVal newValue As Boolean)
     On Error GoTo ShowMeLet_Error
 
     mShowMe = newValue
-    If mShowMe = True Then
-        mOpacity = 0
-        tmrLicenceFadeOut.Enabled = False
-        tmrLicenceFadeIn.Enabled = True
-    Else
-        opacityflag = 0
-        tmrLicenceFadeIn.Enabled = False
-        tmrLicenceFadeOut.Enabled = True
-        mOpacity = 0
-    End If
+    
+    If mShowMe = True Then tmrLicenceFadeIn.Enabled = True
     
     On Error GoTo 0
     Exit Property
@@ -266,9 +260,10 @@ Private Sub tmrLicenceFadeIn_Timer()
       
    On Error GoTo tmrLicenceFadeIn_Timer_Error
     
-    opacity = opacity + 0.01
-    If opacity >= 0.2 Then
-        opacity = 0.2
+    fMain.licenceForm.show
+    MyOpacity = MyOpacity + 0.05
+    If MyOpacity >= 1 Then
+        MyOpacity = 1
 
         tmrLicenceFadeIn.Enabled = False
 
@@ -292,19 +287,16 @@ End Sub
 '---------------------------------------------------------------------------------------
 Private Sub tmrLicenceFadeOut_Timer()
       
-   On Error GoTo tmrLicenceFadeOut_Timer_Error
+    On Error GoTo tmrLicenceFadeOut_Timer_Error
 
-    opacity = opacity - 0.05
-    
-    If opacity < 0 Then
-        opacity = 0
+    MyOpacity = MyOpacity - 0.05
+    If MyOpacity < 0 Then
+        MyOpacity = 0
         
         tmrLicenceFadeOut.Enabled = False
-        'fMain.licenceForm.Hide
-        
+        fMain.licenceForm.Hide
         Exit Sub
     End If
-    
     W.Refresh
 
    On Error GoTo 0
@@ -342,8 +334,6 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Single)
-   
-    Dim currentOpacity As Double: currentOpacity = 0
     
     On Error GoTo Draw_Error
 
@@ -355,40 +345,18 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
     W.SelectFontSettingsInto CC
    
     CC.DrawText 48, -235, dx, dy, "Licence Agreement " & widgetName, , , 2, True, , 1
-    'CC.DrawText 30, -200, dx, dy, "Licence Agreement " & widgetName, , , 2, True, , 1
-    
-'    W.FontSize = 9
-'    W.SelectFontSettingsInto CC
-''
-'    CC.DrawText 48, 83, dx, dy, "If you do not agree with the terms set forth above, please click the ", , , 2, True, , 1
-'    CC.DrawText 48, 93, dx, dy, "Decline button below and destroy this widget and its documentation ", , , 2, True, , 1
-'    CC.DrawText 38, 13, dx, dy, "If you do not agree with the terms set forth above, please click the ", , , 2, True, , 1
-'    CC.DrawText 38, 23, dx, dy, "Decline button below and destroy this widget and its documentation ", , , 2, True, , 1
-    
-'    W.FontSize = 8
-'    W.SelectFontSettingsInto CC
-'
-'    CC.DrawText 240, 50, dx, dy, "Decline", , , 2, True, , 1
-'    CC.DrawText 290, 50, dx, dy, "Accept", , , 2, True, , 1
-'
-    CC.ScaleDrawings mZoom, mZoom
-    
-    If opacityflag = 0 Then
-        currentOpacity = mOpacity
-    Else
-        currentOpacity = 1
-    End If
-    
-    CC.RenderSurfaceContent "licence", licencexo, licenceyo, , , , currentOpacity
 
-   
-'    If PzGDpiAwareness = "0" Then
-'
-'    Else
-'
-'    End If
+    CC.ScaleDrawings mZoom, mZoom
+
+    ' extra code not needed when using RC5 but now required in RC6 - starts
+    CC.Operator = CAIRO_OPERATOR_CLEAR
+     CC.Paint 'clear the whole background of this Widgets underlying Surface via Clear-Operator
+    CC.Operator = CAIRO_OPERATOR_OVER 'switch back to the default-Operator
+    ' extra code not needed when using RC5 but now required in RC6 - ends
     
-    W.Refresh
+    CC.RenderSurfaceContent "licence", licencexo, licenceyo, , , , mMyOpacity
+
+    'W.Refresh
     
    On Error GoTo 0
    Exit Sub

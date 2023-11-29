@@ -940,7 +940,7 @@ Public Sub addTargetFile(ByVal fieldValue As String, ByRef retFileName As String
             ' set the default folder to the existing reference
             dialogInitDir = fieldValue 'start dir, might be "C:\" or so also
         Else
-            dialogInitDir = App.Path 'start dir, might be "C:\" or so also
+            dialogInitDir = App.path 'start dir, might be "C:\" or so also
         End If
     End If
     
@@ -979,16 +979,16 @@ End Sub
 ' Purpose   : get the folder or directory path as a string not including the last backslash
 '---------------------------------------------------------------------------------------
 '
-Public Function fGetDirectory(ByRef Path As String) As String
+Public Function fGetDirectory(ByRef path As String) As String
 
    On Error GoTo fGetDirectory_Error
    ''If debugflg = 1  Then DebugPrint "%" & "fnGetDirectory"
 
-    If InStrRev(Path, "\") = 0 Then
+    If InStrRev(path, "\") = 0 Then
         fGetDirectory = vbNullString
         Exit Function
     End If
-    fGetDirectory = Left$(Path, InStrRev(Path, "\") - 1)
+    fGetDirectory = Left$(path, InStrRev(path, "\") - 1)
 
    On Error GoTo 0
    Exit Function
@@ -1543,8 +1543,8 @@ Public Sub aboutClickEvent()
     On Error GoTo aboutClickEvent_Error
     
     fileToPlay = "till.wav"
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
     ' The RC forms are measured in pixels so the positioning needs to pre-convert the twips into pixels
@@ -1587,19 +1587,18 @@ Public Sub helpSplash()
     On Error GoTo helpSplash_Error
 
     fileToPlay = "till.wav"
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
-
 
     fMain.helpForm.Top = (screenHeightPixels / 2) - (fMain.helpForm.Height / 2)
     fMain.helpForm.Left = (screenWidthPixels / 2) - (fMain.helpForm.Width / 2)
      
-    helpWidget.opacity = 0
-    helpWidget.show = True
-    'helpWidget.Widget.Refresh
+    'helpWidget.MyOpacity = 0
+    helpWidget.ShowMe = True
+    helpWidget.Widget.Refresh
     
-    'fMain.helpForm.Load
+    fMain.helpForm.Load
     fMain.helpForm.show
     
      If (fMain.helpForm.WindowState = 1) Then
@@ -1628,20 +1627,20 @@ Public Sub licenceSplash()
     On Error GoTo licenceSplash_Error
 
     fileToPlay = "till.wav"
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
-    'fMain.licenceForm.Load
     
     fMain.licenceForm.Top = (screenHeightPixels / 2) - (fMain.licenceForm.Height / 2)
     fMain.licenceForm.Left = (screenWidthPixels / 2) - (fMain.licenceForm.Width / 2)
      
-    licenceWidget.opacity = 0
+    'licenceWidget.opacity = 0
     'opacityflag = 0
     licenceWidget.ShowMe = True
-    'licenceWidget.Widget.Refresh
+    licenceWidget.Widget.Refresh
     
+    fMain.licenceForm.Load
     fMain.licenceForm.show
 
     ' the btnDecline_Click and btnAccept_Click are in modmain.bas
@@ -1677,7 +1676,7 @@ Public Sub mnuCoffee_ClickEvent()
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Donate a Kofi", True, "mnuCoffeeClickEvent")
 
     If answer = vbYes Then
-        Call ShellExecute(menuForm.hwnd, "Open", "https://www.ko-fi.com/yereverluvinunclebert", vbNullString, App.Path, 1)
+        Call ShellExecute(menuForm.hwnd, "Open", "https://www.ko-fi.com/yereverluvinunclebert", vbNullString, App.path, 1)
     End If
 
    On Error GoTo 0
@@ -1707,7 +1706,7 @@ Public Sub mnuSupport_ClickEvent()
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Contact Support", True, "mnuSupportClickEvent")
 
     If answer = vbYes Then
-        Call ShellExecute(menuForm.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/issues", vbNullString, App.Path, 1)
+        Call ShellExecute(menuForm.hwnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-JustClock-VB6/issues", vbNullString, App.path, 1)
     End If
 
    On Error GoTo 0
@@ -2472,8 +2471,8 @@ Public Sub lockWidget()
     
     sPutINISetting "Software\PzJustClock", "preventDragging", PzGPreventDragging, PzGSettingsFile
    
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
     On Error GoTo 0
@@ -2530,8 +2529,8 @@ Public Sub TurnFunctionsOn()
    On Error GoTo TurnFunctionsOn_Error
 
     fileToPlay = "ting.wav"
-    If PzGEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
     overlayWidget.Ticking = True
@@ -2595,7 +2594,7 @@ Public Sub hardRestart()
     
     On Error GoTo hardRestart_Error
 
-    thisCommand = App.Path & "\restart.exe"
+    thisCommand = App.path & "\restart.exe"
     
     If fFExists(thisCommand) Then
         

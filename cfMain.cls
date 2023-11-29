@@ -327,7 +327,7 @@ Private Sub btnAccept_Click()
     sPutINISetting "Software\PzJustClock", "licence", slicence, PzGSettingsFile
     
     licenceWidget.ShowMe = False
-    licenceWidget.opacity = 0
+    licenceWidget.MyOpacity = 0
     licenceWidget.Widget.Refresh
 
     licenceForm.Visible = False

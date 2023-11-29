@@ -255,13 +255,20 @@
 ' update help to include GUI interaction with the buttons - done
 ' create an independent RC project to fade a widget in and out to demonstrate the RC fade-out bug in RC6 - done
 
+' aboutForm is not fading back-in but instantly hiding in RC6, opacity is acting strangely on second fade in. Confirmed - raise a bug with Olaf on VBforums - done
+' create a RC5 demo for the fade in/out - done
+' create a RC6 demo for the fade in/out - done
+
 ' -oOo-
 
 ' licence and help forms should have the same functionality re: the fade timers, copy from about form
 
-' aboutForm is not fading back-in but instantly hiding in RC6, opacity is acting strangely on second fade in. Confirmed - raise a bug with Olaf on VBforums.
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25% - raise a request with Olaf on VBforums.
-' Q. for Olaf use of cwLabel - error message, how to add a simple label to a form?
+
+' fix the fadeIn/Out for the supplementary forms as per this described bug:
+' https://www.vbforums.com/showthread.php?901756-VB6-Question-Possible-RC6-bug-in-opacity
+
+' Q. for Olaf, use of cwLabel - error message, how to add a simple label to a form?
 
 ' add second monitor - wip find cable!
 ' sync. E6410 win 7
@@ -272,7 +279,6 @@
 ' E:\vb6\rc5 demos\14 Thumbnailing per ImageList
 ' E:\vb6\rc5 demos\12 (A) ImageSurfaces Rotate+Scale
 ' E:\vb6\rc5 demos\15 ImageList and IconResources
-
 
 ' test on Dell win 11 high DPI with slicence = 0
 
@@ -310,8 +316,6 @@ End With
 
 ' RC BUGS & LIMITATIONS
 ' =====================
-
-
 
 ' tooltips also resize when the whole thing is resized, code received from Olaf tested - resizing results in missing text and blank tooltips, using non-standard font centurion light
 ' RC6 needs a static tooltip option.
