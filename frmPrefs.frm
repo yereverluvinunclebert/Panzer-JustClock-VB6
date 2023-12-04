@@ -1718,17 +1718,11 @@ Begin VB.Form panzerPrefs
       TabIndex        =   0
       Top             =   -15
       Width           =   930
-      Begin VB.PictureBox imgGeneral 
-         Appearance      =   0  'Flat
-         BackColor       =   &H80000004&
-         BorderStyle     =   0  'None
-         ForeColor       =   &H80000008&
+      Begin VB.Image imgGeneral 
          Height          =   600
-         Left            =   165
+         Left            =   180
          Picture         =   "frmPrefs.frx":1E241
-         ScaleHeight     =   600
-         ScaleWidth      =   600
-         TabIndex        =   165
+         Stretch         =   -1  'True
          Top             =   225
          Width           =   600
       End
@@ -2195,6 +2189,8 @@ Private Sub Form_Load()
     
     ' load the about text and load into prefs
     Call loadPrefsAboutText
+    
+    Call loadHigherResPrefsImages
     
     ' now cause a form_resize event and set the height of the whole form
     If PzGDpiAwareness = "1" Then
@@ -3788,7 +3784,7 @@ Private Sub readFileWriteComboBox(ByRef thisComboBox As Control, ByVal thisFileN
     If fFExists(thisFileName) = True Then
        ' the files must be DOS CRLF delineated
        Open thisFileName For Input As #1
-           strArr() = Split(Input(LOF(1), 1), vbCrLf)
+           strArr() = Split(input(LOF(1), 1), vbCrLf)
        Close #1
     
        lngCount = UBound(strArr)
@@ -3881,7 +3877,6 @@ Private Sub Form_Resize()
         
         Me.Width = Me.Height / ratio ' maintain the aspect ratio
 
-        Call loadHigherResPrefsImages
     Else
         If Me.WindowState = 0 Then ' normal
             If Me.Width > 9090 Then Me.Width = 9090
@@ -5424,32 +5419,26 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub setPrefsIconImagesDark(ByVal thisIconWidth As Long)
-    Dim resourcePath As String: resourcePath = vbNullString
     
     On Error GoTo setPrefsIconImagesDark_Error
     
-    resourcePath = App.path & "\resources\images"
-
-    If fFExists(resourcePath & "\general-icon-dark-" & thisIconWidth & ".jpg") Then Set imgGeneral.Picture = LoadPicture(resourcePath & "\general-icon-dark-" & thisIconWidth & ".jpg")
-    
-    'imgGeneral.pa
-    If fFExists(resourcePath & "\config-icon-dark-" & thisIconWidth & ".jpg") Then Set imgConfig.Picture = LoadPicture(resourcePath & "\config-icon-dark-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\position-icon-dark-" & thisIconWidth & ".jpg") Then Set imgPosition.Picture = LoadPicture(resourcePath & "\position-icon-dark-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\font-icon-dark-" & thisIconWidth & ".jpg") Then Set imgFonts.Picture = LoadPicture(resourcePath & "\font-icon-dark-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\development-icon-dark-" & thisIconWidth & ".jpg") Then Set imgDevelopment.Picture = LoadPicture(resourcePath & "\development-icon-dark-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\sounds-icon-dark-" & thisIconWidth & ".jpg") Then Set imgSounds.Picture = LoadPicture(resourcePath & "\sounds-icon-dark-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\windows-icon-dark-" & thisIconWidth & ".jpg") Then Set imgWindow.Picture = LoadPicture(resourcePath & "\windows-icon-dark-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\about-icon-dark-" & thisIconWidth & ".jpg") Then Set imgAbout.Picture = LoadPicture(resourcePath & "\about-icon-dark-" & thisIconWidth & ".jpg")
-    
-    ' I may yet create clicked versions of all the icons but not now!
-    If fFExists(resourcePath & "\config-icon-dark-600-clicked.jpg") Then Set imgConfigClicked.Picture = LoadPicture(resourcePath & "\config-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\general-icon-dark-600-clicked.jpg") Then Set imgGeneralClicked.Picture = LoadPicture(resourcePath & "\general-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\position-icon-dark-600-clicked.jpg") Then Set imgPositionClicked.Picture = LoadPicture(resourcePath & "\position-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\font-icon-dark-600-clicked.jpg") Then Set imgFontsClicked.Picture = LoadPicture(resourcePath & "\font-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\development-icon-dark-600-clicked.jpg") Then Set imgDevelopmentClicked.Picture = LoadPicture(resourcePath & "\development-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\sounds-icon-dark-600-clicked.jpg") Then Set imgSoundsClicked.Picture = LoadPicture(resourcePath & "\sounds-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\windows-icon-dark-600-clicked.jpg") Then Set imgWindowClicked.Picture = LoadPicture(resourcePath & "\windows-icon-dark-600-clicked.jpg")
-    If fFExists(resourcePath & "\about-icon-dark-600-clicked.jpg") Then Set imgAboutClicked.Picture = LoadPicture(resourcePath & "\about-icon-dark-600-clicked.jpg")
+    Set imgGeneral.Picture = Cairo.ImageList("general-icon-dark").Picture
+    Set imgConfig.Picture = Cairo.ImageList("config-icon-dark").Picture
+    Set imgFonts.Picture = Cairo.ImageList("font-icon-dark").Picture
+    Set imgSounds.Picture = Cairo.ImageList("sounds-icon-dark").Picture
+    Set imgPosition.Picture = Cairo.ImageList("position-icon-dark").Picture
+    Set imgDevelopment.Picture = Cairo.ImageList("development-icon-dark").Picture
+    Set imgWindow.Picture = Cairo.ImageList("windows-icon-dark").Picture
+    Set imgAbout.Picture = Cairo.ImageList("about-icon-dark").Picture
+'
+    Set imgGeneralClicked.Picture = Cairo.ImageList("general-icon-dark-clicked").Picture
+    Set imgConfigClicked.Picture = Cairo.ImageList("config-icon-dark-clicked").Picture
+    Set imgFontsClicked.Picture = Cairo.ImageList("font-icon-dark-clicked").Picture
+    Set imgSoundsClicked.Picture = Cairo.ImageList("sounds-icon-dark-clicked").Picture
+    Set imgPositionClicked.Picture = Cairo.ImageList("position-icon-dark-clicked").Picture
+    Set imgDevelopmentClicked.Picture = Cairo.ImageList("development-icon-dark-clicked").Picture
+    Set imgWindowClicked.Picture = Cairo.ImageList("windows-icon-dark-clicked").Picture
+    Set imgAboutClicked.Picture = Cairo.ImageList("about-icon-dark-clicked").Picture
 
    On Error GoTo 0
    Exit Sub

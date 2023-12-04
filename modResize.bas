@@ -36,8 +36,7 @@ Public Sub resizeControls(ByRef thisForm As Form, ByRef m_ControlPositions() As 
     ' Get the form's current scale factors.
     x_scale = thisForm.ScaleWidth / m_FormWid
     y_scale = thisForm.ScaleHeight / m_FormHgt
-
-    ' Position the controls.
+    
     I = 1
 
     For Each Ctrl In thisForm.Controls
@@ -70,33 +69,6 @@ Public Sub resizeControls(ByRef thisForm As Form, ByRef m_ControlPositions() As 
         End With
         I = I + 1
     Next Ctrl
-    
-     
-    '    B = New_c.FSO.ReadByteContent(FileName)
-    '    Set pic1.Picture = Cairo.ImageList.AddImage("", B, W, H, True).Picture
-    
-    ' load original image already pre-loaded into imagelist
-    ' calculate new icon size
-    ' create temporary imageList entry resized
-    ' panzerPrefs.imgGeneral.AutoRedraw = True
-    Dim ImageKey As String
-    Dim w As Long
-    Dim h As Long
-    
-    ImageKey = "general-icon-dark"
-    
-    If Not Cairo.ImageList.Exists(ImageKey) Then Exit Sub
-    '
-'    w = 97 * x_scale
-'    With Cairo.CreateSurface(w, h)
-'        .CreateContext.RenderSurfaceContent "general-icon-dark", 0, 0, w, h, CAIRO_FILTER_BEST
-'        .DrawToDC panzerPrefs.imgGeneral.hdc
-'
-'    End With
-'
-        
-    ' Set panzerPrefs.imgGeneral.Picture =
-    '  Set Me.Picture = Cairo.ImageList.AddImage("", B, W, H, True).Picture
         
    On Error GoTo 0
    Exit Sub
