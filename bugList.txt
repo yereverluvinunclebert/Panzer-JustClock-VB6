@@ -263,47 +263,19 @@
 ' fix the fadeIn/Out for the supplementary forms - done
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25% - raise a request with Olaf on VBforums - done
 
+' automatic loading of the prefs icons using RC6 imageList - done
+
 ' -oOo-
 
 ' upgrade to RC6 new version supplied by Olaf to obtain opacity control over the overlays currently limited to 25%
-' experiment with the setting for the opacity control over the overlays <25%
+'     experiment with the setting for the opacity control over the overlays <25%
+'     Olaf has some new code in cfalpha.cls to merge with the old code that should deal with this.
 
 ' Q. for Olaf, use of cwLabel - error message, how to add a simple label to a form?
 
 ' add second monitor - wip find cable!
 ' sync. E6410 win 7
 ' sync. Fast Dell laptop
-
-' automatic resizing of the prefs icons using RC6 or GDI+
-' for each icon in the prefs
-' populate an imageList using the prefs icons
-' resize the
-
-CAIRO_FILTER_BEST
-'
-.LayerSurface(i).WriteContentToPngByteArray pngbyte()
-
-    Dim W: W = 600
-    Dim H: H = 600
-    Dim Filename As String: Filename = App.Path & "\Blow Up.jpg"
-    Caption = "RC6 Picture Test"
-    
-    'RC6
-    B = New_c.FSO.ReadByteContent(Filename)
-
-    Cairo.ImageList.AddImage "img", B, W, H, True
-    
-   With Cairo.CreateSurface(300, 300)
-      With .CreateContext
-         .RenderSurfaceContent "img", 0, 0, 300, 300, CAIRO_FILTER_BEST, , True
-      End With
-      .DrawToDC Me.pic1.hDC, , , , , , , , , , , True
-   End With
-   
-
-' E:\vb6\rc5 demos\14 Thumbnailing per ImageList
-' E:\vb6\rc5 demos\12 (A) ImageSurfaces Rotate+Scale
-' E:\vb6\rc5 demos\15 ImageList and IconResources
 
 ' test on Dell win 11 high DPI with slicence = 0
 
