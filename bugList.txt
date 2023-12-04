@@ -264,8 +264,13 @@
 ' upgrade to RC6 new version proposed by Olaf to obtain opacity control over the overlays currently limited to 25% - raise a request with Olaf on VBforums - done
 
 ' automatic loading of the prefs icons using RC6 imageList - done
+' removed automatic loading of the prefs icons from the resize to the load function - done
+' removed unwanted icon sizes - done
 
 ' -oOo-
+
+' dealing with increased density shadows, the simple PSD parser function seems to increase to opacity of shadows in the transparent regions.
+'    sent PSD to Olaf.
 
 ' upgrade to RC6 new version supplied by Olaf to obtain opacity control over the overlays currently limited to 25%
 '     experiment with the setting for the opacity control over the overlays <25%
@@ -294,8 +299,6 @@ End With
 ' adjustFormPositionToCorrectMonitor - help form
 
 ' setup2go create setup.exe
-
-
 
 ' -oOo-
 

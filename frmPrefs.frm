@@ -2190,6 +2190,7 @@ Private Sub Form_Load()
     ' load the about text and load into prefs
     Call loadPrefsAboutText
     
+    ' load the preference icons from a previously populated CC imageList
     Call loadHigherResPrefsImages
     
     ' now cause a form_resize event and set the height of the whole form
@@ -5112,14 +5113,14 @@ Private Sub setThemeShade(ByVal redC As Integer, ByVal greenC As Integer, ByVal 
         mnuLight.Checked = False
         mnuDark.Checked = True
         
-        Call setPrefsIconImagesDark(determineIconWidth(Me, prefsDynamicSizingFlg))
+        Call setPrefsIconImagesDark
         
     Else
         'classicTheme = False
         mnuLight.Checked = True
         mnuDark.Checked = False
         
-        Call setPrefsIconImagesLight(determineIconWidth(Me, prefsDynamicSizingFlg))
+        Call setPrefsIconImagesLight
                 
     End If
     
@@ -5271,9 +5272,9 @@ Private Sub loadHigherResPrefsImages()
     If Me.WindowState = vbMinimized Then Exit Sub
         
     If mnuDark.Checked = True Then
-        Call setPrefsIconImagesDark(determineIconWidth(Me, prefsDynamicSizingFlg))
+        Call setPrefsIconImagesDark
     Else
-        Call setPrefsIconImagesLight(determineIconWidth(Me, prefsDynamicSizingFlg))
+        Call setPrefsIconImagesLight
     End If
     
    On Error GoTo 0
@@ -5418,7 +5419,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub setPrefsIconImagesDark(ByVal thisIconWidth As Long)
+Private Sub setPrefsIconImagesDark()
     
     On Error GoTo setPrefsIconImagesDark_Error
     
@@ -5457,32 +5458,51 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub setPrefsIconImagesLight(ByVal thisIconWidth As Long)
+Private Sub setPrefsIconImagesLight()
     
-    Dim resourcePath As String: resourcePath = vbNullString
+    'Dim resourcePath As String: resourcePath = vbNullString
     
     On Error GoTo setPrefsIconImagesLight_Error
     
-    resourcePath = App.path & "\resources\images"
+    'resourcePath = App.path & "\resources\images"
     
-    If fFExists(resourcePath & "\config-icon-light-" & thisIconWidth & ".jpg") Then imgConfig.Picture = LoadPicture(resourcePath & "\config-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\general-icon-light-" & thisIconWidth & ".jpg") Then imgGeneral.Picture = LoadPicture(resourcePath & "\general-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\position-icon-light-" & thisIconWidth & ".jpg") Then imgPosition.Picture = LoadPicture(resourcePath & "\position-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\font-icon-light-" & thisIconWidth & ".jpg") Then imgFonts.Picture = LoadPicture(resourcePath & "\font-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\development-icon-light-" & thisIconWidth & ".jpg") Then imgDevelopment.Picture = LoadPicture(resourcePath & "\development-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\sounds-icon-light-" & thisIconWidth & ".jpg") Then imgSounds.Picture = LoadPicture(resourcePath & "\sounds-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\windows-icon-light-" & thisIconWidth & ".jpg") Then imgWindow.Picture = LoadPicture(resourcePath & "\windows-icon-light-" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\about-icon-light-" & thisIconWidth & ".jpg") Then imgAbout.Picture = LoadPicture(resourcePath & "\about-icon-light-" & thisIconWidth & ".jpg")
+'    If fFExists(resourcePath & "\config-icon-light-" & thisIconWidth & ".jpg") Then imgConfig.Picture = LoadPicture(resourcePath & "\config-icon-light-" & thisIconWidth & ".jpg")
+'    If fFExists(resourcePath & "\general-icon-light-" & thisIconWidth & ".jpg") Then imgGeneral.Picture = LoadPicture(resourcePath & "\general-icon-light-" & thisIconWidth & ".jpg")
+'    If fFExists(resourcePath & "\position-icon-light-" & thisIconWidth & ".jpg") Then imgPosition.Picture = LoadPicture(resourcePath & "\position-icon-light-" & thisIconWidth & ".jpg")
+'    If fFExists(resourcePath & "\font-icon-light-" & thisIconWidth & ".jpg") Then imgFonts.Picture = LoadPicture(resourcePath & "\font-icon-light-" & thisIconWidth & ".jpg")
+'    If fFExists(resourcePath & "\development-icon-light-" & thisIconWidth & ".jpg") Then imgDevelopment.Picture = LoadPicture(resourcePath & "\development-icon-light-" & thisIconWidth & ".jpg")
+'    If fFExists(resourcePath & "\sounds-icon-light-" & thisIconWidth & ".jpg") Then imgSounds.Picture = LoadPicture(resourcePath & "\sounds-icon-light-" & thisIconWidth & ".jpg")
+'    If fFExists(resourcePath & "\windows-icon-light-" & thisIconWidth & ".jpg") Then imgWindow.Picture = LoadPicture(resourcePath & "\windows-icon-light-" & thisIconWidth & ".jpg")
+'    If fFExists(resourcePath & "\about-icon-light-" & thisIconWidth & ".jpg") Then imgAbout.Picture = LoadPicture(resourcePath & "\about-icon-light-" & thisIconWidth & ".jpg")
+'
+'    ' I may yet create clicked versions of all the icons but not now!
+'    If fFExists(resourcePath & "\config-icon-light-600-clicked.jpg") Then imgConfigClicked.Picture = LoadPicture(resourcePath & "\config-icon-light-600-clicked.jpg")
+'    If fFExists(resourcePath & "\general-icon-light-600-clicked.jpg") Then imgGeneralClicked.Picture = LoadPicture(resourcePath & "\general-icon-light-600-clicked.jpg")
+'    If fFExists(resourcePath & "\position-icon-light-600-clicked.jpg") Then imgPositionClicked.Picture = LoadPicture(resourcePath & "\position-icon-light-600-clicked.jpg")
+'    If fFExists(resourcePath & "\font-icon-light-600-clicked.jpg") Then imgFontsClicked.Picture = LoadPicture(resourcePath & "\font-icon-light-600-clicked.jpg")
+'    If fFExists(resourcePath & "\development-icon-light-600-clicked.jpg") Then imgDevelopmentClicked.Picture = LoadPicture(resourcePath & "\development-icon-light-600-clicked.jpg")
+'    If fFExists(resourcePath & "\sounds-icon-light-600-clicked.jpg") Then imgSoundsClicked.Picture = LoadPicture(resourcePath & "\sounds-icon-light-600-clicked.jpg")
+'    If fFExists(resourcePath & "\windows-icon-light-600-clicked.jpg") Then imgWindowClicked.Picture = LoadPicture(resourcePath & "\windows-icon-light-600-clicked.jpg")
+'    If fFExists(resourcePath & "\about-icon-light-600-clicked.jpg") Then imgAboutClicked.Picture = LoadPicture(resourcePath & "\about-icon-light-600-clicked.jpg")
+
     
-    ' I may yet create clicked versions of all the icons but not now!
-    If fFExists(resourcePath & "\config-icon-light-600-clicked.jpg") Then imgConfigClicked.Picture = LoadPicture(resourcePath & "\config-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\general-icon-light-600-clicked.jpg") Then imgGeneralClicked.Picture = LoadPicture(resourcePath & "\general-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\position-icon-light-600-clicked.jpg") Then imgPositionClicked.Picture = LoadPicture(resourcePath & "\position-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\font-icon-light-600-clicked.jpg") Then imgFontsClicked.Picture = LoadPicture(resourcePath & "\font-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\development-icon-light-600-clicked.jpg") Then imgDevelopmentClicked.Picture = LoadPicture(resourcePath & "\development-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\sounds-icon-light-600-clicked.jpg") Then imgSoundsClicked.Picture = LoadPicture(resourcePath & "\sounds-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\windows-icon-light-600-clicked.jpg") Then imgWindowClicked.Picture = LoadPicture(resourcePath & "\windows-icon-light-600-clicked.jpg")
-    If fFExists(resourcePath & "\about-icon-light-600-clicked.jpg") Then imgAboutClicked.Picture = LoadPicture(resourcePath & "\about-icon-light-600-clicked.jpg")
+    Set imgGeneral.Picture = Cairo.ImageList("general-icon-light").Picture
+    Set imgConfig.Picture = Cairo.ImageList("config-icon-light").Picture
+    Set imgFonts.Picture = Cairo.ImageList("font-icon-light").Picture
+    Set imgSounds.Picture = Cairo.ImageList("sounds-icon-light").Picture
+    Set imgPosition.Picture = Cairo.ImageList("position-icon-light").Picture
+    Set imgDevelopment.Picture = Cairo.ImageList("development-icon-light").Picture
+    Set imgWindow.Picture = Cairo.ImageList("windows-icon-light").Picture
+    Set imgAbout.Picture = Cairo.ImageList("about-icon-light").Picture
+'
+    Set imgGeneralClicked.Picture = Cairo.ImageList("general-icon-light-clicked").Picture
+    Set imgConfigClicked.Picture = Cairo.ImageList("config-icon-light-clicked").Picture
+    Set imgFontsClicked.Picture = Cairo.ImageList("font-icon-light-clicked").Picture
+    Set imgSoundsClicked.Picture = Cairo.ImageList("sounds-icon-light-clicked").Picture
+    Set imgPositionClicked.Picture = Cairo.ImageList("position-icon-light-clicked").Picture
+    Set imgDevelopmentClicked.Picture = Cairo.ImageList("development-icon-light-clicked").Picture
+    Set imgWindowClicked.Picture = Cairo.ImageList("windows-icon-light-clicked").Picture
+    Set imgAboutClicked.Picture = Cairo.ImageList("about-icon-light-clicked").Picture
 
    On Error GoTo 0
    Exit Sub

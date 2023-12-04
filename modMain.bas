@@ -381,7 +381,6 @@ Private Sub addImagesToImageList()
     Cairo.ImageList.AddImage "windows-icon-light-clicked", App.path & "\Resources\images\windows-icon-light-600-clicked.jpg"
     Cairo.ImageList.AddImage "about-icon-light-clicked", App.path & "\Resources\images\about-icon-light-600-clicked.jpg"
     
-    
    On Error GoTo 0
    Exit Sub
 

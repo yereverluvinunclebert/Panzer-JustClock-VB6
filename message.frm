@@ -285,10 +285,10 @@ Public Sub Display()
         intShow = GetSetting(App.EXEName, "Options", "Show message" & formMsgContext, vbUnchecked)
         
         If intShow = vbUnchecked Then
-            Me.show vbModal
+            Me.Show vbModal
         End If
     Else
-        Me.show vbModal
+        Me.Show vbModal
     End If
 
    On Error GoTo 0
@@ -632,9 +632,6 @@ propButtonVal_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property propButtonVal of Form frmMessage"
         
 End Property
-
-
-
 
 
 '---------------------------------------------------------------------------------------
