@@ -149,25 +149,25 @@ ZoomLet_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Zoom of Class Module cwhelp"
 End Property
 
-'---------------------------------------------------------------------------------------
-' Procedure : W_MouseMove
-' Author    : beededea
-' Date      : 17/05/2023
-' Purpose   :
-'---------------------------------------------------------------------------------------
+''---------------------------------------------------------------------------------------
+'' Procedure : W_MouseMove
+'' Author    : beededea
+'' Date      : 17/05/2023
+'' Purpose   :
+''---------------------------------------------------------------------------------------
+''
+'Private Sub W_MouseDown(Button As Integer, Shift As Integer, ByVal x As Single, ByVal Y As Single)
+'   On Error GoTo W_MouseDown_Error
 '
-Private Sub W_MouseDown(Button As Integer, Shift As Integer, ByVal x As Single, ByVal Y As Single)
-   On Error GoTo W_MouseDown_Error
-
-    tmrLicenceFadeOut.Enabled = True
-
-   On Error GoTo 0
-   Exit Sub
-
-W_MouseDown_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_MouseDown of Class Module cwAbout"
-End Sub
+'    tmrLicenceFadeOut.Enabled = True
+'
+'   On Error GoTo 0
+'   Exit Sub
+'
+'W_MouseDown_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_MouseDown of Class Module cwAbout"
+'End Sub
 '---------------------------------------------------------------------------------------
 ' Procedure : MyOpacity
 ' Author    : beededea
@@ -260,7 +260,7 @@ Private Sub tmrLicenceFadeIn_Timer()
       
    On Error GoTo tmrLicenceFadeIn_Timer_Error
     
-    fMain.licenceForm.show
+    fMain.licenceForm.Show
     MyOpacity = MyOpacity + 0.05
     If MyOpacity >= 1 Then
         MyOpacity = 1

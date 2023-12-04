@@ -1718,11 +1718,17 @@ Begin VB.Form panzerPrefs
       TabIndex        =   0
       Top             =   -15
       Width           =   930
-      Begin VB.Image imgGeneral 
+      Begin VB.PictureBox imgGeneral 
          Appearance      =   0  'Flat
+         BackColor       =   &H80000004&
+         BorderStyle     =   0  'None
+         ForeColor       =   &H80000008&
          Height          =   600
          Left            =   165
-         Stretch         =   -1  'True
+         Picture         =   "frmPrefs.frx":1E241
+         ScaleHeight     =   600
+         ScaleWidth      =   600
+         TabIndex        =   165
          Top             =   225
          Width           =   600
       End
@@ -3883,11 +3889,7 @@ Private Sub Form_Resize()
             If lastFormHeight <> 0 Then Me.Height = lastFormHeight
         End If
     End If
-    
-    
-
-
-    
+        
     'lblSize.Caption = "topIconWidth = " & topIconWidth & " imgGeneral width = " & imgGeneral.Width
     
     On Error GoTo 0
@@ -5334,7 +5336,7 @@ Private Sub chkEnableResizing_Click()
         txtPrefsFontCurrentSize.Visible = False
         lblCurrentFontsTab.Visible = False
         Unload panzerPrefs
-        Me.show
+        Me.Show
         Call readPrefsPosition
         chkEnableResizing.Caption = "Enable Corner Resizing"
     End If
