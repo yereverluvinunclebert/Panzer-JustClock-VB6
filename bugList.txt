@@ -267,16 +267,17 @@
 ' removed automatic loading of the prefs icons from the resize to the load function - done
 ' removed unwanted icon sizes - done
 
-' -oOo-
+' use of cwLabel - automation error message caused by with Events, does not apply - done
 
-' dealing with increased density shadows, the simple PSD parser function seems to increase to opacity of shadows in the transparent regions.
-'    sent PSD to Olaf.  Awaiting response.
+' -oOo-
 
 ' upgrade to RC6 new version supplied by Olaf to obtain opacity control over the overlays currently limited to 25%
 '     experiment with the setting for the opacity control over the overlays <25%
 '     Olaf has some new code in cfalpha.cls to merge with the old code that should deal with this.
 
-' Q. for Olaf, use of cwLabel - error message, how to add a simple label to a form?
+' dealing with increased density shadows, the simple PSD parser function seems to increase to opacity of shadows in the transparent regions.
+'    sent PSD to Olaf.  Awaiting response.
+
 
 ' add second monitor - wip find cable!
 ' sync. E6410 win 7
