@@ -39,7 +39,7 @@ Public revealWidgetTimerCount As Integer
 Public fAlpha As New cfAlpha
 Public overlayWidget As cwOverlay
 Public widgetName As String
-Private b() As Byte
+
 
 '---------------------------------------------------------------------------------------
 ' Procedure : Main

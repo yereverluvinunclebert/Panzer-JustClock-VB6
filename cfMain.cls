@@ -38,8 +38,9 @@ Private WithEvents btnDecline As cwButton
 Attribute btnDecline.VB_VarHelpID = -1
 Private WithEvents textBox As cwTextBox
 Attribute textBox.VB_VarHelpID = -1
-Private WithEvents lblDeclineOrNot As cwButton
+Private lblDeclineOrNot As cwLabel
 Attribute lblDeclineOrNot.VB_VarHelpID = -1
+
  
 
 
@@ -249,16 +250,16 @@ Public Sub initAndShowLicenceForm(ByVal x As Long, ByVal Y As Long, Optional ByV
         Set btnDecline = licenceForm.Widgets.Add(New_W("cwButton"), "btnDecline", 352, 397, 70, 29)
         Set btnAccept = licenceForm.Widgets.Add(New_W("cwButton"), "btnAccept", 428, 397, 70, 29)
         Set textBox = licenceForm.Widgets.Add(New_W("cwTextBox"), "textBox", 50, 60, 440, 280)
-        Set lblDeclineOrNot = licenceForm.Widgets.Add(New_W("cwButton"), "lblDeclineOrNot", 50, 345, 440, 35)
+        Set lblDeclineOrNot = licenceForm.Widgets.Add(New_W("cwLabel"), "lblDeclineOrNot", 50, 345, 440, 35)
         textBox.Widget.FontSize = 11
         btnDecline.Widget.FontSize = 10
         btnAccept.Widget.FontSize = 10
-        lblDeclineOrNot.Widget.FontSize = 10
+        lblDeclineOrNot.Widget.FontSize = 8
     Else
         Set btnDecline = licenceForm.Widgets.Add(New_W("cwButton"), "btnDecline", 189, 210, 40, 18)
         Set btnAccept = licenceForm.Widgets.Add(New_W("cwButton"), "btnAccept", 228, 210, 40, 18)
         Set textBox = licenceForm.Widgets.Add(New_W("cwTextBox"), "textBox", 25, 30, 240, 155)
-        Set lblDeclineOrNot = licenceForm.Widgets.Add(New_W("cwButton"), "lblDeclineOrNot", 25, 188, 240, 20)
+        Set lblDeclineOrNot = licenceForm.Widgets.Add(New_W("cwLabel"), "lblDeclineOrNot", 25, 188, 240, 20)
         textBox.Widget.FontSize = 8
         btnDecline.Widget.FontSize = 7
         btnAccept.Widget.FontSize = 7
@@ -291,6 +292,8 @@ Public Sub initAndShowLicenceForm(ByVal x As Long, ByVal Y As Long, Optional ByV
         "You may use any of my own imagery in your own creations but commercially only with my permission. In all other non-commercial cases I require a credit to the original artist using my name or one of my pseudonyms and a link to my site. With regard to the commercial use of incorporated images, permission and a licence would need to be obtained from the original owner and creator, ie. me."
 
     lblDeclineOrNot.BorderRadius = 0
+    lblDeclineOrNot.WordWrap = True
+    lblDeclineOrNot.Alignment = vbCenter
     lblDeclineOrNot.Caption = "If you do not agree with the terms set forth above, please click the " & _
         "Decline button below and destroy this widget and its documentation"
         

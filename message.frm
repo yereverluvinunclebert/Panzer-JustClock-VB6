@@ -623,7 +623,6 @@ Public Property Let propButtonVal(ByVal newValue As Integer)
         picVBQuestion.Visible = True
     End If
 
-
    On Error GoTo 0
    Exit Property
 

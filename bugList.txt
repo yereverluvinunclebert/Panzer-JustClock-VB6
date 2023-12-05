@@ -270,7 +270,7 @@
 ' -oOo-
 
 ' dealing with increased density shadows, the simple PSD parser function seems to increase to opacity of shadows in the transparent regions.
-'    sent PSD to Olaf.
+'    sent PSD to Olaf.  Awaiting response.
 
 ' upgrade to RC6 new version supplied by Olaf to obtain opacity control over the overlays currently limited to 25%
 '     experiment with the setting for the opacity control over the overlays <25%
@@ -322,6 +322,7 @@ End With
 
 ' when placing widgets on the main alpha form they take opacity changes and become fully transparent as expected, no problem.
 ' However, when placing widgets on top of other widgets the opacity cumulates and they become significantly more opaque.
-' on circular elements, the surrounding transparent areas become opaque
+' on circular elements, the surrounding transparent areas become opaque - this may be due to the increased shadow depth 
+' when simple PSD parser used.
 
 
