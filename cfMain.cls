@@ -291,9 +291,12 @@ Public Sub initAndShowLicenceForm(ByVal x As Long, ByVal Y As Long, Optional ByV
         "If you use this software in any way whatsoever then that implies acceptance of the licence. If you do not wish to comply with the licence terms then please remove the download, binary and source code from your systems immediately." & vbCrLf & vbCrLf & _
         "You may use any of my own imagery in your own creations but commercially only with my permission. In all other non-commercial cases I require a credit to the original artist using my name or one of my pseudonyms and a link to my site. With regard to the commercial use of incorporated images, permission and a licence would need to be obtained from the original owner and creator, ie. me."
 
-    lblDeclineOrNot.BorderRadius = 0
+    lblDeclineOrNot.borderWidth = 0
     lblDeclineOrNot.WordWrap = True
     lblDeclineOrNot.Alignment = vbCenter
+    lblDeclineOrNot.Widget.BackColor = -1
+    lblDeclineOrNot.Widget.ForeColor = vbWhite
+    
     lblDeclineOrNot.Caption = "If you do not agree with the terms set forth above, please click the " & _
         "Decline button below and destroy this widget and its documentation"
         
