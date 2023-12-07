@@ -268,22 +268,17 @@
 ' removed unwanted icon sizes - done
 
 ' use of cwLabel - automation error message caused by with Events, does not apply - done
+' upgrade to new cwAlphaImg.cls supplied by Olaf to obtain opacity control over the overlays currently limited to 25% - done
+' test on Dell win 11 high DPI with slicence = 0 - done
+' sync. E6410 win 7 - done
+' sync. Fast Dell laptop - done
 
 ' -oOo-
 
-' upgrade to RC6 new version supplied by Olaf to obtain opacity control over the overlays currently limited to 25%
-'     experiment with the setting for the opacity control over the overlays <25%
-'     Olaf has some new code in cfalpha.cls to merge with the old code that should deal with this.
-
 ' dealing with increased density shadows, the simple PSD parser function seems to increase to opacity of shadows in the transparent regions.
-'    sent PSD to Olaf.  Awaiting response.
-
+'    sent PSD to Olaf.  Awaiting response but not really a problem for these gauges, so low priority and can be ignored.
 
 ' add second monitor - wip find cable!
-' sync. E6410 win 7
-' sync. Fast Dell laptop
-
-' test on Dell win 11 high DPI with slicence = 0
 
 ' test usage of RC6 for monitor awareness - wip
 With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisplay

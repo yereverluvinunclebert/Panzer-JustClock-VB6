@@ -11,6 +11,13 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'---------------------------------------------------------------------------------------
+' Module    : cwAlphaImg
+' Author    : Olaf Schmidt
+' Date      : 05/12/2023
+' Purpose   :
+'---------------------------------------------------------------------------------------
+
 Option Explicit 'a very simple Image-Widget, which expects an ImageKey - and ensures ClickThrough-behaviour
  
 Private WithEvents W As cWidgetBase
