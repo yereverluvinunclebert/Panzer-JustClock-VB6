@@ -351,6 +351,11 @@ Public PzGFirstTimeRun  As String
 ' General storage variables declared
 Public PzGSettingsDir As String
 Public PzGSettingsFile As String
+
+Public PzGTrinketsDir      As String
+Public PzGTrinketsFile      As String
+
+
 Public PzGClockHighDpiXPos As String
 Public PzGClockHighDpiYPos As String
 Public PzGClockLowDpiXPos As String
@@ -1553,7 +1558,7 @@ Public Sub aboutClickEvent()
     fMain.aboutForm.Left = (screenWidthPixels / 2) - (fMain.aboutForm.Width / 2)
      
     fMain.aboutForm.Load
-    fMain.aboutForm.show
+    fMain.aboutForm.Show
     
     'aboutWidget.opacity = 0
     aboutWidget.ShowMe = True
@@ -1599,7 +1604,7 @@ Public Sub helpSplash()
     helpWidget.Widget.Refresh
     
     fMain.helpForm.Load
-    fMain.helpForm.show
+    fMain.helpForm.Show
     
      If (fMain.helpForm.WindowState = 1) Then
          fMain.helpForm.WindowState = 0
@@ -1641,7 +1646,7 @@ Public Sub licenceSplash()
     licenceWidget.Widget.Refresh
     
     fMain.licenceForm.Load
-    fMain.licenceForm.show
+    fMain.licenceForm.Show
 
     ' the btnDecline_Click and btnAccept_Click are in modmain.bas
     
@@ -1852,7 +1857,7 @@ Public Sub makeVisibleFormElements()
         fAlpha.gaugeForm.Top = formTopPixels
     End If
     
-    fAlpha.gaugeForm.show
+    fAlpha.gaugeForm.Show
 
     On Error GoTo 0
     Exit Sub
@@ -2273,7 +2278,7 @@ Public Sub makeProgramPreferencesAvailable()
     
     If panzerPrefs.IsVisible = False Then
         panzerPrefs.Visible = True
-        panzerPrefs.show  ' show it again
+        panzerPrefs.Show  ' show it again
         panzerPrefs.SetFocus
 
         If panzerPrefs.WindowState = vbMinimized Then
