@@ -282,19 +282,18 @@
 
 ' -oOo-
 
+' add death test timer, timer that counts from the moment that the program exits via menu, if it takes too long to die kills itself...
 
 ' add second monitor - wip find cable!
 
 ' test usage of RC6 for monitor awareness - wip
-With New_c.Displays(OneBasedIndex_Or_DeviceName) 'hands out an instance of cDisplay
-  'output as LeftOffs, TopOffs, Width, Height
-  Debug.Print .WorkLeft , .WorkTop, (.WorkRight - .WorkLeft), (.WorkBottom - .WorkTop)
-End With
+'      adjust Form Position on startup placing form onto Correct Monitor when placed off screen due to
+'               monitor/resolution changes.
 
 ' https://www.vbforums.com/showthread.php?900892-VB6-Simple-way-to-make-your-VB6-application-quot-Per-Monitor-DPI-Aware-quot
 
 ' adjustFormPositionToCorrectMonitor, make it work and observe the result as per FCW - wip
-
+' adjustFormPositionToCorrectMonitor - prefs form
 ' adjustFormPositionToCorrectMonitor - licence form
 ' adjustFormPositionToCorrectMonitor - about form
 ' adjustFormPositionToCorrectMonitor - help form
