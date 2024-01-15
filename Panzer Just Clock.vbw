@@ -1,7 +1,7 @@
 modMain = 26, 26, 779, 653, 
 cfAlpha = 0, 0, 0, 0, C
 modRegFree = 0, 0, 0, 0, C
-cwOverlay = 0, 0, 0, 0, C
+cwOverlay = 182, 182, 906, 811, Z
 frmTimer = 0, 0, 0, 0, C, 52, 52, 805, 657, C
 modTooltips = 0, 0, 0, 0, C
 Module1 = 22, 101, 1121, 706, 
