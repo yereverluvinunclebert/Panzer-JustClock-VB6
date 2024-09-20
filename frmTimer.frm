@@ -11,6 +11,12 @@ Begin VB.Form frmTimer
    ScaleWidth      =   4680
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
+   Begin VB.Timer sleepTimer 
+      Interval        =   3000
+      Left            =   105
+      Tag             =   "stores and compares the last time to see if the PC has slept"
+      Top             =   1560
+   End
    Begin VB.Timer settingsTimer 
       Enabled         =   0   'False
       Interval        =   6000
@@ -29,6 +35,14 @@ Begin VB.Form frmTimer
       Interval        =   5000
       Left            =   90
       Top             =   135
+   End
+   Begin VB.Label Label4 
+      Caption         =   "sleeptimer for testing awake from sleep"
+      Height          =   195
+      Left            =   720
+      TabIndex        =   4
+      Top             =   1635
+      Width           =   3645
    End
    Begin VB.Label Label3 
       Caption         =   "Note: this invisible form is also the container for the large 128x128px project icon"
@@ -185,4 +199,46 @@ settingsTimer_Timer_Error:
           End If
     End With
 End Sub
+
+'---------------------------------------------------------------------------------------
+' Procedure : sleepTimer_Timer
+' Author    : beededea
+' Date      : 21/04/2021
+' Purpose   : timer that stores the last time
+' if the current time is greater than the last time stored by more than 30 seconds we can assume the system
+' has been sent to sleep, if the two are significantly different then we reorganise the dock
+'---------------------------------------------------------------------------------------
+'
+Private Sub sleepTimer_Timer()
+    Dim strTimeNow As Date: strTimeNow = #1/1/2000 12:00:00 PM#  'set a variable to compare for the NOW time
+    Dim lngSecondsGap As Long: lngSecondsGap = 0  ' set a variable for the difference in time
+    Static strTimeThen As Date
+    
+    On Error GoTo sleepTimer_Timer_Error
+
+    If strTimeThen = "00:00:00" Then strTimeThen = Now(): Exit Sub
+    sleepTimer.Enabled = False
+    
+    strTimeNow = Now()
+    
+    lngSecondsGap = DateDiff("s", strTimeThen, strTimeNow)
+    strTimeThen = Now()
+
+    If lngSecondsGap > 60 Then
+        'MsgBox "System has just woken up from a sleep" ' awoken, awake
+        fAlpha.gaugeForm.Refresh
+        'MessageBox Me.hwnd, "System has just woken up from a sleep - animatedIconsRaised =" & animatedIconsRaised, "SteamyDock Information Message", vbOKOnly
+    End If
+    
+    sleepTimer.Enabled = True
+
+    On Error GoTo 0
+    Exit Sub
+
+sleepTimer_Timer_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure sleepTimer_Timer of Form dock"
+
+End Sub
+
 
