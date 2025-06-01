@@ -1850,7 +1850,7 @@ Public Sub makeVisibleFormElements()
 
     monitorCount = fGetMonitorCount
     If monitorCount > 1 Then
-        Call adjustFormPositionToCorrectMonitor(fAlpha.gaugeForm.hwnd, formLeftPixels, formTopPixels)
+        Call SetFormOnMonitor(fAlpha.gaugeForm.hwnd, formLeftPixels, formTopPixels)
     Else
         fAlpha.gaugeForm.Left = formLeftPixels
         fAlpha.gaugeForm.Top = formTopPixels
@@ -2365,15 +2365,15 @@ Public Sub writePrefsPosition()
 
     If panzerPrefs.WindowState = vbNormal Then ' when vbMinimised the value = -48000  !
         If PzGDpiAwareness = "1" Then
-            PzGFormHighDpiXPosTwips = Str$(panzerPrefs.Left)
-            PzGFormHighDpiYPosTwips = Str$(panzerPrefs.Top)
+            PzGFormHighDpiXPosTwips = CStr(panzerPrefs.Left)
+            PzGFormHighDpiYPosTwips = CStr(panzerPrefs.Top)
             
             ' now write those params to the toolSettings.ini
             sPutINISetting "Software\PzJustClock", "formHighDpiXPosTwips", PzGFormHighDpiXPosTwips, PzGSettingsFile
             sPutINISetting "Software\PzJustClock", "formHighDpiYPosTwips", PzGFormHighDpiYPosTwips, PzGSettingsFile
         Else
-            PzGFormLowDpiXPosTwips = Str$(panzerPrefs.Left)
-            PzGFormLowDpiYPosTwips = Str$(panzerPrefs.Top)
+            PzGFormLowDpiXPosTwips = CStr(panzerPrefs.Left)
+            PzGFormLowDpiYPosTwips = CStr(panzerPrefs.Top)
             
             ' now write those params to the toolSettings.ini
             sPutINISetting "Software\PzJustClock", "formLowDpiXPosTwips", PzGFormLowDpiXPosTwips, PzGSettingsFile
