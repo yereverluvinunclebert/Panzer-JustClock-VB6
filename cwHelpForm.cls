@@ -118,7 +118,7 @@ End Property
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub W_MouseDown(Button As Integer, Shift As Integer, ByVal x As Single, ByVal Y As Single)
+Private Sub W_MouseDown(Button As Integer, Shift As Integer, ByVal x As Single, ByVal y As Single)
    On Error GoTo W_MouseDown_Error
 
     tmrHelpFadeOut.Enabled = True ' this is not currently making the opacity reduce
@@ -220,7 +220,7 @@ End Property
 Private Sub tmrHelpFadeIn_Timer()
       
    On Error GoTo tmrHelpFadeIn_Timer_Error
-    fMain.helpForm.show
+    fMain.helpForm.Show
     MyOpacity = MyOpacity + 0.05
     If MyOpacity >= 1 Then
         MyOpacity = 1
@@ -258,7 +258,7 @@ Private Sub tmrHelpFadeOut_Timer()
         fMain.helpForm.Hide
     
         fileToPlay = "till.wav"
-        If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+        If gblEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
             PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
         End If
         

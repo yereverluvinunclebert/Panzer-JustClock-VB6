@@ -375,7 +375,7 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
     W.FontBold = True
     W.SelectFontSettingsInto CC
     W.Refresh
-    thisOpacity = (Val(PzGOpacity) / 100) * 0.75
+    thisOpacity = (Val(gblOpacity) / 100) * 0.75
      
     storeTxtDayNumber = txtDayNumber
     txtDayNumber = Day(DateAdd("m", tzDelta, Now))

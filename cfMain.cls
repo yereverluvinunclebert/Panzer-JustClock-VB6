@@ -53,7 +53,7 @@ Attribute lblDeclineOrNot.VB_VarHelpID = -1
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Sub initAndShowAboutForm(ByVal x As Long, ByVal Y As Long, Optional ByVal dx As Long, Optional ByVal dy As Long, Optional ByVal Caption As String)
+Public Sub initAndShowAboutForm(ByVal x As Long, ByVal y As Long, Optional ByVal dx As Long, Optional ByVal dy As Long, Optional ByVal Caption As String)
     
     Dim aboutFormWidth As Long: aboutFormWidth = 0
     Dim aboutFormHeight As Long: aboutFormHeight = 0
@@ -65,7 +65,7 @@ Public Sub initAndShowAboutForm(ByVal x As Long, ByVal Y As Long, Optional ByVal
     
     On Error GoTo initAndShowAboutForm_Error
     
-    If PzGDpiAwareness = "0" Then
+    If gblDpiAwareness = "0" Then
         aboutFormWidth = 900
         aboutFormHeight = 850
         If aboutFormWidth > screenWidthPixels Then aboutFormWidth = screenWidthPixels
@@ -98,7 +98,7 @@ Public Sub initAndShowAboutForm(ByVal x As Long, ByVal Y As Long, Optional ByVal
     ' create a new about widget with a name, position and size, first step of that is to run Class_Initialize
     Set aboutWidget = aboutForm.Widgets.Add(New cwAbout, "about", 1, 1, aboutWidgetWidth, aboutWidgetHeight)
     
-    If PzGDpiAwareness = "0" Then
+    If gblDpiAwareness = "0" Then
         aboutWidget.Zoom = aboutWidgetZoomValue
     Else
         aboutWidget.Zoom = aboutWidgetZoomValue
@@ -120,7 +120,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Sub initAndShowHelpForm(ByVal x As Long, ByVal Y As Long, Optional ByVal dx As Long, Optional ByVal dy As Long, Optional ByVal Caption As String)
+Public Sub initAndShowHelpForm(ByVal x As Long, ByVal y As Long, Optional ByVal dx As Long, Optional ByVal dy As Long, Optional ByVal Caption As String)
     
     Dim helpFormWidth As Long: helpFormWidth = 0
     Dim helpFormHeight As Long: helpFormHeight = 0
@@ -133,7 +133,7 @@ Public Sub initAndShowHelpForm(ByVal x As Long, ByVal Y As Long, Optional ByVal 
     
     On Error GoTo initAndShowHelpForm_Error
     
-    If PzGDpiAwareness = "0" Then
+    If gblDpiAwareness = "0" Then
         helpFormWidth = 900
         helpFormHeight = 800
         If helpFormWidth > screenWidthPixels Then helpFormWidth = screenWidthPixels
@@ -169,7 +169,7 @@ Public Sub initAndShowHelpForm(ByVal x As Long, ByVal Y As Long, Optional ByVal 
     ' create a new help widget image with a name, position and size
     Set helpWidget = helpForm.Widgets.Add(New cwHelp, "help", 0, 0, helpWidgetWidth, helpWidgetHeight)
        
-     If PzGDpiAwareness = "0" Then
+     If gblDpiAwareness = "0" Then
         helpWidget.Zoom = helpWidgetZoomValue
     Else
         helpWidget.Zoom = helpWidgetZoomValue
@@ -190,7 +190,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Sub initAndShowLicenceForm(ByVal x As Long, ByVal Y As Long, Optional ByVal dx As Long, Optional ByVal dy As Long, Optional ByVal Caption As String)
+Public Sub initAndShowLicenceForm(ByVal x As Long, ByVal y As Long, Optional ByVal dx As Long, Optional ByVal dy As Long, Optional ByVal Caption As String)
     
     Dim licenceFormWidth As Long: licenceFormWidth = 0
     Dim licenceFormHeight As Long: licenceFormHeight = 0
@@ -203,7 +203,7 @@ Public Sub initAndShowLicenceForm(ByVal x As Long, ByVal Y As Long, Optional ByV
     
     On Error GoTo initAndShowLicenceForm_Error
     
-    If PzGDpiAwareness = "0" Then
+    If gblDpiAwareness = "0" Then
         licenceFormWidth = 650
         licenceFormHeight = 550
         If licenceFormWidth > screenWidthPixels Then licenceFormWidth = screenWidthPixels
@@ -239,14 +239,14 @@ Public Sub initAndShowLicenceForm(ByVal x As Long, ByVal Y As Long, Optional ByV
     ' create a new licence class widget with a name, position and size
     Set licenceWidget = licenceForm.Widgets.Add(New cwLicence, "licence", 0, 0, licenceWidgetWidth, licenceWidgetHeight)
     
-    If PzGDpiAwareness = "0" Then
+    If gblDpiAwareness = "0" Then
         licenceWidget.Zoom = licenceWidgetZoomValue
     Else
         licenceWidget.Zoom = licenceWidgetZoomValue
     End If
 
     ' add two RC predefined button controls to the licence form
-    If PzGDpiAwareness = "1" Then
+    If gblDpiAwareness = "1" Then
         Set btnDecline = licenceForm.Widgets.Add(New_W("cwButton"), "btnDecline", 352, 397, 70, 29)
         Set btnAccept = licenceForm.Widgets.Add(New_W("cwButton"), "btnAccept", 428, 397, 70, 29)
         Set textBox = licenceForm.Widgets.Add(New_W("cwTextBox"), "textBox", 50, 60, 440, 280)
@@ -323,14 +323,14 @@ Private Sub btnAccept_Click()
     On Error GoTo btnAccept_Click_Error
     
     fileToPlay = "ting.wav"
-    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+    If gblEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
         PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
     answer = msgBoxA("User accepted licence, thankyou.", vbOKOnly + vbExclamation, "Licence Acceptance", True, "btnAcceptClick")
     
     slicence = "1"
-    sPutINISetting "Software\PzJustClock", "licence", slicence, PzGSettingsFile
+    sPutINISetting "Software\PzJustClock", "licence", slicence, gblSettingsFile
     
     licenceWidget.ShowMe = False
     licenceWidget.MyOpacity = 0
@@ -363,7 +363,7 @@ Private Sub btnDecline_Click()
     'answer = MsgBox("Licence declined, please destroy your copy of this widget and its documentation.", vbYes)
     answer = msgBoxA("Licence declined, please destroy your copy of this widget and its documentation. This widget will now unload.", vbOKOnly + vbExclamation, "Licence Declined", False)
     slicence = "0"
-    sPutINISetting "Software\PzJustClock", "licence", slicence, PzGSettingsFile
+    sPutINISetting "Software\PzJustClock", "licence", slicence, gblSettingsFile
 
     Call thisForm_Unload
 
@@ -385,18 +385,18 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub licenceForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef Y As Single)
-  Static x0 As Single, y0 As Single: If Button = 0 Then x0 = x: y0 = Y 'just store the offsets when no button is down
+Private Sub licenceForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef y As Single)
+  Static x0 As Single, y0 As Single: If Button = 0 Then x0 = x: y0 = y 'just store the offsets when no button is down
   
    On Error GoTo licenceForm_MouseMove_Error
     
     If overlayWidget.Locked = True Then Exit Sub
-    If PzGIgnoreMouse = "1" Then Exit Sub
+    If gblIgnoreMouse = "1" Then Exit Sub
 
     If Button = vbLeftButton And Not licenceForm.ActiveWidget Is Nothing Then 'Form-Dragging (under certain conditions)
 
       licenceFormX = (x - x0) * licenceForm.WidgetRoot.Zoom + licenceForm.Left
-      licenceFormY = (Y - y0) * licenceForm.WidgetRoot.Zoom + licenceForm.Top
+      licenceFormY = (y - y0) * licenceForm.WidgetRoot.Zoom + licenceForm.Top
       licenceForm.Move licenceFormX, licenceFormY
     End If
 

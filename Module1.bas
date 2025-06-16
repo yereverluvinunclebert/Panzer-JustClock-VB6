@@ -287,88 +287,88 @@ Private Const VER_PLATFORM_WIN32_NT As Long = 2
 ' stored vars read from settings.ini
 '
 ' general
-Public PzGStartup As String
-Public PzGGaugeFunctions As String
-'Public PzGAnimationInterval As String
-Public PzGSmoothSecondHand As String
+Public gblStartup As String
+Public gblGaugeFunctions As String
+'Public gblAnimationInterval As String
+Public gblSmoothSecondHand As String
 
 
-'Public PzGClockFaceSwitchPref As String
-Public PzGMainGaugeTimeZone As String
-Public PzGMainDaylightSaving As String
-'Public PzGSecondaryGaugeTimeZone As String
-'Public PzGSecondaryDaylightSaving As String
+'Public gblClockFaceSwitchPref As String
+Public gblMainGaugeTimeZone As String
+Public gblMainDaylightSaving As String
+'Public gblSecondaryGaugeTimeZone As String
+'Public gblSecondaryDaylightSaving As String
 
 ' config
-Public PzGEnableTooltips As String
-Public PzGEnablePrefsTooltips As String
-Public PzGEnableBalloonTooltips As String
+Public gblEnableTooltips As String
+Public gblEnablePrefsTooltips As String
+Public gblEnableBalloonTooltips As String
 
-Public PzGShowTaskbar As String
-Public PzGDpiAwareness As String
+Public gblShowTaskbar As String
+Public gblDpiAwareness As String
 
-Public PzGGaugeSize As String
-Public PzGScrollWheelDirection As String
+Public gblGaugeSize As String
+Public gblScrollWheelDirection As String
 
 ' position
-Public PzGAspectHidden As String
-Public PzGWidgetPosition As String
-Public PzGWidgetLandscape As String
-Public PzGWidgetPortrait As String
-Public PzGLandscapeFormHoffset As String
-Public PzGLandscapeFormVoffset As String
-Public PzGPortraitHoffset As String
-Public PzGPortraitYoffset As String
-Public PzGvLocationPercPrefValue As String
-Public PzGhLocationPercPrefValue As String
+Public gblAspectHidden As String
+Public gblWidgetPosition As String
+Public gblWidgetLandscape As String
+Public gblWidgetPortrait As String
+Public gblLandscapeFormHoffset As String
+Public gblLandscapeFormVoffset As String
+Public gblPortraitHoffset As String
+Public gblPortraitYoffset As String
+Public gblvLocationPercPrefValue As String
+Public gblhLocationPercPrefValue As String
 
 ' sounds
-Public PzGEnableSounds  As String
+Public gblEnableSounds  As String
 
 ' development
-Public PzGDebug As String
-Public PzGDblClickCommand As String
-Public PzGOpenFile As String
-Public PzGDefaultEditor As String
+Public gblDebug As String
+Public gblDblClickCommand As String
+Public gblOpenFile As String
+Public gblDefaultEditor As String
        
 ' font
-Public PzGClockFont As String
-Public PzGPrefsFont As String
-Public PzGPrefsFontSizeHighDPI As String
-Public PzGPrefsFontSizeLowDPI As String
-Public PzGPrefsFontItalics  As String
-Public PzGPrefsFontColour  As String
+Public gblClockFont As String
+Public gblPrefsFont As String
+Public gblPrefsFontSizeHighDPI As String
+Public gblPrefsFontSizeLowDPI As String
+Public gblPrefsFontItalics  As String
+Public gblPrefsFontColour  As String
 
 ' window
-Public PzGWindowLevel As String
-Public PzGPreventDragging As String
-Public PzGOpacity  As String
-Public PzGWidgetHidden  As String
-Public PzGHidingTime  As String
-Public PzGIgnoreMouse  As String
-Public PzGFirstTimeRun  As String
+Public gblWindowLevel As String
+Public gblPreventDragging As String
+Public gblOpacity  As String
+Public gblWidgetHidden  As String
+Public gblHidingTime  As String
+Public gblIgnoreMouse  As String
+Public gblFirstTimeRun  As String
 
 ' General storage variables declared
-Public PzGSettingsDir As String
-Public PzGSettingsFile As String
+Public gblSettingsDir As String
+Public gblSettingsFile As String
 
-Public PzGTrinketsDir      As String
-Public PzGTrinketsFile      As String
+Public gblTrinketsDir      As String
+Public gblTrinketsFile      As String
 
-Public PzGClockHighDpiXPos As String
-Public PzGClockHighDpiYPos As String
-Public PzGClockLowDpiXPos As String
-Public PzGClockLowDpiYPos As String
-Public PzGLastSelectedTab As String
-Public PzGSkinTheme As String
-Public PzGUnhide As String
+Public gblClockHighDpiXPos As String
+Public gblClockHighDpiYPos As String
+Public gblClockLowDpiXPos As String
+Public gblClockLowDpiYPos As String
+Public gblLastSelectedTab As String
+Public gblSkinTheme As String
+Public gblUnhide As String
 
 ' vars stored for positioning the prefs form
-Public PzGFormHighDpiXPosTwips As String
-Public PzGFormHighDpiYPosTwips As String
+Public gblFormHighDpiXPosTwips As String
+Public gblFormHighDpiYPosTwips As String
 
-Public PzGFormLowDpiXPosTwips As String
-Public PzGFormLowDpiYPosTwips As String
+Public gblFormLowDpiXPosTwips As String
+Public gblFormLowDpiYPosTwips As String
 
 
 '------------------------------------------------------ ENDS
@@ -398,7 +398,7 @@ Public debugFlg As Integer
 Public minutesToHide As Integer
 Public aspectRatio As String
   
-Public oldPzGSettingsModificationTime  As Date
+Public oldgblSettingsModificationTime  As Date
 
 Public Const visibleAreaWidth As Long = 648 ' this is the width of the rightmost visible point of the widget - ie. the surround
 '------------------------------------------------------ ENDS
@@ -421,7 +421,7 @@ Private Declare Function OpenFile Lib "kernel32" (ByVal lpFileName As String, _
                             lpReOpenBuff As OFSTRUCT, ByVal wStyle As Long) As Long
 Private Declare Function PathFileExists Lib "shlwapi" Alias "PathFileExistsA" (ByVal pszPath As String) As Long
 Private Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" (ByVal pszPath As String) As Long
-Public PzGWindowLevelWasChanged As Boolean
+Public gblWindowLevelWasChanged As Boolean
 
 '------------------------------------------------------ ENDS
                             
@@ -664,8 +664,8 @@ Public Function fLicenceState() As Integer
     
     fLicenceState = 0
     ' read the tool's own settings file
-    If fFExists(PzGSettingsFile) Then ' does the tool's own settings.ini exist?
-        slicence = fGetINISetting("Software\PzJustClock", "licence", PzGSettingsFile)
+    If fFExists(gblSettingsFile) Then ' does the tool's own settings.ini exist?
+        slicence = fGetINISetting("Software\PzJustClock", "licence", gblSettingsFile)
         ' if the licence state is not already accepted then display the licence form
         If slicence = "1" Then fLicenceState = 1
     End If
@@ -721,7 +721,7 @@ Public Sub setDPIaware()
 '    Cairo.SetDPIAwareness ' for debugging
 '    msgBoxADynamicSizingFlg = True
     
-    If PzGDpiAwareness = "1" Then
+    If gblDpiAwareness = "1" Then
         If Not InIDE Then
             Cairo.SetDPIAwareness ' this way avoids the VB6 IDE shrinking (sadly, VB6 has a high DPI unaware IDE)
             msgBoxADynamicSizingFlg = True
@@ -749,7 +749,7 @@ Public Sub testDPIAndSetInitialAwareness()
     On Error GoTo testDPIAndSetInitialAwareness_Error
 
     If fPixelsPerInchX() > 96 Then ' only DPI aware by default when greater than 'standard'
-        PzGDpiAwareness = "1"
+        gblDpiAwareness = "1"
         Call setDPIaware
     End If
 
@@ -1547,7 +1547,7 @@ Public Sub aboutClickEvent()
     On Error GoTo aboutClickEvent_Error
     
     fileToPlay = "till.wav"
-    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+    If gblEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
         PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
@@ -1591,7 +1591,7 @@ Public Sub helpSplash()
     On Error GoTo helpSplash_Error
 
     fileToPlay = "till.wav"
-    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+    If gblEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
         PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
@@ -1631,7 +1631,7 @@ Public Sub licenceSplash()
     On Error GoTo licenceSplash_Error
 
     fileToPlay = "till.wav"
-    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+    If gblEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
         PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
@@ -1754,7 +1754,7 @@ End Sub
 Public Sub setMainTooltips()
    On Error GoTo setMainTooltips_Error
 
-    If PzGEnableTooltips = "1" Then
+    If gblEnableTooltips = "1" Then
 
         overlayWidget.Widget.ToolTip = "Use CTRL+mouse scrollwheel up/down to resize."
         helpWidget.Widget.ToolTip = "Click on me to make me go away."
@@ -1807,8 +1807,8 @@ Public Sub ChangeToolTipWidgetDefaultSettings(ByRef My_Widget As cWidgetBase)
 
     With My_Widget
     
-        .FontName = PzGClockFont
-        .FontSize = Val(PzGPrefsFontSizeLowDPI)
+        .FontName = gblClockFont
+        .FontSize = Val(gblPrefsFontSizeLowDPI)
     
     End With
 
@@ -1838,12 +1838,12 @@ Public Sub makeVisibleFormElements()
 
     'NOTE that when you position a widget you are positioning the form it is drawn upon.
 
-    If PzGDpiAwareness = "1" Then
-        formLeftPixels = Val(PzGClockHighDpiXPos)
-        formTopPixels = Val(PzGClockHighDpiYPos)
+    If gblDpiAwareness = "1" Then
+        formLeftPixels = Val(gblClockHighDpiXPos)
+        formTopPixels = Val(gblClockHighDpiYPos)
     Else
-        formLeftPixels = Val(PzGClockLowDpiXPos)
-        formTopPixels = Val(PzGClockLowDpiYPos)
+        formLeftPixels = Val(gblClockLowDpiXPos)
+        formTopPixels = Val(gblClockLowDpiYPos)
     End If
     
     ' The RC forms are measured in pixels, whereas the native forms are in twips, do remember that...
@@ -2054,13 +2054,13 @@ Public Sub mainScreen()
     
     ' check if the widget has a lock for the screen type.
     If aspectRatio = "landscape" Then
-        If PzGWidgetLandscape = "1" Then
-            If PzGLandscapeFormHoffset <> vbNullString Then
-                fAlpha.gaugeForm.Left = Val(PzGLandscapeFormHoffset)
-                fAlpha.gaugeForm.Top = Val(PzGLandscapeFormVoffset)
+        If gblWidgetLandscape = "1" Then
+            If gblLandscapeFormHoffset <> vbNullString Then
+                fAlpha.gaugeForm.Left = Val(gblLandscapeFormHoffset)
+                fAlpha.gaugeForm.Top = Val(gblLandscapeFormVoffset)
             End If
         End If
-        If PzGAspectHidden = "2" Then
+        If gblAspectHidden = "2" Then
             Debug.Print "Hiding the widget for landscape mode"
             fAlpha.gaugeForm.Visible = False
         End If
@@ -2068,11 +2068,11 @@ Public Sub mainScreen()
     
     ' check if the widget has a lock for the screen type.
     If aspectRatio = "portrait" Then
-        If PzGWidgetPortrait = "1" Then
-            fAlpha.gaugeForm.Left = Val(PzGPortraitHoffset)
-            fAlpha.gaugeForm.Top = Val(PzGPortraitYoffset)
+        If gblWidgetPortrait = "1" Then
+            fAlpha.gaugeForm.Left = Val(gblPortraitHoffset)
+            fAlpha.gaugeForm.Top = Val(gblPortraitYoffset)
         End If
-        If PzGAspectHidden = "1" Then
+        If gblAspectHidden = "1" Then
             Debug.Print "Hiding the widget for portrait mode"
             fAlpha.gaugeForm.Visible = False
         End If
@@ -2094,9 +2094,9 @@ Public Sub mainScreen()
 
     ' calculate the current hlocation in % of the screen
     ' store the current hlocation in % of the screen
-    If PzGWidgetPosition = "1" Then
-        PzGhLocationPercPrefValue = Str$(fAlpha.gaugeForm.Left / screenWidthPixels * 100)
-        PzGvLocationPercPrefValue = Str$(fAlpha.gaugeForm.Top / screenHeightPixels * 100)
+    If gblWidgetPosition = "1" Then
+        gblhLocationPercPrefValue = Str$(fAlpha.gaugeForm.Left / screenWidthPixels * 100)
+        gblvLocationPercPrefValue = Str$(fAlpha.gaugeForm.Top / screenHeightPixels * 100)
     End If
 
    On Error GoTo 0
@@ -2253,20 +2253,20 @@ Public Sub savePosition()
 
    On Error GoTo savePosition_Error
 
-    If PzGDpiAwareness = "1" Then
-        PzGClockHighDpiXPos = Str$(fAlpha.gaugeForm.Left) ' saving in pixels
-        PzGClockHighDpiYPos = Str$(fAlpha.gaugeForm.Top)
-        sPutINISetting "Software\PzJustClock", "clockHighDpiXPos", PzGClockHighDpiXPos, PzGSettingsFile
-        sPutINISetting "Software\PzJustClock", "clockHighDpiYPos", PzGClockHighDpiYPos, PzGSettingsFile
+    If gblDpiAwareness = "1" Then
+        gblClockHighDpiXPos = Str$(fAlpha.gaugeForm.Left) ' saving in pixels
+        gblClockHighDpiYPos = Str$(fAlpha.gaugeForm.Top)
+        sPutINISetting "Software\PzJustClock", "clockHighDpiXPos", gblClockHighDpiXPos, gblSettingsFile
+        sPutINISetting "Software\PzJustClock", "clockHighDpiYPos", gblClockHighDpiYPos, gblSettingsFile
     Else
-        PzGClockLowDpiXPos = Str$(fAlpha.gaugeForm.Left) ' saving in pixels
-        PzGClockLowDpiYPos = Str$(fAlpha.gaugeForm.Top)
-        sPutINISetting "Software\PzJustClock", "clockLowDpiXPos", PzGClockLowDpiXPos, PzGSettingsFile
-        sPutINISetting "Software\PzJustClock", "clockLowDpiYPos", PzGClockLowDpiYPos, PzGSettingsFile
+        gblClockLowDpiXPos = Str$(fAlpha.gaugeForm.Left) ' saving in pixels
+        gblClockLowDpiYPos = Str$(fAlpha.gaugeForm.Top)
+        sPutINISetting "Software\PzJustClock", "clockLowDpiXPos", gblClockLowDpiXPos, gblSettingsFile
+        sPutINISetting "Software\PzJustClock", "clockLowDpiYPos", gblClockLowDpiYPos, gblSettingsFile
     End If
     
-    PzGGaugeSize = Str$(fAlpha.gaugeForm.WidgetRoot.Zoom * 100)
-    sPutINISetting "Software\PzJustClock", "gaugeSize", PzGGaugeSize, PzGSettingsFile
+    gblGaugeSize = Str$(fAlpha.gaugeForm.WidgetRoot.Zoom * 100)
+    sPutINISetting "Software\PzJustClock", "gaugeSize", gblGaugeSize, gblSettingsFile
 
    On Error GoTo 0
    Exit Sub
@@ -2333,35 +2333,35 @@ Public Sub readPrefsPosition()
             
    On Error GoTo readPrefsPosition_Error
 
-    If PzGDpiAwareness = "1" Then
-        PzGFormHighDpiXPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiXPosTwips", PzGSettingsFile)
-        PzGFormHighDpiYPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiYPosTwips", PzGSettingsFile)
+    If gblDpiAwareness = "1" Then
+        gblFormHighDpiXPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiXPosTwips", gblSettingsFile)
+        gblFormHighDpiYPosTwips = fGetINISetting("Software\PzJustClock", "formHighDpiYPosTwips", gblSettingsFile)
         
 '        ' if a current location not stored then position to the middle of the screen
-'        If PzGFormHighDpiXPosTwips <> "" Then
-'            panzerPrefs.Left = Val(PzGFormHighDpiXPosTwips)
+'        If gblFormHighDpiXPosTwips <> "" Then
+'            panzerPrefs.Left = Val(gblFormHighDpiXPosTwips)
 '        Else
 '            panzerPrefs.Left = screenWidthTwips / 2 - panzerPrefs.Width / 2
 '        End If
 '
-'        If PzGFormHighDpiYPosTwips <> "" Then
-'            panzerPrefs.Top = Val(PzGFormHighDpiYPosTwips)
+'        If gblFormHighDpiYPosTwips <> "" Then
+'            panzerPrefs.Top = Val(gblFormHighDpiYPosTwips)
 '        Else
 '            panzerPrefs.Top = Screen.Height / 2 - panzerPrefs.Height / 2
 '        End If
     Else
-        PzGFormLowDpiXPosTwips = fGetINISetting("Software\PzJustClock", "formLowDpiXPosTwips", PzGSettingsFile)
-        PzGFormLowDpiYPosTwips = fGetINISetting("Software\PzJustClock", "formLowDpiYPosTwips", PzGSettingsFile)
+        gblFormLowDpiXPosTwips = fGetINISetting("Software\PzJustClock", "formLowDpiXPosTwips", gblSettingsFile)
+        gblFormLowDpiYPosTwips = fGetINISetting("Software\PzJustClock", "formLowDpiYPosTwips", gblSettingsFile)
         
 '        ' if a current location not stored then position to the middle of the screen
-'        If PzGFormLowDpiXPosTwips <> "" Then
-'            panzerPrefs.Left = Val(PzGFormLowDpiXPosTwips)
+'        If gblFormLowDpiXPosTwips <> "" Then
+'            panzerPrefs.Left = Val(gblFormLowDpiXPosTwips)
 '        Else
 '            panzerPrefs.Left = screenWidthTwips / 2 - panzerPrefs.Width / 2
 '        End If
 '
-'        If PzGFormLowDpiYPosTwips <> "" Then
-'            panzerPrefs.Top = Val(PzGFormLowDpiYPosTwips)
+'        If gblFormLowDpiYPosTwips <> "" Then
+'            panzerPrefs.Top = Val(gblFormLowDpiYPosTwips)
 '        Else
 '            panzerPrefs.Top = Screen.Height / 2 - panzerPrefs.Height / 2
 '        End If
@@ -2386,20 +2386,20 @@ Public Sub writePrefsPosition()
    On Error GoTo writePrefsPosition_Error
 
     If panzerPrefs.WindowState = vbNormal Then ' when vbMinimised the value = -48000  !
-        If PzGDpiAwareness = "1" Then
-            PzGFormHighDpiXPosTwips = CStr(panzerPrefs.Left)
-            PzGFormHighDpiYPosTwips = CStr(panzerPrefs.Top)
+        If gblDpiAwareness = "1" Then
+            gblFormHighDpiXPosTwips = CStr(panzerPrefs.Left)
+            gblFormHighDpiYPosTwips = CStr(panzerPrefs.Top)
             
             ' now write those params to the toolSettings.ini
-            sPutINISetting "Software\PzJustClock", "formHighDpiXPosTwips", PzGFormHighDpiXPosTwips, PzGSettingsFile
-            sPutINISetting "Software\PzJustClock", "formHighDpiYPosTwips", PzGFormHighDpiYPosTwips, PzGSettingsFile
+            sPutINISetting "Software\PzJustClock", "formHighDpiXPosTwips", gblFormHighDpiXPosTwips, gblSettingsFile
+            sPutINISetting "Software\PzJustClock", "formHighDpiYPosTwips", gblFormHighDpiYPosTwips, gblSettingsFile
         Else
-            PzGFormLowDpiXPosTwips = CStr(panzerPrefs.Left)
-            PzGFormLowDpiYPosTwips = CStr(panzerPrefs.Top)
+            gblFormLowDpiXPosTwips = CStr(panzerPrefs.Left)
+            gblFormLowDpiYPosTwips = CStr(panzerPrefs.Top)
             
             ' now write those params to the toolSettings.ini
-            sPutINISetting "Software\PzJustClock", "formLowDpiXPosTwips", PzGFormLowDpiXPosTwips, PzGSettingsFile
-            sPutINISetting "Software\PzJustClock", "formLowDpiYPosTwips", PzGFormLowDpiYPosTwips, PzGSettingsFile
+            sPutINISetting "Software\PzJustClock", "formLowDpiXPosTwips", gblFormLowDpiXPosTwips, gblSettingsFile
+            sPutINISetting "Software\PzJustClock", "formLowDpiYPosTwips", gblFormLowDpiYPosTwips, gblSettingsFile
             
         End If
         
@@ -2431,19 +2431,19 @@ Private Sub settingsTimer_Timer()
     
     On Error GoTo settingsTimer_Timer_Error
 
-    If Not fFExists(PzGSettingsFile) Then
-        MsgBox ("%Err-I-ErrorNumber 13 - FCW was unable to access the dock settings ini file. " & vbCrLf & PzGSettingsFile)
+    If Not fFExists(gblSettingsFile) Then
+        MsgBox ("%Err-I-ErrorNumber 13 - FCW was unable to access the dock settings ini file. " & vbCrLf & gblSettingsFile)
         Exit Sub
     End If
     
     ' check the settings.ini file date/time
-    settingsModificationTime = FileDateTime(PzGSettingsFile)
-    timeDifferenceInSecs = Int(DateDiff("s", oldPzGSettingsModificationTime, settingsModificationTime))
+    settingsModificationTime = FileDateTime(gblSettingsFile)
+    timeDifferenceInSecs = Int(DateDiff("s", oldgblSettingsModificationTime, settingsModificationTime))
 
     ' if the settings.ini has been modified then reload the map
     If timeDifferenceInSecs > 1 Then
 
-        oldPzGSettingsModificationTime = settingsModificationTime
+        oldgblSettingsModificationTime = settingsModificationTime
         
     End If
     
@@ -2479,25 +2479,25 @@ Public Sub lockWidget()
 
     fileToPlay = "lock.wav"
     
-    If PzGPreventDragging = "1" Then
+    If gblPreventDragging = "1" Then
         menuForm.mnuLockWidget.Checked = False
         panzerPrefs.chkPreventDragging.Value = 0
-        PzGPreventDragging = "0"
+        gblPreventDragging = "0"
         overlayWidget.Locked = False
-        fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = Val(PzGOpacity) / 100
+        fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = Val(gblOpacity) / 100
     Else
         menuForm.mnuLockWidget.Checked = True
         panzerPrefs.chkPreventDragging.Value = 1
         overlayWidget.Locked = True
-        PzGPreventDragging = "1"
+        gblPreventDragging = "1"
         fAlpha.gaugeForm.Widgets("housing/lockbutton").Widget.Alpha = 0
     End If
     
     fAlpha.gaugeForm.Refresh
     
-    sPutINISetting "Software\PzJustClock", "preventDragging", PzGPreventDragging, PzGSettingsFile
+    sPutINISetting "Software\PzJustClock", "preventDragging", gblPreventDragging, gblSettingsFile
    
-    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+    If gblEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
         PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
@@ -2528,8 +2528,8 @@ Public Sub SwitchOff()
     menuForm.mnuSwitchOff.Checked = True
     menuForm.mnuTurnFunctionsOn.Checked = False
     
-    PzGGaugeFunctions = "0"
-    sPutINISetting "Software\PzJustClock", "gaugeFunctions", PzGGaugeFunctions, PzGSettingsFile
+    gblGaugeFunctions = "0"
+    sPutINISetting "Software\PzJustClock", "gaugeFunctions", gblGaugeFunctions, gblSettingsFile
 
    On Error GoTo 0
    Exit Sub
@@ -2555,7 +2555,7 @@ Public Sub TurnFunctionsOn()
    On Error GoTo TurnFunctionsOn_Error
 
     fileToPlay = "ting.wav"
-    If PzGEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
+    If gblEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
         PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
@@ -2563,8 +2563,8 @@ Public Sub TurnFunctionsOn()
     menuForm.mnuSwitchOff.Checked = False
     menuForm.mnuTurnFunctionsOn.Checked = True
     
-    PzGGaugeFunctions = "1"
-    sPutINISetting "Software\PzJustClock", "gaugeFunctions", PzGGaugeFunctions, PzGSettingsFile
+    gblGaugeFunctions = "1"
+    sPutINISetting "Software\PzJustClock", "gaugeFunctions", gblGaugeFunctions, gblSettingsFile
 
    On Error GoTo 0
    Exit Sub
