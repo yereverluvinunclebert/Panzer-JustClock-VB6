@@ -933,6 +933,8 @@ Public Sub addTargetFile(ByVal fieldValue As String, ByRef retFileName As String
     
     On Error Resume Next
     
+    dialogInitDir = App.path
+    
     ' set the default folder to the existing reference
     If Not fieldValue = vbNullString Then
         If fFExists(fieldValue) Then
