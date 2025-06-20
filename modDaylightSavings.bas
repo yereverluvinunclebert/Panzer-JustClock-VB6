@@ -137,7 +137,7 @@ Public Sub obtainDaylightSavings()
     DLSrules = getDLSrules(App.path & "\Resources\txt\DLSRules.txt")
 
     'calculate the timezone bias
-    panzerPrefs.txtBias = updateDLS(DLSrules)
+    widgetPrefs.txtBias = updateDLS(DLSrules)
     
     On Error GoTo 0
     Exit Sub
@@ -170,7 +170,7 @@ Private Function updateDLS(ByRef DLSrules() As String) As Long
     ''Debug.Print ("%DST func updateDLS")
         
     ' From timezones.txt take the offset from the selected timezone in the prefs
-    chosenTimeZone = panzerPrefs.cmbMainGaugeTimeZone.List(panzerPrefs.cmbMainGaugeTimeZone.ListIndex)
+    chosenTimeZone = widgetPrefs.cmbMainGaugeTimeZone.List(widgetPrefs.cmbMainGaugeTimeZone.ListIndex)
     If chosenTimeZone = "System Time" Then
         tzDelta = 0
         Exit Function
@@ -179,7 +179,7 @@ Private Function updateDLS(ByRef DLSrules() As String) As Long
     remoteGMTOffset1 = getRemoteOffset(chosenTimeZone) ' returns a long containing number of minutes
 
     ' From DSLcodesWin.txt, extract the current rule contents from the selected rule in the prefs
-    thisRule = panzerPrefs.cmbMainDaylightSaving.List(panzerPrefs.cmbMainDaylightSaving.ListIndex)
+    thisRule = widgetPrefs.cmbMainDaylightSaving.List(widgetPrefs.cmbMainDaylightSaving.ListIndex)
     dlsRule = Split(thisRule, separator)
     
     ' read the first component of the split rule
